@@ -6,7 +6,7 @@ module Check
       def generate_checks(url)
         [
           {
-            :vendor => "CommuniGate Systems",
+            :vendor => "Stalker", # recently renamed to communigate systems inc
             :type => "application",
             :product =>"CommuniGatePro",
             :match_details =>"server header",
