@@ -9,12 +9,13 @@ require_relative '../checks/base'
 check_folder = File.expand_path('../checks', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
-include Intrigue::Task::Web
 
 module Intrigue
   module Ident
 
-    def ident_generate_requests_and_check(url)
+    # Used by intrigue-core... note that this will currently fail unless
+    # Intrigue::Task::Web is available
+    def generate_http_requests_and_check(url)
 
       results = []
 
@@ -35,7 +36,6 @@ module Intrigue
         response = http_request :get, "#{target_url}"
 
         unless response
-          #puts "Unable to get a response at: #{target_url}, failing"
           return nil
         end
 
@@ -43,7 +43,7 @@ module Intrigue
         if response
           # call each check, collecting the product if it's a match
           ggc.last.each do |check|
-            results << _match_http_response(check, response)
+            results << match_http_response_object(check,response)
           end
         end
       end
@@ -52,13 +52,51 @@ module Intrigue
     results.compact
     end
 
-    private
+    # Matches a text http response
+    def match_http_response_text(check,http_response_text)
+
+      # first convert to intrigue uri format
+
+      # grab headers
+      header_part = http_response_text.split(/\n\n/).first
+      body_part = http_response_text.split(/\n\n/).last
+
+      headers = header_part.split("\n");
+      body = body_part
+
+      # TODO - fix to only grab content!!!!
+      cookies = headers.select{|x| x =~ /^set-cookie:(.*)/i }
+
+      ### grab the page attributes
+      match = body.match(/<title>(.*?)<\/title>/i)
+      title = match.captures.first if match
+
+      match = body.match(/<meta name="generator" content=(.*?)>/i)
+      generator = match.captures.first.gsub("\"","") if match
+
+      # rest is a response
+      # save title
+      # save Cookies
+      # save scripts ?
+      data = {
+        "details" =>  {
+          "hidden_response_data" => body,
+          "headers" => headers,
+          "cookies" => cookies,
+          "generator" => generator,
+          "title" => title
+        }
+      }
+
+
+      match_uri_hash(check,data)
+    end
 
     # this method takes a check and a net/http response object and
     # constructs it into a format that's matchable. it then attempts
     # to match, and returns a match object if it matches, otherwise
     # returns nil.
-    def _match_http_response(check, response)
+    def match_http_response_object(check, response)
 
       # Construct an Intrigue Entity of type Uri so we can match it
       data = {}
@@ -82,12 +120,13 @@ module Intrigue
       data["details"]["response_data_hash"] = Digest::SHA256.base64digest("#{response.body}")
 
       # call the actual matcher & return
-      _match_uri_hash check, data
+      match_uri_hash check, data
     end
 
-
-    def _match_uri_hash(check, data)
+    def match_uri_hash(check, data)
       return nil unless check && data
+      #puts check
+      #puts data
 
       # data[:body] => page body
       # data[:headers] => block of text with headers, one per line
@@ -102,6 +141,7 @@ module Intrigue
           match = _construct_match_response(check,data) if data["details"]["hidden_response_data"] =~ check[:match_content]
         end
       elsif check[:match_type] == :content_headers
+        #puts "trying to match headers: #{check} #{data["details"]["headers"]}"
         if data["details"] && data["details"]["headers"]
           match = _construct_match_response(check,data) if data["details"]["headers"].join("\n") =~ check[:match_content]
         end
@@ -128,6 +168,8 @@ module Intrigue
 
     match
     end
+
+    private
 
     def _construct_match_response(check, data)
 
@@ -163,55 +205,6 @@ module Intrigue
 
     to_return
     end
-
-=begin
-    def ident_check_intrigue_uri_hash(intrigue_uri_data)
-
-      results = []
-
-      # gather all fingeprints for each product
-      # this will look like an array of checks, each with a uri and a SET of checks
-      generated_checks = Intrigue::Ident::CheckFactory.all.map{|x| x.new.generate_checks("x") }.flatten
-
-      # group by the uris, with the associated checks
-      # TODO - this only currently supports the first path of the group!!!!
-      grouped_generated_checks = generated_checks.group_by{|x| x[:paths].first }
-
-      # call the check on each uri
-      grouped_generated_checks.each do |ggc|
-
-        target_url = ggc.first
-
-        # call each check, collecting the product if it's a match
-        ggc.last.each do |check|
-          results << _match_uri_hash(check, intrigue_uri_data)
-        end
-      end
-
-    # Return all matches, minus the nils (non-matches)
-    results.compact
-    end
-
-    # remove bad checks we need to roll back
-    def remove_bad_ident_matches(matches)
-      passed_matches = []
-      matches.each do |m|
-        next if (m["match_type"] == "content_body" &&
-                        m["matched_content"] == "(?-mix:Drupal)")
-
-        next if (m["match_type"] == "content_cookies" &&
-                        m["matched_content"] == "(?i-mx:ADRUM_BTa)" &&
-                        m["product"] == "Jobvite")
-
-        passed_matches << m
-      end
-    passed_matches
-    end
-
-    private
-
-
-=end
 
 
 
