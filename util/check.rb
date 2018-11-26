@@ -5,7 +5,7 @@ include Intrigue::Ident
 url = ARGV[0]
 debug = ARGV[1] || nil
 puts "Checking... #{url}"
-matches = ident_generate_requests_and_check(url)
+matches = generate_http_requests_and_check(url)
 
 if debug
   puts "Debug: #{url}"

@@ -3,6 +3,10 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
+
+# load in http libs
+require_relative 'http'
+
 # Load in checks
 require_relative 'check_factory'
 require_relative '../checks/base'

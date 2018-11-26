@@ -51,6 +51,16 @@ class Apache < Intrigue::Ident::Check::Base
       {
         :type => "application",
         :vendor => "Apache",
+        :product =>"HTTP Server",
+        :match_details =>"Apache generic error",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /The server encountered an internal error or misconfiguration and was unable to complete your request./i,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "application",
+        :vendor => "Apache",
         :product =>"Coyote",
         :match_details =>"Apache coyote application server - server header",
         :version => nil,
