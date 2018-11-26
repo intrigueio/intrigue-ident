@@ -109,7 +109,21 @@ module Check
             :dynamic_version => lambda { |x|
                 _first_header_capture(x,/Oracle-HTTP-Server\/(.*?)\ /)
             },
-            :verify => ["aHVudHNtYW4jSW50cmlndWU6OkVudGl0eTo6VXJpI2h0dHBzOi8vcWFzLmh1bnRzbWFuc2VydmljZS5jb206NDQz"],
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "application",
+            :vendor => "Oracle",
+            :product =>"iPlanet Web Server",
+            :match_details =>"server header",
+            :references => [],
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /server:\ Oracle-iPlanet-Web-Server/,
+            :hide => false,
+            :dynamic_version => lambda { |x|
+                _first_header_capture(x,/Oracle-iPlanet-Web-Server\/(.*)/)
+            },
             :paths => ["#{url}"]
           },
           {
