@@ -9,6 +9,7 @@ module Check
             :vendor => "Stalker", # recently renamed to communigate systems inc
             :type => "application",
             :product =>"CommuniGate Pro",
+            :website => "http://www.stalker.com/CommuniGatepro/",
             :match_details =>"server header",
             :version => nil,
             :dynamic_version => lambda { |x|
