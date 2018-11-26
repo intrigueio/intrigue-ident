@@ -92,6 +92,16 @@ module Check
           {
             :type => "application",
             :vendor => "Microsoft",
+            :product =>"Commerce Server",
+            :match_details =>"server header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /commerce-server-software: Microsoft Commerce Server.*/,
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "application",
+            :vendor => "Microsoft",
             :product =>"Exchange Server",
             :references => ["https://bit.ly/2k4Yoot"],
             :match_details =>"OWA version -> Exchange server inference (body)",
