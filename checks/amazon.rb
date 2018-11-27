@@ -62,7 +62,18 @@ class Amazon < Intrigue::Ident::Check::Base
         :hide => true,
         :dynamic_version => lambda { |x| _first_header_capture(/awselb\/(\d.\d)/) },
         :paths => ["#{url}"]
-      }
+      },
+      {
+        :type => "service",
+        :vendor => "Amazon",
+        :product =>"S3",
+        :match_details =>"server header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /server: AmazonS3/,
+        :hide => false,
+        :paths => ["#{url}"]
+      },
     ]
   end
 end

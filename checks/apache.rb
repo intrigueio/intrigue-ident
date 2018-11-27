@@ -32,9 +32,9 @@ class Apache < Intrigue::Ident::Check::Base
         :match_details =>"Apache web server - server header - with versions",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server:\ Apache[\s|\/]+[0-9]+/i,
+        :match_content =>  /server:.*Apache.*/i,
         :dynamic_version => lambda { |x|
-          _first_header_capture(x,/[s|S]erver:\s?Apache[\s|\/](.*)$/,["Apache","/","(Ubuntu)"])
+          _first_header_capture(x,/server:.*Apache\/([\d\.]*).*/)
         },
         :paths => ["#{url}"]
       },

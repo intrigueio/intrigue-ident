@@ -17,5 +17,5 @@ if debug
 end
 
 puts "Results: "
-matches.each{|x| puts " - #{x["cpe"]}" } if matches
+matches.each{|x| puts " - #{x["cpe"]} (#{x["match_details"]})" } if matches
 puts "Done! #{matches.count} matches"

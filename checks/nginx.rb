@@ -13,7 +13,7 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /server: nginx/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x,/server:(.*)/,["nginx","/"]) },
+            :dynamic_version => lambda { |x| _first_header_capture(x,/server:.*nginx\/([\d\.]*).*/i) },
             :paths => ["#{url}"]
           },
           {

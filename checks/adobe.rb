@@ -26,7 +26,20 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "Adobe Experience Manager",
         :hide => false,
         :paths => ["#{url}/libs/granite/core/content/login.html"]
+      },
+      {
+        :type => "application",
+        :vendor => "Adobe",
+        :product => "Omniture DC",
+        :version => nil,
+        :dynamic_version => lambda { |x| _first_header_capture(x,/server: Omniture DC\/(.*)/) },
+        :match_type => :content_headers,
+        :match_content => /server: Omniture DC/,
+        :match_details => "Omniture server header",
+        :hide => false,
+        :paths => ["#{url}"]
       }
+
 
     ]
   end
