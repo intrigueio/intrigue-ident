@@ -185,8 +185,8 @@ module Intrigue
       calculated_type = "o" if check[:type] == "operating_system"
       calculated_type = "s" if check[:type] == "service" # literally made up
 
-      vendor_string = check[:vendor].gsub(" ","_")
-      product_string = check[:product].gsub(" ","_")
+      vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
+      product_string = check[:product].gsub(" ","_") if check[:product]
 
       version = "#{calculated_version}".gsub(" ","_")
       update = "#{calculated_update}".gsub(" ","_")
