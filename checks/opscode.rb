@@ -13,7 +13,7 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /<title>Chef Server<\/title>/,
-            :dynamic_version => lambda{|x| _first_body_capture(/Version\ (.*)\ &mdash;/) },
+            :dynamic_version => lambda{|x| _first_body_capture(x,/Version\ (.*)\ &mdash;/) },
             :paths => ["#{url}"]
           },
           {

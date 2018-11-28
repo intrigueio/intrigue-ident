@@ -20,7 +20,7 @@ module Check
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :version => nil,
-            :dynamic_version => lambda{|x| _first_body_capture(/ASP.NET Version:\ ([\d\.]*)/i)},
+            :dynamic_version => lambda{|x| _first_body_capture(x,/ASP.NET Version:\ ([\d\.]*)/i)},
             :tags => ["error_page"],
             :match_type => :content_body,
             :match_content =>  /^.*ASP.NET is configured*$/i,
