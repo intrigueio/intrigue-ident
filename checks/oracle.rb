@@ -184,6 +184,19 @@ module Check
           {
             :type => "application",
             :vendor => "Oracle",
+            :product =>"Sun ONE Web Server",
+            :match_details =>"server header",
+            :references => [],
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /server: Sun-ONE-Web-Server.*/i,
+            :dynamic_version => lambda { |x| _first_header_capture(x,/Server: Sun-ONE-Web-Server\/([\d\.]*).*/i) },
+            :hide => false,
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "application",
+            :vendor => "Oracle",
             :product =>"Weblogic",
             :match_details =>"weblogic fault / fail",
             :references => ["https://coderanch.com/t/603067/application-servers/Calling-weblogic-webservice-error"],
