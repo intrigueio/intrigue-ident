@@ -6,7 +6,9 @@ class Axway < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS"],
         :vendor => "Axway",
         :product =>"SecureTransport",
         :references => ["https://www-356.ibm.com/partnerworld/gsd/solutiondetails.do?&solution=47052"],

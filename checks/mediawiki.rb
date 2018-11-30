@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS","CMS"],
           :vendor =>"MediaWiki",
           :product =>"MediaWiki",
           :match_details =>"powered by tag",
@@ -16,7 +18,9 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS","CMS"],
           :vendor =>"MediaWiki",
           :product =>"MediaWiki",
           :match_details =>"generator tag",

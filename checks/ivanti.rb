@@ -6,9 +6,10 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS", "Appliance", "Administrative"],
           :vendor => "Ivanti",
-          :tags => [],
           :product =>"LANDESK Appliance",
           :match_details =>"matched title",
           :match_type => :content_body,

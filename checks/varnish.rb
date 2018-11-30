@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server", "Cache"],
             :vendor =>"Varnish-Cache",
             :product =>"Varnish",
             :match_details =>"Varnish Proxy",

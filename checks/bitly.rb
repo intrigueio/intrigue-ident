@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Marketing", "Hosting"],
             :vendor => "Bitly",
             :product =>"Bitly",
             :match_details =>"bitly cookie",
@@ -16,7 +18,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Marketing", "Hosting"],
             :vendor => "Bitly",
             :product =>"Bitly",
             :match_details =>"bitly title - branded short domain",

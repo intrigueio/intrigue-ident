@@ -6,9 +6,10 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Hypervisor"],
             :vendor => "VMWare",
-            :tags => ["hypervisor"],
             :product =>"ESXi",
             :match_details =>"unique page string",
             :version => nil,
@@ -17,9 +18,10 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Hypervisor"],
             :vendor => "VMWare",
-            :tags => ["hypervisor"],
             :product =>"Horizon View",
             :match_details =>"page title",
             :version => nil,

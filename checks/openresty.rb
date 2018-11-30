@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor =>"OpenResty",
             :product =>"OpenResty",
             :match_details =>"server header for OpenResty",

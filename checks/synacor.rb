@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity","COTS"],
             :vendor =>"Synacor",
             :product =>"Zimbra Collaboration Suite",
             :match_details =>"login page for zimbra",

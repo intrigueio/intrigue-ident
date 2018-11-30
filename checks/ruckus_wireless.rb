@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking", "COTS", "Administrative"],
             :vendor =>"Ruckus Wireless",
             :product =>"Admin",
             :match_details =>"login page for ruckus wireless device",

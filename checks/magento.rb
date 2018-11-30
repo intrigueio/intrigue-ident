@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Payments"],
             :vendor => "Magento",
             :product =>"Magento",
             :match_details =>"Magento",

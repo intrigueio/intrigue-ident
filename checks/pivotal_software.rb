@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor =>"Pivotal Software",
             :product =>"Spring Framework",
             :match_details =>"Standard Spring MVC error page",
@@ -16,7 +18,9 @@ module Check
             :paths => ["#{url}/error.json"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Development", "Database"],
             :vendor => "Pivotal Software",
             :product => "RabbitMQ",
             :match_details =>"RabbitMQ",
@@ -26,7 +30,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-           :type => "application",
+           :type => "fingerprint",
+           :category => "application",
+           :tags => ["Development", "Database"],
            :vendor => "Pivotal Software",
            :product => "RabbitMQ",
            :match_details => "RabbitMQ API",

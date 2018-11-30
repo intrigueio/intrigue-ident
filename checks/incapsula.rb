@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting","CDN","WAF"],
             :vendor =>"Incapsula",
             :product =>"CDN",
             :match_details =>"incapsula header",

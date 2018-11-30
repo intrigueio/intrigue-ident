@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Firewall"],
             :vendor => "pfSense",
             :product =>"pfSense",
             :match_details => "unique body content",

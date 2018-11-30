@@ -6,7 +6,9 @@ class Allegro < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server","Embedded"],
         :vendor => "Allegrosoft",
         :product => "RomPager",
         :version => nil,

@@ -6,8 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
-          :tags => [],
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS","Development"],
           :vendor => "Jupyter",
           :product =>"Notebook",
           :match_details =>"matched jupyterhub header",

@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Django",
             :product =>"Django",
             :version => nil,

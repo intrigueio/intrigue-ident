@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking","COTS","VPN","Firewall"],
             :vendor => "Cisco",
             :product => "Adaptive Security Device Manager",
             :match_details => "page title",
@@ -18,7 +20,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "hardware",
+            :type => "fingerprint",
+            :category => "hardware",
+            :tags => ["Networking","COTS"],
             :vendor => "Cisco",
             :product => "Email Security Appliance",
             :match_details => "page title",
@@ -30,7 +34,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "hardware",
+            :type => "fingerprint",
+            :category => "hardware",
+            :tags => ["Networking","COTS","Firewall","Wireless"],
             :vendor => "Cisco",
             :product => "Meraki",
             :match_details => "Meraki logo on an on-prem box",
@@ -41,11 +47,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking","COTS", "VPN"],
             :vendor => "Cisco",
             :product =>"Adaptive Security Appliance Software",
             :match_details =>"Cisco SSL VPN",
-            :tags => ["vpn"],
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /webvpn/,
@@ -53,11 +60,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking","COTS", "VPN"],
             :vendor => "Cisco",
             :product =>"Adaptive Security Appliance Software",
             :match_details =>"Cisco SSL VPN",
-            :tags => ["vpn"],
             :version => nil,
             :match_type => :content_body,
             :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/,
@@ -65,7 +73,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking","COTS", "VPN"],
             :vendor => "Cisco",
             :product => "IOS",
             :match_details => "Cisco Router",
@@ -76,11 +86,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking","COTS", "Hypervisor"],
             :vendor => "Cisco",
             :product =>"vManage",
             :match_details => "page title",
-            :tags => [],
             :version => nil,
             :match_type => :content_body,
             :match_content => /<title>Cisco vManage/,

@@ -7,25 +7,56 @@ class Security < Intrigue::Ident::Check::Base
     [
       {
         :type => "configuration",
+        :name =>"HTTP Authentication Required",
         :match_type => :content_headers,
-        :match_content => /^Access-Control-Allow-Origin:.*/i,
-        :match_details => "Access-Control-Allow-Origin header exists",
+        :dynamic_result => lambda { |d|
+          return true if d["details"]["headers"].join("\n") =~ /^www-authenticate:.*$/;
+        false
+        },
+        :hide => true,
+        :paths => ["#{url}"],
+      },
+      {
+        :type => "configuration",
+        :name => "Access-Control-Allow-Origin Header Exists",
+        :match_type => :content_headers,
+        :dynamic_result => lambda { |d|
+          return true if d["details"]["headers"].join("\n") =~ /Access-Control-Allow-Origin:.*/i;
+        false
+        },
         :hide => false,
         :paths => ["#{url}"]
       },
       {
         :type => "configuration",
+        :name => "P3P Header Exists",
         :match_type => :content_headers,
-        :match_content => /^p3p:.*/i,
-        :match_details => "P3P header exists",
+        :dynamic_result => lambda { |d|
+          return true if d["details"]["headers"].join("\n") =~ /p3p:.*/i;
+        false
+        },
         :hide => false,
         :paths => ["#{url}"]
       },
       {
         :type => "configuration",
+        :name => "X-Frame-Options Header Exists",
         :match_type => :content_headers,
-        :match_content => /^x-xss-protection:.*/i,
-        :match_details => "XSS header exists",
+        :dynamic_result => lambda { |d|
+          return true if d["details"]["headers"].join("\n") =~ /x-frame-options:.*/i;
+        false
+        },
+        :hide => false,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "configuration",
+        :name => "X-XSS-Protection Header Exists",
+        :match_type => :content_headers,
+        :dynamic_result => lambda { |d|
+          return true if d["details"]["headers"].join("\n") =~ /^x-xss-protection:.*/i;
+        false
+        },
         :hide => false,
         :paths => ["#{url}"]
       }

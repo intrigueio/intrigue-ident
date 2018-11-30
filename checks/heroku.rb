@@ -6,11 +6,12 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting"],
             :vendor => "Heroku",
             :product =>"Heroku",
             :match_details =>"Heroku",
-            :tags => ["hosting_provider"],
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /herokucdn.com\/error-pages\/no-such-app.html/,

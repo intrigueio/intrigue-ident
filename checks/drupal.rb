@@ -6,10 +6,11 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
             :vendor => "Drupal",
             :product => "Drupal",
-            :tags => ["CMS"],
             :match_details => "Drupal version in page content",
             :version => nil,
             :match_type => :content_body,
@@ -20,10 +21,11 @@ module Check
             :paths => ["#{url}/CHANGELOG.txt"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
             :vendor => "Drupal",
             :product => "Drupal",
-            :tags => ["CMS"],
             :match_details => "Drupal headers",
             :version => nil,
             :match_type => :content_headers,

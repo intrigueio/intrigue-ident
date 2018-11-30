@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS"],
           :vendor =>"Ookla",
           :product =>"Speedtest Server",
           :match_details => "page title",

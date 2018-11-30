@@ -6,9 +6,11 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
+            :product => "Cloudflare",
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /__cfduid/i,
@@ -16,9 +18,11 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
+            :product => "Cloudflare",
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /cfray:/i,
@@ -26,9 +30,11 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
+            :product => "Cloudflare",
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /cloudflare-nginx/i,
@@ -36,10 +42,11 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
-            :tags => ["error_page"],
+            :product => "Cloudflare",
             :version => nil,
             :match_type => :content_body,
             :match_content => /<title>Direct IP access not allowed \| Cloudflare/,
@@ -48,11 +55,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
+            :product => "Cloudflare",
             :match_details =>"Cloudflare Error",
-            :tags => ["error_page"],
             :version => "",
             :match_type => :content_body,
             :match_content =>  /cferror_details/,
@@ -60,9 +68,11 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CDN"],
             :vendor => "Cloudflare",
-            :product => "CDN",
+            :product => "Cloudflare",
             :match_details =>"Cloudfront Error - Direct IP Access",
             :version => nil,
             :match_type => :content_body,

@@ -6,13 +6,15 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["CMS"], #TODO ... we can also infer Ruby here
             :vendor =>"Jekyll",
             :product =>"Jekyll",
             :match_details =>"server header for Jekyll",
             :references => ["https://jekyllrb.com/"],
-            :match_type => :content_body,
-            :match_content =>  /<meta name="generator" content="Jekyll v3.7.3"/i,
+            :match_type => :content_generator,
+            :match_content =>  /^Jekyll"/i,
             :dynamic_version => lambda { |x|
               _first_body_capture(x,/<meta name="generator" content="Jekyll v(.*)"/i)
             },

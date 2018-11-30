@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Telerik",
             :product => "Sitefinity",
             :match_details => "Telerik Sitefinity is an ASP.NET 2.0-based Content Management System (CMS)",
@@ -18,7 +20,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Database","COTS"],
             :vendor => "Telerik",
             :product => "Sitefinity",
             :match_details => "Detect Telerik via a meta generator tag",

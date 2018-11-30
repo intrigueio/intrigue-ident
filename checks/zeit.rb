@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework", "Javascript"],
             :vendor =>"Zeit",
             :product =>"Next.js",
             :match_details =>"x-powered-by header",
@@ -14,7 +16,7 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /x-powered-by: Next.js/i,
             :dynamic_version => lambda { |x|
-              _first_header_capture(x,/sx-powered-by: Next.js\ (.*)/i)
+              _first_header_capture(x,/x-powered-by: Next.js\ (.*)/i)
             },
             :paths => ["#{url}"]
           }

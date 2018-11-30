@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "Development"],
             :vendor => "JetBrains",
             :product => "TeamCity",
             :match_details => "TeamCity Continuous Integration",

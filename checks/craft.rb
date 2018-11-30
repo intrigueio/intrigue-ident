@@ -6,8 +6,10 @@ module Check
       def generate_checks(url)
         [
           {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
             :vendor => "Craft",
-            :type => "application",
             :product =>"CMS",
             :match_details =>"csrf protection cookie",
             :version => nil,

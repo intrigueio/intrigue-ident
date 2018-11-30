@@ -6,9 +6,10 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :subtype => ["CMS"],
           :vendor =>"Wordpress",
-          :tags => ["CMS"],
           :product =>"Wordpress",
           :match_details =>"wordpress generator tag in content",
           :version => nil,
@@ -19,9 +20,10 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
-          :vendor =>"Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor =>"Wordpress",
           :product =>"Wordpress",
           :match_details =>"common link",
           :version => nil,
@@ -30,9 +32,10 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
-          :vendor =>"Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor =>"Wordpress",
           :product =>"Wordpress (Hosted)",
           :match_details =>"unique header",
           :version => nil,
@@ -41,9 +44,10 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress WP-JSON endpoint",
           :version => nil,
@@ -52,9 +56,10 @@ module Check
           :paths => ["#{url}/wp-json"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -64,9 +69,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -76,9 +82,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -88,9 +95,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -100,9 +108,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -112,9 +121,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -124,9 +134,10 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
@@ -136,21 +147,23 @@ module Check
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],
           :version => "2.7.1",
-          :match =>:checksum_body,
+          :match_type => :checksum_body,
           :match_content => "e6bbc53a727f3af003af272fd229b0b2",
           :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"]
         },
         {
-          :type => "application",
-          :vendor => "Wordpress",
+          :type => "fingerprint",
+          :category => "application",
           :tags => ["CMS"],
+          :vendor => "Wordpress",
           :product =>"Wordpress",
           :match_details =>"Wordpress TinyMCE Editor",
           :references => ["https://dcid.me/texts/fingerprinting-web-apps.html"],

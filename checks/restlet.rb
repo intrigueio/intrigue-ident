@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor =>"Restlet",
             :product =>"Restlet",
             :match_details =>"server header for Restlet",

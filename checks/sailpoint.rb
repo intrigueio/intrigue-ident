@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["IAM"],
             :vendor => "Sailpoint",
             :product => "IdentityQ",
             :references => [

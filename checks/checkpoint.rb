@@ -6,7 +6,8 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
           :vendor => "Checkpoint",
           :tags => ["vpn"],
           :product =>"GO",
@@ -18,7 +19,8 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
           :vendor => "Checkpoint",
           :tags => ["vpn"],
           :product =>"GO",
@@ -30,7 +32,8 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
           :vendor => "Checkpoint",
           :tags => ["vpn"],
           :product =>"SSL Network Extender",

@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosted","Support"],
             :vendor =>"Zendesk",
             :product =>"Zendesk",
             :match_details =>"unique header",
@@ -16,7 +18,9 @@ module Check
             :paths => ["#{url}"]
           },
           { # TODO - this might catch valid (closed) helpdesk uris too.
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosted","Support"],
             :vendor =>"Zendesk",
             :product =>"Zendesk",
             :match_details =>"zendesk access by IP / invalid hostname",

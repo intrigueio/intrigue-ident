@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Embedded", "Printer"],
             :vendor => "HP",
             :product =>"ChaiSOE",
             :version => "1.0",

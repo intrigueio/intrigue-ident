@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
             :vendor => "TYPO3",
             :product => "TYPO3",
             :match_details => "generator tag",

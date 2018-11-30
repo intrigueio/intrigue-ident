@@ -6,10 +6,11 @@ module Check
       def generate_checks(uri)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Networking", "VPN", "Firewall"],
             :vendor => "PaloAltoNetworks",
             :product =>"GlobalProtect",
-            :tags => ["vpn"],
             :match_details =>"GlobalProtect Portal",
             :version => nil,
             :match_type => :content_body,

@@ -6,8 +6,10 @@ module Check
       def generate_checks(url)
         [
           {
+            :type => "fingerprint",
             :vendor => "Stalker", # recently renamed to communigate systems inc
-            :type => "application",
+            :category => "application",
+            :tags => ["COTS","Marketing"],
             :product =>"CommuniGate Pro",
             :website => "http://www.stalker.com/CommuniGatepro/",
             :match_details =>"server header",

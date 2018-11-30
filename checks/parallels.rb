@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Administrative", "Hypervisor"],
           :vendor =>"Parallels",
           :product =>"Parallels Plesk Panel",
           :match_details => "page title",
@@ -18,7 +20,9 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Administrative", "Hypervisor"],
           :vendor =>"Parallels",
           :product =>"Parallels Plesk Panel",
           :match_details => "server header",

@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting"], # CDN?
             :vendor =>"LCN",
             :product =>"LCN",
             :match_details =>"body error message",

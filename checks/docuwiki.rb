@@ -6,7 +6,9 @@ class Docuwiki < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["CMS"],
         :vendor => "Docuwiki",
         :product => "Docuwiki",
         :version => nil,

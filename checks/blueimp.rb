@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Javascript"],
             :vendor => "blueimp",
             :product =>"jQuery-File-Upload",
             :match_details =>"match string in the page",

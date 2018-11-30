@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "CDN"],
             :vendor =>"Fastly",
             :product =>"Fastly",
             :match_details =>"header",
@@ -16,7 +18,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "CDN"],
             :vendor =>"Fastly",
             :product =>"Fastly",
             :match_details =>"error content in page",

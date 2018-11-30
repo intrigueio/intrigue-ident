@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["IAM"],
             :vendor =>"Okta",
             :product =>"Okta",
             :match_details =>"okta auth",

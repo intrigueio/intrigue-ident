@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Development"],
             :vendor => "Opscode",
             :product =>"Chef",
             :match_details =>"Chef Server",
@@ -17,7 +19,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :category => "application",
+            :tags => ["COTS","Development"],
             :vendor => "Opscode",
             :product =>"Chef",
             :match_details =>"Chef Server",

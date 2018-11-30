@@ -6,7 +6,9 @@ class Acquia < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CMS"],
         :vendor => "Acquia",
         :product => "Acquia",
         :references => ["https://docs.acquia.com/acquia-cloud/performance/varnish/headers/"],

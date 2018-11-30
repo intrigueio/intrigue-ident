@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Application Server",
             :match_details =>"server header",
@@ -20,7 +22,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Fusion Middleware",
             :match_details =>"page title & docs link... should give us a version",
@@ -57,7 +61,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Fusion Middleware",
             :match_details =>"Web Cache Server - server header",
@@ -71,7 +77,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Glassfish Server",
             :match_details =>"Oracle / Sun GlassFish Enterprise Server",
@@ -84,7 +92,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Glassfish Server",
             :match_details =>"Oracle / Sun GlassFish Enterprise Server",
@@ -97,7 +107,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Oracle",
             :product =>"HTTP Server",
             :match_details =>"server header",
@@ -112,7 +124,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Oracle",
             :product =>"iPlanet Web Server",
             :match_details =>"server header",
@@ -127,7 +141,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework", "Language"],
             :vendor => "Oracle",
             :product =>"Java",
             :match_details =>"JSESSIONID cookie",
@@ -139,7 +155,9 @@ module Check
             :paths => ["#{url}"]
           },
           { # TODO - this will tell us J2EE versions, see references!!!
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Oracle",
             :product =>"Java Servlet Container",
             :match_details =>"x-header",
@@ -152,7 +170,9 @@ module Check
             :paths => ["#{url}"],
           },
           { # TODO - this will tell us J2EE versions, see references!!!
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Oracle",
             :product =>"Java Server Container",
             :match_details =>"x-header",
@@ -165,7 +185,9 @@ module Check
             :paths => ["#{url}"],
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Oracle",
             :product =>"Mojarra",
             :match_details =>"Viewstate inclusion of javaserver faces",
@@ -182,7 +204,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Oracle",
             :product =>"Sun ONE Web Server",
             :match_details =>"server header",
@@ -195,7 +219,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Weblogic",
             :match_details =>"weblogic fault / fail",
@@ -207,7 +233,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Oracle",
             :product =>"Weblogic",
             :match_details =>"weblogic header",

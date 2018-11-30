@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Marketing","COTS"],
             :vendor => "Mailchimp",
             :product =>"Mandrill",
             :match_details =>"login page",

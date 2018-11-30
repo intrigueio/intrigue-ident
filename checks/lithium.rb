@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "CMS"],
             :vendor => "Lithium",
             :product =>"Lithium",
             :match_details =>"Lithium Community Management",
@@ -16,7 +18,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "CMS"],
             :vendor => "Lithium",
             :product =>"Lithium",
             :match_details =>"Lithium Community Management",

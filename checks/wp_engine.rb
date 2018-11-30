@@ -6,9 +6,10 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosted", "CMS"],
             :vendor =>"WPEngine",
-            :tags => ["hosting_provider"],
             :product =>"WPEngine",
             :match_details =>"WPEngine - Access site by IP",
             :version => nil,

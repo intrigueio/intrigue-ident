@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting"],
             :vendor => "Google",
             :product => "Hosted",
             :match_details => "Google Missing Page",
@@ -17,7 +19,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Embedded", "Appliance","COTS"],
             :vendor => "Google",
             :product =>"Search Appliance",
             :match_details =>"server header reports google search appliance",

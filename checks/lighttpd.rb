@@ -6,8 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
-          :tags => [],
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Web Server"],
           :vendor => "Lighttpd",
           :product =>"Lighttpd",
           :match_details =>"server header",

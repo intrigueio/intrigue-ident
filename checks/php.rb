@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor =>"PHP",
             :product =>"PHP",
             :match_details =>"x-powered-by header",

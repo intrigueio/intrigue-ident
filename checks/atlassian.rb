@@ -6,7 +6,9 @@ class Atlassian < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
         :vendor => "Atlassian",
         :product =>"BitBucket",
         :match_details =>"Atlassian BitBucket",
@@ -16,7 +18,9 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
         :vendor => "Atlassian",
         :product =>"Confluence",
         :match_details =>"Atlassian Confluence",
@@ -26,7 +30,9 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
         :vendor => "Atlassian",
         :product =>"Crucible",
         :match_details =>"Atlassian Crucible",
@@ -39,7 +45,9 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
         :vendor => "Atlassian",
         :product =>"Hipchat",
         :match_details =>"Atlassian Hipchat",
@@ -49,7 +57,9 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
         :vendor => "Atlassian",
         :product =>"Jira",
         :match_details =>"Atlassian Jira",

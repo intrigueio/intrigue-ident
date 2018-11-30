@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET Default Application",
             :match_details =>"unique string",
@@ -16,19 +18,22 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :version => nil,
             :dynamic_version => lambda{|x| _first_body_capture(x,/ASP.NET Version:\ ([\d\.]*)/i)},
-            :tags => ["error_page"],
             :match_type => :content_body,
             :match_content =>  /^.*ASP.NET is configured*$/i,
             :match_details =>"ASP.Net Error Message",
             :paths => ["#{url}", "#{url}/doesntexist/#{rand(100213111)}" ]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :version => nil,
@@ -39,7 +44,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"Asp.Net Cookie",
@@ -49,7 +56,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"Asp.Net Default Cookie",
@@ -59,7 +67,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"ASPXAUTH cookie",
@@ -70,7 +80,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
             :vendor => "Microsoft",
             :product =>"ASP.NET MVC",
             :match_details =>"Asp.Net MVC Header",
@@ -81,7 +92,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"WebResource.axd link in the page",
@@ -91,7 +104,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"unique viewstate string",
@@ -101,7 +116,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "Load Balancer"],
             :vendor => "Microsoft",
             :product =>"Azure",
             :match_details =>"Proxy service header (x-msedge-ref)",
@@ -111,7 +128,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "Load Balancer"],
             :vendor => "Microsoft",
             :product =>"Azure",
             :match_details =>"Proxy header (x-ms-ref)",
@@ -121,7 +140,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "Load Balancer"],
             :vendor => "Microsoft",
             :product =>"Azure",
             :match_details =>"Storage service header",
@@ -131,7 +152,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"powered by header",
@@ -141,7 +164,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS"],
             :vendor => "Microsoft",
             :product =>"Commerce Server",
             :match_details =>"server header",
@@ -151,7 +176,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity","COTS"],
             :vendor => "Microsoft",
             :product =>"Exchange Server",
             :references => ["https://bit.ly/2k4Yoot"],
@@ -168,7 +195,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity","COTS"],
             :vendor => "Microsoft",
             :product =>"Exchange Server",
             :references => ["https://bit.ly/2k4Yoot"],
@@ -185,7 +214,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Firewall"],
             :vendor => "Microsoft",
             :product =>"Forefront TMG",
             :match_details =>"Microsoft Forefront Threat Management Gateway",
@@ -195,7 +226,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Firewall"],
             :vendor => "Microsoft",
             :product =>"Forefront TMG",
             :match_details =>"Microsoft Forefront Threat Management Gateway",
@@ -205,7 +238,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Firewall"],
             :vendor => "Microsoft",
             :product =>"ISA Server",
             :version => "2006",
@@ -215,7 +250,9 @@ module Check
             :paths => ["#{url}"],
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product => "Internet Information Services",
             :match_details =>"server header",
@@ -228,7 +265,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Internet Information Services",
@@ -238,7 +277,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft IIS 8.5",
@@ -248,7 +289,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft-HTTPAPI/2.0 (IIS not configured)",
@@ -257,9 +300,9 @@ module Check
             :match_content =>  /server: Microsoft-HTTPAPI\/2.0/i,
             :paths => ["#{url}"]
           },
-
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft IIS Unauthorized (403)",
@@ -271,11 +314,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft IIS Missing Resource (404)",
-            :tags => ["error_page"],
             :version => nil,
             :match_type => :content_body,
             :hide => true,
@@ -283,11 +327,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft IIS Generic Error - 403",
-            :tags => ["error_page"],
             :version => nil,
             :match_type => :content_body,
             :hide => true,
@@ -295,11 +340,12 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product =>"Internet Information Services",
             :match_details =>"Microsoft Generic Error - 503",
-            :tags => ["error_page"],
             :version => nil,
             :match_type => :content_body,
             :hide => true,
@@ -307,7 +353,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor =>"Microsoft",
             :product =>"Kestrel",
             :references => ["https://stackify.com/what-is-kestrel-web-server/"],
@@ -318,7 +366,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Productivity","Hosted"],
             :vendor =>"Microsoft",
             :product =>"Office 365 API",
             :match_details =>"office 365 api auth cookie",
@@ -328,7 +378,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Productivity","Hosted"],
             :vendor =>"Microsoft",
             :product =>"Office 365",
             :match_details =>"office 365 fronted by okta",
@@ -338,7 +390,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity"],
             :vendor => "Microsoft",
             :product =>"Outlook Web Access",
             :match_details =>"Microsoft Outlook Web Access (header)",
@@ -349,7 +403,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
             :vendor => "Microsoft",
             :product =>"Outlook Web Access",
             :match_details =>"Microsoft Outlook Web Access (body)",
@@ -360,7 +415,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "CMS"],
             :vendor => "Microsoft",
             :product =>"Sharepoint Server",
             :match_details =>"Sharepoint cookie",

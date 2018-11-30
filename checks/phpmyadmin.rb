@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Administrative","COTS"],
             :vendor => "PhpMyAdmin",
             :product => "PhpMyAdmin",
             :match_details => "PhpMyAdmin",

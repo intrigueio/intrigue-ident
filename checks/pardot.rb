@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Marketing", "Javascript"],
             :vendor =>"Pardot",
             :product =>"Pardot",
             :match_details =>"Pardot",

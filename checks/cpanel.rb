@@ -6,8 +6,10 @@ module Check
       def generate_checks(url)
         [
           {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Hosting"],
             :vendor => "cPanel",
-            :type => "application",
             :product =>"cPanel Hosted - Missing Page",
             :match_details =>"cPanel Hosted, but either misconfigured, or accessed via ip vs hostname?",
             :version => nil,

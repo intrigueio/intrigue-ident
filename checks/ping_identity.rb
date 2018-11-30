@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["IAM"],
             :vendor => "PingIdentity",
             :product =>"PingFederate",
             :references => ["https://ping.force.com/Support/PingFederate/Administration/Single-sign-on-no-target796070NEW"],

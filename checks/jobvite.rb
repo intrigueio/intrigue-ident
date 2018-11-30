@@ -6,7 +6,8 @@ module Check
       def generate_checks(url)
         [
           #{
-          #  :type => "service",
+          #  :type => "fingerprint",
+          #  :category => "service",
           #  :vendor =>"Jobvite",
           #  :product =>"Jobvite",
           #  :match_details =>"jobvite cookie - unconfirmed!!!!",

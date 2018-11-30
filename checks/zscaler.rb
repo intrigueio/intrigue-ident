@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["WAF"],
             :vendor =>"Zscaler",
             :product =>"Zscaler",
             :match_details =>"server header for Zscaler",

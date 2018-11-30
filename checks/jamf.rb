@@ -6,9 +6,10 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS", "Appliance", "Administrative"],
           :vendor => "Jamf",
-          :tags => [],
           :product =>"Pro",
           :match_details =>"jamf pro login page",
           :match_type => :content_body,

@@ -6,9 +6,11 @@ class Akamai < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN"],
         :vendor => "Akamai",
-        :product => "CDN",
+        :product => "Akamai",
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /The requested URL "&#91;no&#32;URL&#93;", is invalid.<p>/,
@@ -17,9 +19,10 @@ class Akamai < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "service",
+        :category => "service",
         :vendor => "Akamai",
-        :product => "CDN",
+        :tags => ["CDN"],
+        :product => "Akamai",
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /x-akamai-transformed:.*/,

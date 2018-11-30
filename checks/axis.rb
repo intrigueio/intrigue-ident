@@ -6,8 +6,9 @@ class Axis < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "operating_system",
-        :tags => ["webcam"],
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["Embedded", "Webcam"],
         :vendor => "Axis",
         :product => "Network Camera Firmware",
         :match_details =>"default redirect uri",

@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Administrative"],
           :vendor =>"Webmin",
           :product =>"MiniServ",
           :match_details => "server header",
@@ -18,7 +20,9 @@ module Check
           :paths => ["#{url}"]
         },
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Administrative"],
           :vendor =>"Webmin",
           :product =>"Webmin",
           :match_details => "page title",

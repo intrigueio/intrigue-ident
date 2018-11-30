@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "other",
+          :type => "fingerprint",
+          :category => "hardware",
+          :tags => ["Embedded", "Networking"],
           :vendor =>"Mikrotik",
           :product =>"RouterOS",
           :match_details => "page title",

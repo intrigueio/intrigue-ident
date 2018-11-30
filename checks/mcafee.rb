@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Administrative","COTS"],
             :vendor => "McAfee",
             :product =>"EPolicy Orchestrator",
             :match_details =>"McAfee EPolicy Orchestrator",

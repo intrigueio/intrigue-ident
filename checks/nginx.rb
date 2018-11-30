@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Nginx",
             :product =>"Nginx",
             :match_details =>"Nginx",
@@ -17,7 +19,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :category => "application",
+            :tags => ["Web Server"],
             :vendor => "Nginx",
             :product =>"Nginx",
             :match_details =>"nginx default 404 page - TODO needs multiline",

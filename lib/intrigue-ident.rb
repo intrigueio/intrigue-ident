@@ -140,72 +140,94 @@ module Intrigue
       # data[:body_md5] => md5 hash of the body
       # if type "content", do the content check
 
-      if check[:match_type] == :content_body
-        if data["details"] && data["details"]["hidden_response_data"]
-          match = _construct_match_response(check,data) if data["details"]["hidden_response_data"] =~ check[:match_content]
+      if check[:type] == "fingerprint"
+        if check[:match_type] == :content_body
+          if data["details"] && data["details"]["hidden_response_data"]
+            match = _construct_match_response(check,data) if data["details"]["hidden_response_data"] =~ check[:match_content]
+          end
+        elsif check[:match_type] == :content_headers
+          #puts "trying to match headers: #{check} #{data["details"]["headers"]}"
+          if data["details"] && data["details"]["headers"]
+            match = _construct_match_response(check,data) if data["details"]["headers"].join("\n") =~ check[:match_content]
+          end
+        elsif check[:match_type] == :content_cookies
+          # Check only the set-cookie header
+          if data["details"] && data["details"]["cookies"]
+            match = _construct_match_response(check,data) if data["details"]["cookies"] =~ check[:match_content]
+          end
+        elsif check[:match_type] == :content_generator
+          # Check only the set-cookie header
+          if data["details"] && data["details"]["generator"]
+            match = _construct_match_response(check,data) if data["details"]["generator"] =~ check[:match_content]
+          end
+        elsif check[:match_type] == :content_title
+          # Check only the set-cookie header
+          if data["details"] && data["details"]["title"]
+            match = _construct_match_response(check,data) if data["details"]["title"] =~ check[:match_content]
+          end
+        elsif check[:match_type] == :checksum_body
+          if data["details"] && data["details"]["response_data_hash"]
+            match = _construct_match_response(check,data) if data["details"]["response_data_hash"] == check[:match_content]
+          end
         end
-      elsif check[:match_type] == :content_headers
-        #puts "trying to match headers: #{check} #{data["details"]["headers"]}"
-        if data["details"] && data["details"]["headers"]
-          match = _construct_match_response(check,data) if data["details"]["headers"].join("\n") =~ check[:match_content]
-        end
-      elsif check[:match_type] == :content_cookies
-        # Check only the set-cookie header
-        if data["details"] && data["details"]["cookies"]
-          match = _construct_match_response(check,data) if data["details"]["cookies"] =~ check[:match_content]
-        end
-      elsif check[:match_type] == :content_generator
-        # Check only the set-cookie header
-        if data["details"] && data["details"]["generator"]
-          match = _construct_match_response(check,data) if data["details"]["generator"] =~ check[:match_content]
-        end
-      elsif check[:match_type] == :content_title
-        # Check only the set-cookie header
-        if data["details"] && data["details"]["title"]
-          match = _construct_match_response(check,data) if data["details"]["title"] =~ check[:match_content]
-        end
-      elsif check[:match_type] == :checksum_body #TODO - use
-        if data["details"] && data["details"]["response_data_hash"]
-          match = _construct_match_response(check,data) if data["details"]["response_data_hash"] == check[:match_content]
-        end
+      elsif check[:type] == "configuration"
+        match = _construct_match_response(check,data)
       end
-
     match
     end
 
     private
 
     def _construct_match_response(check, data)
+      #puts "Working on check: #{check}"
 
-      calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || ""
-      calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update] || ""
+      if check[:type] == "fingerprint"
+        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || ""
+        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update] || ""
 
-      calculated_type = "a" if check[:type] == "application"
-      calculated_type = "h" if check[:type] == "hardware"
-      calculated_type = "o" if check[:type] == "operating_system"
-      calculated_type = "s" if check[:type] == "service" # literally made up
+        calculated_type = "a" if check[:category] == "application"
+        calculated_type = "h" if check[:category] == "hardware"
+        calculated_type = "o" if check[:category] == "operating_system"
+        calculated_type = "s" if check[:category] == "service" # literally made up
 
-      vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
-      product_string = check[:product].gsub(" ","_") if check[:product]
+        vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
+        product_string = check[:product].gsub(" ","_") if check[:product]
 
-      version = "#{calculated_version}".gsub(" ","_")
-      update = "#{calculated_update}".gsub(" ","_")
+        version = "#{calculated_version}".gsub(" ","_")
+        update = "#{calculated_update}".gsub(" ","_")
 
-      cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
+        cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
 
-      to_return = {
-        "type" => check[:type],
-        "vendor" => check[:vendor],
-        "product" => check[:product],
-        "version" => calculated_version,
-        "update" => calculated_update,
-        "tags" => check[:tags],
-        "matched_content" => check[:match_content],
-        "match_type" => check[:match_type],
-        "match_details" => check[:match_details],
-        "hide" => check[:hide],
-        "cpe" => cpe_string,
-      }
+        to_return = {
+          "type" => check[:type],
+          "subtypes" => check[:subtypes],
+          "vendor" => check[:vendor],
+          "product" => check[:product],
+          "version" => calculated_version,
+          "update" => calculated_update,
+          "tags" => check[:tags],
+          "matched_content" => check[:match_content],
+          "match_type" => check[:match_type],
+          "match_details" => check[:match_details],
+          "hide" => check[:hide],
+          "cpe" => cpe_string,
+        }
+
+      elsif check[:type] == "configuration"
+
+        #puts "working on config check: #{check}"
+
+        result = check[:dynamic_result].call(data)
+
+        to_return = {
+          "type" => check[:type],
+          "name" => check[:name],
+          "result" => result,
+          "match_type" => check[:match_type],
+          "hide" => check[:hide]
+        }
+      end
+
 
     to_return
     end

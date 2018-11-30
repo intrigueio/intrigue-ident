@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Development", "Administrative", "Hypervisor"],
             :vendor =>"Red Hat",
             :product =>"OpenShift Container Platform",
             :match_details =>"error message in html",

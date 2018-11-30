@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Phusion",
             :product =>"Passenger",
             :match_details =>"x-powered-by header",
@@ -17,7 +19,9 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
             :vendor => "Phusion",
             :product =>"Passenger",
             :match_details =>"server header",

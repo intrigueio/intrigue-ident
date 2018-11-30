@@ -6,9 +6,10 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => "Web Server",
           :vendor => "Banu",
-          :tags => [],
           :product =>"Tinyproxy",
           :match_details =>"server header",
           :version => nil,

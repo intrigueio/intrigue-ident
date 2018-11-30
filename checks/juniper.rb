@@ -6,7 +6,9 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "application",
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Networking", "VPN"],
           :vendor =>"Juniper",
           :product =>"Junos Pulse Secure Access Service",
           :match_details => "page title",

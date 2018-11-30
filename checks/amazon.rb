@@ -6,7 +6,9 @@ class Amazon < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN", "Hosting"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :version => nil,
@@ -17,7 +19,9 @@ class Amazon < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN", "Hosting"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - no configured hostname error condition",
@@ -28,7 +32,9 @@ class Amazon < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN", "Hosting"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - no configured hostname error condition",
@@ -39,7 +45,9 @@ class Amazon < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN", "Hosting"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - 403 error condition",
@@ -50,21 +58,38 @@ class Amazon < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :tags => ["error_page","hosting_provider"],
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Load Balancer", "Hosting"],
         :url => "https://aws.amazon.com/elasticloadbalancing/",
         :vendor => "Amazon",
         :product => "Elastic Load Balancer",
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /awselb\/\d.\d/,
-        :match_details =>"Amazon Elastic Load Balancer",
+        :match_details =>"error page",
         :hide => true,
         :dynamic_version => lambda { |x| _first_header_capture(x,/awselb\/(\d.\d)/) },
         :paths => ["#{url}"]
       },
       {
-        :type => "service",
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Load Balancer", "Hosting"],
+        :url => "https://aws.amazon.com/elasticloadbalancing/",
+        :vendor => "Amazon",
+        :product => "Elastic Load Balancer",
+        :version => nil,
+        :match_type => :content_cookies,
+        :match_content =>  /AWSALB=/,
+        :match_details =>"aws elb cookie",
+        :hide => false,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Web Server", "Hosting"],
         :vendor => "Amazon",
         :product =>"S3",
         :match_details =>"server header",

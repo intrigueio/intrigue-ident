@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Security","Javascript"],
             :vendor =>"Symantec",
             :product =>"Norton Secured Seal",
             :references => ["https://www.websecurity.symantec.com/install-norton-secured-seal"],

@@ -6,9 +6,10 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "service",
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["CMS"],
           :vendor => "Jive",
-          :tags => [],
           :product =>"Platform",
           :match_details =>"jive login page",
           :match_type => :content_cookies,

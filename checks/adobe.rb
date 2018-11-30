@@ -6,7 +6,9 @@ class Adobe < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Adobe",
         :product => "Coldfusion",
         :version => nil,
@@ -17,8 +19,10 @@ class Adobe < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
         :vendor => "Adobe",
+        :tags => ["CMS","Marketing"],
         :product => "Experience Manager",
         :version => nil,
         :match_type => :content_body,
@@ -28,7 +32,9 @@ class Adobe < Intrigue::Ident::Check::Base
         :paths => ["#{url}/libs/granite/core/content/login.html"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["CMS","Marketing"],
         :vendor => "Adobe",
         :product => "Omniture DC",
         :version => nil,
@@ -39,8 +45,6 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"]
       }
-
-
     ]
   end
 end

@@ -16,6 +16,16 @@ if debug
   puts response.body
 end
 
-puts "Results: "
-matches.each{|x| puts " - #{x["cpe"]} (#{x["match_details"]})" } if matches
-puts "Done! #{matches.count} matches"
+puts "Fingerprint: "
+matches.each do|x|
+  next unless x["type"] == "fingerprint"
+  puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
+end
+
+puts "Configuration: "
+matches.each do|x|
+  next unless x["type"] == "configuration"
+  puts " - #{x["name"]}: #{x["result"]}"
+end
+
+#puts "Vulnerabilities: "

@@ -6,7 +6,9 @@ class Brocade < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "hardware",
+        :type => "fingerprint",
+        :category => "hardware",
+        :tags => ["Appliance","Networking"],
         :vendor => "Brocade",
         :product => "ICX7250-24",
         :version => nil,
@@ -16,7 +18,9 @@ class Brocade < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "operating_system",
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["Appliance","Networking"],
         :vendor => "Brocade",
         :product => "Fabric OS",
         :version => nil,

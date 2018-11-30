@@ -6,10 +6,11 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "service",
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosted", "CMS"],
             :vendor => "Pantheon",
             :product => "Pantheon",
-            :tags => ["CMS"],
             :match_details => "x-pantheon-site header",
             :version => nil,
             :match_type => :content_headers,

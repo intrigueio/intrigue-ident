@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           { # might need to be its own, but haven't seen it yet outside jenkins
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "Development"],
             :vendor => "Jenkins",
             :product => "Hudson",
             :match_details => "Hudson",
@@ -17,7 +19,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :category => "application",
+            :tags => ["COTS", "Development"],
             :vendor => "Jenkins",
             :product =>"Jenkins",
             :match_details =>"Jenkins",
@@ -27,7 +30,8 @@ module Check
             :paths => ["#{url}"]
           },
           {
-            :type => "application",
+            :category => "application",
+            :tags => ["COTS", "Development"],
             :vendor => "Jenkins",
             :product =>"Jenkins",
             :match_details =>"Jenkins",

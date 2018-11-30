@@ -6,7 +6,9 @@ module Check
       def generate_checks(url)
         [
           {
-            :type => "application",
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Database","COTS"],
             :vendor => "TableauSoftware",
             :product => "Tableau Server",
             :match_details => "Tableau Server - unique string",

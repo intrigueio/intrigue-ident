@@ -6,7 +6,9 @@ class Apache < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Administrative", "Web Server", "Database"],
         :vendor => "Apache",
         :product =>"Ambari",
         :match_details =>"page title",
@@ -16,7 +18,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Apache",
         :product =>"Groovy",
         :match_details =>"Groovy error page",
@@ -26,7 +30,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
         :vendor => "Apache",
         :product =>"HTTP Server",
         :match_details =>"Apache web server - server header - with versions",
@@ -39,7 +45,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
         :vendor => "Apache",
         :product =>"HTTP Server",
         :match_details =>"Apache web server - server header - no version",
@@ -49,7 +57,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
         :vendor => "Apache",
         :product =>"HTTP Server",
         :match_details =>"Apache generic error",
@@ -59,7 +69,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Apache",
         :product =>"Coyote",
         :match_details =>"Apache coyote application server - server header",
@@ -74,7 +86,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Apache",
         :product =>"Sling",
         :references => ["https://sling.apache.org/"],
@@ -85,7 +99,9 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Apache",
         :product => "Tomcat",
         :match_details =>"Tomcat Application Server",
@@ -94,9 +110,10 @@ class Apache < Intrigue::Ident::Check::Base
         :match_content =>  /<title>Tomcat 6 Welcome Page/,
         :paths => ["#{url}"]
       },
-
       {
-        :type => "application",
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
         :vendor => "Apache",
         :product => "Tomcat",
         :match_details =>"Tomcat Application Server",
