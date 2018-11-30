@@ -58,7 +58,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Web Framework"]
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :match_details =>"Asp.Net Default Cookie",

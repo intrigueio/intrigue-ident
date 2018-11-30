@@ -19,6 +19,7 @@ module Check
             :paths => ["#{url}"]
           },
           {
+            :type => "fingerprint",
             :category => "application",
             :tags => ["Web Server"],
             :vendor => "Nginx",

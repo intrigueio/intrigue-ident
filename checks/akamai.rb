@@ -19,6 +19,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :paths => ["#{url}"]
       },
       {
+        :type => "fingerprint",
         :category => "service",
         :vendor => "Akamai",
         :tags => ["CDN"],

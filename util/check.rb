@@ -16,16 +16,16 @@ if debug
   puts response.body
 end
 
+puts matches
+=begin
 puts "Fingerprint: "
-matches.each do|x|
-  next unless x["type"] == "fingerprint"
+matches["fingerprint"].each do|x|
   puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
 end
 
 puts "Configuration: "
-matches.each do|x|
-  next unless x["type"] == "configuration"
+matches["configuration"].each do|x|
   puts " - #{x["name"]}: #{x["result"]}"
 end
-
+=end
 #puts "Vulnerabilities: "

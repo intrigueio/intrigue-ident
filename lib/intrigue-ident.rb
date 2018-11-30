@@ -53,7 +53,7 @@ module Intrigue
       end
 
     # Return all matches, minus the nils (non-matches)
-    results.compact
+    results.compact.group_by{|x| x["type"] } 
     end
 
     # Matches a text http response
