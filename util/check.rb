@@ -16,8 +16,6 @@ if debug
   puts response.body
 end
 
-puts matches
-=begin
 puts "Fingerprint: "
 matches["fingerprint"].each do|x|
   puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
@@ -27,5 +25,3 @@ puts "Configuration: "
 matches["configuration"].each do|x|
   puts " - #{x["name"]}: #{x["result"]}"
 end
-=end
-#puts "Vulnerabilities: "
