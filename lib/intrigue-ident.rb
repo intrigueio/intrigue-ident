@@ -52,8 +52,8 @@ module Intrigue
         end
       end
 
-    # Return all matches, minus the nils (non-matches)
-    results.compact.group_by{|x| x["type"] } 
+    # Return all matches, minus the nils (non-matches), and grouped by check type
+    results.compact.group_by{|x| x["type"] }
     end
 
     # Matches a text http response
@@ -222,9 +222,7 @@ module Intrigue
         to_return = {
           "type" => check[:type],
           "name" => check[:name],
-          "result" => result,
-          "match_type" => check[:match_type],
-          "hide" => check[:hide]
+          "result" => result
         }
       end
 

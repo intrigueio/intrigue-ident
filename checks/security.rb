@@ -24,7 +24,6 @@ class Security < Intrigue::Ident::Check::Base
           return true if d["details"]["headers"].join("\n") =~ /Access-Control-Allow-Origin:.*/i;
         false
         },
-        :hide => false,
         :paths => ["#{url}"]
       },
       {
@@ -35,7 +34,6 @@ class Security < Intrigue::Ident::Check::Base
           return true if d["details"]["headers"].join("\n") =~ /p3p:.*/i;
         false
         },
-        :hide => false,
         :paths => ["#{url}"]
       },
       {
@@ -46,7 +44,6 @@ class Security < Intrigue::Ident::Check::Base
           return true if d["details"]["headers"].join("\n") =~ /x-frame-options:.*/i;
         false
         },
-        :hide => false,
         :paths => ["#{url}"]
       },
       {
@@ -57,7 +54,6 @@ class Security < Intrigue::Ident::Check::Base
           return true if d["details"]["headers"].join("\n") =~ /^x-xss-protection:.*/i;
         false
         },
-        :hide => false,
         :paths => ["#{url}"]
       }
     ]
