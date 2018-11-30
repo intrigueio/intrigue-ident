@@ -7,10 +7,6 @@ class Security < Intrigue::Ident::Check::Base
     [
       {
         :type => "configuration",
-        :vendor => nil,
-        :product => nil,
-        :references => [],
-        :version => nil,
         :match_type => :content_headers,
         :match_content => /^Access-Control-Allow-Origin:.*/i,
         :match_details => "Access-Control-Allow-Origin header exists",
@@ -19,10 +15,6 @@ class Security < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :vendor => nil,
-        :product => nil,
-        :references => [],
-        :version => nil,
         :match_type => :content_headers,
         :match_content => /^p3p:.*/i,
         :match_details => "P3P header exists",
@@ -31,10 +23,6 @@ class Security < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :vendor => nil,
-        :product => nil,
-        :references => [],
-        :version => nil,
         :match_type => :content_headers,
         :match_content => /^x-xss-protection:.*/i,
         :match_details => "XSS header exists",
