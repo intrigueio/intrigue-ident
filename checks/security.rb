@@ -21,7 +21,7 @@ class Security < Intrigue::Ident::Check::Base
         :name => "Access-Control-Allow-Origin Header Exists",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /Access-Control-Allow-Origin:.*/i;
+          return true if d["details"]["headers"].join("\n") =~ /^Access-Control-Allow-Origin:.*/i;
         false
         },
         :paths => ["#{url}"]
@@ -31,7 +31,7 @@ class Security < Intrigue::Ident::Check::Base
         :name => "P3P Header Exists",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /p3p:.*/i;
+          return true if d["details"]["headers"].join("\n") =~ /^p3p:.*/i;
         false
         },
         :paths => ["#{url}"]
@@ -41,7 +41,7 @@ class Security < Intrigue::Ident::Check::Base
         :name => "X-Frame-Options Header Exists",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /x-frame-options:.*/i;
+          return true if d["details"]["headers"].join("\n") =~ /^x-frame-options:.*/i;
         false
         },
         :paths => ["#{url}"]
