@@ -53,7 +53,12 @@ module Intrigue
       end
 
     # Return all matches, minus the nils (non-matches), and grouped by check type
-    results.compact.group_by{|x| x["type"] }
+    out = results.compact.group_by{|x| x["type"] }
+
+    # make sure we have an empty fingerprints array if we didnt' have any Matches
+    out["fingerprints"] = [] unless out["fingerprints"]
+
+    out
     end
 
     # Matches a text http response
@@ -91,7 +96,6 @@ module Intrigue
           "title" => title
         }
       }
-
 
       match_uri_hash(check,data)
     end
@@ -225,7 +229,6 @@ module Intrigue
           "result" => result
         }
       end
-
 
     to_return
     end
