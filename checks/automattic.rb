@@ -8,7 +8,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :subtype => ["CMS"],
+          :tags => ["CMS"],
           :vendor =>"Wordpress",
           :product =>"Wordpress",
           :match_details =>"wordpress generator tag in content",

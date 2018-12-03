@@ -204,7 +204,6 @@ module Intrigue
 
         to_return = {
           "type" => check[:type],
-          "subtypes" => check[:subtypes],
           "vendor" => check[:vendor],
           "product" => check[:product],
           "version" => calculated_version,
