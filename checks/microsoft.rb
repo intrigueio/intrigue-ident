@@ -28,7 +28,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /^.*ASP.NET is configured*$/i,
             :match_details =>"ASP.Net Error Message",
-            :paths => ["#{url}", "#{url}/doesntexist/#{rand(100213111)}" ]
+            :paths => ["#{url}", "#{url}/doesntexist-intrigue-123}" ]
           },
           {
             :type => "fingerprint",
