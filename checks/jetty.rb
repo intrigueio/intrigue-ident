@@ -19,8 +19,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^server:.*Jetty\(.*$/i,
-            :dynamic_version => lambda{|x| _first_header_capture(x,/^server:.*Jetty\(([\d\.]*)\.v[\w\d\.\-]*\).*$/i) },
-            :dynamic_update => lambda{|x| _first_header_capture(x,/^server:.*Jetty\([\d\.]*\.v([\w\d\.\-]*)\).*$/i) },
+            :dynamic_version => lambda{|x| _first_header_capture(x,/^server:.*Jetty\(([\w\d\.]*)\.v[\w\d\.\-]*\).*$/i) },
+            :dynamic_update => lambda{|x| _first_header_capture(x,/^server:.*Jetty\([\w\d\.]*\.v([\w\d\.\-]*)\).*$/i) },
             :paths => ["#{url}"],
             :examples => ["server: Jetty(9.3.19.v20170502)"]
           },
