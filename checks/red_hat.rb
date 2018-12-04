@@ -16,6 +16,18 @@ module Check
             :match_type => :content_body,
             :match_content =>  /Route and path matches, but all pods are down./i,
             :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Development", "Administrative", "Hypervisor"],
+            :vendor =>"Red Hat",
+            :product =>"OpenShift Container Platform",
+            :match_details =>"title",
+            :references => [""],
+            :match_type => :content_title,
+            :match_content =>  /Login - OpenShift Origin/i,
+            :paths => ["#{url}"]
           }
         ]
       end
