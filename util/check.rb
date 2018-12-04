@@ -14,7 +14,7 @@ end
 puts "Fingerprint: "
 if matches["fingerprint"]
   matches["fingerprint"].each do|x|
-    puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
+    puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
   end
 end
 
