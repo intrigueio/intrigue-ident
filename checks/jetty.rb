@@ -3,6 +3,10 @@ module Ident
 module Check
     class Jetty < Intrigue::Ident::Check::Base
 
+      ###
+      ### TODO - general case handled, but needs work on a bunch of edge cases
+      ###
+
       def generate_checks(url)
         [
           {
