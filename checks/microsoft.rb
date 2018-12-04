@@ -253,6 +253,21 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Library"],
+            :vendor =>"Microsoft",
+            :product =>"Frontpage",
+            :match_details =>"server header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^.*FrontPage\/.*$/i,
+            :dynamic_version => lambda { |x|
+              _first_header_capture(x,/^.*FrontPage\/([\d\.]*).*$/i)
+            },
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
             :tags => ["Web Server"],
             :vendor => "Microsoft",
             :product => "Internet Information Services",
