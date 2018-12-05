@@ -17,6 +17,19 @@ module Check
             :match_content =>  /CRAFT_CSRF_TOKEN/,
             :hide => true,
             :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
+            :vendor => "Craft",
+            :product =>"CMS",
+            :match_details =>"x-powered-by header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^x-powered-by: Craft CMS/,
+            :hide => true,
+            :paths => ["#{url}"]
           }
         ]
       end

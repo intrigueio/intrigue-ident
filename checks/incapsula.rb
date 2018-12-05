@@ -16,7 +16,21 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /^x-iinfo:\ .*$/i,
             :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting","CDN","WAF"],
+            :vendor =>"Incapsula",
+            :product =>"CDN",
+            :match_details =>"incapsula header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^x-cdn: Incapsula$/i,
+            :paths => ["#{url}"]
           }
+
+
         ]
       end
 

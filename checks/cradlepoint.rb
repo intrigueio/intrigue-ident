@@ -8,9 +8,9 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Web Framework"],
-            :vendor => "Python",
-            :product =>"Python",
+            :tags => ["Web Server"],
+            :vendor => "Cradlepoint",
+            :product =>"HTTP Service",
             :match_details =>"server header",
             :version => nil,
             :match_type => :content_headers,

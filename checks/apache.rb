@@ -193,6 +193,18 @@ class Apache < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
+        :tags => ["Web Server"],
+        :vendor =>"Apache",
+        :product =>"PivotalWebServer",
+        :match_details =>"server header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^server: Apache PivotalWebServer$/i,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
         :tags => ["Application Server"],
         :vendor => "Apache",
         :product =>"Sling",
