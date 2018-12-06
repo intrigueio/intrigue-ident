@@ -20,6 +20,20 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Web Framework"],
+            :vendor =>"Pivotal Software",
+            :product =>"Spring Framework",
+            :match_details =>"spring cache header",
+            :references => ["https://github.com/atramos/springy-aws"],
+            :match_type => :content_body,
+            :version => nil,
+            :match_content =>  /^x-springy-cache-disabled:.*$/,
+            :paths => ["#{url}"],
+            :examples => ["x-springy-cache-disabled: 0"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
             :tags => ["Development", "Database"],
             :vendor => "Pivotal Software",
             :product => "RabbitMQ",
