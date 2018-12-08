@@ -12,8 +12,8 @@ module Check
             :vendor =>"Synacor",
             :product =>"Zimbra Collaboration Suite",
             :match_details =>"login page for zimbra",
-            :match_type => :content_body,
-            :match_content =>  /<title>Zimbra Web Client Sign In/i,
+            :match_type => :content_title,
+            :match_content =>  /Zimbra Web Client Sign In/i,
             :paths => ["#{url}"]
           }
         ]

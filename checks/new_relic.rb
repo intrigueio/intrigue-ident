@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["Marketing","Javascript"],
+            :tags => ["APM","Javascript"],
             :vendor => "NewRelic",
             :product =>"NewRelic",
             :references => ["https://discuss.newrelic.com/t/relic-solution-what-is-bam-nr-data-net-new-relic-browser-monitoring/42055"],

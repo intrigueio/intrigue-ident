@@ -16,8 +16,8 @@ module Check
             ],
             :match_details => "Main page of a sailpoint identityq instance",
             :version => nil,
-            :match_type => :content_body,
-            :match_content =>  /<title>SailPoint IdentityIQ/i,
+            :match_type => :content_title,
+            :match_content =>  /SailPoint IdentityIQ/i,
             :paths => ["#{url}"]
           }
         ]

@@ -13,8 +13,8 @@ module Check
             :product => "TYPO3",
             :match_details => "generator tag",
             :version => nil,
-            :match_type => :content_body,
-            :match_content =>  /<meta name="generator" content="TYPO3 CMS"/i,
+            :match_type => :content_generator,
+            :match_content =>  /TYPO3 CMS/i,
             :paths => ["#{url}"]
           }
         ]

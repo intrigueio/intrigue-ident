@@ -12,8 +12,8 @@ module Check
             :vendor =>"Ruckus Wireless",
             :product =>"Admin",
             :match_details =>"login page for ruckus wireless device",
-            :match_type => :content_body,
-            :match_content =>  /<title>Ruckus Wireless Admin/i,
+            :match_type => :content_title,
+            :match_content =>  /Ruckus Wireless Admin/i,
             :paths => ["#{url}"]
           }
         ]
