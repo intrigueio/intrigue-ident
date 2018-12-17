@@ -53,8 +53,8 @@ module Intrigue
         # get the dom from a browser
         if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
           #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
-          session = create_browser_session
-          rendered_response = capture_document(session,"#{target_url}")[:rendered]
+          session = ident_create_browser_session
+          rendered_response = ident_capture_document(session,"#{target_url}")[:rendered]
         # else
         # puts "checks: #{ggc.last.map{|c| c[:match_type] }}"
         end
