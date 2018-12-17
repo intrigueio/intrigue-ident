@@ -85,8 +85,6 @@ module Intrigue
     # Return all matches, minus the nils (non-matches), and grouped by check type
     out = results.compact.group_by{|x| x["type"] }
 
-    puts out
-
     # make sure we have an empty fingerprints array if we didnt' have any Matches
     out["fingerprint"] = [] unless out["fingerprint"]
 
