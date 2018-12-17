@@ -13,7 +13,12 @@ end
 
 puts "Fingerprint: "
 if matches["fingerprint"]
+  uniq_matches = []
   matches["fingerprint"].each do|x|
+    # Make sure not to print dupes
+    next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+    uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+    # otherwise, print it out 
     puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
   end
 end
