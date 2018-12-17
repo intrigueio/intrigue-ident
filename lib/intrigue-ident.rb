@@ -3,16 +3,27 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
-
 # load in http libs
 require_relative 'http'
 
+# load in browser control
+require_relative 'initialize/capybara'
+require_relative 'browser'
+include Intrigue::Ident::Browser
+
+
 # Load in checks
+################
 require_relative 'check_factory'
 require_relative '../checks/base'
+
+# fingerprints
 check_folder = File.expand_path('../checks', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+# config checks
+check_folder = File.expand_path('../checks/configuration', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 module Intrigue
   module Ident
@@ -36,29 +47,67 @@ module Intrigue
 
         target_url = ggc.first
 
-        # get the response
+        # get the response using a normal http request
         response = http_request :get, "#{target_url}"
 
-        unless response
-          return nil
+        # get the dom from a browser
+        if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
+          #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
+          session = create_browser_session
+          rendered_response = capture_document(session,"#{target_url}")[:rendered]
+        # else
+        # puts "checks: #{ggc.last.map{|c| c[:match_type] }}"
         end
+
+        #unless response
+        #  return nil
+        #end
 
         # Go ahead and match it up if we got a response!
         if response
           # call each check, collecting the product if it's a match
           ggc.last.each do |check|
-            results << match_http_response_object(check,response)
+
+            # if we have a check that should match the dom, run it
+            if (check[:match_type] == :content_dom) && rendered_response
+              results << match_dom_text(check,rendered_response)
+            else #otherwise use the normal flow
+              results << match_http_response_object(check,response)
+            end
+
           end
         end
+
       end
+
+    return nil unless results
 
     # Return all matches, minus the nils (non-matches), and grouped by check type
     out = results.compact.group_by{|x| x["type"] }
 
+    puts out
+
     # make sure we have an empty fingerprints array if we didnt' have any Matches
-    out["fingerprints"] = [] unless out["fingerprints"]
+    out["fingerprint"] = [] unless out["fingerprint"]
+
+    out["fingerprint"] = out["fingerprint"].uniq
+    out["configuration"] = out["configuration"].uniq
 
     out
+    end
+
+    def match_dom_text(check,text)
+      data = {
+        "details" =>  {
+          "hidden_response_data" => text,
+          "headers" => [],
+          "cookies" => "",
+          "generator" => "",
+          "title" => ""
+        }
+      }
+
+      match_uri_hash(check,data)
     end
 
     # Matches a text http response
@@ -133,8 +182,6 @@ module Intrigue
 
     def match_uri_hash(check, data)
       return nil unless check && data
-      #puts check
-      #puts data
 
       # data[:body] => page body
       # data[:headers] => block of text with headers, one per line

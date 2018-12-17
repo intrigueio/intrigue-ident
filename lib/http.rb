@@ -169,5 +169,6 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
 
 response
 end
+
 end
 end
