@@ -55,6 +55,7 @@ module Intrigue
           #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
           session = ident_create_browser_session
           rendered_response = ident_capture_document(session,"#{target_url}")[:rendered]
+          ident_destroy_browser_session session
         # else
         # puts "checks: #{ggc.last.map{|c| c[:match_type] }}"
         end
@@ -87,6 +88,7 @@ module Intrigue
 
     # make sure we have an empty fingerprints array if we didnt' have any Matches
     out["fingerprint"] = [] unless out["fingerprint"]
+    out["configuration"] = [] unless out["configuration"]
 
     out["fingerprint"] = out["fingerprint"].uniq
     out["configuration"] = out["configuration"].uniq
