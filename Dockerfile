@@ -1,5 +1,9 @@
+###
+### https://github.com/GoogleChrome/puppeteer/issues/3019
+###
+
 # Ref: https://github.com/gliderlabs/docker-alpine/issues/53
-FROM ruby:2.5.1-alpine
+FROM ruby:2.3.1-alpine
 
 RUN apk add --update \
 build-base \
@@ -38,12 +42,8 @@ WORKDIR /usr/src/app
 ENV CHROME_BIN=/usr/bin/chromium-browser \
     CHROME_PATH=/usr/lib/chromium/
 
-# Autorun chrome headless with no GPU
-ENTRYPOINT ["chromium-browser", "--headless", "--disable-gpu", "--disable-software-rasterizer", "--disable-dev-shm-usage"]
-
 # install ruby deps
 WORKDIR /ident
-
 RUN gem install bundler --no-ri --no-rdoc
 RUN bundle install
 

@@ -6,12 +6,6 @@ require 'zlib'
 # load in http libs
 require_relative 'http'
 
-# load in browser control
-require_relative 'initialize/capybara'
-require_relative 'browser'
-include Intrigue::Ident::Browser
-
-
 # Load in checks
 ################
 require_relative 'check_factory'
@@ -31,6 +25,11 @@ module Intrigue
     # Used by intrigue-core... note that this will currently fail unless
     # Intrigue::Task::Web is available
     def generate_http_requests_and_check(url)
+
+      # load in browser control
+      require_relative 'initialize/capybara'
+      require_relative 'browser'
+      include Intrigue::Ident::Browser
 
       results = []
 
