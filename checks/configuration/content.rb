@@ -11,7 +11,7 @@ class ContentConfiguration < Intrigue::Ident::Check::Base
         :tags => ["ContentConfig"],
         :match_type => :content_dom,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["hidden_response_data"] =~ /\<form.*$/;
+          return true if _first_body_match d,/\<form.*$/;
         false
         },
         :hide => true,

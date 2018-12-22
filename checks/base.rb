@@ -216,12 +216,22 @@ class Base
 
     def _first_header_match(content, regex)
       return nil unless content["details"]["headers"]
-      content["details"]["headers"].match(regex).first
+      if content["details"]["headers"].kind_of? Array
+        headers = content["details"]["headers"].join("\n")
+      else
+        headers = content["details"]["headers"].kind_of? Array
+      end
+    headers.match(regex)
     end
 
     def _first_header_capture(content,regex, filter=[])
       return nil unless content["details"]["headers"]
-      x = content["details"]["headers"].join("\n").match(regex)
+      if content["details"]["headers"].kind_of? Array
+        headers = content["details"]["headers"].join("\n")
+      else
+        headers = content["details"]["headers"].kind_of? Array
+      end
+      x = headers.match(regex)
       if x
         x = x.captures.first
         filter.each{|f| x.gsub!(f,"") }

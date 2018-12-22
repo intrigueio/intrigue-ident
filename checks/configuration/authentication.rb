@@ -11,7 +11,8 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
         :tags => ["AuthenticationConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /^www-authenticate:.*$/;
+          return false unless d["details"]["headers"]
+          return true if _first_header_match d, /^www-authenticate:.*$/
         false
         },
         :hide => true,

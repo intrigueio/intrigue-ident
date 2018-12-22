@@ -11,7 +11,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /^Access-Control-Allow-Origin:.*/i;
+          return true if _first_header_match d, /^Access-Control-Allow-Origin:.*/i;
         false
         },
         :paths => ["#{url}"]
@@ -22,7 +22,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /^p3p:.*/i;
+          return true if _first_header_match d, /^p3p:.*/i;
         false
         },
         :paths => ["#{url}"]
@@ -33,7 +33,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /^x-frame-options:.*/i;
+          return true if _first_header_match d, /^x-frame-options:.*/i;
         false
         },
         :paths => ["#{url}"]
@@ -44,7 +44,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
-          return true if d["details"]["headers"].join("\n") =~ /^x-xss-protection:.*/i;
+          return true if _first_header_match d, /^x-xss-protection:.*/i;
         false
         },
         :paths => ["#{url}"]
