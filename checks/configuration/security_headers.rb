@@ -14,7 +14,8 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
           return true if _first_header_match d, /^Access-Control-Allow-Origin:.*/i;
         false
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :hide => false
       },
       {
         :type => "configuration",
@@ -25,7 +26,8 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
           return true if _first_header_match d, /^p3p:.*/i;
         false
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :hide => false
       },
       {
         :type => "configuration",
@@ -36,7 +38,8 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
           return true if _first_header_match d, /^x-frame-options:.*/i;
         false
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :hide => false
       },
       {
         :type => "configuration",
@@ -47,7 +50,8 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
           return true if _first_header_match d, /^x-xss-protection:.*/i;
         false
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :hide => false
       }
     ]
   end

@@ -9,12 +9,12 @@ class ContentConfiguration < Intrigue::Ident::Check::Base
         :type => "configuration",
         :name =>"Form Detected",
         :tags => ["ContentConfig"],
-        :match_type => :content_dom,
+        :match_type => :content_body,
         :dynamic_result => lambda { |d|
           return true if _first_body_match d,/\<form.*$/;
         false
         },
-        :hide => true,
+        :hide => false,
         :paths => ["#{url}"],
       }
     ]

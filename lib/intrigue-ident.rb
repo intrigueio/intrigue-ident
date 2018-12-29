@@ -6,6 +6,8 @@ require 'zlib'
 # load in http libs
 require_relative 'http'
 
+require_relative 'content'
+
 # Load in checks
 ################
 require_relative 'check_factory'
@@ -21,6 +23,8 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 module Intrigue
   module Ident
+
+    include Intrigue::Ident::Content::Helpers
 
     # Used by intrigue-core... note that this will currently fail unless
     # Intrigue::Task::Web is available
@@ -98,7 +102,7 @@ module Intrigue
     def match_dom_text(check,text)
       data = {
         "details" =>  {
-          "hidden_response_data" => text,
+          "hidden_response_rendered_data" => text,
           "headers" => [],
           "cookies" => "",
           "generator" => "",
@@ -192,33 +196,21 @@ module Intrigue
 
       if check[:type] == "fingerprint"
         if check[:match_type] == :content_body
-          if data["details"] && data["details"]["hidden_response_data"]
-            match = _construct_match_response(check,data) if data["details"]["hidden_response_data"] =~ check[:match_content]
-          end
+          match = _construct_match_response(check,data) if _body(data) =~ check[:match_content]
+        elsif check[:match_type] == :content_body_raw
+          match = _construct_match_response(check,data) if _body_raw(data) =~ check[:match_content]
+        elsif check[:match_type] == :content_body_rendered
+          match = _construct_match_response(check,data) if _body_rendered(data) =~ check[:match_content]
         elsif check[:match_type] == :content_headers
-          #puts "trying to match headers: #{check} #{data["details"]["headers"]}"
-          if data["details"] && data["details"]["headers"]
-            match = _construct_match_response(check,data) if data["details"]["headers"].join("\n") =~ check[:match_content]
-          end
+          match = _construct_match_response(check,data) if _headers(data) =~ check[:match_content]
         elsif check[:match_type] == :content_cookies
-          # Check only the set-cookie header
-          if data["details"] && data["details"]["cookies"]
-            match = _construct_match_response(check,data) if data["details"]["cookies"] =~ check[:match_content]
-          end
+          match = _construct_match_response(check,data) if _cookies(data) =~ check[:match_content]
         elsif check[:match_type] == :content_generator
-          # Check only the set-cookie header
-          if data["details"] && data["details"]["generator"]
-            match = _construct_match_response(check,data) if data["details"]["generator"] =~ check[:match_content]
-          end
+          match = _construct_match_response(check,data) if _generator(data) =~ check[:match_content]
         elsif check[:match_type] == :content_title
-          # Check only the set-cookie header
-          if data["details"] && data["details"]["title"]
-            match = _construct_match_response(check,data) if data["details"]["title"] =~ check[:match_content]
-          end
+            match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
         elsif check[:match_type] == :checksum_body
-          if data["details"] && data["details"]["response_data_hash"]
-            match = _construct_match_response(check,data) if data["details"]["response_data_hash"] == check[:match_content]
-          end
+          match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
         end
       elsif check[:type] == "configuration"
         match = _construct_match_response(check,data)
@@ -229,7 +221,6 @@ module Intrigue
     private
 
     def _construct_match_response(check, data)
-      #puts "Working on check: #{check}"
 
       if check[:type] == "fingerprint"
         calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || ""
@@ -264,8 +255,6 @@ module Intrigue
 
       elsif check[:type] == "configuration"
 
-        #puts "working on config check: #{check}"
-
         result = check[:dynamic_result].call(data)
 
         to_return = {
@@ -277,9 +266,6 @@ module Intrigue
 
     to_return
     end
-
-
-
 
 end
 end

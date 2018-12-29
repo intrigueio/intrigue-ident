@@ -15,7 +15,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           return true if _first_header_match d, /^www-authenticate:.*$/
         false
         },
-        :hide => true,
+        :hide => false,
         :paths => ["#{url}"],
       },
       {
@@ -26,20 +26,19 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
           "https://nmap.org/nsedoc/scripts/http-auth-finder.html"
         ],
-        :match_type => :content_dom,
+        :match_type => :content_body_rendered,
         :dynamic_result => lambda { |d|
-          body = d["details"]["hidden_response_data"]
-          return true if body =~ /<input type=\"password\"/im;
-          return true if body =~ /<script>[^>]*login/im;
-          return true if body =~ /<[^>]*login/im;
-          return true if body =~ /<script>[^>]*password/im;
-          return true if body =~ /<script>[^>]*user/im;
-          return true if body =~ /<input[^>)]*user/im;
-          return true if body =~ /<input[^>)]*pass/im;
-          return true if body =~ /<input[^>)]*pwd/im;
+          return true if _body(d) =~ /<input type=\"password\"/im;
+          return true if _body(d) =~ /<script>[^>]*login/im;
+          return true if _body(d) =~ /<[^>]*login/im;
+          return true if _body(d) =~ /<script>[^>]*password/im;
+          return true if _body(d) =~ /<script>[^>]*user/im;
+          return true if _body(d) =~ /<input[^>)]*user/im;
+          return true if _body(d) =~ /<input[^>)]*pass/im;
+          return true if _body(d) =~ /<input[^>)]*pwd/im;
         false
         },
-        :hide => true,
+        :hide => false,
         :paths => ["#{url}"],
       }
     ]

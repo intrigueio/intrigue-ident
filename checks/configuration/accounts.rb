@@ -16,7 +16,7 @@ class ContentConfiguration < Intrigue::Ident::Check::Base
           end
         false
         },
-        :hide => true,
+        :hide => false,
         :paths => ["#{url}"],
       }
     ]

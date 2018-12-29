@@ -157,10 +157,6 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
     @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
   rescue SocketError => e
     @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
-  #rescue SystemCallError => e
-  #  @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
-  #rescue ArgumentError => e
-  #  @task_result.logger.log_error "Argument Error: #{e}" if @task_result
   rescue Encoding::InvalidByteSequenceError => e
     @task_result.logger.log_error "Encoding error: #{e}" if @task_result
   rescue Encoding::UndefinedConversionError => e
