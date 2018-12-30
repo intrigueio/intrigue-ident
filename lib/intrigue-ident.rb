@@ -6,6 +6,7 @@ require 'zlib'
 # load in http libs
 require_relative 'http'
 
+require_relative 'browser'
 require_relative 'content'
 
 # Load in checks
@@ -25,6 +26,7 @@ module Intrigue
   module Ident
 
     include Intrigue::Ident::Content::Helpers
+    include Intrigue::Ident::Browser
 
     # Used by intrigue-core... note that this will currently fail unless
     # Intrigue::Task::Web is available
@@ -33,7 +35,7 @@ module Intrigue
       # load in browser control
       require_relative 'initialize/capybara'
       require_relative 'browser'
-      include Intrigue::Ident::Browser
+
 
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks
