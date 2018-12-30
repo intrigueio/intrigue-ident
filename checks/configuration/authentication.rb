@@ -43,7 +43,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name =>"Account Required",
+        :name =>"User Account (Heuristic)",
         :tags => ["AuthenticationConfig"],
         :references => [],
         :match_type => :content_dom,
@@ -53,6 +53,8 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /create an account/im;
           return true if _body(d) =~ /create_account/im;
           return true if _body(d) =~ /log_in/im;
+          return true if _body(d) =~ /class="login-btn/im;
+          return true if _body(d) =~ /\/login/im;
         false
         },
         :hide => false,

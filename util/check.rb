@@ -11,12 +11,12 @@ unless check_result
   exit -1
 end
 
-puts "Requests: "
-if check_result["requests"]
-  check_result["requests"].each do|x|
-    puts " - #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
-  end
-end
+#puts "Requests: "
+#if check_result["requests"]
+#  check_result["requests"].each do|x|
+#    puts " - #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+#  end
+#end
 
 puts "Fingerprint: "
 if check_result["fingerprint"]
