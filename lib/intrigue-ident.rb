@@ -64,7 +64,7 @@ module Intrigue
 
         # get the response using a normal http request
         # TODO - collect redirects here
-        response_hash = http_request :get, "#{target_url}"
+        response_hash = ident_http_request :get, "#{target_url}"
         requests << response_hash
 
         # get the dom from a browser
