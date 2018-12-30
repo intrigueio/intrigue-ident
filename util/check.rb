@@ -2,7 +2,14 @@
 require_relative "../lib/intrigue-ident"
 include Intrigue::Ident
 
-url = ARGV[0]
+url = "#{ARGV[0]}"
+debug = "#{ARGV[1]}" == "debug"
+
+unless url =~ /^http[s]?:\/\/.*$/
+  puts "Unable to parse URL, please append http or https in front."
+  return
+end
+
 puts "Checking... #{url}"
 check_result = generate_http_requests_and_check(url)
 
@@ -11,12 +18,14 @@ unless check_result
   exit -1
 end
 
-#puts "Requests: "
-#if check_result["requests"]
-#  check_result["requests"].each do|x|
-#    puts " - #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
-#  end
-#end
+if debug
+  puts "Requests: "
+  if check_result["requests"]
+    check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do|x|
+      puts " - #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+    end
+  end
+end
 
 puts "Fingerprint: "
 if check_result["fingerprint"]

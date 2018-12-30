@@ -18,8 +18,8 @@ check_folder = File.expand_path('../checks', File.dirname(__FILE__)) # get absol
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # config checks
-check_folder = File.expand_path('../checks/configuration', File.dirname(__FILE__)) # get absolute directory
-Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+config_check_folder = File.expand_path('../checks/configuration', File.dirname(__FILE__)) # get absolute directory
+Dir["#{config_check_folder}/*.rb"].each { |file| require_relative file }
 
 module Intrigue
   module Ident
@@ -36,12 +36,20 @@ module Intrigue
       include Intrigue::Ident::Browser
 
       # gather all fingeprints for each product
-      # this will look like an array of checks, each with a uri and a SET of checks
-      generated_checks = Intrigue::Ident::CheckFactory.checks.map{|x| x.new.generate_checks(url) }.flatten
+      # this will look like an array of checks, each with a uri and a set of checks
+      generated_checks = Intrigue::Ident::CheckFactory.checks.map{ |x|
+        x.new.generate_checks(url) }.flatten
 
-      # group by the uris, with the associated checks
-      # TODO - this only currently supports the first path of the group!!!!
-      grouped_generated_checks = generated_checks.group_by{|x| x[:paths].first }
+      # in order to ensure we check all urls associated with a check, we need to
+      # group them up by each path, which is annoying because they're stored in
+      # an array on each check. This line handles that. (take all the checks []
+      # with each of their paths [], flatten and group by them
+      checks_by_path = generated_checks.map{|c| c[:paths].map{ |p|
+        c.merge({:unique_path => p})} }.flatten
+
+      # now we have them organized by a single path, group them up so we only
+      # have to make a single request per unique path
+      grouped_generated_checks = checks_by_path.group_by{|x| x[:unique_path] }
 
       # shove results into an array
       results = []

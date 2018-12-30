@@ -43,22 +43,28 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name =>"User Account (Heuristic)",
-        :tags => ["AuthenticationConfig"],
+        :name =>"User Account Required",
+        :tags => ["AuthenticationConfig","Heuristic"],
         :references => [],
         :match_type => :content_dom,
         :dynamic_result => lambda { |d|
+          return true if _body(d) =~ /log_in/im;
+          return true if _body(d) =~ /log_out/im;
+          return true if _body(d) =~ /class=\"login-btn/im;
+          return true if _body(d) =~ /<[^>]*login/im;
+          return true if _body(d) =~ />Login<\/a>/im;
+          return true if _body(d) =~ />Logout<\/a>/im;
+          return true if _body(d) =~ />Log In<\/a>/im;
+          return true if _body(d) =~ />Log Out<\/a>/im;
+          return true if _body(d) =~ />Sign In<\/a>/im;
           return true if _body(d) =~ /sign\ in/im;
           return true if _body(d) =~ /sign_in/im;
           return true if _body(d) =~ /create an account/im;
           return true if _body(d) =~ /create_account/im;
-          return true if _body(d) =~ /log_in/im;
-          return true if _body(d) =~ /class="login-btn/im;
-          return true if _body(d) =~ /\/login/im;
         false
         },
         :hide => false,
-        :paths => ["#{url}","#{url}/login"]
+        :paths => ["#{url}"]
       }
     ]
   end
