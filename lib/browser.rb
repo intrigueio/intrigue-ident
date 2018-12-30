@@ -28,9 +28,9 @@ module Ident
 
       rescue Errno::ESRCH => e
         # already dead
-        puts "Error trying to kill our browser session #{e}"
+        #puts "Error trying to kill our browser session #{e}"
       rescue Net::ReadTimeout => e
-        puts "Timed out trying to close our session.. #{e}"
+        #puts "Timed out trying to close our session.. #{e}"
       end
 
     end
@@ -74,15 +74,21 @@ module Ident
 
       # Capture Title
       page_title = session.document.title
-      # Capture Body Text
-      page_contents = session.document.text(:all)
+
       # Capture DOM
       rendered_page = nil
       ident_safe_browser_action do
         rendered_page = session.evaluate_script("document.documentElement.innerHTML",[])
       end
 
-    { :title => page_title, :contents => page_contents, :rendered => rendered_page }
+      to_return = {
+        :start_url => uri,
+        :final_url => session.current_url,
+        :request_type => :chrome,
+        :request_method => :get,
+        :title => page_title,
+        :rendered => rendered_page
+      }
   end
 
   def ident_capture_screenshot(session, uri)

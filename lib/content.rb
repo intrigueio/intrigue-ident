@@ -32,7 +32,7 @@ module Intrigue
       end
 
       def _headers(content)
-        content["details"]["headers"].join("\n")
+        (content["details"]["headers"] || []).join("\n")
       end
 
       def _cookies(content)

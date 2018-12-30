@@ -10,13 +10,17 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
   begin
 
     # set user agent
-    headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+    headers["User-Agent"] = user_agent
 
     attempts=0
     max_attempts=10
     found = false
 
     uri = URI.parse uri_string
+
+    # keep track of redirects
+    response_urls = ["#{uri}"]
 
     unless uri
       _log error "Unable to parse URI from: #{uri_string}"
@@ -29,6 +33,7 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
 
      if $global_config
        if $global_config.config["http_proxy"]
+         proxy_config = $global_config.config["http_proxy"]
          proxy_addr = $global_config.config["http_proxy"]["host"]
          proxy_port = $global_config.config["http_proxy"]["port"]
          proxy_user = $global_config.config["http_proxy"]["user"]
@@ -101,9 +106,9 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
      if (response.header['location']!=nil)
        newuri=URI.parse(response.header['location'])
        if(newuri.relative?)
-           #@task_result.logger.log "url was relative" if @task_result
-           newuri=uri+response.header['location']
+         newuri=URI.parse("#{uri}#{response.header['location']}")
        end
+       response_urls << newuri.to_s
        uri=newuri
 
      else
@@ -111,59 +116,76 @@ def http_request(method, uri_string, credentials=nil, headers={}, data=nil, limi
      end #end if location
    end #until
 
-  ### TODO - this code may be be called outside the context of a task,
-  ###  meaning @task_result is not available to it. Below, we check to
-  ###  make sure that it exists before attempting to log anything,
-  ###  but there may be a cleaner way to do this (hopefully?). Maybe a
-  ###  global logger or logging queue?
-  ###
-  #rescue TypeError
-  #  # https://github.com/jaimeiniesta/metainspector/issues/125
-  #  @task_result.logger.log_error "TypeError - unknown failure" if @task_result
+   final_url = uri
+
+  ### TODO - create a global $debug config option
   rescue ArgumentError => e
-    @task_result.logger.log_error "Unable to open connection: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Net::OpenTimeout => e
-    @task_result.logger.log_error "OpenTimeout Timeout : #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Net::ReadTimeout => e
-    @task_result.logger.log_error "ReadTimeout Timeout : #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::ETIMEDOUT => e
-    @task_result.logger.log_error "ETIMEDOUT Timeout : #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::EINVAL => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::ENETUNREACH => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::EHOSTUNREACH => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue URI::InvalidURIError => e
     #
     # XXX - This is an issue. We should catch this and ensure it's not
     # due to an underscore / other acceptable character in the URI
     # http://stackoverflow.com/questions/5208851/is-there-a-workaround-to-open-urls-containing-underscores-in-ruby
     #
-    @task_result.logger.log_error "Unable to request URI: #{uri} #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue OpenSSL::SSL::SSLError => e
-    @task_result.logger.log_error "SSL connect error : #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::ECONNREFUSED => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Errno::ECONNRESET => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Net::HTTPBadResponse => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Zlib::BufError => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Zlib::DataError => e # "incorrect header check - may be specific to ruby 2.0"
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue EOFError => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue SocketError => e
-    @task_result.logger.log_error "Unable to connect: #{e}" if @task_result
+    puts "Unable to connect: #{e}" if $debug
   rescue Encoding::InvalidByteSequenceError => e
-    @task_result.logger.log_error "Encoding error: #{e}" if @task_result
+    puts "Encoding: #{e}" if $debug
   rescue Encoding::UndefinedConversionError => e
-    @task_result.logger.log_error "Encoding error: #{e}" if @task_result
+    puts "Encoding: #{e}" if $debug
   end
 
-response
+  # generate our output
+  out = {
+    :start_url => uri_string,
+    :final_url => final_url,
+    :request_type => :ruby,
+    :request_method => method,
+    :request_credentials => credentials,
+    :request_headers => headers,
+    :request_data => data,
+    :request_attempts_limit => limit,
+    :request_attempts_used => attempts,
+    :request_user_agent => user_agent,
+    :request_proxy => proxy_config,
+    :response_urls => response_urls,
+    :response_object => response
+  }
+
+  # verify we have a response before adding these
+  if response
+    out[:response_headers] = response.each_header.map{|x| "#{x}: #{response[x]}" }
+    out[:response_body] = response.body
+  end
+
+  out
 end
 
 end

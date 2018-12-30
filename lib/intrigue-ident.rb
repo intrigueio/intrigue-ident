@@ -35,8 +35,6 @@ module Intrigue
       require_relative 'browser'
       include Intrigue::Ident::Browser
 
-      results = []
-
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a SET of checks
       generated_checks = Intrigue::Ident::CheckFactory.checks.map{|x| x.new.generate_checks(url) }.flatten
@@ -45,43 +43,52 @@ module Intrigue
       # TODO - this only currently supports the first path of the group!!!!
       grouped_generated_checks = generated_checks.group_by{|x| x[:paths].first }
 
+      # shove results into an array
+      results = []
+
+      # keep an array of the request / response details
+      requests = []
+
       # call the check on each uri
       grouped_generated_checks.each do |ggc|
 
         target_url = ggc.first
 
         # get the response using a normal http request
-        response = http_request :get, "#{target_url}"
+        # TODO - collect redirects here
+        response_hash = http_request :get, "#{target_url}"
+        requests << response_hash
 
         # get the dom from a browser
         if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
           #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
           session = ident_create_browser_session
-          rendered_response = ident_capture_document(session,"#{target_url}")[:rendered]
+          browser_response = ident_capture_document(session,"#{target_url}")
+
+          # save the response to our list of responses
+          # TODO - collect redirects here
+          # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
+          requests << browser_response
+
+          rendered_response = browser_response[:rendered]
           ident_destroy_browser_session session
-        # else
-        # puts "checks: #{ggc.last.map{|c| c[:match_type] }}"
         end
 
-        #unless response
-        #  return nil
-        #end
-
         # Go ahead and match it up if we got a response!
-        if response
+        if response_hash || browser_response
           # call each check, collecting the product if it's a match
           ggc.last.each do |check|
 
             # if we have a check that should match the dom, run it
-            if (check[:match_type] == :content_dom) && rendered_response
+            if (check[:match_type] == :content_dom)
+              rendered_response = browser_response[:rendered]
               results << match_dom_text(check,rendered_response)
             else #otherwise use the normal flow
-              results << match_http_response_object(check,response)
+              results << match_http_response_hash(check,response_hash)
             end
 
           end
         end
-
       end
 
     return nil unless results
@@ -93,10 +100,28 @@ module Intrigue
     out["fingerprint"] = [] unless out["fingerprint"]
     out["configuration"] = [] unless out["configuration"]
 
+    # only return unique results
     out["fingerprint"] = out["fingerprint"].uniq
     out["configuration"] = out["configuration"].uniq
 
+    # attach the responses
+    out["requests"] = requests
+
     out
+    end
+
+    def match_http_response_hash(check,hash)
+      data = hash.merge({
+        "details" =>  {
+          "hidden_response_data" => "#{hash[:response_body]}",
+          "headers" => hash[:response_headers], # this is a hash and we need an array!
+          "cookies" => (hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i },
+          "generator" => "#{hash[:response_body]}".match(/<meta name="generator" content=(.*?)>/i),
+          "title" => "#{hash[:response_body]}".match(/<title>(.*?)<\/title>/i)
+        }
+      })
+
+      match_uri_hash(check,data)
     end
 
     def match_dom_text(check,text)
@@ -151,12 +176,15 @@ module Intrigue
 
       match_uri_hash(check,data)
     end
-
+=begin
     # this method takes a check and a net/http response object and
     # constructs it into a format that's matchable. it then attempts
     # to match, and returns a match object if it matches, otherwise
     # returns nil.
     def match_http_response_object(check, response)
+
+      # tODO necessary?
+      return nil unless response
 
       # Construct an Intrigue Entity of type Uri so we can match it
       data = {}
@@ -182,6 +210,7 @@ module Intrigue
       # call the actual matcher & return
       match_uri_hash check, data
     end
+=end
 
     def match_uri_hash(check, data)
       return nil unless check && data

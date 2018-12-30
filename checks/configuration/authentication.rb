@@ -26,7 +26,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
           "https://nmap.org/nsedoc/scripts/http-auth-finder.html"
         ],
-        :match_type => :content_body_rendered,
+        :match_type => :content_dom,
         :dynamic_result => lambda { |d|
           return true if _body(d) =~ /<input type=\"password\"/im;
           return true if _body(d) =~ /<script>[^>]*login/im;
@@ -39,7 +39,24 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
         false
         },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "configuration",
+        :name =>"Account Required",
+        :tags => ["AuthenticationConfig"],
+        :references => [],
+        :match_type => :content_dom,
+        :dynamic_result => lambda { |d|
+          return true if _body(d) =~ /sign\ in/im;
+          return true if _body(d) =~ /sign_in/im;
+          return true if _body(d) =~ /create an account/im;
+          return true if _body(d) =~ /create_account/im;
+          return true if _body(d) =~ /log_in/im;
+        false
+        },
+        :hide => false,
+        :paths => ["#{url}","#{url}/login"]
       }
     ]
   end

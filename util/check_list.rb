@@ -4,7 +4,7 @@ require_relative "../lib/intrigue-ident"
 include Intrigue::Ident
 
 filepath = ARGV[0]
-puts "Using File: #{filepath}"
+#puts "Using File: #{filepath}"
 
 # push all urls into a queue
 work_q = Queue.new
@@ -15,18 +15,18 @@ workers = (0...9).map do
    begin
      while url = work_q.pop(true)
        url = url.chomp
-       puts "Checking: #{url}"
-       matches = generate_http_requests_and_check(url)
+       #puts "Checking: #{url}"
+       check_result = generate_http_requests_and_check(url)
 
-       unless matches
+       unless check_result
          puts "Error... unable to get matches!"
          exit -1
        end
 
-       if matches["fingerprint"]
+       if check_result["fingerprint"]
          File.open("fingerprints.csv","a") do |f|
            uniq_matches = []
-           matches["fingerprint"].each do|x|
+           check_result["fingerprint"].each do|x|
              # Make sure not to print dupes
              next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
              uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
@@ -38,9 +38,9 @@ workers = (0...9).map do
          end
        end
 
-       if matches["configuration"]
+       if check_result["configuration"]
          File.open("configurations.csv","a") do |f|
-           matches["configuration"].each do |x|
+           check_result["configuration"].each do |x|
              out = "#{url}, #{x["name"]}, #{x["result"]}"
              puts "CF: #{out}"
              f.puts out
