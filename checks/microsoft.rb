@@ -188,10 +188,12 @@ module Check
             :match_type => :content_body,
             :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/,
             :dynamic_version => lambda { |x|
-              owa_to_exchange_version(_first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/))[:version]
+
+              owa_to_exchange_version(version_string)[:version]
             },
             :dynamic_update => lambda { |x|
-              owa_to_exchange_version(_first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/))[:update]
+              update_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
+              owa_to_exchange_version(update_string)[:update]
             },
             :paths => ["#{url}"]
           },
@@ -207,10 +209,12 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /x-owa-version/,
             :dynamic_version => lambda { |x|
-              owa_to_exchange_version(_first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/))[:version]
+              version_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
+              owa_to_exchange_version(version_string)[:version]
             },
             :dynamic_update => lambda { |x|
-              owa_to_exchange_version(_first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/))[:update]
+              update_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
+              owa_to_exchange_version(update_string)[:update]
             },
             :paths => ["#{url}"]
           },
@@ -517,6 +521,8 @@ module Check
           out = { version: "2016", update: "Cumulative Update 10" }
         elsif owa_version == "15.1.1591" #.01"
           out = { version: "2016", update: "Cumulative Update 11" }
+        else
+          out = { version: "[Unknown]", update: "[Unknown]" }
         end
       end
 
