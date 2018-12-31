@@ -9,6 +9,7 @@ class Arris < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "service",
         :tags => ["CDN"],
+        :website => "http://www.arrisi.com/",
         :vendor => "Arris",
         :product => "2307 Modem",
         :version => nil,
