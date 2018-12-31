@@ -119,15 +119,30 @@ module Intrigue
     end
 
     def match_http_response_hash(check,hash)
+
+      # save off the generator string
+      generator_match = "#{hash[:response_body]}".match(/<meta name="generator" content=(.*?)>/i)
+      generator_string = generator_match.captures.first.strip if generator_match
+
+      # save off the title string
+      title_match = "#{hash[:response_body]}".match(/<title>(.*?)<\/title>/i)
+      title_string = title_match.captures.first.strip if title_match
+
+      # grab the set cookie header
+      set_cookie_header = (hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}
+      
       data = hash.merge({
         "details" =>  {
           "hidden_response_data" => "#{hash[:response_body]}",
           "headers" => hash[:response_headers], # this is a hash and we need an array!
-          "cookies" => (hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i },
-          "generator" => "#{hash[:response_body]}".match(/<meta name="generator" content=(.*?)>/i),
-          "title" => "#{hash[:response_body]}".match(/<title>(.*?)<\/title>/i)
+          "cookies" => set_cookie_header,
+          "generator" => generator_string,
+          "title" => title_string
         }
       })
+
+      pp "Matching Hash:"
+      pp "#{JSON.pretty_generate data}"
 
       match_uri_hash(check,data)
     end

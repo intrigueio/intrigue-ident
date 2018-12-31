@@ -19,10 +19,27 @@ unless check_result
 end
 
 if debug
+  i= 0
   puts "Requests: "
+
   if check_result["requests"]
+
+    # delete any existing file
+    File.delete "requests.txt" if File.exist? "requests.txt"
+
     check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do|x|
-      puts " - #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+
+      # increment the request number
+      i+=1
+
+      # print it
+      puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+
+      # write the contents to a file
+      File.open("requests.txt","a") do |f|
+        f.puts "Request #{i}\n #{x[:response_headers].join("\n") if x[:response_headers]}\n#{x[:response_body]}\n\n\n"
+      end
+
     end
   end
 end
