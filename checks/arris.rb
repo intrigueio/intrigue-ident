@@ -7,8 +7,8 @@ class Arris < Intrigue::Ident::Check::Base
     [
       {
         :type => "fingerprint",
-        :category => "service",
-        :tags => ["CDN"],
+        :category => "application",
+        :tags => ["Embedded","Networking","IoT"],
         :website => "http://www.arrisi.com/",
         :vendor => "Arris",
         :product => "2307 Modem",
