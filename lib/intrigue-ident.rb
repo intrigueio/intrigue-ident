@@ -33,9 +33,7 @@ module Intrigue
     def generate_http_requests_and_check(url)
 
       # load in browser control
-      require_relative 'initialize/capybara'
       require_relative 'browser'
-
 
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks

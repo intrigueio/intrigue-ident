@@ -238,7 +238,6 @@ end
 
 
 ### Configure capybara, selenium and headless chrome
-
 require 'capybara'
 require "selenium/webdriver"
 
