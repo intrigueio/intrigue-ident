@@ -130,7 +130,7 @@ module Intrigue
 
       # grab the set cookie header
       set_cookie_header = (hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}
-      
+
       data = hash.merge({
         "details" =>  {
           "hidden_response_data" => "#{hash[:response_body]}",
@@ -141,10 +141,7 @@ module Intrigue
         }
       })
 
-      pp "Matching Hash:"
-      pp "#{JSON.pretty_generate data}"
-
-      match_uri_hash(check,data)
+    match_uri_hash(check,data)
     end
 
     def match_dom_text(check,text)
