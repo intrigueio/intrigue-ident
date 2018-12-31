@@ -50,6 +50,8 @@ module Ident
         unless ("#{e}" =~ /is not defined/ || "#{e}" =~ /Cannot read property/)
           puts "Webdriver issue #{e}"
         end
+      rescue Selenium::WebDriver::Error::UnhandledAlertError => e
+        puts "Lost our window due to undexpected popup #{e}"
       rescue Selenium::WebDriver::Error::NoSuchWindowError => e
         puts "Lost our window #{e}"
       rescue Selenium::WebDriver::Error::UnknownError => e
