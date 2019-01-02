@@ -16,11 +16,11 @@ module Intrigue
       end
 
       def _body_raw_checksum(content)
-        Digest::MD5.hexdigest(_body_raw(content))
+        Digest::MD5.hexdigest("#{_body_raw(content)}")
       end
 
       def _body_rendered_checksum(content)
-        Digest::MD5.hexdigest(_body_rendered(content))
+        Digest::MD5.hexdigest("#{_body_rendered(content)}")
       end
 
       def _generator(content)
@@ -36,7 +36,7 @@ module Intrigue
       end
 
       def _cookies(content)
-        content["details"]["cookeis"]
+        content["details"]["cookies"]
       end
 
     end

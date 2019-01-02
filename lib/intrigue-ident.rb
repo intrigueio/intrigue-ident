@@ -129,7 +129,7 @@ module Intrigue
       title_string = title_match.captures.first.strip if title_match
 
       # grab the set cookie header
-      set_cookie_header = (hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}
+      set_cookie_header = "#{(hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}.first}".gsub("set-cookie:","").strip
 
       data = hash.merge({
         "details" =>  {
@@ -172,6 +172,7 @@ module Intrigue
 
       # TODO - fix to only grab content!!!!
       cookies = headers.select{|x| x =~ /^set-cookie:(.*)/i }
+      puts "Got Cookies: #{cookies}"
 
       ### grab the page attributes
       match = body.match(/<title>(.*?)<\/title>/i)
