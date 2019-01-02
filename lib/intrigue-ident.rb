@@ -172,7 +172,6 @@ module Intrigue
 
       # TODO - fix to only grab content!!!!
       cookies = headers.select{|x| x =~ /^set-cookie:(.*)/i }
-      puts "Got Cookies: #{cookies}"
 
       ### grab the page attributes
       match = body.match(/<title>(.*?)<\/title>/i)
