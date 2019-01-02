@@ -188,7 +188,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/,
             :dynamic_version => lambda { |x|
-
+              version_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
               owa_to_exchange_version(version_string)[:version]
             },
             :dynamic_update => lambda { |x|
