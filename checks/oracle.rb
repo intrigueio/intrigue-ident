@@ -126,6 +126,20 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Web Server","Embedded"],
+            :vendor => "Oracle",
+            :product =>"GoAhead Web Server",
+            :match_details =>"server header",
+            :references => [],
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /server: GoAhead-Webs/,
+            :hide => false,
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
             :tags => ["Web Server"],
             :vendor => "Oracle",
             :product =>"iPlanet Web Server",
