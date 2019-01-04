@@ -29,6 +29,18 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /server: Google Search Appliance/i,
             :paths => ["#{url}"],
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Marketing","Javascript"],
+            :vendor => "Google",
+            :product =>"Tag Manager",
+            :match_details =>"js load string",
+            :version => nil,
+            :match_type => :content_body,
+            :match_content =>  /<!-- End Google Tag Manager -->/im,
+            :paths => ["#{url}"],
           }
         ]
       end
