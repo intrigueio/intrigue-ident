@@ -1,21 +1,19 @@
 module Intrigue
 module Ident
 module Check
-class Artifactory < Intrigue::Ident::Check::Base
+class InnovativeInterfacesInc < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
       {
         :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS","CMS"],
-        :vendor => "Artifactory",
-        :product => "Artifactory",
+        :category => "service",
+        :tags => ["CMS"],
+        :vendor => "Innovative Interfaces Inc",
+        :product => "III 100",
         :version => nil,
-        :dynamic_version => lambda { |x|
-          _first_header_capture(x,/server: Artifactory\/(.*)$/i) },
         :match_type => :content_headers,
-        :match_content =>  /server: Artifactory/,
+        :match_content =>  /server: III 100/,
         :match_details =>"server header",
         :paths => ["#{url}"]
       }

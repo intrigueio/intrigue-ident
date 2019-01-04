@@ -9,11 +9,13 @@ class Artifactory < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["COTS","CMS"],
-        :vendor => "Innovative Interfaces Inc",
-        :product => "III",
+        :vendor => "Artifactory",
+        :product => "Artifactory",
         :version => nil,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/server: Artifactory\/(.*)$/i) },
         :match_type => :content_headers,
-        :match_content =>  /server: III 100/,
+        :match_content =>  /server: Artifactory/,
         :match_details =>"server header",
         :paths => ["#{url}"]
       }
