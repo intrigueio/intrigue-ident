@@ -67,7 +67,7 @@ module Intrigue
         response_hash = ident_http_request :get, "#{target_url}"
         requests << response_hash
 
-        # get the dom from a browser
+        # get the dom via a browser
         if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
           #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
           session = ident_create_browser_session
@@ -78,7 +78,6 @@ module Intrigue
           # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
           requests << browser_response
 
-          rendered_response = browser_response[:rendered]
           ident_destroy_browser_session session
         end
 
@@ -89,8 +88,7 @@ module Intrigue
 
             # if we have a check that should match the dom, run it
             if (check[:match_type] == :content_dom)
-              rendered_response = browser_response[:rendered]
-              results << match_dom_text(check,rendered_response)
+              results << match_browser_response_hash(check,browser_response)
             else #otherwise use the normal flow
               results << match_http_response_hash(check,response_hash)
             end
@@ -134,6 +132,8 @@ module Intrigue
       data = hash.merge({
         "details" =>  {
           "hidden_response_data" => "#{hash[:response_body]}",
+          "start_url" => "#{hash[:start_url]}",
+          "final_url" => "#{hash[:final_url]}",
           "headers" => hash[:response_headers], # this is a hash and we need an array!
           "cookies" => set_cookie_header,
           "generator" => generator_string,
@@ -144,14 +144,16 @@ module Intrigue
     match_uri_hash(check,data)
     end
 
-    def match_dom_text(check,text)
+    def match_browser_response_hash(check,browser_response_hash)
       data = {
         "details" =>  {
-          "hidden_response_rendered_data" => text,
+          "hidden_response_data_rendered" => "#{browser_response_hash[:rendered]}",
+          "start_url" => "#{browser_response_hash[:start_url]}",
+          "final_url" => "#{browser_response_hash[:final_url]}",
           "headers" => [],
           "cookies" => "",
           "generator" => "",
-          "title" => ""
+          "title" => "#{browser_response_hash[:title]}",
         }
       }
 
@@ -248,7 +250,7 @@ module Intrigue
           match = _construct_match_response(check,data) if _body(data) =~ check[:match_content]
         elsif check[:match_type] == :content_body_raw
           match = _construct_match_response(check,data) if _body_raw(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_body_rendered
+        elsif check[:match_type] == :content_dom
           match = _construct_match_response(check,data) if _body_rendered(data) =~ check[:match_content]
         elsif check[:match_type] == :content_headers
           match = _construct_match_response(check,data) if _headers(data) =~ check[:match_content]

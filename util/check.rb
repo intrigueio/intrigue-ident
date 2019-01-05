@@ -37,7 +37,7 @@ if debug
 
       # write the contents to a file
       File.open("requests.txt","a") do |f|
-        f.puts "Request #{i}\n #{x[:response_headers].join("\n") if x[:response_headers]}\n#{x[:response_body]}\n\n\n"
+        f.puts "Request #{i}\n #{JSON.pretty_generate(x)}\n\n\n\n"
       end
 
     end

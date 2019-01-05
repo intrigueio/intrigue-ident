@@ -18,7 +18,8 @@ module Check
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/server: lighttpd\/(.*)/i,)
           },
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :examples => ["lighttpd/1.4.23-devel-Unversioned directory"]
         }
       ]
     end

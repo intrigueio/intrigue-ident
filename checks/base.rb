@@ -74,6 +74,40 @@ class Base
     nil
   end
 
+  def _first_title_match(content, regex)
+    return nil unless content["details"]["title"]
+    content["details"]["title"].match(regex).first
+  end
+
+  def _first_title_capture(content, regex, filter=[])
+    return nil unless content["details"]["title"]
+    x = content["details"]["title"].match(regex)
+    if x
+      x = x.captures.first.strip
+      filter.each{|f| x.gsub!(f,"") }
+      x = x.strip
+      return x if x.length > 0
+    end
+  nil
+  end
+
+  def _first_generator_match(content, regex)
+    return nil unless content["details"]["generator"]
+    content["details"]["title"].match(regex).first
+  end
+
+  def _first_generator_capture(content, regex, filter=[])
+    return nil unless content["details"]["generator"]
+    x = content["details"]["generator"].match(regex)
+    if x
+      x = x.captures.first.strip
+      filter.each{|f| x.gsub!(f,"") }
+      x = x.strip
+      return x if x.length > 0
+    end
+  nil
+  end
+
 end
 end
 end
