@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => [],
+            :tags => ["Web Framework"],
             :vendor => "Bootstrap",
             :product => "Bootstrap",
             :match_details =>"boostrap css",

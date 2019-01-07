@@ -412,7 +412,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Productivity"],
+            :tags => ["Productivity", "COTS"],
             :vendor => "Microsoft",
             :product =>"Outlook Web Access",
             :match_details =>"Microsoft Outlook Web Access (header)",
@@ -425,6 +425,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Productivity", "COTS"],
             :vendor => "Microsoft",
             :product =>"Outlook Web Access",
             :match_details =>"Microsoft Outlook Web Access (body)",
