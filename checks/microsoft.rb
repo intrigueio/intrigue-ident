@@ -83,6 +83,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET MVC",
             :match_details =>"Asp.Net MVC Header",
