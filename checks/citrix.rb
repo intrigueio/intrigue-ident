@@ -10,11 +10,11 @@ module Check
             :category => "operating_system",
             :tags => ["Networking","COTS", "VPN"],
             :vendor => "Citrix",
-            :product => "Netscaler Gateway Firmware",
-            :match_details => "Citrix Netscaler Gateway",
+            :product => "NetScaler Gateway Firmware",
+            :match_details => "Citrix NetScaler Gateway",
             :version => nil,
-            :match_type => :content_body,
-            :match_content =>  /<title>Netscaler Gateway/,
+            :match_type => :content_dom, # weird redirect thing happening...
+            :match_content => /<title>NetScaler Gateway/,
             :hide => false,
             :paths => ["#{url}"]
           },

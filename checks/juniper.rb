@@ -28,11 +28,10 @@ module Check
           :references => [
             "https://kb.pulsesecure.net/articles/Pulse_Secure_Article/KB40250",
             "https://github.com/carnal0wnage/Metasploit-Code/blob/master/modules/auxiliary/scanner/juniper_scan.rb",
-            "http://carnal0wnage.attackresearch.com/2013/05/funky-juniper-urls.html" < # TODO ... module?
+            "http://carnal0wnage.attackresearch.com/2013/05/funky-juniper-urls.html" #<^ TODO ... task?
            ],
           :match_type => :content_body,
-          :references => [],
-          :match_content =>  /<td background="\/dana-na\/imgs\/footerbg.gif">/,
+          :match_content => /<td background="\/dana-na\/imgs\/footerbg.gif">/,
           :version => nil,
           :paths => ["#{url}"]
         },

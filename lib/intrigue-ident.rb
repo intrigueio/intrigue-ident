@@ -156,7 +156,7 @@ module Intrigue
           "title" => "#{browser_response_hash[:title]}",
         }
       }
-
+    
       match_uri_hash(check,data)
     end
 
@@ -259,7 +259,7 @@ module Intrigue
         elsif check[:match_type] == :content_generator
           match = _construct_match_response(check,data) if _generator(data) =~ check[:match_content]
         elsif check[:match_type] == :content_title
-            match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
+          match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
         elsif check[:match_type] == :checksum_body
           match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
         end

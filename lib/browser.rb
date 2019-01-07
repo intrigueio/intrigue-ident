@@ -75,21 +75,21 @@ module Ident
         session.visit(uri)
       end
 
-      # Capture Title
-      page_title = session.document.title
-
       # Capture DOM
       rendered_page = nil
       ident_safe_browser_action do
         rendered_page = session.evaluate_script("document.documentElement.innerHTML",[])
       end
 
+      # Capture Title
+      page_title_rendered = session.document.title
+
       to_return = {
         :start_url => uri,
         :final_url => session.current_url,
         :request_type => :chrome,
         :request_method => :get,
-        :title => page_title,
+        :title => page_title_rendered,
         :rendered => rendered_page
       }
   end
