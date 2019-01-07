@@ -13,7 +13,6 @@ module Check
             :product =>"Phone System",
             :references => ["https://www.xelion.com/en/"],
             :match_details =>"title",
-            :references => [""],
             :match_type => :content_title,
             :match_content =>  /Xelion Phone System/i,
             :paths => ["#{url}"]
