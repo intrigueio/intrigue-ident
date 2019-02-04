@@ -4,19 +4,23 @@ require_relative "../lib/intrigue-ident"
 include Intrigue::Ident
 
 filepath = ARGV[0]
-#puts "Using File: #{filepath}"
 
 # push all urls into a queue
 work_q = Queue.new
+output_q = Queue.new
 File.open(filepath,"r").each_line{|url| work_q.push url }
+
+output_q << "URL,FINGERPRINT,AUTH_HTTP,AUTH_FORMS,AUTH_ANY\n"
 
 workers = (0...9).map do
  Thread.new do
    begin
      while url = work_q.pop(true)
        url = url.chomp
-       #puts "Checking: #{url}"
+       puts "Checking: #{url}"
        check_result = generate_http_requests_and_check(url)
+
+       out = {}
 
        unless check_result
          puts "Error... unable to get matches!"
@@ -24,35 +28,31 @@ workers = (0...9).map do
        end
 
        if check_result["fingerprint"]
-         File.open("fingerprints.csv","a") do |f|
-           uniq_matches = []
-           check_result["fingerprint"].each do|x|
-             # Make sure not to print dupes
-             next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
-             uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
-             # otherwise, print it out
-             out =  "#{url},#{x["vendor"]},#{x["product"]},#{x["version"]},#{x["update"]}\n"
-             puts "FP: #{out}"
-             f.puts out
-           end
+         uniq_matches = []
+         check_result["fingerprint"].each do |x|
+           # Make sure not to print dupes
+           next if uniq_matches.include? x
+           fp
          end
        end
 
        if check_result["configuration"]
-         File.open("configurations.csv","a") do |f|
-           check_result["configuration"].each do |x|
-             out = "#{url}, #{x["name"]}, #{x["result"]}"
-             puts "CF: #{out}"
-             f.puts out
-           end
+         check_result["configuration"].each do |x|
+           out.merge{x["name"] => x["result"]}
          end
        end
+
+
+       puts out
+
      end
-   #rescue ThreadError
+   rescue ThreadError
    end
  end
 end; "ok"
 workers.map(&:join); "ok"
 
 
+File.open("ident.csv","a") do |f|
 
+end
