@@ -11,11 +11,12 @@ class Base
 
   private
 
-
     # matching helpers
     def _first_body_match(content, regex)
-      return nil unless content["details"]["hidden_response_data"]
-      content["details"]["hidden_response_data"].match(regex)
+      return nil unless content["details"]["hidden_response_data"] &&
+        content["details"]["hidden_response_data"].match(regex)
+
+    content["details"]["hidden_response_data"].match(regex)
     end
 
     def _first_body_capture(content, regex, filter=[])
@@ -48,7 +49,7 @@ class Base
         headers = content["details"]["headers"].kind_of? Array
       end
       x = headers.match(regex)
-      if x
+      if x && x.captures
         x = x.captures.first
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip
@@ -58,14 +59,15 @@ class Base
     end
 
     def _first_cookie_match(content, regex)
-      return nil unless content["details"]["cookies"]
-      content["details"]["cookies"].match(regex).first
+      return nil unless content["details"]["cookies"] &&
+        content["details"]["cookies"].match(regex)
+    content["details"]["cookies"].match(regex)
     end
 
     def _first_cookie_capture(content, regex, filter=[])
       return nil unless content["details"]["headers"]
       x = content["details"]["cookies"].match(regex)
-      if x
+      if x && x.captures
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip
@@ -75,14 +77,16 @@ class Base
   end
 
   def _first_title_match(content, regex)
-    return nil unless content["details"]["title"]
-    content["details"]["title"].match(regex).first
+    return nil unless content["details"]["title"] &&
+      content["details"]["title"].match(regex)
+
+  content["details"]["title"].match(regex)
   end
 
   def _first_title_capture(content, regex, filter=[])
     return nil unless content["details"]["title"]
     x = content["details"]["title"].match(regex)
-    if x
+    if x && x.captures
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
       x = x.strip
@@ -92,14 +96,16 @@ class Base
   end
 
   def _first_generator_match(content, regex)
-    return nil unless content["details"]["generator"]
-    content["details"]["title"].match(regex).first
+    return nil unless content["details"]["generator"] &&
+    content["details"]["generator"].match(regex)
+
+  content["details"]["title"].match(regex)
   end
 
   def _first_generator_capture(content, regex, filter=[])
     return nil unless content["details"]["generator"]
     x = content["details"]["generator"].match(regex)
-    if x
+    if x && x.captures
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
       x = x.strip

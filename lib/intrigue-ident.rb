@@ -156,7 +156,7 @@ module Intrigue
           "title" => "#{browser_response_hash[:title]}",
         }
       }
-    
+
       match_uri_hash(check,data)
     end
 
@@ -198,41 +198,6 @@ module Intrigue
 
       match_uri_hash(check,data)
     end
-=begin
-    # this method takes a check and a net/http response object and
-    # constructs it into a format that's matchable. it then attempts
-    # to match, and returns a match object if it matches, otherwise
-    # returns nil.
-    def match_http_response_object(check, response)
-
-      # tODO necessary?
-      return nil unless response
-
-      # Construct an Intrigue Entity of type Uri so we can match it
-      data = {}
-      data["details"] = {}
-      data["details"]["hidden_response_data"] = "#{response.body}"
-      # construct the headers into a big string block
-      headers = []
-      response.each_header do |h,v|
-        headers << "#{h}: #{v}"
-      end
-      data["details"]["headers"] = headers
-
-      ### grab the page attributes
-      match = response.body.match(/<title>(.*?)<\/title>/i)
-      data["details"]["title"] = match.captures.first if match
-
-      match = response.body.match(/<meta name="generator" content=(.*?)>/i)
-      data["details"]["generator"] = match.captures.first.gsub("\"","") if match
-
-      data["details"]["cookies"] = response.header['set-cookie']
-      data["details"]["response_data_hash"] = Digest::SHA256.base64digest("#{response.body}")
-
-      # call the actual matcher & return
-      match_uri_hash check, data
-    end
-=end
 
     def match_uri_hash(check, data)
       return nil unless check && data

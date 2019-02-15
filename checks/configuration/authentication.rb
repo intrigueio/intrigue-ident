@@ -7,7 +7,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
     [
       {
         :type => "configuration",
-        :name =>"HTTP Authentication Detected",
+        :name =>"Authentication - HTTP",
         :tags => ["AuthenticationConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
@@ -20,7 +20,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name =>"Form Authentication Detected",
+        :name =>"Authentication - Forms",
         :tags => ["AuthenticationConfig"],
         :references => [
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
@@ -43,7 +43,7 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name =>"User Account Required",
+        :name =>"Authentication - User Account Required",
         :tags => ["AuthenticationConfig","Heuristic"],
         :references => [],
         :match_type => :content_dom,

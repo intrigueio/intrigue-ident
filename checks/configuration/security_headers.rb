@@ -7,7 +7,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
     [
       {
         :type => "configuration",
-        :name => "Access-Control-Allow-Origin Header Exists",
+        :name => "Header Existence - Access-Control-Allow-Origin",
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
@@ -19,7 +19,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name => "P3P Header Exists",
+        :name => "Header Existence - P3P",
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
@@ -31,7 +31,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name => "X-Frame-Options Header Exists",
+        :name => "Header Existence - X-Frame-Options",
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
@@ -43,7 +43,7 @@ class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
       },
       {
         :type => "configuration",
-        :name => "X-XSS-Protection Header Exists",
+        :name => "Header Existence - X-XSS-Protection",
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
