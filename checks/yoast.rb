@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-  class Webmin < Intrigue::Ident::Check::Base
+  class Yoast < Intrigue::Ident::Check::Base
 
     def generate_checks(url)
       [
