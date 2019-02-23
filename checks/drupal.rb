@@ -26,6 +26,22 @@ module Check
             :tags => ["CMS"],
             :vendor => "Drupal",
             :product => "Drupal",
+            :references => ["https://twitter.com/bad_packets/status/1098843918127398912"],
+            :version => 8, #default to 8
+            :match_details => "Drupal version in page content",
+            :match_type => :content_body,
+            :match_content => /^Drupal [0-9]+\.[0-9]+/,
+            :dynamic_version => lambda { |x|
+              _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
+            },
+            :paths => ["#{url}/core/CHANGELOG.txt"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
+            :vendor => "Drupal",
+            :product => "Drupal",
             :match_details => "Drupal headers",
             :version => nil,
             :match_type => :content_headers,
