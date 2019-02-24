@@ -18,6 +18,95 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"]
       },
+      { # Coldfusion 6, 7  
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :references => [
+            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
+        ],
+        :product => "Coldfusion",
+        :version => nil,
+        :match_type => :content_cookies,
+        :match_content => />\s*Version:\s.*<\/strong\><br\s\//,
+        :dynamic_version => lambda {|x| 
+            version = _first_body_capture(x,/>\s*Version:\s*(.*)<\/strong\><br\s\//)
+            version =~ /^6/ ? "MX6 #{x}" : "MX7 #{x}"
+         },
+        :match_details => "Body content, version string",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      { # Coldfusion 8  
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :references => [
+            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
+        ],
+        :product => "Coldfusion",
+        :version => "8",
+        :match_type => :content_body,
+        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2006 Adobe/,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      { # Coldfusion 9  ... this needs OR/AND ? 
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :references => [
+            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
+        ],
+        :product => "Coldfusion",
+        :version => "9",
+        :match_type => :content_body,
+        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe/,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      { # Coldfusion 10 ... this needs OR/AND ?
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :references => [
+            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
+        ],
+        :product => "Coldfusion",
+        :version => "10",
+        :match_type => :content_body,
+        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe.*1997\-2012 Adobe Systems Incorporated and its licensors/m,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      { # Generic check 
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :references => [
+            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
+        ],
+        :product => "Coldfusion",
+        :version => nil,
+        :dynamic_version => lambda { |x| 
+            version = _first_body_capture(x,/<meta name=\"Keywords\" content=\"(.*)\">\s+<meta name/)
+         },
+        :match_type => :content_body,
+        :match_content => /<meta name=\"Keywords\" content=\".*\">\s+<meta name/,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      # TODO .. implement array for match content (AND) and then grab the rest of these 
+      # https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb
       {
         :type => "fingerprint",
         :category => "application",

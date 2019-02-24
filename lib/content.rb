@@ -8,6 +8,7 @@ module Intrigue
       end
 
       def _body_raw(content)
+        #puts content["details"]
         content["details"]["hidden_response_data"]
       end
 

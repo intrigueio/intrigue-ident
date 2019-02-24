@@ -28,7 +28,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /^.*ASP.NET is configured*$/i,
             :match_details =>"ASP.Net Error Message",
-            :paths => ["#{url}", "#{url}/doesntexist-intrigue-123}" ]
+            :paths => ["#{url}", "#{url}/doesntexist-123" ]
           },
           {
             :type => "fingerprint",
@@ -116,6 +116,19 @@ module Check
             :match_type => :content_body,
             :match_content =>  /__VIEWSTATEGENERATOR/i,
             :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
+            :vendor => "Microsoft",
+            :product =>"ASP.NETX",
+            :match_details =>"trace.axd version",
+            :version => nil,
+            :dynamic_version => lambda { |x| _first_body_capture(x,/ASP.NET Version:([\d\.]*)/) },
+            :match_type => :content_body,
+            :match_content =>  /Microsoft \.NET Framework Version/i,
+            :paths => ["#{url}/Trace.axd"]
           },
           {
             :type => "fingerprint",
@@ -449,6 +462,32 @@ module Check
             :dynamic_version => lambda { |x| _first_header_capture(x,/microsoftsharepointteamservices:(.*)/) },
             :paths => ["#{url}"]
           },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "CMS"],
+            :vendor => "Microsoft",
+            :product =>"Sharepoint Services",
+            :match_details =>"header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /microsoftofficewebserver:.*/,
+            #:dynamic_version => lambda { |x| _first_header_capture(x,/microsoftofficewebserver:(.*)/) },
+            :paths => ["#{url}"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "CMS"],
+            :vendor => "Microsoft",
+            :product =>"Sharepoint Services",
+            :match_details =>"header",
+            :version => "3.0",
+            :match_type => :content_headers,
+            :match_content =>  /microsoftofficewebserver: 5.0_Pub/,
+            #:dynamic_version => lambda { |x| _first_header_capture(x,/microsoftofficewebserver:(.*)/) },
+            :paths => ["#{url}"]
+          }
         ]
       end
 

@@ -30,7 +30,7 @@ module Intrigue
 
     # Used by intrigue-core... note that this will currently fail unless
     # Intrigue::Task::Web is available
-    def generate_http_requests_and_check(url)
+    def generate_http_requests_and_check(url, dom_checks=true)
 
       # load in browser control
       require_relative 'browser'
@@ -67,19 +67,23 @@ module Intrigue
         response_hash = ident_http_request :get, "#{target_url}"
         requests << response_hash
 
-        # get the dom via a browser
-        if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
-          #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
-          session = ident_create_browser_session
-          browser_response = ident_capture_document(session,"#{target_url}")
+        # Only if we are running browser checks
+        if dom_checks
+          # get the dom via a browser
+          if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
+            #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
+            session = ident_create_browser_session
+            browser_response = ident_capture_document(session,"#{target_url}")
 
-          # save the response to our list of responses
-          # TODO - collect redirects here
-          # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
-          requests << browser_response
+            # save the response to our list of responses
+            # TODO - collect redirects here
+            # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
+            requests << browser_response
 
-          ident_destroy_browser_session session
+            ident_destroy_browser_session session
+          end
         end
+
 
         # Go ahead and match it up if we got a response!
         if response_hash || browser_response
@@ -88,7 +92,7 @@ module Intrigue
 
             # if we have a check that should match the dom, run it
             if (check[:match_type] == :content_dom)
-              results << match_browser_response_hash(check,browser_response)
+              results << match_browser_response_hash(check,browser_response) if dom_checks
             else #otherwise use the normal flow
               results << match_http_response_hash(check,response_hash)
             end

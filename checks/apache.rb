@@ -242,7 +242,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /<title>(.*)<\/title>/,["Apache Tomcat/"," - Error report"])
         },
-        :paths => ["#{url}","#{url}/doesntexist-intrigue-123"]
+        :paths => ["#{url}","#{url}/doesntexist-123"]
       }
     ]
   end

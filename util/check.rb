@@ -52,7 +52,7 @@ if check_result["fingerprint"]
     next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
     uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
     # otherwise, print it out
-    puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (Tags: #{x["tags"]})"
+    puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
   end
 end
 
