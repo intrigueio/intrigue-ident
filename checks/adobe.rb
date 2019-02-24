@@ -3,8 +3,13 @@ module Ident
 module Check
 class Adobe < Intrigue::Ident::Check::Base
 
+  ### 
+  ### Handy: Metasploit: /modules/auxiliary/scanner/http/coldfusion_version.rb
+  ###
+
   def generate_checks(url)
     [
+ 
       {
         :type => "fingerprint",
         :category => "application",
@@ -17,6 +22,19 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "Adobe Coldfusion Cookie Match",
         :hide => false,
         :paths => ["#{url}"]
+      },
+      { # Coldfusion  
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :product => "Coldfusion",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe/,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
       },
       { # Coldfusion 6, 7  
         :type => "fingerprint",
@@ -38,46 +56,11 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"]
       },
-      { # Coldfusion 8  
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Application Server"],
-        :vendor => "Adobe",
-        :references => [
-            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
-        ],
-        :product => "Coldfusion",
-        :version => "8",
-        :match_type => :content_body,
-        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2006 Adobe/,
-        :match_details => "body content",
-        :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
-      },
-      { # Coldfusion 9  ... this needs OR/AND ? 
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Application Server"],
-        :vendor => "Adobe",
-        :references => [
-            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
-        ],
-        :product => "Coldfusion",
-        :version => "9",
-        :match_type => :content_body,
-        :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe/,
-        :match_details => "body content",
-        :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
-      },
       { # Coldfusion 10 ... this needs OR/AND ?
         :type => "fingerprint",
         :category => "application",
         :tags => ["Application Server"],
         :vendor => "Adobe",
-        :references => [
-            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
-        ],
         :product => "Coldfusion",
         :version => "10",
         :match_type => :content_body,
@@ -86,14 +69,25 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"]
       },
+      { # Coldfusion 11 ... this needs OR/AND ?
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Adobe",
+        :product => "Coldfusion",
+        :version => "11",
+        :match_type => :content_body,
+        :match_content => /&copy; 1997 - 2014 Adobe Systems Incorporated and its licensors/m,
+        :match_details => "body content",
+        :hide => false,
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+      },
+      # 
       { # Generic check 
         :type => "fingerprint",
         :category => "application",
         :tags => ["Application Server"],
         :vendor => "Adobe",
-        :references => [
-            "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb"
-        ],
         :product => "Coldfusion",
         :version => nil,
         :dynamic_version => lambda { |x| 
@@ -106,7 +100,6 @@ class Adobe < Intrigue::Ident::Check::Base
         :paths => ["#{url}/CFIDE/administrator/index.cfm"]
       },
       # TODO .. implement array for match content (AND) and then grab the rest of these 
-      # https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb
       {
         :type => "fingerprint",
         :category => "application",
