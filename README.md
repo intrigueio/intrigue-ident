@@ -1,4 +1,6 @@
-Ident is the app fingerprinting library that powers Intrigue Core. It uses Headless Chrome and Selenium to drive a browser.
+Ident is the app fingerprinting library used within Intrigue Core. 
+
+It uses Headless Chrome and Selenium to drive a browser, as well as core Ruby libraries to make requests. Identification should take around 10 seconds if using browser checks, faster if not.
 
 Getting started on OSX:
 ==================
