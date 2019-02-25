@@ -122,7 +122,7 @@ module Check
             :category => "application",
             :tags => ["Web Framework"],
             :vendor => "Microsoft",
-            :product =>"ASP.NETX",
+            :product =>"ASP.NET",
             :match_details =>"trace.axd version",
             :version => nil,
             :dynamic_version => lambda { |x| _first_body_capture(x,/ASP.NET Version:([\d\.]*)/) },
