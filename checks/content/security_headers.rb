@@ -32,7 +32,6 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name => "X-Frame-Options Header",
-        :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^x-frame-options:.*/i;

@@ -7,7 +7,7 @@ class Various < Intrigue::Ident::Check::Base
     [
       {
         :type => "content",
-        :name =>"Google Urchin Account",
+        :name =>"Google Urchin Account Detected",
         :match_type => :content_body,
         :dynamic_result => lambda { |d|
           if _body(d) =~ /gtag\(\'config\', \'[\w\d-]*\'\);/
@@ -21,7 +21,7 @@ class Various < Intrigue::Ident::Check::Base
       },
       {
         :type => "content",
-        :name =>"Directory Listing",
+        :name =>"Directory Listing Detected",
         :match_type => :content_title,
         :dynamic_result => lambda { |d| _first_title_match(d,/Index of \//) ? true : false },
         :dynamic_hide => lambda { |d| false },
@@ -30,7 +30,7 @@ class Various < Intrigue::Ident::Check::Base
       },
       {
         :type => "content",
-        :name =>"Form",
+        :name =>"Form Detected",
         :match_type => :content_body,
         :dynamic_result => lambda { |d| _first_body_match(d,/\<form/) ? true : false },
         :dynamic_hide => lambda { |d| false },
@@ -39,7 +39,7 @@ class Various < Intrigue::Ident::Check::Base
       },
       {
         :type => "content",
-        :name =>"File Upload Form",
+        :name =>"File Upload Form Detected",
         :match_type => :content_body,
         :dynamic_result => lambda { |d| _first_body_match(d,/enctype=\"multipart\/form-data/) ? true : false },
         :paths => ["#{url}"],
@@ -48,7 +48,7 @@ class Various < Intrigue::Ident::Check::Base
       },
       {
         :type => "content",
-        :name =>"Email Addresses",
+        :name =>"Email Addresses Detected",
         :match_type => :content_title,
         :dynamic_result => lambda { |d| _all_body_captures(d,/([a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,5})/) },
         :dynamic_hide => lambda { |d| false },

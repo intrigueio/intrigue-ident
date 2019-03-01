@@ -7,6 +7,7 @@ class Authentication < Intrigue::Ident::Check::Base
     [
       {
         :type => "content",
+        :name => "Authentication - HTTP",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["headers"]
@@ -34,18 +35,6 @@ class Authentication < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /<input[^>)]*user/im;
           return true if _body(d) =~ /<input[^>)]*pass/im;
           return true if _body(d) =~ /<input[^>)]*pwd/im;
-        false
-        },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
-      },
-      {
-        :type => "content",
-        :name =>"Authentication - User Account Required",
-        :references => [],
-        :match_type => :content_dom,
-        :dynamic_result => lambda { |d|
           return true if _body(d) =~ /log_in/im;
           return true if _body(d) =~ /log_out/im;
           return true if _body(d) =~ /class=\"login-btn/im;
