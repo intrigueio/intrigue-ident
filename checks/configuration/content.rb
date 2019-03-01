@@ -7,7 +7,7 @@ class Content < Intrigue::Ident::Check::Base
     [
       {
         :type => "configuration",
-        :name =>"Account Details - Google Urchin",
+        :name =>"Account - Google Urchin",
         :tags => ["AccountConfig"],
         :match_type => :content_body,
         :dynamic_result => lambda { |d|

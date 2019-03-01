@@ -8,7 +8,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => "Web Server",
+          :tags => ["Web Server","Proxy Server"],
           :vendor => "Banu",
           :product =>"Tinyproxy",
           :match_details =>"server header",

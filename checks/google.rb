@@ -14,7 +14,7 @@ module Check
             :match_details =>"UA string",
             :version => nil,
             :match_type => :content_body,
-            :match_content =>  /\'UA-/im,
+            :match_content =>  /getTracker\([\"|\']UA-/im,
             :paths => ["#{url}"],
           },
           {
