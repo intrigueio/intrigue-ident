@@ -12,6 +12,17 @@ class Base
   private
 
     # matching helpers
+
+    def _all_body_captures(content, regex)
+      return nil unless content["details"]["hidden_response_data"] &&
+        content["details"]["hidden_response_data"].match(regex)
+
+      match = content["details"]["hidden_response_data"].match(regex)
+      return match.captures.map{|x|x.to_s.strip} if match
+
+    nil
+    end
+
     def _first_body_match(content, regex)
       return nil unless content["details"]["hidden_response_data"] &&
         content["details"]["hidden_response_data"].match(regex)

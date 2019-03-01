@@ -1,57 +1,58 @@
 module Intrigue
 module Ident
 module Check
-class SecurityHeaderConfiguration < Intrigue::Ident::Check::Base
+class SecurityHeaders < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
       {
-        :type => "configuration",
-        :name => "Header Existence - Access-Control-Allow-Origin",
-        :tags => ["SecurityHeadersConfig"],
+        :type => "content",
+        :name => "Access-Control-Allow-Origin Header",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^Access-Control-Allow-Origin:.*/i;
         false
         },
-        :paths => ["#{url}"],
-        :hide => false
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
       },
       {
-        :type => "configuration",
-        :name => "Header Existence - P3P",
-        :tags => ["SecurityHeadersConfig"],
+        :type => "content",
+        :name => "P3P Header",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^p3p:.*/i;
         false
         },
-        :paths => ["#{url}"],
-        :hide => false
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
       },
       {
-        :type => "configuration",
-        :name => "Header Existence - X-Frame-Options",
+        :type => "content",
+        :name => "X-Frame-Options Header",
         :tags => ["SecurityHeadersConfig"],
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^x-frame-options:.*/i;
         false
         },
-        :paths => ["#{url}"],
-        :hide => false
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
       },
       {
-        :type => "configuration",
-        :name => "Header Existence - X-XSS-Protection",
-        :tags => ["SecurityHeadersConfig"],
+        :type => "content",
+        :name => "X-XSS-Protection Header",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^x-xss-protection:.*/i;
         false
         },
-        :paths => ["#{url}"],
-        :hide => false
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
       }
     ]
   end

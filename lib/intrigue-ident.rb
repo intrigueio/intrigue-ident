@@ -19,8 +19,8 @@ check_folder = File.expand_path('../checks', File.dirname(__FILE__)) # get absol
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # config checks
-config_check_folder = File.expand_path('../checks/configuration', File.dirname(__FILE__)) # get absolute directory
-Dir["#{config_check_folder}/*.rb"].each { |file| require_relative file }
+content_check_folder = File.expand_path('../checks/content', File.dirname(__FILE__)) # get absolute directory
+Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 module Intrigue
   module Ident
@@ -108,11 +108,11 @@ module Intrigue
 
     # make sure we have an empty fingerprints array if we didnt' have any Matches
     out["fingerprint"] = [] unless out["fingerprint"]
-    out["configuration"] = [] unless out["configuration"]
+    out["content"] = [] unless out["content"]
 
     # only return unique results
     out["fingerprint"] = out["fingerprint"].uniq
-    out["configuration"] = out["configuration"].uniq
+    out["content"] = out["content"].uniq
 
     # attach the responses
     out["requests"] = requests
@@ -232,7 +232,7 @@ module Intrigue
         elsif check[:match_type] == :checksum_body
           match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
         end
-      elsif check[:type] == "configuration"
+      elsif check[:type] == "content"
         match = _construct_match_response(check,data)
       end
     match
@@ -273,13 +273,17 @@ module Intrigue
           "cpe" => cpe_string,
         }
 
-      elsif check[:type] == "configuration"
+      elsif check[:type] == "content"
 
         result = check[:dynamic_result].call(data)
+        hide = check[:dynamic_hide].call(data)
+        issue = check[:dynamic_issue].call(data)
 
         to_return = {
           "type" => check[:type],
           "name" => check[:name],
+          "hide" => hide,
+          "issue" => issue,
           "result" => result
         }
       end

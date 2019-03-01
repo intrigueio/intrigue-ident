@@ -44,7 +44,7 @@ if debug
   end
 end
 
-puts "Fingerprint: "
+puts "Fingerprint:"
 if check_result["fingerprint"]
   uniq_matches = []
   check_result["fingerprint"].each do|x|
@@ -56,9 +56,9 @@ if check_result["fingerprint"]
   end
 end
 
-puts "Configuration: "
-if check_result["configuration"]
-  check_result["configuration"].each do|x|
+puts "Content Checks:"
+if check_result["content"]
+  check_result["content"].each do|x|
     puts " - #{x["name"]}: #{x["result"]}"
   end
 end

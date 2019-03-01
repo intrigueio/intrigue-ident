@@ -36,12 +36,11 @@ workers = (0...9).map do
          end
        end
 
-       if check_result["configuration"]
-         check_result["configuration"].each do |x|
-           out.merge{x["name"] => x["result"]}
+       if check_result["content"]
+         check_result["content"].each do |x|
+           out.merge{x["name"] => x["result"] }
          end
        end
-
 
        puts out
 

@@ -1,27 +1,25 @@
 module Intrigue
 module Ident
 module Check
-class AuthConfiguration < Intrigue::Ident::Check::Base
+class Authentication < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
       {
-        :type => "configuration",
-        :name =>"Authentication - HTTP",
-        :tags => ["AuthenticationConfig"],
+        :type => "content",
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["headers"]
           return true if _first_header_match d, /^www-authenticate:.*$/
         false
         },
-        :hide => false,
-        :paths => ["#{url}"],
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
       },
       {
-        :type => "configuration",
+        :type => "content",
         :name =>"Authentication - Forms",
-        :tags => ["AuthenticationConfig"],
         :references => [
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
           "https://nmap.org/nsedoc/scripts/http-auth-finder.html"
@@ -38,13 +36,13 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /<input[^>)]*pwd/im;
         false
         },
-        :hide => false,
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
       },
       {
-        :type => "configuration",
+        :type => "content",
         :name =>"Authentication - User Account Required",
-        :tags => ["AuthenticationConfig","Heuristic"],
         :references => [],
         :match_type => :content_dom,
         :dynamic_result => lambda { |d|
@@ -63,7 +61,8 @@ class AuthConfiguration < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /create_account/im;
         false
         },
-        :hide => false,
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
       }
     ]
