@@ -8,6 +8,18 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
+            :tags => ["Marketing","Javascript"],
+            :vendor => "Google",
+            :product =>"Analytics",
+            :match_details =>"UA string",
+            :version => nil,
+            :match_type => :content_body,
+            :match_content =>  /\'UA-/im,
+            :paths => ["#{url}"],
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
             :tags => ["Hosting"],
             :vendor => "Google",
             :product => "Hosted",
