@@ -21,6 +21,19 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
+        :tags => ["CDN", "Hosting", "WAF"],
+        :vendor => "Amazon",
+        :product =>"Cloudfront",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /x-cache:.*cloudfront/i,
+        :match_details =>"cloudfront cache header",
+        :hide => false,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
         :tags => ["CDN", "Hosting","WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
