@@ -29,6 +29,15 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
         :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
       },
+      #{
+      #  :type => "content",
+      #  :name => "X-PJAX Header",
+      #  :match_type => :content_headers,
+      #  :dynamic_result => lambda { |d| _first_header_capture d, /^x-pjax-url:(.*)/i },
+      #  :dynamic_hide => lambda { |d| false },
+      #  :dynamic_issue => lambda { |d| false },
+      #  :paths => ["#{url}"]
+      #},
       {
         :type => "content",
         :name => "X-Frame-Options Header",

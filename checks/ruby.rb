@@ -32,10 +32,10 @@ module Check
             :category => "application",
             :tags => ["library"],
             :vendor =>"Ruby",
-            :product =>"Webrick",
+            :product =>"Ruby",
             :match_details =>"server header",
             :match_type => :content_headers,
-            :dynamic_version => lambda {|d| _first_header_match(d,/\(Ruby\/([\d\.]+)\/[\d\-]+\)/) },
+            :dynamic_version => lambda {|d| _first_header_capture(d,/\(Ruby\/([\d\.]+)\/[\d\-]+\)/) },
             :match_content =>  /server:.*\(Ruby\/[\d\.]+\/[\d\-]+\)/i,
             :paths => ["#{url}"]
           },
@@ -47,7 +47,7 @@ module Check
             :product =>"Webrick",
             :match_details =>"server header",
             :match_type => :content_headers,
-            :dynamic_version => lambda {|d| _first_header_match(d,/WEBrick\/([\d\.]+)/) },
+            :dynamic_version => lambda {|d| _first_header_capture(d,/WEBrick\/([\d\.]+)/) },
             :match_content =>  /server:.*WEBrick\/[\d\.]+/i,
             :paths => ["#{url}"]
           }

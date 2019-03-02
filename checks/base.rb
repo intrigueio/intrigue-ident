@@ -52,7 +52,7 @@ class Base
     headers.match(regex)
     end
 
-    def _first_header_capture(content,regex, filter=[])
+    def _first_header_capture(content, regex, filter=[])
       return nil unless content["details"]["headers"]
       if content["details"]["headers"].kind_of? Array
         headers = content["details"]["headers"].join("\n")

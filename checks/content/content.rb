@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class Various < Intrigue::Ident::Check::Base
+class Content < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
@@ -15,6 +15,15 @@ class Various < Intrigue::Ident::Check::Base
           end
         false
         },
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "content",
+        :name =>"Location Header",
+        :match_type => :content_title,
+        :dynamic_result => lambda { |d| puts d["details"]["headers"]; return _first_header_capture(d,/^location:(.*)$/i) },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]

@@ -27,9 +27,22 @@ module Check
             :references => ["https://github.com/atramos/springy-aws"],
             :match_type => :content_body,
             :version => nil,
-            :match_content =>  /^x-springy-cache-disabled:.*$/,
+            :match_content =>  /^x-springy-cache-disabled:.*$/i,
             :paths => ["#{url}"],
             :examples => ["x-springy-cache-disabled: 0"]
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
+            :vendor =>"Pivotal Software",
+            :product =>"Spring Boot",
+            :match_details =>"spring cache header",
+            :references => ["https://stackoverflow.com/questions/40379550/what-is-x-application-context-header"],
+            :match_type => :content_headers,
+            :version => nil,
+            :match_content =>  /^X-Application-Context.*$/i,
+            :paths => ["#{url}"]
           },
           {
             :type => "fingerprint",

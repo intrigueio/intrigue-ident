@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-    class Heroku < Intrigue::Ident::Check::Base
+    class Hubspot < Intrigue::Ident::Check::Base
 
       def generate_checks(url)
         [
