@@ -8,7 +8,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting"],
+        :tags => ["CDN", "Hosting", "WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :version => nil,
@@ -21,7 +21,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting"],
+        :tags => ["CDN", "Hosting","WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - no configured hostname error condition",
@@ -34,7 +34,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting"],
+        :tags => ["CDN", "Hosting","WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - no configured hostname error condition",
@@ -47,7 +47,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting"],
+        :tags => ["CDN", "Hosting","WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront - 403 error condition",
