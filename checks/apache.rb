@@ -243,7 +243,32 @@ class Apache < Intrigue::Ident::Check::Base
           _first_body_capture(x, /<title>(.*)<\/title>/,["Apache Tomcat/"," - Error report"])
         },
         :paths => ["#{url}","#{url}/doesntexist-123"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Apache",
+        :product => "Traffic Server",
+        :match_details =>"header",
+        :match_type => :content_headers,
+        :version => nil,
+        :match_content =>  /^server: ATS$/,
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Apache",
+        :product => "Traffic Server",
+        :match_details =>"header",
+        :match_type => :content_headers,
+        :version => nil,
+        :match_content =>  /^via:.*ApacheTrafficServer.*$/,
+        :paths => ["#{url}"]
       }
+      
     ]
   end
 end
