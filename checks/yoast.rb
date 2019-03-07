@@ -17,7 +17,7 @@ module Check
           :match_content => /This site is optimized with the Yoast SEO plugin/,
           :version => nil,
           :dynamic_version => lambda {|x|
-            _first_body_capture(x,/This site is optimized with the Yoast SEO plugin v(.*)\s-.*$/)
+            _first_body_capture(x,/Yoast SEO ([\d\.]+)/)
           },
           :paths => ["#{url}"]
         }
