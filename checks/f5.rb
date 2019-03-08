@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Networking", "Load Balancer"],
+            :tags => ["Networking", "Load Balancer", "WAF"],
             :vendor => "F5",
             :product =>"BIG-IP Access Policy Manager",
             :match_details =>"F5 BIG-IP Access Policy Manager default cookie",
@@ -21,7 +21,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Networking", "Load Balancer"],
+            :tags => ["Networking", "Load Balancer", "WAF"],
             :vendor => "F5",
             :product =>"BIG-IP Access Policy Manager",
             :match_details =>"F5 BIG-IP APM default logo",
@@ -35,7 +35,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "hardware",
-            :tags => ["Networking", "Load Balancer"],
+            :tags => ["Networking", "Load Balancer", "WAF"],
             :vendor => "F5",
             :product =>"BIG-IP Local Traffic Manager",
             :match_details =>"F5 BIG-IP Load balancer cookie",
