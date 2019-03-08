@@ -17,7 +17,7 @@ class Ergon < Intrigue::Ident::Check::Base
         ],
         :version => nil,
         :match_type => :content_cookies,
-        :match_content => /^AL[_-]?(SESS|LB)=/i,
+        :match_content => /AL[_-]?(SESS|LB)=/i,
         :match_details => "cookie match",
         :hide => false,
         :paths => ["#{url}"]
