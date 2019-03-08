@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["Hosting", "CDN"],
+            :tags => ["Hosting", "CDN", "WAF"],
             :vendor =>"Fastly",
             :product =>"Fastly",
             :match_details =>"header",
@@ -20,7 +20,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["Hosting", "CDN"],
+            :tags => ["Hosting", "CDN", "WAF"],
             :vendor =>"Fastly",
             :product =>"Fastly",
             :match_details =>"error content in page",

@@ -88,14 +88,14 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Load Balancer", "Hosting"],
-        :url => "https://aws.amazon.com/elasticloadbalancing/",
+        :tags => ["Load Balancer", "Hosting", "WAF"],
+        :url => "https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/",
         :vendor => "Amazon",
         :product => "Elastic Load Balancer",
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /AWSALB=/,
-        :match_details =>"aws elb cookie",
+        :match_details =>"amazon app LB",
         :hide => false,
         :paths => ["#{url}"]
       },
