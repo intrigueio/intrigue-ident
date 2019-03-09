@@ -35,7 +35,19 @@ module Check
           :version => nil,
           :paths => ["#{url}"]
         },
-
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Networking", "VPN"],
+          :vendor =>"Juniper",
+          :product =>"Junos Pulse Secure Access Service",
+          :match_details => "unique css link",
+          :references => [],
+          :match_type => :content_body,
+          :match_content => /src=\"\/dana-na\/css\/ds.js\">/,
+          :version => nil,
+          :paths => ["#{url}"]
+        }
       ]
     end
 

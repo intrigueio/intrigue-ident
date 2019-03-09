@@ -32,6 +32,7 @@ GEM
     selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    slop (4.6.2)
     xpath (3.2.0)
       nokogiri (~> 1.8)
 
@@ -42,6 +43,7 @@ DEPENDENCIES
   capybara
   pry
   selenium-webdriver (~> 3.12.0)
+  slop
 
 RUBY VERSION
    ruby 2.5.1p57

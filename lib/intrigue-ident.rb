@@ -30,7 +30,7 @@ module Intrigue
 
     # Used by intrigue-core... note that this will currently fail unless
     # Intrigue::Task::Web is available
-    def generate_http_requests_and_check(url, dom_checks=true)
+    def generate_http_requests_and_check(url, dom_checks=true,debug=false)
 
       # load in browser control
       require_relative 'browser'
@@ -57,14 +57,29 @@ module Intrigue
       # keep an array of the request / response details
       requests = []
 
+      # keep track of timeouts
+      timeout_count = 0
+
       # call the check on each uri
       grouped_generated_checks.each do |ggc|
 
         target_url = ggc.first
 
+        if timeout_count > 2
+          puts "Skipping #{target_url}, too many timeouts" if debug
+          next 
+        end
+
         # get the response using a normal http request
         # TODO - collect redirects here
+        puts "Getting #{target_url}" if debug
         response_hash = ident_http_request :get, "#{target_url}"
+      
+        if response_hash[:timeout]
+          puts "ERROR timed out on #{target_url}" if debug
+          timeout_count += 1
+        end 
+
         requests << response_hash
 
         # Only if we are running browser checks
