@@ -111,6 +111,7 @@ elsif opts[:file]
           check_result = generate_http_requests_and_check(x,enable_browser,debug)
 
           out = {}
+          out["url"] = check_result["url"]
 
           # get the fingerprint component, uniq it 
           if check_result["fingerprint"]
@@ -143,30 +144,42 @@ elsif opts[:file]
 
   # first grab headings & add those to the file
   f = output_q.pop(true)
-  puts "Working on output: #{f}"
 
   headings = [] 
+  headings << "url"
   headings << "fingerprint"
   headings << "tags"
   headings.concat f["content"].keys
-  File.open("ident-output.csv","w") { |f| f.puts headings.join(",") }
+  File.open("output.csv","w") { |f| f.puts headings.join(",") }
   output_q.push f # put it back on the queue 
 
   # then, using that header ordering, iterate through out and grab each value
   while output_q.size > 0 do
     o = output_q.pop
-    out=""
-    out << o["fingerprint"].map{|f| "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}"}.join("|")
+
+    # get our url, fingerprint and tags
+    out = "#{o["url"]},"
+    out << o["fingerprint"].map{ |f| "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}"}.uniq.join(" | ")
     out << ","
-    out << o["fingerprint"].map{|f| "#{f["tags"].join(" ")} "}.join(" ")
+    out << o["fingerprint"].map{ |f| "#{f["tags"].join(" ")} "}.uniq.join(" ")
     out << ","
-    headings[2..-1].each do |h|
+
+    # dynamically dump all config values in the correct orders
+    config_values  = []
+    headings[3..-1].each do |h|
       puts "Getting value for #{h}: #{o["content"][h]}" if debug
-      out << "#{o["content"][h]},"
+      config_values << "#{o["content"][h]}"
     end
-    File.open("ident-output.csv","a"){ |f| f.puts out }
+    out << config_values.join(",")
+
+    # print it out! 
+    File.open("output.csv","a"){ |f| f.puts out }
   end
 
+  puts 
+  puts "============================" 
+  puts "Find results in: output.csv"
+  puts "============================"
 
 else 
   puts "Error! Unknown input. Failing!"

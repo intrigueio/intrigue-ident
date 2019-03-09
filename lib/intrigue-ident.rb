@@ -128,6 +128,7 @@ module Intrigue
     # only return unique results
     out["fingerprint"] = out["fingerprint"].uniq
     out["content"] = out["content"].uniq
+    out["url"] = url
 
     # attach the responses
     out["requests"] = requests
