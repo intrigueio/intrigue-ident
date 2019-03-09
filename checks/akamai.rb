@@ -22,7 +22,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "service",
         :vendor => "Akamai",
-        :tags => ["CDN"],
+        :tags => ["CDN", "WAF"],
         :product => "Akamai",
         :version => nil,
         :match_type => :content_headers,
