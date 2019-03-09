@@ -28,4 +28,4 @@ Install the ident gem dependencies
 
 Now use the check utility to test!
 
-```./util/check.rb http://site.com```
+![Ident Usage](https://monosnap.com/image/RN9uag2d5la5AnVB972pupvkSuBmMm.png)
