@@ -16,7 +16,8 @@ module Check
             :match_type => :content_body,
             :match_content =>  /URL=\/cgi-sys\/defaultwebpage.cgi/,
             :hide => true,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -30,7 +31,8 @@ module Check
             :match_content =>  /href=\"\/cpanel\"\>log in<\/a> to launch this site/,
             :hide => true,
             :paths => ["#{url}"],
-            :examples => ['href="/cpanel">log in</a> to launch this site']
+            :examples => ['href="/cpanel">log in</a> to launch this site'], 
+            :inference => true
           }
         ]
       end

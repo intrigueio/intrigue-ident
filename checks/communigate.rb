@@ -10,7 +10,7 @@ module Check
             :vendor => "Stalker", # recently renamed to communigate systems inc
             :category => "application",
             :tags => ["COTS","Marketing"],
-            :product =>"CommuniGate Pro",
+            :product =>"CommuniGate",
             :website => "http://www.stalker.com/CommuniGatepro/",
             :match_details =>"server header",
             :version => nil,
@@ -18,9 +18,10 @@ module Check
               _first_header_capture(x,/server: CommuniGatePro\/(.*)/i,)
             },
             :match_type => :content_headers,
-            :match_content => /server: CommuniGatePro\/6.2.6/,
+            :match_content => /server: CommuniGatePro/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => true
           }
         ]
       end

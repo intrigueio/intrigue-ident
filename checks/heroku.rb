@@ -16,7 +16,8 @@ module Check
             :match_type => :content_body,
             :match_content =>  /herokucdn.com\/error-pages\/no-such-app.html/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -29,7 +30,8 @@ module Check
             :match_type => :content_headers,
             :match_content => /^via: [\d\.]+ vegur/i,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -42,7 +44,8 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /^server: Cowboy$/i,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

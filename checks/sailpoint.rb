@@ -18,7 +18,8 @@ module Check
             :version => nil,
             :match_type => :content_title,
             :match_content =>  /SailPoint IdentityIQ/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -15,7 +15,8 @@ module Check
             :match_details =>"title",
             :match_type => :content_title,
             :match_content =>  /Xelion Phone System/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

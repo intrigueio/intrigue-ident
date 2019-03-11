@@ -15,7 +15,8 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<title>Ambari<\/title>/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -32,7 +33,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: Apache-Coyote\/(.*)/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -44,7 +46,8 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /Error processing GroovyPageView:/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -59,7 +62,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server:.*Apache\/([\d\.]*).*/)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -71,7 +75,8 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server:\ Apache$/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -83,7 +88,8 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /The server encountered an internal error or misconfiguration and was unable to complete your request./i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -98,7 +104,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_auth_kerb\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -113,7 +120,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_bwlimited\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -128,7 +136,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_fcgid\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -143,7 +152,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_jk\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -158,7 +168,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_perl\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -173,7 +184,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_ssl\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -188,7 +200,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_wsgi\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -200,7 +213,8 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server: Apache PivotalWebServer$/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -213,7 +227,8 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<address>Apache Sling<\/address>/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -225,7 +240,8 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => 6,
         :match_content =>  /<title>Tomcat 6 Welcome Page/,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -242,7 +258,8 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /<title>(.*)<\/title>/,["Apache Tomcat/"," - Error report"])
         },
-        :paths => ["#{url}","#{url}/doesntexist-123"]
+        :paths => ["#{url}","#{url}/doesntexist-123"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -254,7 +271,8 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^server: ATS$/,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -266,7 +284,8 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^via:.*ApacheTrafficServer.*$/,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
       
     ]

@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/server: Restlet-Framework\/(.*)/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

@@ -16,7 +16,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-powered-by: PleskLin/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -29,7 +30,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^PleskWin/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -42,7 +44,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-powered-by-plesk:.*/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
 
 

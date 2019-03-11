@@ -16,7 +16,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_content =>  /via:.*.cloudfront.net \(CloudFront\)/,
         :match_details =>"cloudfront cache header",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -29,7 +30,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_content =>  /x-cache:.*cloudfront/i,
         :match_details =>"cloudfront cache header",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -42,7 +44,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /ERROR: The request could not be satisfied/,
         :hide => true,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -55,7 +58,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /Error from cloudfront/,
         :hide => true,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -68,7 +72,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<h1>403 Forbidden<\/h1><\/center>\n<hr><center>cloudflare/,
         :hide => true,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -83,7 +88,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_details =>"error page",
         :hide => true,
         :dynamic_version => lambda { |x| _first_header_capture(x,/awselb\/(\d.\d)/) },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -97,7 +103,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_content =>  /AWSALB=/,
         :match_details =>"amazon app LB",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -110,7 +117,8 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /server: AmazonS3/,
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
     ]
   end

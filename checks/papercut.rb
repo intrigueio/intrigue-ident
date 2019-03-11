@@ -17,7 +17,8 @@ module Check
             :match_type => :content_body,
             :match_content =>  /<meta name="description" content="PaperCut MF is a print management system./i,
             :paths => ["#{url}"],
-            :examples => ['<meta name="description" content="PaperCut MF']
+            :examples => ['<meta name="description" content="PaperCut MF'],
+            :inference => false
           }
         ]
       end

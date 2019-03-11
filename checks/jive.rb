@@ -15,7 +15,8 @@ module Check
           :match_type => :content_cookies,
           :version => nil,
           :match_content =>  /jive.login.ts=/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

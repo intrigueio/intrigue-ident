@@ -9,7 +9,7 @@ class Allegro < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["Web Server","Embedded"],
-        :vendor => "Allegrosoft",
+        :vendor => "c",
         :product => "RomPager",
         :version => nil,
         :dynamic_version => lambda { |x|
@@ -17,7 +17,8 @@ class Allegro < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server:\ Allegro-Software-RomPager/,
         :match_details =>"server header",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end

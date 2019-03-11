@@ -15,8 +15,10 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /server: nginx/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x,/server:.*nginx\/([\d\.]*).*/i) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x,/server:.*nginx\/([\d\.]*).*/i) },
+            :paths => ["#{url}"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -29,7 +31,8 @@ module Check
             :match_type => :content_body,
             :match_content => /<hr><center>nginx<\/center>/i,
             :hide => true,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

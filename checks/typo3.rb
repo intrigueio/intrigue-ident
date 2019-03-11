@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_generator,
             :match_content =>  /TYPO3 CMS/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

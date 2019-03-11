@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content => /document.write\(\"<title>\"\ \+\ ID_EESX_Welcome/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /<title>VMware Horizon/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

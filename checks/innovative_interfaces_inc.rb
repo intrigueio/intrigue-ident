@@ -15,7 +15,8 @@ class InnovativeInterfacesInc < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: III 100/,
         :match_details =>"server header",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

@@ -15,7 +15,8 @@ module Check
             :match_type => :content_body,
             :version => nil,
             :match_content =>  /McAfee Agent Activity Log/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           }
         ]
       end

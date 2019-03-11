@@ -15,7 +15,8 @@ class Docuwiki < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /DokuWiki=/,
         :match_details =>"Cookie match",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

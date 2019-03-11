@@ -15,7 +15,8 @@ module Check
             :match_details =>"security seal",
             :match_type => :content_body,
             :match_content => /seal\.verisign\.com\/getseal\?host_name=/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

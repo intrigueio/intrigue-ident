@@ -15,7 +15,8 @@ module Check
           :match_type => :content_body,
           :version => nil,
           :match_content =>  /<a href="\/\/www.mediawiki.org\/">Powered by MediaWiki<\/a>/,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"], 
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -28,7 +29,9 @@ module Check
           :match_content =>  /<meta name=\"generator\" content=\"MediaWiki/,
           :version => nil,
           :dynamic_version => lambda { |x| _first_body_capture(x,/<meta name=\"generator\" content=\"MediaWiki\ (.*?)\"\/>/) },
-          :paths => ["#{url}"]
+          :paths => ["#{url}"], 
+          :inference => true
+
         }
       ]
     end

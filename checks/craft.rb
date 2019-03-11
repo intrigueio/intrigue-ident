@@ -15,8 +15,9 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /CRAFT_CSRF_TOKEN/,
-            :hide => true,
-            :paths => ["#{url}"]
+            :hide => false,
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -28,8 +29,9 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-powered-by: Craft CMS/,
-            :hide => true,
-            :paths => ["#{url}"]
+            :hide => false,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

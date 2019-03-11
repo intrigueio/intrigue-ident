@@ -16,7 +16,8 @@ module Check
             :match_type => :content_cookies,
             :match_content => /MRHSession/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -30,7 +31,8 @@ module Check
             :match_type => :content_body,
             :match_content => /<img src="\/public\/images\/my\/tr.gif\//,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -43,7 +45,8 @@ module Check
             :match_type => :content_cookies,
             :match_content =>  /BIGipServer/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

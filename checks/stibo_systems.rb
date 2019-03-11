@@ -9,7 +9,7 @@ module Check
           :type => "fingerprint",
           :category => "application",
           :tags => ["Application Server"],
-          :vendor => "STIBO Stems",
+          :vendor => "STIBO Systems",
           :product =>"STEP",
           :match_details =>"page title ",
           :version => nil,
@@ -23,7 +23,8 @@ module Check
           :match_type => :content_title,
           :match_content =>  /STEP by STIBO Systems/i,
           :examples => ["<title>winc-prod-azure - STEP by STIBO Systems</title>"],
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true  # no CPEs on 20190310
         }
       ]
     end

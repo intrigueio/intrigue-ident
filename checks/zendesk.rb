@@ -15,7 +15,8 @@ module Check
             :references => [],
             :match_type => :content_headers,
             :match_content =>  /^x-zendesk-origin-server:.*$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           { # TODO - this might catch valid (closed) helpdesk uris too.
             :type => "fingerprint",
@@ -28,7 +29,8 @@ module Check
             :hide => true,
             :match_type => :content_body,
             :match_content =>  /<title>Help Center Closed \| Zendesk/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

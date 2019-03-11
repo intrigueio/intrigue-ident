@@ -15,8 +15,11 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<title>RouterOS router configuration page/,
           :version => nil,
-          :dynamic_version => lambda { |x| _first_body_capture(x,/<h1>RouterOS v(.*?)<\/h1>/) },
-          :paths => ["#{url}"]
+          :dynamic_version => lambda { |x| 
+            _first_body_capture(x,/<h1>RouterOS v(.*?)<\/h1>/) 
+          },
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end

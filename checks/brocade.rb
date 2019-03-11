@@ -15,7 +15,8 @@ class Brocade < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /Images\/uicx_7250_24_gfphdr_login1.gif/,
         :match_details =>"specific image",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -27,7 +28,8 @@ class Brocade < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<td><img src=\"Images\/brocade_logo_no_text.gif\">/,
         :match_details =>"specific image",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

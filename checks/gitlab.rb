@@ -18,7 +18,9 @@ module Check
             :dynamic_version => lambda{ |x|
                 _first_body_capture(x,/window.gon={};gon.api_version=\"v([0-9\.])\"/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
+
           }
         ]
       end

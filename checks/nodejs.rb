@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /^<pre>Cannot GET \/doesntexist-123<\/pre>$/i,
-            :paths => ["#{url}/doesntexist-123"]
+            :paths => ["#{url}/doesntexist-123"],
+            :inference => true
           }
         ]
       end

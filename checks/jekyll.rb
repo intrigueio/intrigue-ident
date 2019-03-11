@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_body_capture(x,/<meta name="generator" content="Jekyll v(.*)"/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

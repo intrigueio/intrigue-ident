@@ -19,7 +19,8 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: BinarySec/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }, 
         {
           :type => "fingerprint",
@@ -35,7 +36,8 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /x-binarysec/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

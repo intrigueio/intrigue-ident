@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_title,
             :match_content =>  /Home Page - My ASP.NET Application/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -24,11 +25,13 @@ module Check
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :version => nil,
-            :dynamic_version => lambda{|x| _first_body_capture(x,/ASP.NET Version:\ ([\d\.]*)/i)},
+            :dynamic_version => lambda{|x| 
+              _first_body_capture(x,/ASP.NET Version:\ ([\d\.]*)/i)},
             :match_type => :content_body,
             :match_content =>  /^.*ASP.NET is configured*$/i,
             :match_details =>"ASP.Net Error Message",
-            :paths => ["#{url}", "#{url}/doesntexist-123" ]
+            :paths => ["#{url}", "#{url}/doesntexist-123" ], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -37,11 +40,13 @@ module Check
             :vendor => "Microsoft",
             :product =>"ASP.NET",
             :version => nil,
-            :dynamic_version => lambda{|x| _first_header_capture(x,/^x-aspnet-version:\ ([\d\.]*)/i) },
+            :dynamic_version => lambda{ |x| 
+              _first_header_capture(x,/^x-aspnet-version:\ ([\d\.]*)/i) },
             :match_type => :content_headers,
             :match_content =>  /^x-aspnet-version:.*$/i,
             :match_details =>"X-AspNet Header",
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -53,7 +58,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /ASPSESSIONID.*$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -65,7 +71,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /ASP.NET_SessionId.*$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -78,7 +85,8 @@ module Check
             :references => ["https://www.sitefinity.com/developer-network/forums/developing-with-sitefinity-/claims-auth---aspxauth-cookie-remains"],
             :match_type => :content_cookies,
             :match_content =>  /ASPXAUTH=/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -88,10 +96,27 @@ module Check
             :product =>"ASP.NET MVC",
             :match_details =>"Asp.Net MVC Header",
             :version => nil,
-            :dynamic_version => lambda{|x| _first_header_capture(x,/^x-aspnetmvc-version:\ ?  (.*)$/i) },
+            :dynamic_version => lambda{|x| 
+              _first_header_capture(x,/^x-aspnetmvc-version:\ ?  (.*)$/i) },
             :match_type => :content_headers,
             :match_content =>  /x-aspnetmvc-version/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => true
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
+            :vendor => "Microsoft",
+            :product =>"ASP.NET Core",
+            :match_details =>"Asp.Net MVC Header",
+            :version => nil,
+            :dynamic_version => lambda{|x| 
+              _first_header_capture(x,/^x-aspnetmvc-version:\ ?  (.*)$/i) },
+            :match_type => :content_headers,
+            :match_content =>  /x-aspnetmvc-version/i,
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -103,7 +128,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /WebResource.axd?d=/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -115,20 +141,24 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /__VIEWSTATEGENERATOR/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
             :category => "application",
             :tags => ["Web Framework"],
             :vendor => "Microsoft",
-            :product =>"ASP.NET",
+            :product =>".NET Framework",
             :match_details =>"trace.axd version",
             :version => nil,
-            :dynamic_version => lambda { |x| _first_body_capture(x,/ASP.NET Version:([\d\.]*)/) },
+            :dynamic_version => lambda { |x| 
+              _first_body_capture(x,/ASP.NET Version:([\d\.]*)/) 
+            },
             :match_type => :content_body,
             :match_content =>  /Microsoft \.NET Framework Version/i,
-            :paths => ["#{url}/Trace.axd"]
+            :paths => ["#{url}/Trace.axd"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -140,7 +170,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-msedge-ref:.*/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -152,7 +183,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-ms-ref:.*/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -164,7 +196,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-ms-request-id:.*/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -176,7 +209,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-powered-by: ASP.NET/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -188,7 +222,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /commerce-server-software: Microsoft Commerce Server.*/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -209,7 +244,8 @@ module Check
               update_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
               owa_to_exchange_version(update_string)[:update]
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => true # TODO - not specific enough yet
           },
           {
             :type => "fingerprint",
@@ -230,7 +266,8 @@ module Check
               update_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
               owa_to_exchange_version(update_string)[:update]
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => true # TODO - not specific enough yet
           },
           {
             :type => "fingerprint",
@@ -242,7 +279,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /<title>Microsoft Forefront TMG/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false 
           },
           {
             :type => "fingerprint",
@@ -254,7 +292,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /via:\ 1.1\ TMGSRVR/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false 
           },
           {
             :type => "fingerprint",
@@ -266,7 +305,8 @@ module Check
             :match_type => :content_title,
             :match_content =>  /^Microsoft ISA Server 2006$/i,
             :match_details =>"standard title",
-            :paths => ["#{url}"],
+            :paths => ["#{url}"], 
+            :inference => false 
           },
           {
             :type => "fingerprint",
@@ -281,7 +321,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/^.*FrontPage\/([\d\.]*).*$/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -296,7 +337,8 @@ module Check
             },
             :match_type => :content_headers,
             :match_content =>  /server: Microsoft-IIS\//,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false # not specific enough
           },
           {
             :type => "fingerprint",
@@ -308,7 +350,8 @@ module Check
             :version => "8.0",
             :match_type => :content_body,
             :match_content =>  /<img src=\"iis-8.png\"/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false # not specific enough
           },
           {
             :type => "fingerprint",
@@ -320,7 +363,8 @@ module Check
             :version => "8.5",
             :match_type => :content_body,
             :match_content =>  /<img src=\"iis-85.png\"/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false # not specific enough
           },
           {
             :type => "fingerprint",
@@ -332,7 +376,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /server: Microsoft-HTTPAPI\/2.0/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -345,7 +390,8 @@ module Check
             :match_type => :content_body,
             :hide => true,
             :match_content =>  /Error Code: 403 Forbidden. The server denied the specified Uniform Resource Locator \(URL\)/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -358,7 +404,8 @@ module Check
             :match_type => :content_body,
             :hide => true,
             :match_content =>  /HTTP Error 404. The requested resource is not found./,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -371,7 +418,8 @@ module Check
             :match_type => :content_body,
             :hide => true,
             :match_content =>  /403 Forbidden. The server denied the specified Uniform Resource Locator (URL)/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -384,7 +432,8 @@ module Check
             :match_type => :content_body,
             :hide => true,
             :match_content =>  /HTTP Error 503. The service is unavailable./,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -397,7 +446,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /server: Kestrel/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -409,7 +459,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /x-ms-gateway-slice/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -421,7 +472,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /ok3static.oktacdn.com\/assets\/img\/logos\/office365/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -433,8 +485,10 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-owa-version/,
-            :dynamic_version => lambda { |x| _first_header_capture(x, /x-owa-version:(.*)/) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x, /x-owa-version:(.*)/) },
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -446,8 +500,10 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/,
-            :dynamic_version => lambda { |x| _first_body_capture x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/ },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_body_capture x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/ },
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -459,8 +515,10 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /sprequestguid/,
-            :dynamic_version => lambda { |x| _first_header_capture(x,/microsoftsharepointteamservices:(.*)/) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i) },
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -472,8 +530,9 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /microsoftofficewebserver:.*/,
-            #:dynamic_version => lambda { |x| _first_header_capture(x,/microsoftofficewebserver:(.*)/) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| _first_header_capture(x,/^microsoftofficewebserver:(.*)/i) },
+            :paths => ["#{url}"], 
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -485,7 +544,6 @@ module Check
             :version => "3.0",
             :match_type => :content_headers,
             :match_content =>  /microsoftofficewebserver: 5.0_Pub/,
-            #:dynamic_version => lambda { |x| _first_header_capture(x,/microsoftofficewebserver:(.*)/) },
             :paths => ["#{url}"]
           }
         ]

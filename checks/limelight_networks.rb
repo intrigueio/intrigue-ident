@@ -1,14 +1,14 @@
 module Intrigue
 module Ident
 module Check
-  class Lighttpd < Intrigue::Ident::Check::Base
+  class LimelightNetworks < Intrigue::Ident::Check::Base
 
     def generate_checks(url)
       [
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["Web Server","CDN"],
           :vendor => "Limelight Networks",
           :product =>"Edgeprism",
           :match_details =>"server header",
@@ -18,7 +18,8 @@ module Check
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/server: EdgePrism\/(.*)/i,)
           },
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true
         },
         {
           :type => "fingerprint",
@@ -30,7 +31,8 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: EdgePrism.*/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

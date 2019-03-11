@@ -15,7 +15,8 @@ module Check
             :match_type => :content_headers,
             :version => nil,
             :match_content =>  /server: Lotus-Domino/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"], 
+            :inference => false
           }
         ]
       end

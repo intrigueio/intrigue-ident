@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_header,
             :match_content =>  /x-powered-by: OpenScholar/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

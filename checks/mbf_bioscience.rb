@@ -17,7 +17,8 @@ class MbfBioscience < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-biolucida-webapp: true$/,
         :paths => ["#{url}"],
-        :examples => ["x-biolucida-webapp: true"]
+        :examples => ["x-biolucida-webapp: true"], 
+        :inference => false
       }
     ]
   end

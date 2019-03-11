@@ -16,7 +16,8 @@ module Check
           :references => [],
           :match_type => :content_headers,
           :match_content =>  /x-powered-by: Brightspot/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /global-protect\/login.esp/i,
-            :paths => ["#{uri}"]
+            :paths => ["#{uri}"],
+            :inference => false
           }
         ]
       end

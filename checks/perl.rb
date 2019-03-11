@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/^.*Perl\/v([\d\.]*)\s.*$/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /Login to pfSense/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

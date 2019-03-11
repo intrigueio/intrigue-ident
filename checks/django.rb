@@ -14,8 +14,9 @@ module Check
             :version => nil,
             :match_details =>"Django Admin Page",
             :match_type => :content_body,
-            :match_content =>  /<title>Log in \| Django site admin<\/title>/,
-            :paths => ["#{url}/admin"]
+            :match_content =>  /Django site admin/,
+            :paths => ["#{url}/admin"],
+            :inference => false
           }
         ]
       end

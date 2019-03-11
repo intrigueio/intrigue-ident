@@ -16,7 +16,8 @@ module Check
             :match_type => :content_body,
             :match_content =>  /This domain is successfully pointed at WP Engine, but is not configured for an account on our platform./,
             :hide => true,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

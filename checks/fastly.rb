@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-fastly-backend-reqs/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -28,7 +29,8 @@ module Check
             :hide => true,
             :match_type => :content_body,
             :match_content =>  /<title>Fastly error: unknown domain/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

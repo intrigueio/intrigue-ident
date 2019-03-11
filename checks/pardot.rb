@@ -7,7 +7,7 @@ module Check
         [
           {
             :type => "fingerprint",
-            :category => "application",
+            :category => "service",
             :tags => ["Marketing", "Javascript"],
             :vendor =>"Pardot",
             :product =>"Pardot",
@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /pardot/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

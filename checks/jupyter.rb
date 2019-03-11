@@ -16,7 +16,8 @@ module Check
           :version => nil,
           :dynamic_version => lambda { |x| _first_header_capture(x,/^x-jupyterhub-version: (.*)$/) },
           :match_content =>  /x-jupyterhub-version:/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end

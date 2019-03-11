@@ -15,7 +15,8 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /com.atlassian.bitbucket.server/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -27,7 +28,8 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /X-Confluence-Request-Time/i,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -42,7 +44,8 @@ class Atlassian < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /Log in to FishEye and Crucible (.*)\</)
         },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",
@@ -54,7 +57,8 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /\$\(document\).trigger\('hipchat.load'\);/,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -68,7 +72,8 @@ class Atlassian < Intrigue::Ident::Check::Base
         :match_content =>  /atlassian.xsrf.token=/i,
         :dynamic_version => lambda{ |x|
             _first_body_capture(x,/<meta name="ajs-version-number" content="(.*)">/) },
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end

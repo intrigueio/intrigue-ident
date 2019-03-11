@@ -8,14 +8,15 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["CDN","WAF"],
+            :tags => ["CDN", "WAF"],
             :vendor =>"Distil",
             :product =>"Distil",
             :match_details =>"unique header",
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-distil-cs/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

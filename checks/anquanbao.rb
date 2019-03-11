@@ -20,7 +20,8 @@ class Anquanbao < Intrigue::Ident::Check::Base
         :match_content => /^X-Powered-By-Anquanbao/i,
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

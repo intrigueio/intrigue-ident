@@ -8,7 +8,7 @@ class Arris < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Embedded","Networking","IoT"],
+        :tags => ["Embedded","Networking"],
         :website => "http://www.arrisi.com/",
         :vendor => "Arris",
         :product => "2307 Modem",
@@ -18,6 +18,7 @@ class Arris < Intrigue::Ident::Check::Base
         :match_details =>"unique string, admin page?",
         :hide => false,
         :paths => ["#{url}"],
+        :inference => false,
         :examples => ["<meta name=\"description\" content=\"ARRIS 2307\">"]
       }
     ]

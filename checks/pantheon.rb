@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-pantheon-site/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
 
         ]

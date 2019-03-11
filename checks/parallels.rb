@@ -16,8 +16,10 @@ module Check
           :references => ["https://en.wikipedia.org/wiki/Plesk"],
           :match_content =>  /<title>Plesk (.*?)<\/title>/,
           :version => nil,
-          :dynamic_version => lambda { |x| _first_body_capture(x,/<title>Plesk (.*?)<\/title>/) },
-          :paths => ["#{url}"]
+          :dynamic_version => lambda { |x| 
+            _first_body_capture(x,/<title>Plesk (.*?)<\/title>/) },
+          :paths => ["#{url}"],
+          :inference => true
         },
         {
           :type => "fingerprint",
@@ -30,7 +32,8 @@ module Check
           :references => ["https://en.wikipedia.org/wiki/Plesk"],
           :match_content => /server: sw-cp-server/,
           :version => nil,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

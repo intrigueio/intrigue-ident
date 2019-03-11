@@ -9,7 +9,9 @@ module Check
             :type => "fingerprint",
             :category => "application",
             :tags => ["Embedded","Networking"],
-            :references => ["http://www.tecwi.com.br/manual/link-one/L1-RW333.pdf"],
+            :references => [
+              "http://www.tecwi.com.br/manual/link-one/L1-RW333.pdf"
+            ],
             :vendor => "Link1",
             :product =>"Wireless N300",
             :match_details =>"title",
@@ -17,7 +19,8 @@ module Check
             :version => nil,
             :match_content =>  /Wireless N300 Home Router/i,
             :paths => ["#{url}"],
-            :credentials => [{:user => "admin", :password => ""}]
+            :credentials => [{:user => "admin", :password => ""}],
+            :inference => false
           }
         ]
       end

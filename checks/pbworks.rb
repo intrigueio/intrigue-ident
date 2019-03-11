@@ -7,7 +7,7 @@ module Check
         [
           {
             :type => "fingerprint",
-            :category => "application",
+            :category => "service",
             :tags => ["SaaS"],
             :vendor =>"PbWorks",
             :product =>"PbWorks",
@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /pbworks.com\/shared\/statics/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

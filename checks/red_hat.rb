@@ -15,7 +15,8 @@ module Check
             :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1414657"],
             :match_type => :content_body,
             :match_content =>  /Route and path matches, but all pods are down./i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :references => [""],
             :match_type => :content_title,
             :match_content =>  /Login - OpenShift Origin/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -16,7 +16,8 @@ module Check
             :version => nil,
             :match_content =>  /files_joomla/i,
             :references => ["https://twitter.com/GreyNoiseIO/status/987547246538391552"],
-            :paths => ["#{url}/administrator/manifests/files/joomla.xml"]
+            :paths => ["#{url}/administrator/manifests/files/joomla.xml"],
+            :inference => false
           }
         ]
       end

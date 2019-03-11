@@ -21,7 +21,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /CFTOKEN=/,
         :match_details => "Adobe Coldfusion Cookie Match",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       { # Coldfusion  
         :type => "fingerprint",
@@ -34,7 +35,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe/,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :inference => false
       },
       { # Coldfusion 6, 7  
         :type => "fingerprint",
@@ -54,7 +56,8 @@ class Adobe < Intrigue::Ident::Check::Base
          },
         :match_details => "Body content, version string",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :inference => true
       },
       { # Coldfusion 10 ... this needs OR/AND ?
         :type => "fingerprint",
@@ -67,7 +70,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe.*1997\-2012 Adobe Systems Incorporated and its licensors/m,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :inference => true
       },
       { # Coldfusion 11 ... this needs OR/AND ?
         :type => "fingerprint",
@@ -80,7 +84,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /&copy; 1997 - 2014 Adobe Systems Incorporated and its licensors/m,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :inference => true
       },
       # 
       { # Generic check 
@@ -97,7 +102,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Keywords\" content=\".*\">\s+<meta name/,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"]
+        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :inference => true
       },
       # TODO .. implement array for match content (AND) and then grab the rest of these 
       {
@@ -111,7 +117,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /AEM/,
         :match_details => "Adobe Experience Manager",
         :hide => false,
-        :paths => ["#{url}/libs/granite/core/content/login.html"]
+        :paths => ["#{url}/libs/granite/core/content/login.html"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -125,7 +132,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /server: Omniture DC/,
         :match_details => "Omniture server header",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

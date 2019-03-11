@@ -16,7 +16,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /server: SouthRiver\/1.0/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           { # check may be too broad, there is a string in the body that
             # is more specific to MFT
@@ -29,7 +30,8 @@ module Check
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /title="Cornerstone MFT" target="_blank"/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

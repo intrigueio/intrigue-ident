@@ -15,7 +15,8 @@ module Check
             :references => [],
             :match_type => :content_headers,
             :match_content =>  /server: th3 c4k3 is 4 l13\.$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

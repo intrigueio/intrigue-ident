@@ -18,7 +18,8 @@ module Check
             ],
             :match_type => :content_cookies,
             :match_content =>  /sap-usercontext=sap-language=/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -32,7 +33,8 @@ module Check
             ],
             :match_type => :content_headers,
             :match_content =>  /bD1lbiZjPTEwMCZkPW1pbg==/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -16,7 +16,8 @@ module Check
           :references => [],
           :match_content => /server: Wing Ftp Server.*/i,
           :version => nil,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

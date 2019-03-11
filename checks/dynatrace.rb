@@ -15,7 +15,8 @@ module Check
             :references => ["http://ruxit.com"],
             :match_type => :content_headers,
             :match_content =>  /^x-ruxit-js-agent:.*/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :references => ["http://ruxit.com"],
             :match_type => :content_headers,
             :match_content =>  /^x-ruxit-js-agent:.*/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

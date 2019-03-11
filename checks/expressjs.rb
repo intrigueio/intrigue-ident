@@ -14,8 +14,9 @@ module Check
             :version => nil,
             :match_details =>"x-powered-by header",
             :match_type => :content_headers,
-            :match_content =>  /x-powered-by: Express/,
-            :paths => ["#{url}"]
+            :match_content =>  /x-powered-by: Express/i,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

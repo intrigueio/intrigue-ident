@@ -17,7 +17,8 @@ class Axios < Intrigue::Ident::Check::Base
         :match_content => /axios\.min\.js[\"|\']\>/i,
         :match_details => "filename",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

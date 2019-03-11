@@ -16,7 +16,8 @@ module Check
           :version => nil,
           :references => ["https://community.ivanti.com/community/all-products/systems/cloudservices"],
           :match_content =>  /<title>LANDESK\(R\) Cloud Services Appliance/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

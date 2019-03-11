@@ -16,7 +16,8 @@ module Check
             :references => ["https://community.tableau.com/thread/165653"],
             :match_type => :content_body,
             :match_content =>  /<meta name="vizportal-config" data-buildId=/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

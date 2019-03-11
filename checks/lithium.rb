@@ -15,7 +15,8 @@ module Check
             :match_type => :content_cookies,
             :version => nil,
             :match_content =>  /LithiumVisitor/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :match_type => :content_cookies,
             :version => nil,
             :match_content =>  /LiSESSIONID/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

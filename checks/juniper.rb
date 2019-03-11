@@ -16,7 +16,8 @@ module Check
           :references => [],
           :match_content =>  /^Junos Pulse Secure Access Service$/,
           :version => nil,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -33,7 +34,8 @@ module Check
           :match_type => :content_body,
           :match_content => /<td background="\/dana-na\/imgs\/footerbg.gif">/,
           :version => nil,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -46,7 +48,8 @@ module Check
           :match_type => :content_body,
           :match_content => /src=\"\/dana-na\/css\/ds.js\">/,
           :version => nil,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

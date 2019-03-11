@@ -16,7 +16,8 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /X-Backside-Transport:/i,
           :match_details =>"header thrown by ibm datapower (on error?)",
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -29,7 +30,8 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /www-authenticate: Basic realm=\"IBM Security Access Manager for Web\"/i,
           :match_details =>"IBM security access manager login prompt",
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -42,7 +44,8 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<title>Access Manager for e-Business Login/i,
           :match_details =>"Generic Ibm tivoli copyright",
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -55,7 +58,8 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<form method=\"POST\" action=\"\/pkmslogin.form\">/i,
           :match_details =>"form action to submit to webseal (on ourselves)",
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
 
       ]

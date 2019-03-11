@@ -14,8 +14,11 @@ module Check
             :match_details =>"Varnish Proxy",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /via: [0-9]\.[0-9] varnish/i,
-            :paths => ["#{url}"]
+            :match_content =>  /via: [0-9\.]+ varnish/i,
+            :dynamic_version => lambda { |x|
+              _first_header_capture(x,/via: ([0-9\.]+) varnish/i) },
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

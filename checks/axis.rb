@@ -15,7 +15,8 @@ class Axis < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=\/view\/viewer_index.shtml?id=/,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

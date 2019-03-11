@@ -19,7 +19,8 @@ module Check
             _first_header_capture(x,/server: lighttpd\/(.*)/i,)
           },
           :paths => ["#{url}"],
-          :examples => ["lighttpd/1.4.23-devel-Unversioned directory"]
+          :examples => ["lighttpd/1.4.23-devel-Unversioned directory"],
+          :inference => true
         }
       ]
     end

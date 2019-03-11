@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-iinfo:\ .*$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,10 +28,9 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-cdn: Incapsula$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
-
-
         ]
       end
 

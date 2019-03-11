@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-okta-backend/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

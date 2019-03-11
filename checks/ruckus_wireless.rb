@@ -14,7 +14,8 @@ module Check
             :match_details =>"login page for ruckus wireless device",
             :match_type => :content_title,
             :match_content =>  /Ruckus Wireless Admin/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

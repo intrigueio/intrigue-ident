@@ -14,8 +14,9 @@ module Check
             :match_details =>"Standard Spring MVC error page",
             :match_type => :content_body,
             :version => nil,
-            :match_content =>  /{"timestamp":\d.*,"status":999,"error":"None","message":"No message available"}/,
-            :paths => ["#{url}/error.json"]
+            :match_content =>  /\{\"timestamp\":\d.*,\"status\":999,\"error\":\"None\",\"message\":\"No message available\"\}/,
+            :paths => ["#{url}/error.json"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -29,7 +30,8 @@ module Check
             :version => nil,
             :match_content =>  /^x-springy-cache-disabled:.*$/i,
             :paths => ["#{url}"],
-            :examples => ["x-springy-cache-disabled: 0"]
+            :examples => ["x-springy-cache-disabled: 0"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -42,7 +44,8 @@ module Check
             :match_type => :content_headers,
             :version => nil,
             :match_content =>  /^X-Application-Context.*$/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -54,7 +57,8 @@ module Check
             :match_type => :content_body,
             :version => nil,
             :match_content =>  /RabbitMQ Management/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
            :type => "fingerprint",
@@ -66,7 +70,8 @@ module Check
            :match_type => :content_body,
            :version => nil,
            :match_content =>  /RabbitMQ Management HTTP API/,
-           :paths => ["#{url}/api"]
+           :paths => ["#{url}/api"],
+           :inference => false
          }
         ]
       end

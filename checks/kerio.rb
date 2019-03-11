@@ -22,7 +22,8 @@ module Check
             _first_header_capture(x,/^server: Kerio Connect (.*)/i)
           },
           :match_content =>  /^server: Kerio Connect.*/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end

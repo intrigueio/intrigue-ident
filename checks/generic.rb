@@ -15,7 +15,8 @@ module Check
             :hide => true,
             :match_type => :content_body,
             :match_content =>  /<STRONG>401 Unauthorized/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :hide => true,
             :match_type => :content_body,
             :match_content =>  /<title>404 - Not Found<\/title>/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -16,7 +16,8 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /^x-blackboard-product: Blackboard Learn &#8482;.*$/,
             :dynamic_version => lambda{|x| _first_header_capture(x,/^x-blackboard-product: Blackboard Learn &#8482; ([\w\d\.\-\+]*)$/i) },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

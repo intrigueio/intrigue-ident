@@ -17,7 +17,8 @@ module Check
           :dynamic_version => lambda { |x| _first_body_capture(x,/<title>Jamf Pro Login - Jamf Pro v([\d\.]*)-.*</) },
           :dynamic_update => lambda { |x| _first_body_capture(x,/<title>Jamf Pro Login - Jamf Pro v[\d\.]*-(.*)</) },
           :match_content =>  /<title>Jamf Pro Login - Jamf Pro v/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end

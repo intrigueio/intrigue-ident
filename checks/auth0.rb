@@ -17,7 +17,8 @@ class Auth0 < Intrigue::Ident::Check::Base
         :match_content => /window.auth0AnalyticsOptions/i,
         :match_details => "Auth0 analytics",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       },
       {
         :type => "fingerprint",
@@ -31,7 +32,8 @@ class Auth0 < Intrigue::Ident::Check::Base
         :match_content => /\/auth0/i,
         :match_details => "Auth0 link",
         :hide => false,
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

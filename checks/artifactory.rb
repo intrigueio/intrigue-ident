@@ -9,6 +9,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["COTS","CMS"],
+        :website => "https://jfrog.com/artifactory/",
         :vendor => "Artifactory",
         :product => "Artifactory",
         :version => nil,
@@ -17,7 +18,8 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: Artifactory/,
         :match_details =>"server header",
-        :paths => ["#{url}"]
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

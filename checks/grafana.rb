@@ -15,7 +15,8 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /grafana_sess/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/x-powered-by: Next.js\ (.*)/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true 
           }
         ]
       end

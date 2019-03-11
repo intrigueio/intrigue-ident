@@ -16,7 +16,8 @@ module Check
           :version => nil,
           :references => [],
           :match_content =>  /script\ src=[\"|\']https:\/\/code\.jquery\.com\/jquery-/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -29,7 +30,8 @@ module Check
           :version => nil,
           :references => [],
           :match_content =>  /jquery\.dataTables\.min\.js[\"|\']\>/i,
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => false
         }
       ]
     end

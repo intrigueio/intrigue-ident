@@ -15,7 +15,8 @@ module Check
             :match_type => :content_cookies,
             :version => nil,
             :match_content =>  /Domain=bitly.com;/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -27,7 +28,8 @@ module Check
             :match_type => :content_title,
             :version => nil,
             :match_content =>  /Branded Short Domain Powered by Bitly/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -15,8 +15,11 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-hudson/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x, /^x-hudson:(.*)$/) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x, /^x-hudson:(.*)$/) 
+            },
+            :paths => ["#{url}"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -28,7 +31,8 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /X-Jenkins-Session/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -40,8 +44,11 @@ module Check
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /x-jenkins/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x, /^x-jenkins:(.*)$/) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x, /^x-jenkins:(.*)$/) 
+            },
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

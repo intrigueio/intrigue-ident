@@ -9,7 +9,7 @@ module Check
             :type => "fingerprint",
             :category => "application",
             :tags => ["EBook Server","COTS"],
-            :vendor =>"Calibre",
+            :vendor =>"Calibre-Ebook",
             :product =>"Calibre",
             :match_details =>"server header",
             :references => [
@@ -21,7 +21,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/^server: calibre (.*)$/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

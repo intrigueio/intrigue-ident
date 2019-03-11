@@ -10,14 +10,15 @@ module Check
             :category => "application",
             :tags => ["Networking","COTS","VPN","Firewall"],
             :vendor => "Cisco",
-            :product => "Adaptive Security Device Manager",
+            :product => "Adaptive Security Appliance Device Manager",
             :match_details => "page title",
             :version => nil,
             :dynamic_version => lambda {|x| _first_body_capture(x,/<title>Cisco ASDM (.*?)<\/title>/)},
             :match_type => :content_body,
             :match_content =>  /<title>Cisco ASDM/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -27,11 +28,14 @@ module Check
             :product => "Email Security Appliance",
             :match_details => "page title",
             :version => nil,
-            :dynamic_version => lambda {|x| _first_body_capture(x,/Email Security Appliance   (.*?) \(/)},
+            :dynamic_version => lambda {|x| 
+                _first_body_capture(x,/Email Security Appliance   (.*?) \(/)
+            },
             :match_type => :content_body,
-            :match_content =>  /<title>        Cisco         Email Security Appliance/,
+            :match_content =>  /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -44,7 +48,8 @@ module Check
             :match_type => :content_body,
             :match_content =>  /<img id="header_logo" src="images\/meraki-logo.png"/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -57,7 +62,8 @@ module Check
             :match_type => :content_cookies,
             :match_content =>  /webvpn/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -70,7 +76,8 @@ module Check
             :match_type => :content_body,
             :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -83,7 +90,8 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /server: cisco-IOS/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -96,7 +104,8 @@ module Check
             :match_type => :content_body,
             :match_content => /<title>Cisco vManage/,
             :hide => false,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
         ]
       end

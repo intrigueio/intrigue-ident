@@ -16,6 +16,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /getTracker\([\"|\']UA-/im,
             :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -28,7 +29,8 @@ module Check
             :version => "",
             :match_content =>  /The requested URL <code>\/<\/code> was not found on this server\./,
             :hide => true,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -41,6 +43,7 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /server: Google Search Appliance/i,
             :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",
@@ -53,6 +56,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /<!-- End Google Tag Manager -->/im,
             :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

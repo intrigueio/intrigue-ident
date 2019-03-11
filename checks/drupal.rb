@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
             },
-            :paths => ["#{url}/CHANGELOG.txt"]
+            :paths => ["#{url}/CHANGELOG.txt"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -34,7 +35,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
             },
-            :paths => ["#{url}/core/CHANGELOG.txt"]
+            :paths => ["#{url}/core/CHANGELOG.txt"],
+            :inference => true
           },
           {
             :type => "fingerprint",
@@ -49,7 +51,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/x-generator: Drupal\ ([0-9]+)\ \(/i,)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false # Not specific enough?
           }
 
         ]

@@ -15,7 +15,8 @@ module Check
             :match_details =>"load string",
             :match_type => :content_body,
             :match_content =>  /(document, 'script', 'facebook-jssdk')/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

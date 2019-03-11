@@ -14,7 +14,8 @@ module Check
             :match_details =>"login page for zimbra",
             :match_type => :content_title,
             :match_content =>  /Zimbra Web Client Sign In/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -10,13 +10,15 @@ module Check
             :category => "application",
             :tags => ["Web Server"],
             :vendor => "Netscape",
-            :product =>"Enterprise",
+            :product =>"Enterprise Server",
             :match_details =>"server header",
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /Server: Netscape-Enterprise.*/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x,/Server: Netscape-Enterprise\/([\d\.]*).*/i) },
-            :paths => ["#{url}"]
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x,/Server: Netscape-Enterprise\/([\d\.]*).*/i) },
+            :paths => ["#{url}"],
+            :inference => true
           }
         ]
       end

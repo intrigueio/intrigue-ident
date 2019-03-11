@@ -7,7 +7,7 @@ module Check
         [
           {
             :type => "fingerprint",
-            :category => "application",
+            :category => "service",
             :tags => ["Web Framework", "Javascript"],
             :vendor =>"Webflow",
             :product =>"Webflow",
@@ -15,7 +15,8 @@ module Check
             :references => ["https://webflow.com"],
             :match_type => :content_body,
             :match_content =>  /data-wf-page=\"/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

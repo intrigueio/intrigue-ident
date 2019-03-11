@@ -10,7 +10,7 @@ module Check
           :category => "application",
           :tags => ["Marketing","Wordpress Plugin"],
           :vendor =>"Yoast",
-          :product =>"SEO",
+          :product =>"Wordpress SEO",
           :match_details => "unique string",
           :match_type => :content_body,
           :references => [],
@@ -19,7 +19,8 @@ module Check
           :dynamic_version => lambda {|x|
             _first_body_capture(x,/Yoast SEO ([\d\.]+)/)
           },
-          :paths => ["#{url}"]
+          :paths => ["#{url}"],
+          :inference => true 
         }
       ]
     end

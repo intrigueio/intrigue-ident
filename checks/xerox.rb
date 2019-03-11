@@ -8,14 +8,15 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["IoT","Printer"],
+            :tags => ["Embedded","Printer"],
             :vendor => "Xerox",
             :product => "WorkCentre Printer",
             :references => [],
             :match_details =>"title",
             :match_type => :content_title,
             :match_content => /CentreWare Internet Services/i,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end

@@ -7,7 +7,7 @@ module Check
         [
           {
             :type => "fingerprint",
-            :category => "service",
+            :category => "application",
             :tags => ["WAF"],
             :vendor =>"Zscaler",
             :product =>"Zscaler",
@@ -18,7 +18,8 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/server: Zscaler\/(.*)/i)
             },
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => true # no cves as of 20190310
           }
         ]
       end

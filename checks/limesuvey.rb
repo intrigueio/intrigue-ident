@@ -15,7 +15,8 @@ module Check
             :match_type => :content_body,
             :version => nil,
             :match_content =>  /Donate to LimeSurvey/,
-            :paths => ["#{url}"]
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end
