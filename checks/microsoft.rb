@@ -82,7 +82,9 @@ module Check
             :product =>"ASP.NET",
             :match_details =>"ASPXAUTH cookie",
             :version => nil,
-            :references => ["https://www.sitefinity.com/developer-network/forums/developing-with-sitefinity-/claims-auth---aspxauth-cookie-remains"],
+            :references => [
+              "https://www.sitefinity.com/developer-network/forums/developing-with-sitefinity-/claims-auth---aspxauth-cookie-remains"
+            ],
             :match_type => :content_cookies,
             :match_content =>  /ASPXAUTH=/i,
             :paths => ["#{url}"], 
@@ -94,10 +96,10 @@ module Check
             :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET MVC",
-            :match_details =>"Asp.Net MVC Header",
+            :match_details =>"ASP.Net MVC Header",
             :version => nil,
-            :dynamic_version => lambda{|x| 
-              _first_header_capture(x,/^x-aspnetmvc-version:\ ?  (.*)$/i) },
+            :dynamic_version => lambda{ |x| 
+              _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
             :match_type => :content_headers,
             :match_content =>  /x-aspnetmvc-version/i,
             :paths => ["#{url}"], 
@@ -111,10 +113,10 @@ module Check
             :product =>"ASP.NET Core",
             :match_details =>"Asp.Net MVC Header",
             :version => nil,
-            :dynamic_version => lambda{|x| 
-              _first_header_capture(x,/^x-aspnetmvc-version:\ ?  (.*)$/i) },
+            :dynamic_version => lambda{ |x| 
+              _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
             :match_type => :content_headers,
-            :match_content =>  /x-aspnetmvc-version/i,
+            :match_content => /x-aspnetmvc-version/i,
             :paths => ["#{url}"], 
             :inference => true
           },
@@ -124,7 +126,7 @@ module Check
             :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>"ASP.NET",
-            :match_details =>"WebResource.axd link in the page",
+            :match_details => "WebResource.axd link in the page",
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /WebResource.axd?d=/i,
@@ -150,7 +152,7 @@ module Check
             :tags => ["Web Framework"],
             :vendor => "Microsoft",
             :product =>".NET Framework",
-            :match_details =>"trace.axd version",
+            :match_details => "trace.axd version",
             :version => nil,
             :dynamic_version => lambda { |x| 
               _first_body_capture(x,/ASP.NET Version:([\d\.]*)/) 
@@ -166,7 +168,7 @@ module Check
             :tags => ["Hosting", "Load Balancer"],
             :vendor => "Microsoft",
             :product =>"Azure",
-            :match_details =>"Proxy service header (x-msedge-ref)",
+            :match_details => "Proxy service header (x-msedge-ref)",
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-msedge-ref:.*/i,

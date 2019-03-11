@@ -33,7 +33,7 @@ class Base
     def _first_body_capture(content, regex, filter=[])
       return nil unless content["details"]["hidden_response_data"]
       x = content["details"]["hidden_response_data"].match(regex)
-      if x
+      if x && x.captures
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip
