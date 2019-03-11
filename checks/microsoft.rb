@@ -105,21 +105,22 @@ module Check
             :paths => ["#{url}"], 
             :inference => true
           },
-          {
-            :type => "fingerprint",
-            :category => "application",
-            :tags => ["Web Framework"],
-            :vendor => "Microsoft",
-            :product =>"ASP.NET Core",
-            :match_details =>"Asp.Net MVC Header",
-            :version => nil,
-            :dynamic_version => lambda{ |x| 
-              _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
-            :match_type => :content_headers,
-            :match_content => /x-aspnetmvc-version/i,
-            :paths => ["#{url}"], 
-            :inference => true
-          },
+          #{
+          #  TODO. Not the same as MVC version
+          #  :type => "fingerprint",
+          #  :category => "application",
+          #  :tags => ["Web Framework"],
+          #  :vendor => "Microsoft",
+          #  :product =>"ASP.NET Core",
+          #  :match_details =>"Asp.Net MVC Header",
+          #  :version => nil,
+          #  :dynamic_version => lambda{ |x| 
+          #    _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
+          #  :match_type => :content_headers,
+          #  :match_content => /x-aspnetmvc-version/i,
+          #  :paths => ["#{url}"], 
+          #  :inference => true
+          #},
           {
             :type => "fingerprint",
             :category => "application",
