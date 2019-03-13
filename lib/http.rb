@@ -120,6 +120,7 @@ def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil
    final_url = uri
 
   ### TODO - create a global $debug config option
+  
   rescue ArgumentError => e
     puts "Unable to connect: #{e}"
   rescue Net::OpenTimeout => e
@@ -128,6 +129,8 @@ def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil
   rescue Net::ReadTimeout => e
     puts "Unable to connect: #{e}"
     timeout = true
+  rescue Errno::ENETDOWN => e
+    puts "Unable to connect: #{e}" 
   rescue Errno::ETIMEDOUT => e
     puts "Unable to connect: #{e}" 
     timeout = true
