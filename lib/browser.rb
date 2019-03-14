@@ -27,6 +27,9 @@ module Ident
         Process.kill('KILL', -pgid )
         Process.kill('KILL', driver_pid )
 
+      rescue EOFError => e
+        # ???
+        # /protocol.rb:189:in `rbuf_fill': end of file reached (EOFError)
       rescue Errno::ESRCH => e
         # already dead
         #puts "Error trying to kill our browser session #{e}"
@@ -40,39 +43,45 @@ module Ident
       begin
         results = yield
       rescue Addressable::URI::InvalidURIError => e
-        puts "Unable to visit..."
+        #puts "Unable to visit..."
       rescue Capybara::ElementNotFound => e
-        puts "Element not found: #{e}"
+        #puts "Element not found: #{e}"
       rescue Net::ReadTimeout => e
-        puts "Timed out, moving on"
+        #puts "Timed out, moving on"
       rescue Selenium::WebDriver::Error::WebDriverError => e
         # skip simple errors where we're testing JS libs
         unless ("#{e}" =~ /is not defined/ || "#{e}" =~ /Cannot read property/)
-          puts "Webdriver issue #{e}"
+          #puts "Webdriver issue #{e}"
         end
       rescue Selenium::WebDriver::Error::UnhandledAlertError => e
-        puts "Lost our window due to undexpected popup #{e}"
+        #puts "Lost our window due to undexpected popup #{e}"
       rescue Selenium::WebDriver::Error::NoSuchWindowError => e
-        puts "Lost our window #{e}"
+        #puts "Lost our window #{e}"
       rescue Selenium::WebDriver::Error::UnknownError => e
         # skip simple errors where we're testing JS libs
         unless ("#{e}" =~ /is not defined/ || "#{e}" =~ /Cannot read property/)
-          puts "#{e}"
+          #puts "#{e}"
         end
-      rescue Selenium::WebDriver::Error::UnhandledAlertError => e
-        puts "Unhandled alert open: #{e}"
       rescue Selenium::WebDriver::Error::NoSuchElementError
-        puts "No such element #{e}, moving on"
+        #puts "No such element #{e}, moving on"
       rescue Selenium::WebDriver::Error::StaleElementReferenceError
-        puts "No such element ref #{e}, moving on"
+        #puts "No such element ref #{e}, moving on"
       end
+
     results
     end
 
     def ident_capture_document(session, uri)
+      
+      page_title_rendered = nil
+      rendered_page = nil
+      final_url = nil
+
       # browse to our target
       ident_safe_browser_action do
         session.visit(uri)
+        page_title_rendered = session.document.title  # Capture Title
+        session.current_url # Capture final url
       end
 
       # Capture DOM
@@ -81,12 +90,9 @@ module Ident
         rendered_page = session.evaluate_script("document.documentElement.innerHTML",[])
       end
 
-      # Capture Title
-      page_title_rendered = session.document.title
-
       to_return = {
         :start_url => uri,
-        :final_url => session.current_url,
+        :final_url => final_url,
         :request_type => :chrome,
         :request_method => :get,
         :title => page_title_rendered,

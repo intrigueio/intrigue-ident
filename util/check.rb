@@ -135,6 +135,8 @@ elsif opts[:file]
           output_q << out
 
         end # while
+      rescue StandardError => e
+        puts "EXCEPTION! #{e}"
       rescue ThreadError
       end # begin
     end # thread

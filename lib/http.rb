@@ -122,51 +122,51 @@ def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil
   ### TODO - create a global $debug config option
   
   rescue ArgumentError => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
   rescue Net::OpenTimeout => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
     timeout = true
   rescue Net::ReadTimeout => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
     timeout = true
   rescue Errno::ENETDOWN => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Errno::ETIMEDOUT => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
     timeout = true
   rescue Errno::EINVAL => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
   rescue Errno::ENETUNREACH => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
   rescue Errno::EHOSTUNREACH => e
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
   rescue URI::InvalidURIError => e
     #
     # XXX - This is an issue. We should catch this and ensure it's not
     # due to an underscore / other acceptable character in the URI
     # http://stackoverflow.com/questions/5208851/is-there-a-workaround-to-open-urls-containing-underscores-in-ruby
     #
-    puts "Unable to connect: #{e}"
+    #puts "Unable to connect #{uri}: #{e}"
   rescue OpenSSL::SSL::SSLError => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Errno::ECONNREFUSED => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Errno::ECONNRESET => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Net::HTTPBadResponse => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Zlib::BufError => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Zlib::DataError => e # "incorrect header check - may be specific to ruby 2.0"
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue EOFError => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue SocketError => e
-    puts "Unable to connect: #{e}" 
+    #puts "Unable to connect #{uri}: #{e}" 
   rescue Encoding::InvalidByteSequenceError => e
-    puts "Encoding: #{e}" 
+    #puts "Encoding issue #{uri}: #{e}" 
   rescue Encoding::UndefinedConversionError => e
-    puts "Encoding: #{e}" 
+    #puts "Encoding issue #{uri}: #{e}" 
   end
 
   # generate our output
