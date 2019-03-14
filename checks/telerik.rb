@@ -33,7 +33,7 @@ module Check
             :match_type => :content_body,
             :match_content =>  /<meta\ name=\"Generator\"\ content=\"Sitefinity/,
             :dynamic_version => lambda { |x| 
-              _first_body_capture x, /<meta name=\"Generator\" content=\"Sitefinity (.*?)\ \/><link/ },
+              _first_body_capture x, /<meta name=\"Generator\" content=\"Sitefinity ([\d\.]+).*\ \/>/ },
             :paths => ["#{url}"],
             :inference => true
           }
