@@ -287,6 +287,7 @@ module Intrigue
           "match_details" => check[:match_details],
           "hide" => check[:hide],
           "cpe" => cpe_string,
+          "inference" => check[:inference]
         }
 
       elsif check[:type] == "content"
