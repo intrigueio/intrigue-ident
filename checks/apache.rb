@@ -144,7 +144,7 @@ class Apache < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["Library"],
         :vendor =>"Apache",
-        :product =>"mod_jk",
+        :product =>"tomcat_jk_connector",
         :match_details =>"server header",
         :version => nil,
         :match_type => :content_headers,
@@ -183,22 +183,6 @@ class Apache < Intrigue::Ident::Check::Base
         :match_content =>  /^.*mod_ssl\/.*$/i,
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_ssl\/([\w\d\.\-]*)\s.*$/i)
-        },
-        :paths => ["#{url}"],
-        :inference => true
-      },
-      {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Library"],
-        :vendor =>"Apache",
-        :product =>"mod_wsgi",
-        :match_details =>"server header",
-        :version => nil,
-        :match_type => :content_headers,
-        :match_content =>  /^.*mod_wsgi\/.*$/i,
-        :dynamic_version => lambda { |x|
-          _first_header_capture(x,/^.*mod_wsgi\/([\w\d\.\-]*)\s.*$/i)
         },
         :paths => ["#{url}"],
         :inference => true
