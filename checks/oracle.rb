@@ -167,7 +167,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Web Framework", "Language"],
+            :tags => ["Web Framework"],
             :vendor => "Oracle",
             :product =>"Java",
             :match_details =>"JSESSIONID cookie",
@@ -179,6 +179,20 @@ module Check
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
+          },
+           { ### SPECIFIC TO SAP 
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
+            :vendor =>"Oracle",
+            :product =>"Java",
+            :match_details =>"server header",
+            :references => [],
+            :match_type => :content_headers,
+            :match_content =>  /server: SAP NetWeaver Application Server [\d\.]+ \/ AS Java [\d\.]+/i,
+            :dynamic_version => lambda { |x| _first_header_capture(x, /AP NetWeaver Application Server [\d\.]+ \/ AS Java ([\d\.]+)/i) },
+            :paths => ["#{url}"],
+            :inference => true
           },
           { # TODO - this will tell us J2EE versions, see references!!!
             :type => "fingerprint",
@@ -198,6 +212,7 @@ module Check
             :paths => ["#{url}"],
             :inference => true
           },
+         
           { # TODO - this will tell us J2EE versions, see references!!!
             :type => "fingerprint",
             :category => "application",
