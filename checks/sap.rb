@@ -16,8 +16,8 @@ module Check
               "https://en.wikipedia.org/wiki/ABAP"
             ],
             :match_type => :content_headers,
-            :match_content =>  /server: SAP NetWeaver Application Server \/ ABAP [\d]+/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server \/ ABAP ([\d]+)/i,) },
+            :match_content =>  /server: SAP NetWeaver Application Server [\d\.\s]*\/ ABAP [\d]+/i,
+            :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server [\d\.\s]*\/ ABAP ([\d]+)/i,) },
             :paths => ["#{url}"],
             :inference => true
           },
@@ -32,8 +32,8 @@ module Check
               "https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/48/039d48c0070c84e10000000a42189c/frameset.htm"
             ],
             :match_type => :content_headers,
-            :match_content =>  /server: SAP NetWeaver Application Server \/ ICM [\d\.]+/i,
-            :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server \/ ICM ([\d\.]+)/i,) },
+            :match_content =>  /server: SAP NetWeaver Application Server [\d\.\s]*\/ ICM [\d\.]+/i,
+            :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server [\d\.\s]*\/ ICM ([\d\.]+)/i,) },
             :paths => ["#{url}"],
             :inference => true
           },
