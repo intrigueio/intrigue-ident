@@ -32,6 +32,40 @@ class Akamai < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :vendor => "Akamai",
+        :tags => ["CDN", "WAF"],
+        :references => [
+            "https://learn.akamai.com/en-us/webhelp/ion/web-performance-getting-started-for-http-properties/GUID-3ABC638E-14E9-4858-BD4F-BF345BC254F3.html"
+        ], 
+        :product => "Akamai (Staging Network)",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /X-Akamai-Staging: ESSL/,
+        :match_details =>"Akamai transformed header",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :vendor => "Akamai",
+        :tags => ["CDN", "WAF"],
+        :references => [
+            "https://learn.akamai.com/en-us/webhelp/ion/web-performance-getting-started-for-http-properties/GUID-3ABC638E-14E9-4858-BD4F-BF345BC254F3.html"
+        ],
+        :product => "Akamai (Staging Network)",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /X-Akamai-Staging: EdgeSuite/,
+        :match_details =>"Akamai transformed header",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
