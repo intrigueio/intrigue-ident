@@ -46,7 +46,7 @@ module Check
             :references => [
                 "https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html",
                 "https://www.cisco.com/c/dam/en/us/td/docs/voice_ip_comm/expressway/admin_guide/Cisco-Expressway-Administrator-Guide-X8-10.pdf"
-            ]
+            ],
             :match_details => "server header",
             :version => nil,
             :match_type => :content_headers,
