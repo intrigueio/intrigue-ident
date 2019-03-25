@@ -20,7 +20,21 @@ module Check
           },
           :paths => ["#{url}"],
           :inference => true
-        }
+        },
+        {
+          :type => "fingerprint",
+          :category => "hardware",
+          :tags => ["Embedded", "Networking"],
+          :vendor =>"Mikrotik",
+          :product =>"RouterOS",
+          :match_details => "server header",
+          :match_type => :content_headers,
+          :match_content =>  /^server: Mikrotik HttpProxy$/,
+          :version => nil,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        # 
       ]
     end
 
