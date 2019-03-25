@@ -14,7 +14,7 @@ module Check
             :match_details =>"server header",
             :version => nil,
             :match_type => :content_headers,
-            :match_content => /server: Splunkd$/i,
+            :match_content => /^server: Splunkd$/i,
             :paths => ["#{url}"],
             :inference => false
           }
