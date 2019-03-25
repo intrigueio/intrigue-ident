@@ -15,7 +15,7 @@ module Check
             :version => nil,
             :dynamic_version => lambda {|x| _first_body_capture(x,/<title>Cisco ASDM (.*?)<\/title>/)},
             :match_type => :content_body,
-            :match_content =>  /<title>Cisco ASDM/,
+            :match_content =>  /<title>Cisco ASDM/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => true
@@ -29,10 +29,28 @@ module Check
             :match_details => "page title",
             :version => nil,
             :dynamic_version => lambda {|x| 
-                _first_body_capture(x,/Email Security Appliance   (.*?) \(/)
+                _first_body_capture(x,/Email Security Appliance   (.*?) \(/i)
             },
             :match_type => :content_body,
             :match_content =>  /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
+            :hide => false,
+            :paths => ["#{url}"],
+            :inference => true
+          },
+          {
+            :type => "fingerprint",
+            :category => "hardware",
+            :tags => ["Networking","COTS"],
+            :vendor => "Cisco",
+            :product => "Expressway",
+            :references => [
+                "https://www.cisco.com/c/en/us/products/unified-communications/expressway-series/index.html",
+                "https://www.cisco.com/c/dam/en/us/td/docs/voice_ip_comm/expressway/admin_guide/Cisco-Expressway-Administrator-Guide-X8-10.pdf"
+            ]
+            :match_details => "server header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^server: CE_E$/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => true
@@ -46,7 +64,7 @@ module Check
             :match_details => "Meraki logo on an on-prem box",
             :version => nil,
             :match_type => :content_body,
-            :match_content =>  /<img id="header_logo" src="images\/meraki-logo.png"/,
+            :match_content =>  /<img id="header_logo" src="images\/meraki-logo.png"/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
@@ -60,7 +78,7 @@ module Check
             :match_details =>"Cisco SSL VPN",
             :version => nil,
             :match_type => :content_cookies,
-            :match_content =>  /webvpn/,
+            :match_content =>  /webvpn/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
@@ -74,7 +92,7 @@ module Check
             :match_details =>"Cisco SSL VPN",
             :version => nil,
             :match_type => :content_body,
-            :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/,
+            :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
@@ -88,7 +106,7 @@ module Check
             :match_details => "Cisco Router",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /server: cisco-IOS/,
+            :match_content =>  /server: cisco-IOS/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
@@ -102,7 +120,7 @@ module Check
             :match_details => "page title",
             :version => nil,
             :match_type => :content_body,
-            :match_content => /<title>Cisco vManage/,
+            :match_content => /<title>Cisco vManage/i,
             :hide => false,
             :paths => ["#{url}"],
             :inference => false
