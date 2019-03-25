@@ -17,7 +17,7 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /server: SMA\/.*/i,
             :dynamic_version => lambda { |x|
-              _first_header_capture(x,/server: SMA\/(.*)/i)
+              _first_header_capture(x,/server: SMA\/([\d\.]+)/i)
             },
             :paths => ["#{url}"],
             :examples => ["server: SMA/12.2"],
@@ -35,12 +35,25 @@ module Check
             :match_type => :content_headers,
             :match_content =>  /server: SMA\/.*/i,
             :dynamic_version => lambda { |x|
-              _first_header_capture(x,/server: SMA\/(.*)/i)
+              _first_header_capture(x,/server: SMA\/([\d\.]+)/i)
             },
             :paths => ["#{url}"],
             :examples => ["server: SMA/12.2"],
             :inference => true
+          }, 
+          { # Sonicwall
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Networking","VPN"],
+            :vendor =>"Sonicwall",
+            :product =>"Sonicwall",
+            :match_details =>"server header",
+            :match_type => :content_headers,
+            :match_content =>  /server: SonicWALL$/i,
+            :paths => ["#{url}"],
+            :inference => true
           }
+
         ]
       end
 
