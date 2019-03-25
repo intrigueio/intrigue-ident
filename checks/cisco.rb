@@ -35,7 +35,7 @@ module Check
             :match_content =>  /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
             :hide => false,
             :paths => ["#{url}"],
-            :inference => true
+            :inference => false
           },
           {
             :type => "fingerprint",
