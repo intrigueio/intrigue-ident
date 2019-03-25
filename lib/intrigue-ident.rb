@@ -4,10 +4,11 @@ require 'openssl'
 require 'zlib'
 
 # load in http libs
+require_relative 'utils'
 require_relative 'http'
-
 require_relative 'browser'
 require_relative 'content'
+
 
 # Load in checks
 ################

@@ -4,7 +4,7 @@ require 'slop'
 require 'thread'
 
 include Intrigue::Ident
-
+include Intrigue::Ident::Utils
 
 ###
 ### Parse options
@@ -53,7 +53,9 @@ if opts[:url]
       # delete any existing file
       File.delete "debug.txt" if File.exist? "debug.txt"
 
-      check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do|x|
+      check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
+
+        safex = encode_hash x 
 
         # increment the request number
         i+=1
@@ -63,7 +65,7 @@ if opts[:url]
 
         # write the contents to a file
         File.open("requests.txt","a") do |f|
-          f.puts "Request #{i}\n #{JSON.pretty_generate(x)}\n\n\n\n"
+          f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
         end
 
       end
