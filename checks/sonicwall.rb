@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["COTS","Networking","VPN"],
+            :tags => ["COTS","Networking","VPN","Security"],
             :vendor =>"Sonicwall",
             :product =>"SonicOS",
             :match_details =>"server header",
@@ -26,7 +26,7 @@ module Check
           { # duplicate of SMA fingerprint, want to flag SonicOS as well
             :type => "fingerprint",
             :category => "application",
-            :tags => ["COTS","Networking","VPN"],
+            :tags => ["COTS","Networking","VPN","Security"],
             :vendor =>"Sonicwall",
             :product =>"Secure Mobile Access",
             :match_details =>"server header",
@@ -44,9 +44,9 @@ module Check
           { # Sonicwall
             :type => "fingerprint",
             :category => "application",
-            :tags => ["COTS","Networking","VPN"],
+            :tags => ["COTS","Networking","Security"],
             :vendor =>"Sonicwall",
-            :product =>"Sonicwall",
+            :product =>"Network Security Appliance",
             :match_details =>"server header",
             :match_type => :content_headers,
             :match_content =>  /server: SonicWALL$/i,
