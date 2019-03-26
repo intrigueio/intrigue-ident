@@ -29,7 +29,7 @@ module Check
             :match_details => "page title",
             :version => nil,
             :dynamic_version => lambda {|x| 
-                _first_body_capture(x,/Email Security Appliance   (.*?) \(/i)
+              _first_body_capture(x,/Email Security Appliance   (.*?) \(/i)
             },
             :match_type => :content_body,
             :match_content =>  /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,

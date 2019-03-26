@@ -44,6 +44,19 @@ module Check
             :paths => ["#{url}"],
             :inference => false
           },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Orchestration", "Networking"],
+            :vendor => "Kubernetes",
+            :product =>"Kubernetes",
+            :match_details =>"api page string",
+            :version => nil,
+            :match_type => :content_body,
+            :match_content =>  /serverAddressByClientCIDRs/,
+            :paths => ["#{url}/api"],
+            :inference => false
+          }
         ]
       end
 
