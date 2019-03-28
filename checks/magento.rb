@@ -43,8 +43,7 @@ module Check
             :match_content =>  /^x-magento-cache-control:.*$/i,
             :paths => ["#{url}"], 
             :inference => false
-          },
-          
+          },    
           {
             :type => "fingerprint",
             :category => "application",
@@ -57,7 +56,20 @@ module Check
             :match_content =>  /^x-magento-tags:.*$/i,
             :paths => ["#{url}"], 
             :inference => false
-          }          
+          }, 
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Payments"],
+            :vendor => "Magento",
+            :product =>"Magento",
+            :match_details =>"cookies js file",
+            :match_type => :content_body,
+            :version => nil,
+            :match_content =>  /old school cookie functions grabbed off the web/i,
+            :paths => ["#{url}/js/mage/cookies.js"], 
+            :inference => false
+          }           
         ]
       end
 
