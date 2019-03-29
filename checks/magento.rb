@@ -57,7 +57,7 @@ module Check
             :paths => ["#{url}"], 
             :inference => false
           }, 
-          {
+          { # also... /skin/frontend/default/default/css/styles.css
             :type => "fingerprint",
             :category => "application",
             :tags => ["COTS","Payments"],
@@ -69,7 +69,21 @@ module Check
             :match_content =>  /old school cookie functions grabbed off the web/i,
             :paths => ["#{url}/js/mage/cookies.js"], 
             :inference => false
-          }           
+          },           
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS","Payments"],
+            :vendor => "Magento",
+            :product =>"Magento",
+            :match_details =>"release notes file",
+            :match_type => :content_body,
+            :version => nil,
+            :match_content =>  /==== [\d\.]+ ====/i,
+            :dynamic_version => lambda{ |x| _first_body_capture(x, /==== ([\d\.]+) ====/i)},
+            :paths => ["#{url}/RELEASE_NOTES.txt"], 
+            :inference => false
+          }              
         ]
       end
 
