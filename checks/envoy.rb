@@ -8,7 +8,7 @@ class Envoy < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "operating_system",
-        :tags => ["Networking","COTS","Wireless"],
+        :tags => ["Networking", "Proxy"],
         :vendor => "Envoy",
         :product => "Envoy",
         :version => nil,
