@@ -100,7 +100,6 @@ module Intrigue
           end
         end
 
-
         # Go ahead and match it up if we got a response!
         if response_hash || browser_response
           # call each check, collecting the product if it's a match

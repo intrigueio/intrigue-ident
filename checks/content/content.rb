@@ -21,7 +21,7 @@ class Content < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name =>"Location Header",
-        :match_type => :content_title,
+        :match_type => :content_header,
         :dynamic_result => lambda { |d| return _first_header_capture(d,/^location:(.*)$/i) },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
@@ -39,7 +39,7 @@ class Content < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name =>"Open Redirect Detected",
-        :match_type => :content_title,
+        :match_type => :content_body,
         :references => [
           "https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Open%20Redirect"
         ],
@@ -79,7 +79,7 @@ class Content < Intrigue::Ident::Check::Base
         :dynamic_result => lambda { |d| _first_body_match(d,/enctype=\"multipart\/form-data/) ? true : false },
         :paths => ["#{url}"],
         :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| true },
+        :dynamic_issue => lambda { |d| false },
       },
       {
         :type => "content",
