@@ -22,7 +22,7 @@ class Content < Intrigue::Ident::Check::Base
         :type => "content",
         :name =>"Location Header",
         :match_type => :content_header,
-        :dynamic_result => lambda { |d| return _first_header_capture(d,/^location:(.*)$/i) },
+        :dynamic_result => lambda { |d| _first_header_capture(d,/^location:(.*)$/i) },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]

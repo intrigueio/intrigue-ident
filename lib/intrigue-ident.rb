@@ -293,8 +293,13 @@ module Intrigue
       elsif check[:type] == "content"
 
         result = check[:dynamic_result].call(data)
-        hide = check[:dynamic_hide].call(data)
-        issue = check[:dynamic_issue].call(data)
+        if result
+          hide = check[:dynamic_hide].call(data)
+          issue = check[:dynamic_issue].call(data)  
+        else 
+          hide = false
+          issue = false
+        end
 
         to_return = {
           "type" => check[:type],
