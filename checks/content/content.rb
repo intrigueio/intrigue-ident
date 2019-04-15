@@ -60,7 +60,7 @@ class Content < Intrigue::Ident::Check::Base
         out
         },
         :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| true },
+        :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
       },
       {
