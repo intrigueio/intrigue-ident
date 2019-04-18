@@ -36,33 +36,33 @@ class Content < Intrigue::Ident::Check::Base
         :dynamic_issue => lambda { |d| true },
         :paths => ["#{url}"]
       },
-      {
-        :type => "content",
-        :name =>"Open Redirect Detected",
-        :match_type => :content_body,
-        :references => [
-          "https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Open%20Redirect"
-        ],
-        :dynamic_result => lambda { |d|
-          regex_list = [
-          /\?next=http/i,/\?url=http/i,/\?target=http/i,/\?rurl=http/i,
-          /\?dest=http/i,/\?destination=http/i,/\?redir=http/i,
-          /\?redirect_uri=http/i,/\?redirect_url=http/i,/\?redirect=http/i,
-          /\/redirect\/http/i,/\/cgi-bin\/redirect.cgi\?http/i,/\/out\/http/i,
-          /\/out\?http/i,/\?view=http/i,/\/login\?to=http/i,/\?image_url=http/i,
-          /\?go=http/i,/\?return=http/i,/\?returnTo=http/i,/\?return_to=http/i,
-          /\?checkout_url=http/i,/\?continue=http/i,/\?return_path=http/i
-          ]
-          out = false
-          regex_list.each { |regex|
-            _first_body_match(d,regex) ? out = true : nil 
-          }
-        out
-        },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
-      },
+      #{
+      #  :type => "content",
+      #  :name =>"Open Redirect Detected",
+      #  :match_type => :content_body,
+      #  :references => [
+      #    "https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Open%20Redirect"
+      #  ],
+      #  :dynamic_result => lambda { |d|
+      #    regex_list = [
+      #    /\?next=http/i,/\?url=http/i,/\?target=http/i,/\?rurl=http/i,
+      #    /\?dest=http/i,/\?destination=http/i,/\?redir=http/i,
+      #    /\?redirect_uri=http/i,/\?redirect_url=http/i,/\?redirect=http/i,
+      #    /\/redirect\/http/i,/\/cgi-bin\/redirect.cgi\?http/i,/\/out\/http/i,
+      #    /\/out\?http/i,/\?view=http/i,/\/login\?to=http/i,/\?image_url=http/i,
+      #    /\?go=http/i,/\?return=http/i,/\?returnTo=http/i,/\?return_to=http/i,
+      #    /\?checkout_url=http/i,/\?continue=http/i,/\?return_path=http/i
+      #    ]
+      #    out = false
+      #    regex_list.each { |regex|
+      #      _first_body_match(d,regex) ? out = true : nil 
+      #    }
+      #  out
+      #  },
+      #  :dynamic_hide => lambda { |d| false },
+      #  :dynamic_issue => lambda { |d| false   },
+      #  :paths => ["#{url}"]
+      #},
       {
         :type => "content",
         :name =>"Form Detected",
