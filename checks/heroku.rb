@@ -25,7 +25,7 @@ module Check
             :tags => ["Hosting"],
             :vendor => "Heroku",
             :product =>"Heroku",
-            :match_details =>"Heroku",
+            :match_details =>"vegur server",
             :version => nil,
             :match_type => :content_headers,
             :match_content => /^via: [\d\.]+ vegur/i,
