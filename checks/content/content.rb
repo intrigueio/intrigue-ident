@@ -91,7 +91,8 @@ class Content < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :dynamic_result => lambda { |d| 
         email_address_regex = /([a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,5})/
-          _all_body_captures(d,email_address_regex).select{|e| !(e =~ /\.png$/) }.compact
+          captures = _all_body_captures(d,email_address_regex) || []
+          captures.select{|e| !(e =~ /\.png$/) }.compact
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },

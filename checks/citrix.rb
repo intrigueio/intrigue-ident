@@ -91,7 +91,7 @@ module Check
             :match_details => "page title",
             :references => [],
             :version => nil,
-            :dynamic_version => lambda { |x| _
+            :dynamic_version => lambda { |x|
               _first_body_capture(x,/<title>Welcome to Citrix XenServer (.*?)<\/title>/)
             },
             :match_type => :content_body,
