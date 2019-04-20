@@ -6,13 +6,17 @@ class Content < Intrigue::Ident::Check::Base
     [
       {
         :type => "content",
-        :name =>"Google Urchin Account Detected",
+        :name =>"Google Analytics Account Detected",
         :match_type => :content_body,
         :dynamic_result => lambda { |d|
-          if _body(d) =~ /gtag\(\'config\', \'[\w\d-]*\'\);/
-            return _first_body_capture d, /gtag\(\'config\', \'([\w\d-]*)\'\);/
+          out = false
+          if (_body(d) =~ /gtag\(\'config\', \'[\w\d-]*\'\);/ || 
+              _body(d) =~ /ga\('create', 'UA-\d+-\d'/ )
+            puts "MATCH"
+            out = _first_body_capture(d, /ga\('create', '(UA-\d+-\d)'/)
+              _first_body_capture(d, /gtag\(\'config\', \'(UA-\d+-\d+)/)
           end
-        false
+        out 
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
@@ -85,7 +89,10 @@ class Content < Intrigue::Ident::Check::Base
         :type => "content",
         :name =>"Email Addresses Detected",
         :match_type => :content_title,
-        :dynamic_result => lambda { |d| _all_body_captures(d,/([a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,5})/) },
+        :dynamic_result => lambda { |d| 
+        email_address_regex = /([a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,5})/
+          _all_body_captures(d,email_address_regex).select{|e| !(e =~ /\.png$/) }.compact
+        },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
