@@ -21,6 +21,19 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
+            :tags => ["Marketing","Javascript"],
+            :vendor => "Google",
+            :product =>"Analytics",
+            :match_details =>"load string",
+            :version => nil,
+            :match_type => :content_body,
+            :match_content =>  /www.google-analytics.com\/analytics.js','ga'/im,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
             :tags => ["Hosting"],
             :vendor => "Google",
             :product => "Hosted",
