@@ -23,6 +23,10 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/content', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
+# wordpress specific checks
+content_check_folder = File.expand_path('../checks/wordpress', File.dirname(__FILE__)) # get absolute directory
+Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
+
 module Intrigue
   module Ident
 
