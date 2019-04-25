@@ -19,7 +19,7 @@ module Check
               _first_body_capture(x,/wp-content\/plugins\/sassy-social-share\/public\/js\/sassy-social-share-public.js?ver=([\d\.]+)/ii)
             },
             :paths => ["#{url}"],
-            :inference => true # no cves as of 20190310
+            :inference => no 
           }
         ]
       end
