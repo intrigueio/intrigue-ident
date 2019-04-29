@@ -74,7 +74,20 @@ class Atlassian < Intrigue::Ident::Check::Base
             _first_body_capture(x,/<meta name="ajs-version-number" content="(.*)">/) },
         :paths => ["#{url}"],
         :inference => true
-      }
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development"],
+        :vendor => "Atlassian",
+        :product =>"Statuspage",
+        :match_details =>"statuspage icon",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /logos-statuspage-logo-gradient-neutral.svg/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
     ]
   end
 end
