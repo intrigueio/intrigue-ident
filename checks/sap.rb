@@ -126,6 +126,19 @@ module Check
             :match_content =>  /bD1lbiZjPTEwMCZkPW1pbg==/i,
             :paths => ["#{url}"],
             :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
+            :vendor =>"SAP",
+            :product =>"XSEngine",
+            :version => nil,
+            :match_details =>"title",
+            :match_type => :content_title,
+            :match_content =>  /SAP XSEngine/i,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end
