@@ -20,6 +20,18 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Web Server"],
+            :vendor =>"Ruby",
+            :product =>"Rack",
+            :match_details =>"x-cascade header",
+            :match_type => :content_headers,
+            :match_content =>  /^x-cascade:.*$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
             :tags => ["library"],
             :vendor =>"Ruby",
             :product =>"Ruby",
