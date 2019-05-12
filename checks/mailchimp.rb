@@ -7,14 +7,14 @@ module Check
         [
           {
             :type => "fingerprint",
-            :category => "application",
+            :category => "service",
             :tags => ["Marketing","COTS"],
             :vendor => "Mailchimp",
             :product =>"Mandrill",
             :match_details =>"login page",
-            :match_type => :content_body,
+            :match_type => :content_title,
             :version => nil,
-            :match_content =>  /<title>Log in to Mandrill/i,
+            :match_content =>  /Log in to Mandrill/i,
             :paths => ["#{url}"], 
             :inference => false
           }
