@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-    class WordpressPlugins < Intrigue::Ident::Check::Base
+    class WordpressTeamHeateor < Intrigue::Ident::Check::Base
 
       def generate_checks(url)
         [
