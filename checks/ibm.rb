@@ -15,7 +15,21 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /X-Backside-Transport:/i,
-          :match_details =>"header thrown by ibm datapower (on error?)",
+          :match_details =>"header thrown by ibm datapower (on error)",
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Web Server"],
+          :vendor => "IBM",
+          :product =>"HTTP Server",
+          :references => [],
+          :version => nil,
+          :match_type => :content_body,
+          :match_content =>  /<address>IBM_HTTP_Server Server/i,
+          :match_details =>"error thrown by ibm http server",
           :paths => ["#{url}"],
           :inference => false
         },
