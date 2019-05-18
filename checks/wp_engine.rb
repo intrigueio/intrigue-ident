@@ -18,6 +18,20 @@ module Check
             :hide => true,
             :paths => ["#{url}"],
             :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosted", "CMS"],
+            :vendor =>"WPEngine",
+            :product =>"WPEngine",
+            :match_details =>"WPEngine header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^wpe-backend:/, # note that this will tell us the server ala,,,   "wpe-backend: apache",
+            :hide => true,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end
