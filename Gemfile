@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.1'
 
 gem 'capybara'
-gem 'selenium-webdriver',  '~> 3.12.0'
+gem 'selenium-webdriver'
+#gem 'webdrivers', '~> 3.0'
 gem 'pry'
 gem 'slop'
