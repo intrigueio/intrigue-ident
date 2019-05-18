@@ -19,6 +19,19 @@ module Check
             :paths => ["#{url}"],
             :inference => true
           },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server"],
+            :vendor => "Solarwinds",
+            :product =>"Nginx",
+            :match_details =>"",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /server: solarwinds-nginx/,
+            :paths => ["#{url}"],
+            :inference => false
+          }
         ]
       end
 
