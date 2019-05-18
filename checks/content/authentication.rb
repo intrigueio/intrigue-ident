@@ -52,7 +52,43 @@ class Authentication < Intrigue::Ident::Check::Base
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
         :paths => ["#{url}"]
-      }
+      },
+      {
+        :type => "content",
+        :name => "Authentication - Session Identifier",
+        :references => [
+          "https://github.com/fuzzdb-project/fuzzdb/blob/ecb0850538bc9152949fa4579654d6b64e2fdb97/regex/sessionid.txt"
+        ],
+        :match_type => :content_cookies,
+        :dynamic_result => lambda { |d|
+          return false unless d["details"]["cookies"]
+          return true if _first_cookie_match d, /ASP.NET_SessionId/i
+          return true if _first_cookie_match d, /ASPSESSIONID/i
+          return true if _first_cookie_match d, /ASPXAUTH/i
+          return true if _first_cookie_match d, /barra_counter_session/i
+          return true if _first_cookie_match d, /cfid/i
+          return true if _first_cookie_match d, /cftoken/i
+          return true if _first_cookie_match d, /_enservio_session/i
+          return true if _first_cookie_match d, /grafana_sess/i
+          return true if _first_cookie_match d, /_gitlab_session/i
+          return true if _first_cookie_match d, /jive.login.ts/i
+          return true if _first_cookie_match d, /JSESSIONID/i
+          return true if _first_cookie_match d, /LiSESSIONID/i
+          return true if _first_cookie_match d, /MRHSession/i
+          return true if _first_cookie_match d, /sails.sid/i
+          return true if _first_cookie_match d, /sessid/i
+          return true if _first_cookie_match d, /session/i
+          return true if _first_cookie_match d, /sid/i
+          return true if _first_cookie_match d, /SITESERVER/i
+          return true if _first_cookie_match d, /TWIKISID/i
+          return true if _first_cookie_match d, /viewstate/i
+          return true if _first_cookie_match d, /zenid/i
+        false
+        },
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
+      },
     ]
   end
 end
