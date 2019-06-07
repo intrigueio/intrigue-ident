@@ -552,6 +552,41 @@ module Check
         ]
       end
 
+      # https://en.wikipedia.org/wiki/Internet_Information_Services
+      def iis_to_os_version(iis_version)
+        case 
+        when iis_version == "10.0.17763"
+          { version: " Windows Server 2019 or Windows 10 October Update" }
+        when iis_version == "10.0"
+          { version: " Windows Server, version 1709 (Semi-Annual Channel) or Windows 10 Fall Creators Update" }          
+        when iis_version == "10.0.14393" # IIS 10.0 version 1607
+          { version: "Windows Server 2016 or Windows 10 Anniversary Update" }
+        when iis_version == "8.5"
+          { version: "Windows Server 2012 R2 or Windows 8.1" }
+        when iis_version == "8.0"
+          { version: "Windows Server 2012 or Windows 8" }
+        when iis_version == "7.5"
+          { version: "Windows Server 2008 R2 or Windows 7" }
+        when iis_version == "7.0"
+          { version: "Windows Server 2008 or Windows Vista" }
+        when iis_version == "6.0"
+          { version: "Windows Server 2003 or Windows XP Professional x64 Edition" }
+        when iis_version == "5.1"
+          { version: "Windows XP Professional" }
+        when iis_version == "5.0"
+          { version: "Windows Server 2000" }
+        when iis_version == "4.0"
+          { version: "Windows NT 4.0 Option Pack" }                              
+        when iis_version == "3.0"
+          { version: "Windows NT 4.0 SP2" }                              
+        when iis_version == "2.0"
+          { version: "Windows NT 4.0" }        
+        when iis_version == "1.0"
+          { version: "Windows NT 3.51" }        
+        end
+      out
+      end
+
       def owa_to_exchange_version(owa_version)
         if owa_version == "15.0.516" #.32"
           out = { version: "2013", update: "RTM" }
