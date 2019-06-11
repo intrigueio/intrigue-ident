@@ -10,8 +10,6 @@ class Authentication < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["headers"]
-          require 'pry'
-          binding.pry
           return true if _first_header_match(d, /^www-authenticate:.*$/)
         false
         },
