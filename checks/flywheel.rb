@@ -8,7 +8,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["APM","Javascript"],
+            :tags => ["CMS","SaaS"],
             :vendor => "Flywheel",
             :product =>"Hosted Wordpress",
             :references => [
