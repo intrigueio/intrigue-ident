@@ -576,13 +576,13 @@ module Check
         when iis_version == "5.0"
           { version: "Windows Server 2000" }
         when iis_version == "4.0"
-          { version: "Windows NT 4.0 Option Pack" }                              
+          { version: "Windows NT 4.0 Option Pack" }
         when iis_version == "3.0"
-          { version: "Windows NT 4.0 SP2" }                              
+          { version: "Windows NT 4.0 SP2" }
         when iis_version == "2.0"
-          { version: "Windows NT 4.0" }        
+          { version: "Windows NT 4.0" }
         when iis_version == "1.0"
-          { version: "Windows NT 3.51" }        
+          { version: "Windows NT 3.51" }
         end
       out
       end
