@@ -12,7 +12,6 @@ class Content < Intrigue::Ident::Check::Base
           out = false
           if (_body(d) =~ /gtag\(\'config\', \'[\w\d-]*\'\);/ || 
               _body(d) =~ /ga\('create', 'UA-\d+-\d'/ )
-            puts "MATCH"
             out = _first_body_capture(d, /ga\('create', '(UA-\d+-\d)'/)
               _first_body_capture(d, /gtag\(\'config\', \'(UA-\d+-\d+)/)
           end
@@ -37,8 +36,8 @@ class Content < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :dynamic_result => lambda { |d| ( 
           _first_title_match(d,/Index of \//) || 
-          _first_body_match("<h1>Index of /") ||
-          _first_body_match("[To Parent Directory]") ) ? true : false },
+          _first_body_match(d, "<h1>Index of /") ||
+          _first_body_match(d, "[To Parent Directory]") ) ? true : false },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| true },
         :paths => ["#{url}"]
