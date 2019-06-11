@@ -20,6 +20,19 @@ module Check
             },
             :paths => ["#{url}"],
             :inference => true
+          }, 
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Framework"],
+            :vendor =>"PHP",
+            :product =>"PHP",
+            :match_details =>"PHPSESSID cookie",
+            :version => nil,
+            :match_type => :content_cookies,
+            :match_content =>  /PHPSESSID=.*/i,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
       end
