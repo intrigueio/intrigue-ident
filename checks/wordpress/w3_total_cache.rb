@@ -12,7 +12,6 @@ module Check
             :vendor =>"Wordpress",
             :product =>"W3 Total Cache",
             :match_details =>"powered by header",
-            :references => [],
             :match_type => :content_headers,
             :match_content =>  /x-powered-by: W3 Total Cache\/.*/i,
             :dynamic_version => lambda { |x|
