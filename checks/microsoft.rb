@@ -166,6 +166,19 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
+            :tags => ["Hosting"],
+            :vendor => "Microsoft",
+            :product =>"Azure",
+            :match_details => "standard 404",
+            :version => nil,
+            :match_type => :content_title,
+            :match_content =>  /^Microsoft Azure Web App - Error 404$/i,
+            :paths => ["#{url}"], 
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
             :tags => ["Hosting", "Load Balancer"],
             :vendor => "Microsoft",
             :product =>"Azure",
@@ -507,6 +520,19 @@ module Check
               _first_body_capture x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/ },
             :paths => ["#{url}"], 
             :inference => true
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "COTS"],
+            :vendor => "Microsoft",
+            :product =>"Outlook Web Access",
+            :match_details =>"title",
+            :version => nil,
+            :match_type => :content_title ,
+            :match_content =>  /^Outlook Web App$/,
+            :paths => ["#{url}"], 
+            :inference => false
           },
           {
             :type => "fingerprint",

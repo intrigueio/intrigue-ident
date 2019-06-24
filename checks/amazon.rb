@@ -8,6 +8,22 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
+        :tags => ["Load Balancer", "Hosting", "WAF"],
+        :url => "https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/",
+        :references => ["https://stackoverflow.com/questions/49197688/is-the-most-recent-awsalb-cookie-required-aws-elb-application-load-balancer"],
+        :vendor => "Amazon",
+        :product => "Application Load Balancer",
+        :version => nil,
+        :match_type => :content_cookies,
+        :match_content =>  /AWSALB=/,
+        :match_details =>"amazon App LB cookie (sticky sessions)",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
         :tags => ["CDN", "Hosting", "WAF"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
@@ -108,16 +124,28 @@ class Amazon < Intrigue::Ident::Check::Base
       },
       {
         :type => "fingerprint",
-        :category => "service",
-        :tags => ["Load Balancer", "Hosting", "WAF"],
-        :url => "https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/",
-        :references => ["https://stackoverflow.com/questions/49197688/is-the-most-recent-awsalb-cookie-required-aws-elb-application-load-balancer"],
+        :category => "operating_system",
+        :tags => ["OS"],
         :vendor => "Amazon",
-        :product => "Application Load Balancer",
+        :product =>"Linux",
+        :match_details =>"nginx test page",
         :version => nil,
-        :match_type => :content_cookies,
-        :match_content =>  /AWSALB=/,
-        :match_details =>"amazon App LB cookie (sticky sessions)",
+        :match_type => :content_title,
+        :match_content => /^Test Page for the Nginx HTTP Server on the Amazon Linux AMI$/,
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["OS"],
+        :vendor => "Amazon",
+        :product =>"Linux",
+        :match_details =>"nginx test page",
+        :version => nil,
+        :match_type => :content_title,
+        :match_content => /^Test Page for the Nginx HTTP Server on Amazon Linux$/,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
@@ -135,7 +163,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
-      },
+      }
     ]
   end
 end

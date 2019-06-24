@@ -5,6 +5,19 @@ module Check
 
       def generate_checks(url)
         [
+          #
+          {
+            :type => "fingerprint",
+            :category => "operating_system",
+            :tags => ["OS"],
+            :vendor =>"Red Hat",
+            :product =>"Fedora Linux",
+            :match_details =>"nginx test page",
+            :match_type => :content_title,
+            :match_content =>  /^Test Page for the Nginx HTTP Server on Fedora$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
           {
             :type => "fingerprint",
             :category => "application",

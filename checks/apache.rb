@@ -4,7 +4,7 @@ module Check
 class Apache < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
-    [
+    [ # Apache HTTP Server Test Page
       {
         :type => "fingerprint",
         :category => "application",
@@ -46,6 +46,19 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /Error processing GroovyPageView:/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
+        :vendor => "Apache",
+        :product =>"HTTP Server",
+        :match_details =>"test page title",
+        :version => nil,
+        :match_type => :content_title,
+        :match_content =>  /Apache HTTP Server Test Page/i,
         :paths => ["#{url}"],
         :inference => false
       },
