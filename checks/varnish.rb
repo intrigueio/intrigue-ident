@@ -18,7 +18,7 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/via: ([0-9\.]+) varnish/i) },
             :paths => ["#{url}"],
-            :inference => true
+            :inference => false
           }
         ]
       end

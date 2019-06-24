@@ -278,7 +278,21 @@ module Check
             :match_content =>  /<faultcode>env:WebServiceFault/,
             :hide => false,
             :paths => ["#{url}"],
-            :inference => true
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
+            :vendor => "Oracle",
+            :product =>"Weblogic Server",
+            :match_details =>"generator tag",
+            :version => nil,
+            :match_type => :content_generator,
+            :match_content =>  /^WebLogic Server$/,
+            :hide => false,
+            :paths => ["#{url}"],
+            :inference => false
           },
           {
             :type => "fingerprint",

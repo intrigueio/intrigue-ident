@@ -53,8 +53,33 @@ module Check
             },
             :paths => ["#{url}"],
             :inference => false # Not specific enough?
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
+            :vendor => "Drupal",
+            :product => "Drupal",
+            :match_details => "generator tag",
+            :version => 7,
+            :match_type => :content_generator,
+            :match_content =>  /Drupal 7 \(http:\/\/drupal.org\)/,
+            :paths => ["#{url}"],
+            :inference => false # Not specific enough?
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["CMS"],
+            :vendor => "Drupal",
+            :product => "Drupal",
+            :match_details => "generator tag",
+            :version => 8,
+            :match_type => :content_generator,
+            :match_content =>  /Drupal 8 \(http:\/\/drupal.org\)/,
+            :paths => ["#{url}"],
+            :inference => false # Not specific enough?
           }
-
         ]
       end
 

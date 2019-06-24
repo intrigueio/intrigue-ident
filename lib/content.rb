@@ -25,7 +25,6 @@ module Intrigue
       end
 
       def _generator(content)
-        puts "Checking generator: #{content["details"]["generator"]}"
         content["details"]["generator"]
       end
 

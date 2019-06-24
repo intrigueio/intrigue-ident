@@ -8,20 +8,6 @@ module Check
           {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["Marketing"],
-            :vendor => "Hubspot",
-            :product =>"Hubspot",
-            :match_details =>"generator string",
-            :version => nil,
-            :match_type => :content_generator,
-            :match_content => /HubSpot/,
-            :hide => true,
-            :paths => ["#{url}"],
-            :inference => false
-          },
-          {
-            :type => "fingerprint",
-            :category => "service",
             :tags => ["Marketing", "Javascript"],
             :vendor => "Hubspot",
             :product =>"Analytics",
@@ -52,10 +38,22 @@ module Check
             :hide => true,
             :paths => ["#{url}"],
             :inference => true
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Marketing"],
+            :vendor => "Hubspot",
+            :product =>"Hubspot",
+            :match_details =>"generator string",
+            :version => nil,
+            :match_type => :content_generator,
+            :match_content => /HubSpot/,
+            :hide => true,
+            :paths => ["#{url}"],
+            :inference => false
           }
         ]
-
-
       end
 
     end
