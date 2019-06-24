@@ -16,7 +16,7 @@ module Check
             :match_type => :content_generator,
             :match_content =>  /^Jekyll"/i,
             :dynamic_version => lambda { |x|
-              _first_body_capture(x,/<meta name="generator" content="Jekyll v(.*)"/i)
+              _first_generator_capture(x,/Jekyll v(.*)/i)
             },
             :paths => ["#{url}"],
             :inference => true

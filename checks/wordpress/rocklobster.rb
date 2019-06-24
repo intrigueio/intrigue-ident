@@ -13,7 +13,6 @@ module Check
             :product =>"Contact Form v7",
             :references => ["https://contactform7.com/"],
             :match_details =>"string in wp-json",
-            :references => [],
             :match_type => :content_body,
             :match_content =>  /contact-form-7/i,
             :version => nil,

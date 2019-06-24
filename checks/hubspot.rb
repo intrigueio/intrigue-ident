@@ -14,7 +14,7 @@ module Check
             :match_details =>"generator string",
             :version => nil,
             :match_type => :content_generator,
-            :match_content =>  /HubSpot/,
+            :match_content => /HubSpot/,
             :hide => true,
             :paths => ["#{url}"],
             :inference => false

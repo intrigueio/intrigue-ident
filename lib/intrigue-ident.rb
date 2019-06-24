@@ -143,8 +143,8 @@ module Intrigue
     def match_http_response_hash(check,hash)
 
       # save off the generator string
-      generator_match = "#{hash[:response_body]}".match(/<meta name="generator" content=(.*?)>/i)
-      generator_string = generator_match.captures.first.strip if generator_match
+      generator_match = "#{hash[:response_body]}".match(/<meta name=\"?generator\"? content=\"?(.*?)\"?\/>/i)
+      generator_string = generator_match.captures.first.gsub("\"","") if generator_match
 
       # save off the title string
       title_match = "#{hash[:response_body]}".match(/<title>(.*?)<\/title>/i)
@@ -203,7 +203,7 @@ module Intrigue
       match = body.match(/<title>(.*?)<\/title>/i)
       title = match.captures.first if match
 
-      match = body.match(/<meta name="generator" content=(.*?)>/i)
+      match = response.body.match(/<meta name=\"?generator\"? content=\"?(.*?)\"?\/?>/i)
       generator = match.captures.first.gsub("\"","") if match
 
       # rest is a response
