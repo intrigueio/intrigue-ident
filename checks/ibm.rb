@@ -74,8 +74,49 @@ module Check
           :match_details =>"form action to submit to webseal (on ourselves)",
           :paths => ["#{url}"],
           :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Application Server"],
+          :vendor => "IBM",
+          :product =>"WebSphere",
+          :references => ["https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c"],
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /^\$WSEP:.*$/i,
+          :match_details => "header",
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Application Server"],
+          :vendor => "IBM",
+          :product =>"WebSphere",
+          :references => ["https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c"],
+          :version => nil,
+          :match_type => :content_body,
+          :match_content =>  /SRVE0190E: File not found/i,
+          :match_details => "header",
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Application Server"],
+          :vendor => "IBM",
+          :product =>"WebSphere",
+          :references => ["https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c"],
+          :version => nil,
+          :match_type => :content_body,
+          :match_content =>  /SRVE0190E: File not found/i,
+          :match_details => "header",
+          :paths => ["#{url}/doesntexist-123"],
+          :inference => false
         }
-
       ]
     end
 
