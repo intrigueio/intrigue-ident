@@ -1,3 +1,11 @@
+require 'watir'
+###
+### Please note - these methods may be used inside task modules, or inside libraries within
+### Intrigue. An attempt has been made to make them abstract enough to use anywhere inside the
+### application, but they are primarily designed as helpers for tasks. This is why you'll see
+### references to @task_result in these methods. We do need to check to make sure it's available before
+### writing to it.
+###
 
 # This module exists for common web functionality - inside a web browser
 module Intrigue
@@ -5,272 +13,235 @@ module Ident
   module Browser
 
     def ident_create_browser_session
+
+      # first check if we're allowed to create a session by the global config
+      return nil unless Intrigue::Config::GlobalConfig.config["browser_enabled"]
+
       # Start a new session
-      Capybara::Session.new(:headless_chrome)
+      ::Watir::Browser.new(:chrome, {:chromeOptions => {:args => ['--headless', '--window-size=1024x768']}})
     end
 
     def ident_destroy_browser_session(session)
-      #session.visit('about:blank')
+
+      return false unless session
 
       # get the full group id (driver + browser)
       begin
 
         # HACK HACK HACK- get the chromedriver process before we quit
-        driver_pid = session.driver.browser.instance_variable_get(:@service).instance_variable_get(:@process).pid
+        #driver_pid = session.driver.browser.instance_variable_get(:@service).instance_variable_get(:@process).pid
 
         # attempt to quit gracefully...
-        session.driver.quit
+        session.close
 
-        pgid = Process.getpgid(driver_pid)
+        #pgid = Process.getpgid(driver_pid)
 
         # violent delights have violent ends
-        Process.kill('KILL', -pgid )
+        #Process.kill('KILL', -pgid )
         Process.kill('KILL', driver_pid )
-
-      rescue EOFError => e
-        # ???
-        # /protocol.rb:189:in `rbuf_fill': end of file reached (EOFError)
+      rescue Selenium::WebDriver::Error::UnknownError => e
+        _log_error "Error trying to kill our browser session #{e}"
       rescue Errno::ESRCH => e
-        # already dead
-        #puts "Error trying to kill our browser session #{e}"
+          # already dead
+        _log_error "Error trying to kill our browser session #{e}"
       rescue Net::ReadTimeout => e
-        #puts "Timed out trying to close our session.. #{e}"
+        _log_error "Timed out trying to close our session.. #{e}"
       end
 
+    true 
     end
 
     def ident_safe_browser_action
       begin
+
         results = yield
+
+      rescue Errno::EMFILE => e
+        _log_error "Too many open files: #{e}" if @task_result
       rescue Addressable::URI::InvalidURIError => e
-        #puts "Unable to visit..."
-      rescue Capybara::ElementNotFound => e
-        #puts "Element not found: #{e}"
+        _log_error "Invalid URI: #{e}" if @task_result
       rescue Net::ReadTimeout => e
-        #puts "Timed out, moving on"
+        _log_error "Timed out, moving on" if @task_result
       rescue Selenium::WebDriver::Error::WebDriverError => e
         # skip simple errors where we're testing JS libs
         unless ("#{e}" =~ /is not defined/ || "#{e}" =~ /Cannot read property/)
-          #puts "Webdriver issue #{e}"
+          _log_error "Webdriver issue #{e}" if @task_result
         end
-      rescue Selenium::WebDriver::Error::UnhandledAlertError => e
-        #puts "Lost our window due to undexpected popup #{e}"
       rescue Selenium::WebDriver::Error::NoSuchWindowError => e
-        #puts "Lost our window #{e}"
+        _log_error "Lost our window #{e}" if @task_result
       rescue Selenium::WebDriver::Error::UnknownError => e
         # skip simple errors where we're testing JS libs
         unless ("#{e}" =~ /is not defined/ || "#{e}" =~ /Cannot read property/)
-          #puts "#{e}"
+          _log_error "#{e}" if @task_result
         end
+      rescue Selenium::WebDriver::Error::UnhandledAlertError => e
+        _log_error "Unhandled alert open: #{e}" if @task_result
       rescue Selenium::WebDriver::Error::NoSuchElementError
-        #puts "No such element #{e}, moving on"
+        _log_error "No such element #{e}, moving on" if @task_result
       rescue Selenium::WebDriver::Error::StaleElementReferenceError
-        #puts "No such element ref #{e}, moving on"
+        _log_error "No such element ref #{e}, moving on" if @task_result
       end
-
     results
     end
 
     def ident_capture_document(session, uri)
-      
-      page_title_rendered = nil
-      rendered_page = nil
-      final_url = nil
+      return nil unless session # always make sure the session is real
 
       # browse to our target
-      ident_safe_browser_action do
-        session.visit(uri)
-        page_title_rendered = session.document.title  # Capture Title
-        session.current_url # Capture final url
+      safe_browser_action do
+        # visit the page
+        session.goto(uri)
+        session.wait(3)
+        # Capture Title
+        page_title = session.title
+        # Capture Body Text
+        page_contents = session.text
+        # Capture DOM
+        rendered_page = session.execute_script("return document.documentElement.innerHTML")
+
+        # return our hash
+        return { :title => page_title, :contents => page_contents, :rendered => rendered_page }
       end
-
-      # Capture DOM
-      rendered_page = nil
-      ident_safe_browser_action do
-        rendered_page = session.evaluate_script("document.documentElement.innerHTML",[])
-      end
-
-      to_return = {
-        :start_url => uri,
-        :final_url => final_url,
-        :request_type => :chrome,
-        :request_method => :get,
-        :title => page_title_rendered,
-        :rendered => rendered_page
-      }
-  end
-
-  def ident_capture_screenshot(session, uri)
-
-    # browse to our target
-    ident_safe_browser_action do
-      session.visit(uri)
     end
 
-    # wait for the page to render
-    #sleep 5
+    def ident_capture_screenshot(session, uri)
+      return nil unless session # always make sure the session is real
 
-    #
-    # Capture a screenshot
-    #
-    tempfile = Tempfile.new(['screenshot', '.png'])
-
-    ident_safe_browser_action do
-      session.save_screenshot(tempfile.path)
-      _log "Saved Screenshot to #{tempfile.path}"
-    end
-
-    # open and read the file's contents, and base64 encode them
-    base64_image_contents = Base64.encode64(File.read(tempfile.path))
-
-    # cleanup
-    tempfile.close
-    tempfile.unlink
-
-  base64_image_contents
-  end
-
-  def ident_gather_javascript_libraries(session, uri)
-
-    # Test site: https://www.jetblue.com/plan-a-trip/#/
-    # Examples: https://builtwith.angularjs.org/
-    # Examples: https://www.madewithangular.com/
-
-    ident_safe_browser_action do
-      session.visit(uri)
-    end
-
-    libraries = []
-
-    checks = [
-      { library: "Angular", script: 'angular.version.full' },
-      # Backbone
-      # Test site: https://app.casefriend.com/
-      # Examples: https://github.com/jashkenas/backbone/wiki/projects-and-companies-using-backbone
-      { library: "Backbone", script: 'Backbone.VERSION' },
-      # D3
-      # Test site: https://d3js.org/
-      # Examples: https://kartoweb.itc.nl/kobben/D3tests/index.html
-      { library: "D3", script: 'd3.version' },
-      # Dojo
-      # Test site: http://demos.dojotoolkit.org/demos/mobileCharting/demo.html
-      # Examples: http://demos.dojotoolkit.org/demos/
-      { library: "Dojo", script: 'dojo.version' },
-      # Ember
-      # Test site: https://secure.ally.com/
-      # Examples: http://builtwithember.io/
-      { library: "Ember", script: 'Ember.VERSION' },
-
-      # Honeybadger
-      { library: "Honeybadger", script: 'Honeybadger.getVersion()' },
-
-      # Intercom
-      # Examples: https://bugcrowd.com
-      { library: "Intercom", script: 'Intercom("version")' },
-
-      # Jquery
-      # Test site: http://www.eddiebauer.com/
-      # Test site: https://www.underarmour.com
-      { library: "jQuery", script: 'jQuery.fn.jquery' },
-      # Jquery tools
-      # Test site: http://www.eddiebauer.com/
-      { library: "jQuery Tools", script: 'jQuery.tools.version' },
-      # Jquery UI
-      # Test site: http://www.eddiebauer.com/
-      # Test site: https://www.underarmour.com
-      { library: "jQuery UI", script: 'jQuery.ui.version' },
-
-      # Test site:
-      # Examples: http://knockoutjs.com/examples/
-      #version = session.evaluate_script('knockout.version')
-      # { :product => "Knockout", check: 'knockout.version' }
-
-      # Modernizr
-      { library: "Modernizr", script: 'Modernizr._version' },
-
-      # Paper.js
-      # Test site: http://paperjs.org/examples/boolean-operations
-      # Examples: http://paperjs.org/examples
-
-      # Prototype
-      # Test site:
-      # Examples:
-      # version = session.evaluate_script('Prototype.version')
-      # { product: "Prototype", check: 'Prototype.version' },
-
-      { library: "Paper", script: 'paper.version' },
-
-      # React
-      # Test site: https://weather.com/
-      # Examples: https://react.rocks/
-      { library: "React", script: 'React.version' },
-
-      # RequireJS
-      # Test site: https://www.homedepot.com
-      { library: "RequireJS", script: 'requirejs.version' },
-
-      # Underscore
-      # Test site: https://app.casefriend.com/#sessions/login
-      # Test site: https://store.dji.com/
-      { library: "Underscore", script: '_.VERSION' },
-
-      # YUI
-      # Test site: https://yuilibrary.com/yui/docs/event/basic-example.html
-      # Examples: https://yuilibrary.com/yui/docs/examples/
-      { library: "YUI", script: 'YUI().version' }
-    ]
-
-    checks.each do |check|
-
-      hacky_javascript = "#{check[:script]};"
-
-      # run our script in a browser
-      version = ident_safe_browser_action do
-        session.evaluate_script(hacky_javascript, check[:arguments] || [])
+      # browse to our target
+      safe_browser_action do
+        session.goto(uri)
+        session.wait(3)
       end
 
-      if version
-        _log_good "Detected #{check[:library]} #{version}"
-        libraries << {"library" => "#{check[:library]}", "version" => "#{version}" }
+      #
+      # Capture a screenshot
+      #
+      base64_image_contents = nil
+      safe_browser_action do
+        tempfile = Tempfile.new(['screenshot', '.png'])
+        session.driver.save_screenshot(tempfile.path)
+        _log "Saved Screenshot to #{tempfile.path}"
+        # open and read the file's contents, and base64 encode them
+        base64_image_contents = Base64.encode64(File.read(tempfile.path))
+        # cleanup
+        tempfile.close
+        tempfile.unlink
       end
 
+    base64_image_contents
     end
 
-  libraries
-  end
+    def ident_gather_javascript_libraries(session, uri)
+      return nil unless session # always make sure the session is real
+
+      # Test site: https://www.jetblue.com/plan-a-trip/#/
+      # Examples: https://builtwith.angularjs.org/
+      # Examples: https://www.madewithangular.com/
+
+      safe_browser_action do
+        session.goto(uri)
+      end
+
+      libraries = []
+
+      checks = [
+        { library: "Angular", script: 'angular.version.full' },
+        # Backbone
+        # Test site: https://app.casefriend.com/
+        # Examples: https://github.com/jashkenas/backbone/wiki/projects-and-companies-using-backbone
+        { library: "Backbone", script: 'Backbone.VERSION' },
+        # D3
+        # Test site: https://d3js.org/
+        # Examples: https://kartoweb.itc.nl/kobben/D3tests/index.html
+        { library: "D3", script: 'd3.version' },
+        # Dojo
+        # Test site: http://demos.dojotoolkit.org/demos/mobileCharting/demo.html
+        # Examples: http://demos.dojotoolkit.org/demos/
+        { library: "Dojo", script: 'dojo.version' },
+        # Ember
+        # Test site: https://secure.ally.com/
+        # Examples: http://builtwithember.io/
+        { library: "Ember", script: 'Ember.VERSION' },
+
+        # Honeybadger
+        { library: "Honeybadger", script: 'Honeybadger.getVersion()' },
+
+        # Intercom
+        # Examples: https://bugcrowd.com
+        { library: "Intercom", script: 'Intercom("version")' },
+
+        # Jquery
+        # Test site: http://www.eddiebauer.com/
+        # Test site: https://www.underarmour.com
+        { library: "jQuery", script: 'jQuery.fn.jquery' },
+        # Jquery tools
+        # Test site: http://www.eddiebauer.com/
+        { library: "jQuery Tools", script: 'jQuery.tools.version' },
+        # Jquery UI
+        # Test site: http://www.eddiebauer.com/
+        # Test site: https://www.underarmour.com
+        { library: "jQuery UI", script: 'jQuery.ui.version' },
+
+        # Test site:
+        # Examples: http://knockoutjs.com/examples/
+        #version = session.evaluate_script('knockout.version')
+        # { :product => "Knockout", check: 'knockout.version' }
+
+        # Modernizr
+        { library: "Modernizr", script: 'Modernizr._version' },
+
+        # Paper.js
+        # Test site: http://paperjs.org/examples/boolean-operations
+        # Examples: http://paperjs.org/examples
+
+        # Prototype
+        # Test site:
+        # Examples:
+        # version = session.evaluate_script('Prototype.version')
+        # { product: "Prototype", check: 'Prototype.version' },
+
+        { library: "Paper", script: 'paper.version' },
+
+        # React
+        # Test site: https://weather.com/
+        # Examples: https://react.rocks/
+        { library: "React", script: 'React.version' },
+
+        # RequireJS
+        # Test site: https://www.homedepot.com
+        { library: "RequireJS", script: 'requirejs.version' },
+
+        # Underscore
+        # Test site: https://app.casefriend.com/#sessions/login
+        # Test site: https://store.dji.com/
+        { library: "Underscore", script: '_.VERSION' },
+
+        # YUI
+        # Test site: https://yuilibrary.com/yui/docs/event/basic-example.html
+        # Examples: https://yuilibrary.com/yui/docs/examples/
+        { library: "YUI", script: 'YUI().version' }
+      ]
+
+      checks.each do |check|
+
+        hacky_javascript = "return #{check[:script]};"
+
+        # run our script in a browser
+        version = safe_browser_action do
+          session.execute_script(hacky_javascript)
+        end
+
+        if version
+          _log_good "Detected #{check[:library]} #{version}" if @task_result
+          libraries << {"library" => "#{check[:library]}", "version" => "#{version}" }
+        end
+
+      end
+
+    libraries
+    end
 
 
   end
 end
 end
-
-
-### Configure capybara, selenium and headless chrome
-require 'capybara'
-require "selenium/webdriver"
-
-Capybara.register_driver :headless_chrome do |app|
-  options = ::Selenium::WebDriver::Chrome::Options.new
-  options.add_argument('--headless')
-  options.add_argument('--no-sandbox')
-  options.add_argument('--disable-gpu')
-  options.add_argument('--disable-software-rasterizer')
-  options.add_argument('--disable-dev-shm-usage')
-  options.add_argument('--window-size=640,480')
-
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    acceptInsecureCerts: true )
-
-  Capybara::Selenium::Driver.new(
-    app,
-    browser: :chrome,
-    desired_capabilities: capabilities,
-    options: options
-  )
-end
-
-Capybara.default_max_wait_time = 20
-Capybara.default_selector = :xpath
-Capybara.javascript_driver = :headless_chrome
-Capybara.run_server = false
-Capybara.threadsafe = true
