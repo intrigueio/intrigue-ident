@@ -38,7 +38,7 @@ module Ident
 
         # violent delights have violent ends
         #Process.kill('KILL', -pgid )
-        Process.kill('KILL', driver_pid )
+        #Process.kill('KILL', driver_pid )
       rescue Selenium::WebDriver::Error::UnknownError => e
         _log_error "Error trying to kill our browser session #{e}"
       rescue Errno::ESRCH => e
