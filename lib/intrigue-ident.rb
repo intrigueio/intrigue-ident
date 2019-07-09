@@ -286,7 +286,6 @@ module Intrigue
           "version" => calculated_version,
           "update" => calculated_update,
           "tags" => check[:tags],
-          "matched_content" => check[:match_content],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],
           "hide" => check[:hide],
