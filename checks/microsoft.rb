@@ -244,14 +244,42 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Productivity","COTS"],
+            :tags => ["Productivity","COTS", "Email"],
+            :vendor => "Microsoft",
+            :product =>"Exchange Server",
+            :references => ["https://support.microsoft.com/en-us/help/4036163/you-can-t-access-owa-or-ecp-after-you-install-exchange-server-2016-cu6"],
+            :match_details =>"x-feserver header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^x-feserver:.*$/i,
+            :paths => ["#{url}"], 
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity","COTS", "Email"],
+            :vendor => "Microsoft",
+            :product =>"Exchange Server",
+            :references => [],
+            :match_details =>"/owa/ redirect",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^location:.*\/owa\/$/i,
+            :paths => ["#{url}"], 
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity","COTS", "Email"],
             :vendor => "Microsoft",
             :product =>"Exchange Server",
             :references => ["https://bit.ly/2k4Yoot"],
             :match_details =>"OWA version -> Exchange server inference (body)",
             :version => nil,
             :match_type => :content_body,
-            :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/,
+            :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/i,
             :dynamic_version => lambda { |x|
               version_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
               owa_to_exchange_version(version_string)[:version]
@@ -266,14 +294,14 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Productivity","COTS"],
+            :tags => ["Productivity","COTS", "Email"],
             :vendor => "Microsoft",
             :product =>"Exchange Server",
             :references => ["https://bit.ly/2k4Yoot"],
             :match_details =>"OWA version -> Exchange server inference (headers)",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /x-owa-version/,
+            :match_content =>  /x-owa-version/i,
             :dynamic_version => lambda { |x|
               version_string = _first_body_capture(x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/)
               owa_to_exchange_version(version_string)[:version]

@@ -91,6 +91,11 @@ if opts[:url]
     end
   end
 
+  
+  #puts
+  #puts check_result
+  #puts 
+
 elsif opts[:file] 
 
   filepath = opts[:file]
@@ -144,7 +149,6 @@ elsif opts[:file]
     end # thread
   end; "ok" # workers 
   workers.map(&:join); "ok"
-
 
   # first grab headings & add those to the file
   f = output_q.pop(true)
