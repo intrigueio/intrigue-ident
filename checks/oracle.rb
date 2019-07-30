@@ -10,6 +10,20 @@ module Check
             :category => "application",
             :tags => ["Application Server"],
             :vendor => "Oracle",
+            :product =>"Access Management",
+            :match_details =>"cookie",
+            :references => ["https://docs.oracle.com/cd/E52734_01/oam/AIAAG/GUID-5FD1A6DD-5EE7-4D22-9336-915C62B46C8F.htm#AIAAG297"],
+            :version => nil,
+            :match_type => :content_cookies,
+            :match_content =>  /ObSSOCookie=/,
+            :hide => false,
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Application Server"],
+            :vendor => "Oracle",
             :product =>"Application Server",
             :match_details =>"server header",
             :references => [],
@@ -22,7 +36,6 @@ module Check
             :paths => ["#{url}"],
             :inference => true
           },
-
           {
             :type => "fingerprint",
             :category => "application",
