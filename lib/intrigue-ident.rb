@@ -9,7 +9,6 @@ require_relative 'http'
 require_relative 'browser'
 require_relative 'content'
 
-
 # Load in checks
 ################
 require_relative 'check_factory'

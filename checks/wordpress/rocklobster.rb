@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-    class WordpressContactFormV7 < Intrigue::Ident::Check::Base
+    class WordpressRocklobster < Intrigue::Ident::Check::Base
 
       def generate_checks(url)
         [
