@@ -6,6 +6,18 @@ module Check
       def generate_checks(url)
         [
           #
+          { # server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips PHP/7.2.12
+            :type => "fingerprint",
+            :category => "operating_system",
+            :tags => ["OS"],
+            :vendor =>"Red Hat",
+            :product =>"Enterprise Linux",
+            :match_details =>"nginx test page",
+            :match_type => :content_headers,
+            :match_content =>  /^Apache.* \(Red Hat Enterprise Linux\).*$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
           {
             :type => "fingerprint",
             :category => "operating_system",
