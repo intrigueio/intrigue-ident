@@ -57,9 +57,11 @@ Content Checks:
 Troubleshooting:
 ================
 
-If you hit something like the following: ```Selenium::WebDriver::Error::SessionNotCreatedError: session not created: Chrome version must be between 70 and 73
+If you hit something like the following: 
+```Selenium::WebDriver::Error::SessionNotCreatedError: session not created: Chrome version must be between 70 and 73
   (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.1 x86_64)
   /Users/jcran/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/selenium-webdriver-3.142.2/lib/selenium/webdriver/remote/response.rb:72:in `assert_ok'
-```
+ ```
 
-It's likely that you need to update chromedriver. Do that by running the command: ```$ brew cask reinstall chromedriver```
+It's likely that you need to update chromedriver. Do that by running the command: 
+```$ brew cask reinstall chromedriver```
