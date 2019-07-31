@@ -16,6 +16,7 @@ module Check
             :version => nil,
             :match_type => :content_cookies,
             :match_content =>  /ObSSOCookie=/,
+            :paths => ["#{url}"],
             :hide => false,
             :inference => false
           },

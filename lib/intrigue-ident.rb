@@ -33,7 +33,6 @@ module Intrigue
     include Intrigue::Ident::Browser
 
     # Used by intrigue-core... note that this will currently fail unless
-    # Intrigue::Task::Web is available
     def generate_http_requests_and_check(url, dom_checks=true,debug=false)
 
       # load in browser control
@@ -44,7 +43,17 @@ module Intrigue
       generated_checks = Intrigue::Ident::CheckFactory.checks.map{ |x|
         x.new.generate_checks(url) }.flatten
 
-      # in order to ensure we check all urls associated with a check, we need to
+      ##### 
+      ##### Sanity check!
+      #####
+      failing_checks = generated_checks.select{|x| x if !x[:paths]}
+      if failing_checks.compact.count > 0
+        puts "FATAL! Unable to continue, the following checks are invalid, missing a path!"
+        puts failing_checks.inspect
+        return
+      end
+
+      # In order to ensure we check all urls associated with a check, we need to
       # group them up by each path, which is annoying because they're stored in
       # an array on each check. This line handles that. (take all the checks []
       # with each of their paths [], flatten and group by them
