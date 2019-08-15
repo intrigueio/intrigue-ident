@@ -154,9 +154,9 @@ elsif opts[:file]
   f = output_q.pop(true)
 
   headings = [] 
-  headings << "url"
-  headings << "fingerprint"
-  headings << "tags"
+  headings << "URL"
+  headings << "Fingerprint"
+  headings << "Tags"
   headings.concat f["content"].keys
   File.open("output.csv","w") { |f| f.puts headings.join(",") }
   output_q.push f # put it back on the queue 

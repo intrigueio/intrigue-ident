@@ -7,29 +7,39 @@ require 'zlib'
 require_relative 'utils'
 require_relative 'http'
 require_relative 'browser'
-require_relative 'content'
+require_relative 'http_helpers'
 
-# Load in checks
-################
+# Load in http checks
+#####################
 require_relative 'check_factory'
-require_relative '../checks/base'
+require_relative '../checks/http/base'
 
-# fingerprints
-check_folder = File.expand_path('../checks', File.dirname(__FILE__)) # get absolute directory
+# http fingerprints
+check_folder = File.expand_path('../checks/http', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
-# config checks
-content_check_folder = File.expand_path('../checks/content', File.dirname(__FILE__)) # get absolute directory
+# http content checks (always run)
+content_check_folder = File.expand_path('../checks/http/content', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
-# wordpress specific checks
-content_check_folder = File.expand_path('../checks/wordpress', File.dirname(__FILE__)) # get absolute directory
+# http content, wordpress specific checks
+content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
+
+# Load in ftp checks
+################
+require_relative 'ftp_check_factory'
+require_relative '../checks/ftp/base'
+
+# ftp fingerprints
+check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 
 module Intrigue
   module Ident
 
-    include Intrigue::Ident::Content::Helpers
+    include Intrigue::Ident::Content::HttpHelpers
     include Intrigue::Ident::Browser
 
     # Used by intrigue-core... note that this will currently fail unless
@@ -41,7 +51,7 @@ module Intrigue
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks
       generated_checks = Intrigue::Ident::CheckFactory.checks.map{ |x|
-        x.new.generate_checks(url) }.flatten
+        x.new.generate_checks(url) }.compact.flatten
 
       ##### 
       ##### Sanity check!

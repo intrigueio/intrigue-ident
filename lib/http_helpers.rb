@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
     module Content
-      module Helpers
+      module HttpHelpers
 
       def _body(content)
         _body_rendered(content) || _body_raw(content)

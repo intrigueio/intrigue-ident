@@ -2,6 +2,7 @@ module Intrigue
 module Ident
 module Check
 class Authentication < Intrigue::Ident::Check::Base
+  
   def generate_checks(url)
     [
       {

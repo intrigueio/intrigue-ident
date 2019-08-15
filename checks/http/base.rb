@@ -3,7 +3,7 @@ module Ident
 module Check
 class Base
 
-  include Intrigue::Ident::Content::Helpers
+  include Intrigue::Ident::Content::HttpHelpers
 
   def self.inherited(base)
     CheckFactory.register(base)

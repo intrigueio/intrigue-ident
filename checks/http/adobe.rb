@@ -9,7 +9,6 @@ class Adobe < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
- 
       {
         :type => "fingerprint",
         :category => "application",

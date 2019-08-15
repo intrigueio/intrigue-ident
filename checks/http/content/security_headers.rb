@@ -2,6 +2,7 @@ module Intrigue
 module Ident
 module Check
 class SecurityHeaders < Intrigue::Ident::Check::Base
+  
   def generate_checks(url)
     [
       {
