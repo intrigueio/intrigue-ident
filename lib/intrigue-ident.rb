@@ -35,6 +35,8 @@ require_relative '../checks/ftp/base'
 check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+# Load vulndb client 
+require_relative "vulndb_client"
 
 module Intrigue
   module Ident

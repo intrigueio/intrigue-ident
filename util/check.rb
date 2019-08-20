@@ -13,6 +13,7 @@ opts = Slop.parse do |o|
   o.string '-u', '--url', 'a single url to check'
   o.string '-f', '--file', 'a file of URLs, one per line'
   o.integer '-t', '--threads', 'number of threads to use (default: 3)'
+  o.bool '-v', '--vulnerabilities', 'query intrigue.io api for vulnerabilities'
   o.bool '-b', '--browser', 'use browser checks (slows things down)'
   o.bool '-d', '--debug', 'enable debug mode'
   o.bool '-e', '--export', 'export to csv'
@@ -23,6 +24,7 @@ opts = Slop.parse do |o|
 end
 
 enable_browser = opts[:browser] || false
+query_vulns = opts[:vulnerabilities] || false
 debug = opts[:debug]
 
 
@@ -81,6 +83,12 @@ if opts[:url]
       uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
       # otherwise, print it out
       puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
+      if query_vulns
+        vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
+        vulns.sort_by{|x| x["cvss_v3_score"]}.reverse.first(10).each do |v|
+          puts "   - Vuln: #{v["cve"]} (CVSSv3: #{v["cvss_v3_score"]})"
+        end
+      end
     end
   end
 
@@ -91,8 +99,7 @@ if opts[:url]
     end
   end
 
-  
-  #puts
+  #puts "DEBUG: "
   #puts check_result
   #puts 
 
