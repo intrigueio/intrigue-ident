@@ -66,5 +66,5 @@ WORKDIR /ident
 RUN gem install bundler
 RUN bundle install
 
-ENTRYPOINT ["/ident/util/docker-entrypoint.sh"]
+ENTRYPOINT ["/ident/util/docker.sh"]
 
