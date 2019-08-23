@@ -3,7 +3,7 @@
 ###
 
 # Ref: https://github.com/gliderlabs/docker-alpine/issues/53
-FROM ruby:2.5.1-alpine
+FROM ruby:2.6.0-alpine
 
 RUN apk add --update \
 build-base \
@@ -38,7 +38,6 @@ RUN apk update && apk upgrade && \
       chromium \
       nss
 
-
 # Install chromedriver
 # Get chromedriver
 #RUN  mkdir /chromedriver
@@ -64,7 +63,7 @@ ENV CHROME_BIN=/usr/bin/chromium-browser \
 
 # install ruby deps
 WORKDIR /ident
-RUN gem install bundler --no-ri --no-rdoc
+RUN gem install bundler
 RUN bundle install
 
 ENTRYPOINT ["/ident/util/docker-entrypoint.sh"]
