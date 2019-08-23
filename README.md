@@ -28,29 +28,48 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 7) Now use the check utility to test!
 
-![Ident Usage](https://monosnap.com/image/RN9uag2d5la5AnVB972pupvkSuBmMm.png)
+![Ident Usage](https://api.monosnap.com/file/download?id=FRqxPx7aE3EdQMcpZ9A7YvxskvvuBo)
 
 ```
-jcran ident master [20190517]$ bundle exec ./util/check.rb -u https://intrigue.io -b
-Checking... https://intrigue.io
+jcran ident master [20190822]$ bundle exec ./util/check.rb -v -u https://xyz.com:443
+Checking... https://xyz.com:443
 Fingerprint:
- - Auth0 Auth0   - Auth0 link (CPE: cpe:2.3:s:auth0:auth0::) (Tags: ["IAM"])
- - Varnish-Cache Varnish 1.1  - Varnish Proxy (CPE: cpe:2.3:a:varnish-cache:varnish:1.1:) (Tags: ["Web Server", "Cache"])
- - Cloudflare Cloudflare   - Cloudflare Accelerated Page (CPE: cpe:2.3:s:cloudflare:cloudflare::) (Tags: ["CDN", "WAF"])
- - Webflow Webflow   - body string (CPE: cpe:2.3:s:webflow:webflow::) (Tags: ["Web Framework", "Javascript"])
+ - PHP PHP 5.4.16  - x-powered-by header (CPE: cpe:2.3:a:php:php:5.4.16:) (Tags: ["Web Framework"])
+   - Vuln: CVE-2016-5768 (CVSSv3: 9.8)
+   - Vuln: CVE-2016-5773 (CVSSv3: 9.8)
+   - Vuln: CVE-2015-8835 (CVSSv3: 9.8)
+   - Vuln: CVE-2016-4541 (CVSSv3: 9.8)
+   - Vuln: CVE-2016-4538 (CVSSv3: 9.8)
+ - PHP PHP   - PHPSESSID cookie (CPE: cpe:2.3:a:php:php::) (Tags: ["Web Framework"])
+ - Apache HTTP Server 2.4.6  - Apache web server - server header - with versions (CPE: cpe:2.3:a:apache:http_server:2.4.6:) (Tags: ["Web Server"])
+   - Vuln: CVE-2018-1312 (CVSSv3: 9.8)
+   - Vuln: CVE-2017-7679 (CVSSv3: 9.8)
+   - Vuln: CVE-2017-9788 (CVSSv3: 9.1)
+   - Vuln: CVE-2016-5387 (CVSSv3: 8.1)
+   - Vuln: CVE-2017-15715 (CVSSv3: 8.1)
+ - Wordpress Wordpress   - common link (CPE: cpe:2.3:a:wordpress:wordpress::) (Tags: ["CMS"])
+ - Yoast Wordpress SEO   - unique string (CPE: cpe:2.3:a:yoast:wordpress_seo::) (Tags: ["Marketing", "Wordpress Plugin"])
+ - Bootstrap Bootstrap   - boostrap css (CPE: cpe:2.3:a:bootstrap:bootstrap::) (Tags: ["Web Framework"])
+ - OpenSSL OpenSSL 1.0.2k-fips  - server header (CPE: cpe:2.3:a:openssl:openssl:1.0.2k-fips:) (Tags: ["Library"])
+   - Vuln: CVE-2018-0732 (CVSSv3: 7.5)
+   - Vuln: CVE-2018-0739 (CVSSv3: 6.5)
+   - Vuln: CVE-2017-3736 (CVSSv3: 6.5)
+   - Vuln: CVE-2017-3737 (CVSSv3: 5.9)
+   - Vuln: CVE-2017-3738 (CVSSv3: 5.9)
 Content Checks:
  - Authentication - HTTP: false
- - Authentication - Forms: false
+ - Authentication - Session Identifier: true
  - Google Analytics Account Detected: false
  - Location Header: 
  - Directory Listing Detected: false
- - Form Detected: true
+ - Form Detected: false
  - File Upload Form Detected: false
  - Email Addresses Detected: []
  - Access-Control-Allow-Origin Header: false
  - P3P Header: false
- - X-Frame-Options Header: false
+ - X-Frame-Options Header: true
  - X-XSS-Protection Header: false
+
 ```
 
 
