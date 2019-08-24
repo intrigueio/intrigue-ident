@@ -1,70 +1,37 @@
-###
-### https://github.com/GoogleChrome/puppeteer/issues/3019
-###
-
-# Ref: https://github.com/gliderlabs/docker-alpine/issues/53
-FROM ruby:2.6.0-alpine
-
-RUN apk add --update \
-build-base \
-libxml2-dev \
-libxslt-dev \
-postgresql-dev \
-xvfb \
-harfbuzz \
-chromium-chromedriver \
-&& rm -rf /var/cache/apk/*
-
-# Use libxml2, libxslt a packages from alpine for building nokogiri
-RUN bundle config build.nokogiri --use-system-libraries
-
-ADD . /ident
-
-# Installs latest Chromium package.
-#RUN apk update && apk upgrade \
-#    && echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories \
-#    && echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories \
-#    && apk add --no-cache \
-#    chromium@edge \
-#    nss@edge \
-#    && rm -rf /var/lib/apt/lists/* \
-#    /var/cache/apk/* \
-#    /usr/share/man \
-#    /tmp/*
-RUN apk update && apk upgrade && \
-    echo @edge http://nl.alpinelinux.org/alpine/v3.8/community >> /etc/apk/repositories && \
-    echo @edge http://nl.alpinelinux.org/alpine/v3.8/main >> /etc/apk/repositories && \
-    apk add --no-cache \
-      chromium \
-      nss
-
-# Install chromedriver
-# Get chromedriver
-#RUN  mkdir /chromedriver
-#WORKDIR /chromedriver
-#RUN CHROMEDRIVER_VERSION=`wget -q -O - "http://chromedriver.storage.googleapis.com/LATEST_RELEASE"` \
-#  && wget -q "http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
-#  && unzip chromedriver_linux64.zip \
-#  && chmod +x chromedriver \
-#  && rm chromedriver_linux64.zip \
-#  && cp chromedriver /usr/bin/
+FROM debian:buster-20190812-slim
 
 
-# Add Chrome as a user
-#RUN mkdir -p /usr/src/app \
-#    && adduser -D chrome \
-#    && chown -R chrome:chrome /usr/src/app
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROME_PATH=/usr/lib/chromium/ \
+    GEM_HOME="/home/ident/.gem"
 
-# Run Chrome as non-privileged
-#USER chrome
 
-ENV CHROME_BIN=/usr/bin/chromium-browser \
-    CHROME_PATH=/usr/lib/chromium/
 
-# install ruby deps
-WORKDIR /ident
-RUN gem install bundler
-RUN bundle install
+RUN adduser --disabled-password --gecos "" ident \
+    && apt-get update \
+    && apt-get install -yq build-essential chromium chromium-driver curl gcc \
+       libbison-dev libcurl4-openssl-dev libgdbm-compat-dev libgdbm-dev \
+       libharfbuzz-dev libssl-dev libxml2-dev libxslt1-dev openssl \
+       readline-common xvfb  zlib1g-dev zlib1g \
+    && mkdir -p /src/ruby  \
+    && cd /src/ruby \
+    && curl -O https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.3.tar.gz \
+    && tar -xvzf ruby-2.6.3.tar.gz \
+    && cd ruby-2.6.3 \
+    && ./configure --disable-install-rdoc \
+    && make && make install \
+    && rm -rf /var/cache/apt/* \
+    && cd / \
+    && rm -rf /src/ruby/  \
+       /usr/local/share/{doc,man} \
+    && apt-get remove -yq gcc build-essential \
+    && apt-get autoremove  -yq \
+    && bundle config build.nokogiri --use-system-libraries 
 
-ENTRYPOINT ["/ident/util/docker.sh"]
-
+ADD . /home/ident
+RUN chown -R ident:ident /home/ident
+USER ident
+WORKDIR /home/ident
+RUN gem install bundler \
+    && bundle install
+ENTRYPOINT ["/home/ident/util/docker.sh"]
