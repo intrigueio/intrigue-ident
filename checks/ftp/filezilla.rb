@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module FtpCheck
-class ProFtp < Intrigue::Ident::FtpCheck::Base
+class Filezilla < Intrigue::Ident::FtpCheck::Base
 
   def generate_checks
     [
@@ -9,13 +9,13 @@ class ProFtp < Intrigue::Ident::FtpCheck::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["FTP Server"],
-        :vendor => "ProFTP",
-        :product => "ProFTPd",
+        :vendor => "Filezilla",
+        :product => "Server",
         :references => [],
         :version => nil,
         :match_type => :content_banner,
-        :match_content => /ProFTPD ([\d\w\.]+) Server/i,
-        :dynamic_version => lambda { |x| _first_banner_capture(x, /ProFTPD ([\d\w\.]+) Server/i)},
+        :match_content => /FileZilla Server/i,
+        :dynamic_version => lambda { |x| _first_banner_capture(x, /FileZilla Server version ([\d\.]+)/i)},
         :match_details => "banner",
         :hide => false,
         :inference => true

@@ -1,10 +1,10 @@
 module Intrigue
 module Ident
-module FtpCheck
+module SnmpCheck
 class Base
 
   def self.inherited(base)
-    Intrigue::Ident::Ftp::CheckFactory.register(base)
+    Intrigue::Ident::Snmp::CheckFactory.register(base)
   end
 
   private

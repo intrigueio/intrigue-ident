@@ -1,6 +1,7 @@
 module Intrigue
 module Ident
-  class CheckFactory
+module Http
+class CheckFactory
 
     #
     # Register a new handler
@@ -17,6 +18,8 @@ module Ident
       @checks
     end
 
-  end
+
+end
+end
 end
 end

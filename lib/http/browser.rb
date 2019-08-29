@@ -10,15 +10,21 @@ require 'watir'
 # This module exists for common web functionality - inside a web browser
 module Intrigue
 module Ident
-  module Browser
+  module HttpBrowser
 
     def ident_create_browser_session
 
       # first check if we're allowed to create a session by the global config
       return nil unless Intrigue::Config::GlobalConfig.config["browser_enabled"]
 
-      # Start a new session
-      ::Watir::Browser.new(:chrome, {:chromeOptions => {:args => ['--headless', '--window-size=1024x768']}})
+      # start a new session
+      # https://medium.com/myheritage-engineering/using-watir-to-run-selenium-with-headless-chrome-ec482b019c12 
+      args = ['headless','--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', 
+       '--ignore-certificate-errors', '--disable-popup-blocking', '--disable-translate']
+      ::Watir::Browser.new( :chrome, 
+        { headless: true, 
+          prefs: {}, 
+          options: {args: args}})
     end
 
     def ident_destroy_browser_session(session)

@@ -3,15 +3,15 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
-# load in http libs
+# load in generic utils
 require_relative 'utils'
-require_relative 'http'
-require_relative 'browser'
-require_relative 'http_helpers'
 
-# Load in http checks
-#####################
-require_relative 'check_factory'
+# Load in http matchers and checks
+###################################
+require_relative 'http/matchers'
+include Intrigue::Ident::Http::Matchers
+
+require_relative 'http/check_factory'
 require_relative '../checks/http/base'
 
 # http fingerprints
@@ -26,13 +26,31 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
-# Load in ftp checks
-################
-require_relative 'ftp_check_factory'
+# Socket helpers
+require_relative 'socket'
+
+# Load in ftp matchers and checks
+#################################
+require_relative 'ftp/matchers'
+include Intrigue::Ident::Ftp::Matchers
+
+require_relative 'ftp/check_factory'
 require_relative '../checks/ftp/base'
 
 # ftp fingerprints
 check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+# Load in snmp matchers and checks
+##################################
+#require_relative 'snmp/matchers'
+#include Intrigue::Ident::SnmpM::atchers
+
+require_relative 'snmp/check_factory'
+require_relative '../checks/snmp/base'
+
+# ftp fingerprints
+check_folder = File.expand_path('../checks/snmp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # Load vulndb client 
@@ -41,19 +59,57 @@ require_relative "vulndb_client"
 module Intrigue
   module Ident
 
-    include Intrigue::Ident::Content::HttpHelpers
-    include Intrigue::Ident::Browser
+    def generate_ftp_request_and_check(ip, port, debug=false)
+
+      # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      details = {
+        "details" => {
+          "banner" => grab_banner_ftp(ip,port)
+        }
+      }
+
+      results = []
+
+      # generate the checks 
+      checks = Intrigue::Ident::Ftp::CheckFactory.checks.map{ |x| x.new.generate_checks }.compact.flatten
+
+      # and run them against our result
+      checks.each do |check|
+        results << match_ftp_response_hash(check,details)
+      end
+
+    results.compact
+    end
+
+    def generate_snmp_requests_and_check(ip, port, debug=false)
+      
+      # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      details = {
+        "details" => {
+          "banner" => grab_banner_snmp(ip,port)
+        }
+      }
+
+      results = [] 
+
+      # generate the checks 
+      checks = Intrigue::Ident::Snmp::CheckFactory.checks.map{ |x| x.new.generate_checks}.compact.flatten
+
+      # and run them against our result
+      checks.each do |check|
+        results << match_snmp_response_hash(check,details)
+      end
+
+    results.compact    
+    end
 
     # Used by intrigue-core... note that this will currently fail unless
     def generate_http_requests_and_check(url, dom_checks=true,debug=false)
 
-      # load in browser control
-      require_relative 'browser'
-
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks
-      generated_checks = Intrigue::Ident::CheckFactory.checks.map{ |x|
-        x.new.generate_checks(url) }.compact.flatten
+      generated_checks = Intrigue::Ident::Http::CheckFactory.checks.map{ |x|
+        x.new.generate_checks(url)}.compact.flatten
 
       ##### 
       ##### Sanity check!
@@ -160,124 +216,6 @@ module Intrigue
     out
     end
 
-    def match_http_response_hash(check,hash)
-
-      # save off the generator string
-      generator_match = "#{hash[:response_body]}".match(/<meta name=\"?generator\"? content=\"?(.*?)\"?\/>/i)
-      generator_string = generator_match.captures.first.gsub("\"","") if generator_match
-
-      # save off the title string
-      title_match = "#{hash[:response_body]}".match(/<title>(.*?)<\/title>/i)
-      title_string = title_match.captures.first.strip if title_match
-
-      # grab the set cookie header
-      set_cookie_header = "#{(hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}.first}".gsub("set-cookie:","").strip
-
-      data = hash.merge({
-        "details" =>  {
-          "hidden_response_data" => "#{hash[:response_body]}",
-          "start_url" => "#{hash[:start_url]}",
-          "final_url" => "#{hash[:final_url]}",
-          "headers" => hash[:response_headers], # this is a hash and we need an array!
-          "cookies" => set_cookie_header,
-          "generator" => generator_string,
-          "title" => title_string
-        }
-      })
-
-    match_uri_hash(check,data)
-    end
-
-    def match_browser_response_hash(check,browser_response_hash)
-      data = {
-        "details" =>  {
-          "hidden_response_data_rendered" => "#{browser_response_hash[:rendered]}",
-          "start_url" => "#{browser_response_hash[:start_url]}",
-          "final_url" => "#{browser_response_hash[:final_url]}",
-          "headers" => [],
-          "cookies" => "",
-          "generator" => "",
-          "title" => "#{browser_response_hash[:title]}",
-        }
-      }
-
-      match_uri_hash(check,data)
-    end
-
-    # Matches a text http response
-    def match_http_response_text(check,http_response_text)
-
-      # first convert to intrigue uri format
-
-      # grab headers
-      header_part = http_response_text.split(/\n\n/).first
-      body_part = http_response_text.split(/\n\n/).last
-
-      headers = header_part.split("\n");
-      body = body_part
-
-      # TODO - fix to only grab content!!!!
-      cookies = headers.select{|x| x =~ /^set-cookie:(.*)/i }
-
-      ### grab the page attributes
-      match = body.match(/<title>(.*?)<\/title>/i)
-      title = match.captures.first if match
-
-      match = response.body.match(/<meta name=\"?generator\"? content=\"?(.*?)\"?\/?>/i)
-      generator = match.captures.first.gsub("\"","") if match
-
-      # rest is a response
-      # save title
-      # save Cookies
-      # save scripts ?
-      data = {
-        "details" =>  {
-          "hidden_response_data" => body,
-          "headers" => headers,
-          "cookies" => cookies,
-          "generator" => generator,
-          "title" => title
-        }
-      }
-
-      match_uri_hash(check,data)
-    end
-
-    def match_uri_hash(check, data)
-      return nil unless check && data
-
-      # data[:body] => page body
-      # data[:headers] => block of text with headers, one per line
-      # data[:cookies] => set_cookie header
-      # data[:title] => parsed page title
-      # data[:generator] => parsed meta generator tag
-      # data[:body_md5] => md5 hash of the body
-      # if type "content", do the content check
-
-      if check[:type] == "fingerprint"
-        if check[:match_type] == :content_body
-          match = _construct_match_response(check,data) if _body(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_body_raw
-          match = _construct_match_response(check,data) if _body_raw(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_dom
-          match = _construct_match_response(check,data) if _body_rendered(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_headers
-          match = _construct_match_response(check,data) if _headers(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_cookies
-          match = _construct_match_response(check,data) if _cookies(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_generator
-          match = _construct_match_response(check,data) if _generator(data) =~ check[:match_content]
-        elsif check[:match_type] == :content_title
-          match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
-        elsif check[:match_type] == :checksum_body
-          match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
-        end
-      elsif check[:type] == "content"
-        match = _construct_match_response(check,data)
-      end
-    match
-    end
-
     private
 
     def _construct_match_response(check, data)
@@ -338,3 +276,5 @@ module Intrigue
 
 end
 end
+
+include Intrigue::Ident
