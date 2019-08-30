@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "../lib/intrigue-ident"
+require_relative "../lib/ident"
 require 'slop'
 require 'thread'
 

@@ -18,9 +18,9 @@ module Intrigue
       # @param ip [String]
       # @param port [Integer]
       # @return [UDPSocket, false]
-      def connect_udp(ip, port, timeout)
+      def connect_udp(ip, port)
         puts "Making UDP Connection to #{ip} #{port}"
-        Socketry::UDP::Socket.connect(ip, port, local_addr: nil, local_port: nil, timeout: timeout)
+        Socketry::UDP::Socket.connect(ip, port)
       end
 
     end 

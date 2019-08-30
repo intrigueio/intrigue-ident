@@ -1,16 +1,23 @@
+require 'snmp'
+
 module Intrigue
   module Ident
     module Snmp
 
       include Intrigue::Ident::Socket
 
-      def grab_banner_snmp(ip, port, timeout: 5)
+      def grab_banner_snmp(ip, port=161, community="public", timeout=10)
           
-        if socket = connect_udp(ip, port, timeout)
-          return socket.readpartial(1024, timeout: timeout)
+        snmp_args = { :host => ip, :port => port, :community => community, :timeout => timeout }
+        out = ""
+        SNMP::Manager.open(snmp_args) do |manager|
+            response = manager.get(["sysDescr.0", "sysName.0"])
+            response.each_varbind do |vb|
+              out << "#{vb.value.to_s}"
+            end
         end
 
-      nil
+      out.length > 0 ? out : nil
       end
 
     end

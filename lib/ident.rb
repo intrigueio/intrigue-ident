@@ -43,8 +43,8 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # Load in snmp matchers and checks
 ##################################
-#require_relative 'snmp/matchers'
-#include Intrigue::Ident::SnmpM::atchers
+require_relative 'snmp/matchers'
+include Intrigue::Ident::Snmp::Matchers
 
 require_relative 'snmp/check_factory'
 require_relative '../checks/snmp/base'
@@ -59,7 +59,7 @@ require_relative "vulndb_client"
 module Intrigue
   module Ident
 
-    def generate_ftp_request_and_check(ip, port, debug=false)
+    def generate_ftp_request_and_check(ip, port=21, debug=false)
 
       # do the request (store as string and funky format bc of usage in core.. and  json conversions)
       details = {
@@ -81,7 +81,7 @@ module Intrigue
     results.compact
     end
 
-    def generate_snmp_requests_and_check(ip, port, debug=false)
+    def generate_snmp_requests_and_check(ip, port=161, debug=false)
       
       # do the request (store as string and funky format bc of usage in core.. and  json conversions)
       details = {

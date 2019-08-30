@@ -16,6 +16,7 @@ GEM
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     slop (4.6.2)
+    snmp (1.3.2)
     socketry (0.5.1)
       hitimes (~> 1.2)
     watir (6.16.5)
@@ -29,6 +30,7 @@ DEPENDENCIES
   pry
   selenium-webdriver
   slop
+  snmp
   socketry
   watir
 
