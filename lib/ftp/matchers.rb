@@ -11,8 +11,6 @@ module Matchers
 
   def match_ftp_response_hash(check,response_hash)
     
-    puts "Checking... #{check[:vendor]} #{check[:product]}"
-
     if check[:type] == "fingerprint"
       if check[:match_type] == :content_banner
         puts "Banner: #{_banner(response_hash)}"

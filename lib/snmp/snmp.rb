@@ -6,7 +6,7 @@ module Intrigue
 
       include Intrigue::Ident::Socket
 
-      def grab_banner_snmp(ip, port=161, community="public", timeout=10)
+      def grab_banner_snmp(ip, port=161, community="public", timeout=60)
           
         snmp_args = { :host => ip, :port => port, :community => community, :timeout => timeout }
         out = ""

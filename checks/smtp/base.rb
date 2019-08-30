@@ -1,13 +1,14 @@
 module Intrigue
 module Ident
-module FtpCheck
+module SmtpCheck
 class Base
 
   include Intrigue::Ident::BannerHelpers
 
   def self.inherited(base)
-    Intrigue::Ident::Ftp::CheckFactory.register(base)
+    Intrigue::Ident::Smtp::CheckFactory.register(base)
   end
+
 
 end
 end

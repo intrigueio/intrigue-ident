@@ -26,8 +26,9 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
-# Socket helpers
+# General helpers (apply widely across protocols)
 require_relative 'socket'
+require_relative 'banner_helpers'
 
 # Load in ftp matchers and checks
 #################################
@@ -41,6 +42,18 @@ require_relative '../checks/ftp/base'
 check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+# Load in smtp matchers and checks
+##################################
+require_relative 'smtp/matchers'
+include Intrigue::Ident::Smtp::Matchers
+
+require_relative 'smtp/check_factory'
+require_relative '../checks/smtp/base'
+
+# smtp fingerprints
+check_folder = File.expand_path('../checks/smtp', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 # Load in snmp matchers and checks
 ##################################
 require_relative 'snmp/matchers'
@@ -49,7 +62,7 @@ include Intrigue::Ident::Snmp::Matchers
 require_relative 'snmp/check_factory'
 require_relative '../checks/snmp/base'
 
-# ftp fingerprints
+# snmp fingerprints
 check_folder = File.expand_path('../checks/snmp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
@@ -59,12 +72,37 @@ require_relative "vulndb_client"
 module Intrigue
   module Ident
 
+    def generate_smtp_request_and_check(ip, port=25, debug=false)
+
+      # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      banner_string = grab_banner_smtp(ip,port)
+      details = {
+        "details" => {
+          "banner" => banner_string
+        }
+      }
+
+      results = []
+
+      # generate the checks 
+      checks = Intrigue::Ident::Smtp::CheckFactory.checks.map{ |x| x.new.generate_checks }.compact.flatten
+
+      # and run them against our result
+      checks.each do |check|
+        results << match_smtp_response_hash(check,details)
+      end
+
+    results.map{|x| x.merge({"banner" => banner_string})}.compact
+    end
+
+
     def generate_ftp_request_and_check(ip, port=21, debug=false)
 
       # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      banner_string = grab_banner_smtp(ip,port)
       details = {
         "details" => {
-          "banner" => grab_banner_ftp(ip,port)
+          "banner" => banner_string
         }
       }
 
@@ -75,32 +113,33 @@ module Intrigue
 
       # and run them against our result
       checks.each do |check|
-        results << match_ftp_response_hash(check,details)
+        results << match_smtp_response_hash(check,details)
       end
 
-    results.compact
+    results.map{|x| x.merge({"banner" => banner_string})}.compact
     end
 
     def generate_snmp_requests_and_check(ip, port=161, debug=false)
       
-      # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+            # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      banner_string = grab_banner_smtp(ip,port)
       details = {
         "details" => {
-          "banner" => grab_banner_snmp(ip,port)
+          "banner" => banner_string
         }
       }
 
-      results = [] 
+      results = []
 
       # generate the checks 
-      checks = Intrigue::Ident::Snmp::CheckFactory.checks.map{ |x| x.new.generate_checks}.compact.flatten
+      checks = Intrigue::Ident::Snmp::CheckFactory.checks.map{ |x| x.new.generate_checks }.compact.flatten
 
       # and run them against our result
       checks.each do |check|
         results << match_snmp_response_hash(check,details)
       end
 
-    results.compact    
+    results.map{|x| x.merge({"banner" => banner_string})}.compact
     end
 
     # Used by intrigue-core... note that this will currently fail unless

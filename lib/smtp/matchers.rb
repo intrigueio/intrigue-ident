@@ -1,16 +1,16 @@
 module Intrigue
 module Ident
-module Snmp
+module Smtp
 module Matchers
 
-  require_relative 'snmp'
-  include Intrigue::Ident::Snmp
+  require_relative 'smtp'
+  include Intrigue::Ident::Smtp
   
   require_relative 'content'
-  include Intrigue::Ident::Snmp::Content
+  include Intrigue::Ident::Smtp::Content
 
-  def match_snmp_response_hash(check,response_hash)
-    
+  def match_smtp_response_hash(check,response_hash)
+  
     if check[:type] == "fingerprint"
       if check[:match_type] == :content_banner
         match = _construct_match_response(check,response_hash) if _banner(response_hash) =~ check[:match_content]
