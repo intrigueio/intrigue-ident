@@ -8,10 +8,17 @@ module Intrigue
           
         if socket = connect_tcp(ip, port, timeout)
           #socket.writepartial("HELO friend.local\r\n\r\n")
-          return socket.readpartial(2048, timeout: timeout)
+          begin 
+            out = socket.readpartial(2048, timeout: timeout)
+          rescue Socketry::TimeoutError
+            puts "Error while reading! Timeout."
+            out = nil
+          end
+        else 
+          out = nil
         end
-
-      nil
+        
+      out
       end
 
     end

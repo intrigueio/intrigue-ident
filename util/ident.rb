@@ -6,104 +6,39 @@ require 'thread'
 include Intrigue::Ident
 include Intrigue::Ident::Utils
 
-###
-### Parse options
-###
-opts = Slop.parse do |o|
-  o.string '-u', '--url', 'a single url to check'
-  o.string '-f', '--file', 'a file of URLs, one per line'
-  o.integer '-t', '--threads', 'number of threads to use (default: 3)'
-  o.bool '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
-  o.bool '-b', '--browser', 'use browser checks (slows things down)'
-  o.bool '-d', '--debug', 'enable debug mode'
-  o.bool '-e', '--export', 'export to csv'
-  o.on '--version', 'print the version' do
-    puts "Ident v0.3"
-    exit
-  end
+def allowed_protocols
+  ["ftp", "smtp", "smtp"]
 end
 
-enable_browser = opts[:browser] || false
-query_vulns = opts[:vulnerabilities] || false
-debug = opts[:debug]
+def check_single_ip(opts)
+  
+  unless opts[:proto]
+    puts "Unable to continue, protocol must be specified!"
+    puts "Use the --proto option!"
+    return
+  end
+  
+  ip = opts[:ip]
+  port = opts[:port]
 
-
-if opts[:url] 
-
-  url = opts[:url]
-
-  unless opts[:url] =~ /^http[s]?:\/\/.*$/
-    puts "Unable to parse URL (#{url}), please append http or https in front."
-    exit
+  if opts[:proto] == "ftp"
+    results = generate_ftp_request_and_check(ip, port || 21)
+  elsif opts[:proto] == "snmp"
+    results = generate_snmp_request_and_check(ip, port || 161)
+  elsif  opts[:proto] == "smtp"
+    results = generate_smtp_request_and_check(ip, port || 25)
+  else 
+    puts "Error! Unknown protocol!"
+    puts "We know about the following: #{allowed_protocols.join(", ")}"
   end
 
-  puts "Checking... #{url}"
-  check_result = generate_http_requests_and_check(url,enable_browser,debug)
+  puts "Got Results:"
+  puts results.inspect
 
-  unless check_result
-    puts "Error... unable to get matches!"
-    exit -1
-  end
+end
 
 
-  if debug
-    i= 0
-    puts "Requests:"
-
-    if check_result["requests"]
-
-      # delete any existing file
-      File.delete "debug.txt" if File.exist? "debug.txt"
-
-      check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
-
-        safex = encode_hash x 
-
-        # increment the request number
-        i+=1
-
-        # print it
-        puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
-
-        # write the contents to a file
-        File.open("requests.txt","a") do |f|
-          f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
-        end
-
-      end
-    end
-  end
-
-  puts "Fingerprint:"
-  if check_result["fingerprint"]
-    uniq_matches = []
-    check_result["fingerprint"].each do|x|
-      # Make sure not to print dupes
-      next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
-      uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
-      # otherwise, print it out
-      puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
-      if query_vulns
-        vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
-        vulns.sort_by{|x| x["cvss_v3_score"] || 0 }.reverse.first(5).each do |v|
-          puts "   - Vuln: #{v["cve"]} (CVSSv3: #{v["cvss_v3_score"]})"
-        end
-      end
-    end
-  end
-
-  puts "Content Checks:"
-  if check_result["content"]
-    check_result["content"].each do|x|
-      puts " - #{x["name"]}: #{x["result"]}"
-    end
-  end
-
-  #puts "DEBUG: "
-  #puts check_result
-  #puts 
-
-elsif opts[:file] 
+def check_file_urls(opts)
 
   filepath = opts[:file]
 
@@ -196,7 +131,150 @@ elsif opts[:file]
   puts "Find results in: output.csv"
   puts "============================"
 
-else 
-  puts "Error! Unknown input. Failing!"
-  exit
-end  
+end
+
+
+def check_single_url(opts)
+
+  enable_browser = opts[:browser] || false
+  query_vulns = opts[:vulnerabilities] || false
+  debug = opts[:debug]
+
+  if opts[:url] 
+
+    url = opts[:url]
+
+    unless url =~ /^http[s]?:\/\/.*$/
+      puts "Unable to parse URL (#{url}), please append http or https in front."
+      exit
+    end
+
+    puts "Checking... #{url}"
+    check_result = generate_http_requests_and_check(url,enable_browser,debug)
+
+    unless check_result
+      puts "Error... unable to get matches!"
+      exit -1
+    end
+
+    #
+    # Handle debug output 
+    #
+    if debug
+      i= 0
+      if check_result["requests"]
+
+        # delete any existing file
+        File.delete "debug.txt" if File.exist? "debug.txt" 
+
+        check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
+
+          safex = encode_hash x 
+
+          # increment the request number
+          i+=1
+
+          # print it
+          puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+
+          # write the contents to a file
+          File.open("requests.txt","a") do |f|
+            f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
+          end
+
+        end
+      end
+    end
+
+    puts "Fingerprint:"
+    if check_result["fingerprint"]
+      uniq_matches = []
+      check_result["fingerprint"].each do|x|
+        # Make sure not to print dupes
+        next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+        uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+        # otherwise, print it out
+        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
+        if query_vulns
+          vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
+          vulns.sort_by{|x| x["cvss_v3_score"] || 0 }.reverse.first(5).each do |v|
+            puts "   - Vuln: #{v["cve"]} (CVSSv3: #{v["cvss_v3_score"]})"
+          end
+        end
+      end
+    end
+
+    puts "Content Checks:"
+    if check_result["content"]
+      check_result["content"].each do|x|
+        puts " - #{x["name"]}: #{x["result"]}"
+      end
+    end
+
+  end 
+end
+
+def main
+
+  begin 
+    ###
+    ### Parse options
+    ###
+    opts = Slop.parse do |o|
+      
+      # url input 
+      o.string '-u', '--url', 'a url to check'
+      o.string '-f', '--file', 'a file of urls, one per line'
+
+      # ip input
+      o.string '--ip', 'an ip to check'
+      o.string '--proto', 'protocol to check'
+      o.string '--port', 'port to check'
+
+      # export 
+      #o.bool '--csv', 'export to csv'
+      #o.bool '--json', 'export to json'
+      
+      # behavior
+      o.integer '-t', '--threads', 'number of threads to use when checking a file (default: 3)'
+      o.bool '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
+      o.bool '-b', '--browser', 'use browser checks when checking a url (slows things down!!)'
+      
+      o.bool '-d', '--debug', 'enable debug mode'
+      
+      o.on '--version', 'print the version' do
+        puts Ident::VERSION
+        exit
+      end
+
+    end
+  rescue Slop::MissingArgument => e
+    puts "Error! #{e}"
+    return
+  end
+
+  unless opts[:url] || opts[:file] || opts[:ip]
+    puts "Error! At least one of --file, --url, or --ip must be specified"
+    return
+  end
+
+  ## handle url input
+  if opts[:url]
+    puts "Checking URL: #{opts[:url]}"
+    check_single_url(opts)
+  end 
+
+  ## handle file input 
+  if opts[:file]
+    puts "Checking File: #{opts[:file]}"
+    check_file_urls(opts)
+  end
+
+  ## handle ip input
+  if opts[:ip]
+    puts "Checking IP: #{opts[:ip]}"
+    check_single_ip(opts)
+  end
+end
+
+main  

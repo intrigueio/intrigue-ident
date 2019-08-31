@@ -5,6 +5,7 @@ require 'zlib'
 
 # load in generic utils
 require_relative 'utils'
+require_relative 'version'
 
 # Load in http matchers and checks
 ###################################
@@ -92,14 +93,14 @@ module Intrigue
         results << match_smtp_response_hash(check,details)
       end
 
-    results.map{|x| x.merge({"banner" => banner_string})}.compact
+    results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
     end
 
 
     def generate_ftp_request_and_check(ip, port=21, debug=false)
 
       # do the request (store as string and funky format bc of usage in core.. and  json conversions)
-      banner_string = grab_banner_smtp(ip,port)
+      banner_string = grab_banner_ftp(ip,port)
       details = {
         "details" => {
           "banner" => banner_string
@@ -116,10 +117,10 @@ module Intrigue
         results << match_smtp_response_hash(check,details)
       end
 
-    results.map{|x| x.merge({"banner" => banner_string})}.compact
+    results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
     end
 
-    def generate_snmp_requests_and_check(ip, port=161, debug=false)
+    def generate_snmp_request_and_check(ip, port=161, debug=false)
       
             # do the request (store as string and funky format bc of usage in core.. and  json conversions)
       banner_string = grab_banner_smtp(ip,port)
@@ -139,7 +140,7 @@ module Intrigue
         results << match_snmp_response_hash(check,details)
       end
 
-    results.map{|x| x.merge({"banner" => banner_string})}.compact
+    results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
     end
 
     # Used by intrigue-core... note that this will currently fail unless
@@ -316,4 +317,5 @@ module Intrigue
 end
 end
 
+# always include 
 include Intrigue::Ident

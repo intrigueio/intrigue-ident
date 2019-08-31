@@ -10,11 +10,16 @@ module Intrigue
           
         snmp_args = { :host => ip, :port => port, :community => community, :timeout => timeout }
         out = ""
-        SNMP::Manager.open(snmp_args) do |manager|
-            response = manager.get(["sysDescr.0", "sysName.0"])
-            response.each_varbind do |vb|
-              out << "#{vb.value.to_s}"
-            end
+        begin 
+          SNMP::Manager.open(snmp_args) do |manager|
+              response = manager.get(["sysDescr.0", "sysName.0"])
+              response.each_varbind do |vb|
+                out << "#{vb.value.to_s}"
+              end
+          end
+        rescue Socketry::TimeoutError
+          puts "Error connecting! Timeout!"
+          return nil
         end
 
       out.length > 0 ? out : nil
