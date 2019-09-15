@@ -7,7 +7,7 @@ include Intrigue::Ident
 include Intrigue::Ident::Utils
 
 def allowed_protocols
-  ["ftp", "smtp", "smtp"]
+  ["ftp", "smtp", "snmp"]
 end
 
 def check_single_ip(opts)
