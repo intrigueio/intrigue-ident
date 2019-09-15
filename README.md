@@ -31,7 +31,7 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 ![Ident Usage](https://api.monosnap.com/file/download?id=FRqxPx7aE3EdQMcpZ9A7YvxskvvuBo)
 
 ```
-$ bundle exec ./util/check.rb -v -u https://xyz.com:443
+$ bundle exec ./util/ident.rb -v -u https://xyz.com:443
 Checking... https://xyz.com:443
 Fingerprint:
  - PHP PHP 5.4.16  - x-powered-by header (CPE: cpe:2.3:a:php:php:5.4.16:) (Tags: ["Web Framework"])
