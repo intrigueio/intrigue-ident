@@ -242,6 +242,11 @@ def main
       
       o.bool '-d', '--debug', 'enable debug mode'
       
+      o.on "-h", "--help" do
+        puts o
+        exit
+      end
+
       o.on '--version', 'print the version' do
         puts Ident::VERSION
         exit
