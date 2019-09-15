@@ -75,8 +75,10 @@ Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
+ - @bcoles: Checks, Bugfixes
+ - @bmcdevitt: Checks
  - @retornam: Dockerization
- - @bmcdevitt: Various Checks
+ 
 
 
 Troubleshooting:
