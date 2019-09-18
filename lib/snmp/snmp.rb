@@ -4,7 +4,7 @@ module Intrigue
   module Ident
     module Snmp
 
-      include Intrigue::Ident::Socket
+      include Intrigue::Ident::SimpleSocket
 
       def grab_banner_snmp(ip, port=161, community="public", timeout=60)
           

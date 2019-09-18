@@ -2,7 +2,7 @@ module Intrigue
   module Ident
     module Ftp
 
-      include Intrigue::Ident::Socket
+      include Intrigue::Ident::SimpleSocket
 
       def grab_banner_ftp(ip, port, timeout=30)
           

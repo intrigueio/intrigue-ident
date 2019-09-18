@@ -2,7 +2,7 @@ module Intrigue
   module Ident
     module Smtp
 
-      include Intrigue::Ident::Socket
+      include Intrigue::Ident::SimpleSocket
 
       def grab_banner_smtp(ip, port, timeout=60)
           

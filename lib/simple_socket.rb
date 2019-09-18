@@ -1,9 +1,8 @@
-
-require 'socketry'
+#require 'socketry'
 
 module Intrigue
   module Ident
-    module Socket
+    module SimpleSocket
 
       # Connect to a given IP address and port.
       # @param ip [String]

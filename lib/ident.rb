@@ -3,6 +3,7 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
+
 # load in generic utils
 require_relative 'utils'
 require_relative 'version'
@@ -28,7 +29,8 @@ content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # General helpers (apply widely across protocols)
-require_relative 'socket'
+
+require_relative 'simple_socket'
 require_relative 'banner_helpers'
 
 # Load in ftp matchers and checks
