@@ -32,6 +32,22 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
+            :tags => ["Web Server"],
+            :vendor =>"Ruby",
+            :references => [
+              "https://stackoverflow.com/questions/984633/how-to-remove-x-runtime-header-from-nginx-passenger",
+              "https://hackernoon.com/the-giving-ruby-the-strange-case-of-user-enumeration-on-heroku-not-fixed-1a8296067318"
+            ],
+            :product =>"Rack",
+            :match_details =>"x-runtime header",
+            :match_type => :content_headers,
+            :match_content =>  /^x-runtime:.*$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
             :tags => ["library"],
             :vendor =>"Ruby",
             :product =>"Ruby",

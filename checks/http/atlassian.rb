@@ -88,6 +88,32 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false
       },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development"],
+        :vendor => "Atlassian",
+        :product =>"Statuspage",
+        :match_details =>"statuspage header",
+        :version => nil,
+        :match_type => :content_heades,
+        :match_content =>  /^x-statuspage-skip-logging:.*$/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development"],
+        :vendor => "Atlassian",
+        :product =>"Statuspage",
+        :match_details =>"statuspage header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^x-statuspage-version:.*$/i,
+        :paths => ["#{url}"],
+        :inference => false
+      }
     ]
   end
 end
