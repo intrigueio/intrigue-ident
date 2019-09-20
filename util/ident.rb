@@ -149,7 +149,6 @@ def check_single_url(opts)
       exit
     end
 
-    puts "Checking... #{url}"
     check_result = generate_http_requests_and_check(url,enable_browser,debug)
 
     unless check_result
