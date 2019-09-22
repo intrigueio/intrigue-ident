@@ -66,7 +66,10 @@ def check_file_urls(opts)
           if check_result["fingerprint"]
             out["fingerprint"] = []
             check_result["fingerprint"].each do |x|
-              next if out["fingerprint"].include?(x) # Make sure not to include dupes
+              
+              # Make sure not to include dupes, unless we're debugging 
+              next if out["fingerprint"].include?(x) unless debug
+
               out["fingerprint"] << x
             end
           end
@@ -189,8 +192,10 @@ def check_single_url(opts)
     if check_result["fingerprint"]
       uniq_matches = []
       check_result["fingerprint"].each do|x|
-        # Make sure not to print dupes
-        next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+        
+        # Make sure not to include dupes, unless we're debugging 
+        next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}" unless debug
+
         uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
         # otherwise, print it out
         puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
