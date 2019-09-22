@@ -1,4 +1,3 @@
-require 'watir'
 ###
 ### Please note - these methods may be used inside task modules, or inside libraries within
 ### Intrigue. An attempt has been made to make them abstract enough to use anywhere inside the
@@ -18,13 +17,22 @@ module Ident
       return nil unless Intrigue::Config::GlobalConfig.config["browser_enabled"]
 
       # start a new session
-      # https://medium.com/myheritage-engineering/using-watir-to-run-selenium-with-headless-chrome-ec482b019c12 
-      args = ['headless','--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', 
-       '--ignore-certificate-errors', '--disable-popup-blocking', '--disable-translate']
-      ::Watir::Browser.new( :chrome, 
-        { headless: true, 
-          prefs: {}, 
-          options: {args: args}})
+      args = ['headless','no-sandbox', 'disable-gpu', 'disable-dev-shm-usage', 
+       'ignore-certificate-errors', 'disable-popup-blocking', 'disable-translate']
+
+      # configure the driver to run in headless mode
+      options = Selenium::WebDriver::Chrome::Options.new(args: args)
+      
+      # create a driver
+      driver = Selenium::WebDriver.for :chrome, { options: options }
+
+      # set size 
+      driver.manage.window.size = Selenium::WebDriver::Dimension.new(1280, 1024)
+
+      # set a default timeout
+      driver.manage.timeouts.implicit_wait = 20 # seconds
+    
+    driver 
     end
 
     def ident_destroy_browser_session(session)
@@ -96,18 +104,18 @@ module Ident
       # browse to our target
       safe_browser_action do
         # visit the page
-        session.goto(uri)
-        session.wait(3)
+        session.navigate.to(uri)
         # Capture Title
         page_title = session.title
         # Capture Body Text
-        page_contents = session.text
+        page_contents = session.page_source
         # Capture DOM
         rendered_page = session.execute_script("return document.documentElement.innerHTML")
 
         # return our hash
         return { :title => page_title, :contents => page_contents, :rendered => rendered_page }
       end
+    nil 
     end
 
     def ident_capture_screenshot(session, uri)
@@ -115,8 +123,7 @@ module Ident
 
       # browse to our target
       safe_browser_action do
-        session.goto(uri)
-        session.wait(3)
+        session.navigate.to(uri)
       end
 
       #
@@ -125,7 +132,7 @@ module Ident
       base64_image_contents = nil
       safe_browser_action do
         tempfile = Tempfile.new(['screenshot', '.png'])
-        session.driver.save_screenshot(tempfile.path)
+        session.save_screenshot(tempfile.path)
         _log "Saved Screenshot to #{tempfile.path}"
         # open and read the file's contents, and base64 encode them
         base64_image_contents = Base64.encode64(File.read(tempfile.path))
@@ -145,7 +152,7 @@ module Ident
       # Examples: https://www.madewithangular.com/
 
       safe_browser_action do
-        session.goto(uri)
+        session.navigate.to(uri)
       end
 
       libraries = []

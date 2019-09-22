@@ -1,3 +1,5 @@
+require 'json'
+
 module Intrigue
 module Vulndb
 class Client
