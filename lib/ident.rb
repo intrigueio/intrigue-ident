@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
+
 require 'net/http'
 require 'openssl'
 require 'zlib'
-
 
 # load in generic utils
 require_relative 'utils'
@@ -71,6 +71,11 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # Load vulndb client 
 require_relative "vulndb_client"
+
+# set default encoding
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 
 module Intrigue
   module Ident

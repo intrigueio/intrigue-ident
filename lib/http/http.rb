@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Intrigue
 module Ident
 module Http
@@ -7,6 +9,10 @@ module Http
   
   #require_relative 'content_helpers'
   #include Intrigue::Ident::Content::HttpHelpers
+
+  def ident_encode(string)
+    string.force_encoding('ISO-8859-1').encode('UTF-8')
+  end
 
   ###
   ### XXX - significant updates made to zlib, determine whether to
@@ -117,7 +123,7 @@ module Http
          if(newuri.relative?)
            newuri=URI.parse("#{uri}#{response.header['location']}")
          end
-         response_urls << newuri.to_s
+         response_urls << ident_encode(newuri.to_s)
          uri=newuri
 
        else
@@ -197,8 +203,8 @@ module Http
 
     # verify we have a response before adding these
     if response
-      out[:response_headers] = response.each_header.map{|x| "#{x}: #{response[x]}" }
-      out[:response_body] = response.body
+      out[:response_headers] = response.each_header.map{|x| ident_encode "#{x}: #{response[x]}" }
+      out[:response_body] = ident_encode(response.body)
     end
 
     out
