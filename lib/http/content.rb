@@ -7,13 +7,12 @@ module Intrigue
         _body_rendered(content) || _body_raw(content)
       end
 
-      def _body_raw(content)
-        #puts content["details"]
+      def _body_raw(content)  
         content["details"]["hidden_response_data"]
       end
 
       def _body_rendered(content)
-        content["details"]["hidden_response_data_rendered"]
+        content["details"]["hidden_response_data_rendered"] 
       end
 
       def _body_raw_checksum(content)
