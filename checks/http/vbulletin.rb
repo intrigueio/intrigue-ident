@@ -47,7 +47,7 @@ module Check
           {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Social", "BulletinBoard"],
+            :tags => ["Social", "Bulletin Board"],
             :vendor => "vBulletin",
             :product =>"vBulletin",
             :match_details =>"'powered by' in page content",
