@@ -585,6 +585,21 @@ module Check
             :product =>"Sharepoint Server",
             :match_details =>"Sharepoint cookie",
             :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^microsoftsharepointteamservices:.*$/,
+            :dynamic_version => lambda { |x| 
+              _first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i) },
+            :paths => ["#{url}"], 
+            :inference => true
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "CMS"],
+            :vendor => "Microsoft",
+            :product =>"Sharepoint Server",
+            :match_details =>"Sharepoint cookie",
+            :version => nil,
             :match_type => :content_generator,
             :match_content =>  /^Microsoft SharePoint$/,
             :paths => ["#{url}"], 
