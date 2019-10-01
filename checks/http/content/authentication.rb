@@ -20,6 +20,19 @@ class Authentication < Intrigue::Ident::Check::Base
       },
       {
         :type => "content",
+        :name => "Authentication - NTLM",
+        :match_type => :content_headers,
+        :dynamic_result => lambda { |d|
+          return false unless d["details"]["headers"]
+          return true if _first_header_match(d, /^www-authenticate: NTLM$/i)
+        false
+        },
+        :dynamic_hide => lambda { |d| false },
+        :dynamic_issue => lambda { |d| false },
+        :paths => ["#{url}"]
+      },
+      {
+        :type => "content",
         :name =>"Authentication - Forms",
         :references => [
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
