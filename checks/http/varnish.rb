@@ -14,9 +14,33 @@ module Check
             :match_details =>"Varnish Proxy",
             :version => nil,
             :match_type => :content_headers,
+            :match_content =>  /^server: Varnish$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server", "Cache"],
+            :vendor =>"Varnish-Cache",
+            :product =>"Varnish",
+            :match_details =>"Varnish Proxy",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^x-varnish:.*$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Web Server", "Cache"],
+            :vendor =>"Varnish-Cache",
+            :product =>"Varnish",
+            :match_details =>"Varnish Proxy",
+            :version => nil,
+            :match_type => :content_headers,
             :match_content =>  /^via: [0-9\.]+ varnish$/i,
-            :dynamic_version => lambda { |x|
-              _first_header_capture(x,/^via: [0-9\.]+ varnish v(\d)$/i) },
             :paths => ["#{url}"],
             :inference => false
           }
