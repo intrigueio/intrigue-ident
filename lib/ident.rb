@@ -183,7 +183,7 @@ module Intrigue
       results = []
 
       # keep an array of the request / response details
-      match_http_response_hash = []
+      responses = []
 
       # keep track of timeouts
       timeout_count = 0
