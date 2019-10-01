@@ -129,7 +129,7 @@ module Intrigue
 
     def generate_snmp_request_and_check(ip, port=161, debug=false)
       
-            # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+      # do the request (store as string and funky format bc of usage in core.. and  json conversions)
       banner_string = grab_banner_smtp(ip,port)
       details = {
         "details" => {
@@ -183,7 +183,7 @@ module Intrigue
       results = []
 
       # keep an array of the request / response details
-      responses = []
+      match_http_response_hash = []
 
       # keep track of timeouts
       timeout_count = 0

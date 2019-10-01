@@ -187,7 +187,7 @@ module Http
     out = {
       :timeout => timeout,
       :start_url => uri_string,
-      :final_url => final_url,
+      :final_url => final_url.to_s,
       :request_type => :ruby,
       :request_method => method,
       :request_credentials => credentials,
