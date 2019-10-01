@@ -183,7 +183,7 @@ module Intrigue
       results = []
 
       # keep an array of the request / response details
-      requests = []
+      responses = []
 
       # keep track of timeouts
       timeout_count = 0
@@ -208,7 +208,7 @@ module Intrigue
           timeout_count += 1
         end 
 
-        requests << response_hash
+        responses << response_hash
 
         # Only if we are running browser checks
         if dom_checks
@@ -221,7 +221,7 @@ module Intrigue
             # save the response to our list of responses
             # TODO - collect redirects here
             # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
-            requests << browser_response
+            responses << browser_response
 
             ident_destroy_browser_session session
           end
@@ -258,7 +258,7 @@ module Intrigue
     out["url"] = url
 
     # attach the responses
-    out["requests"] = requests
+    out["responses"] = responses
 
     out
     end
