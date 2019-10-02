@@ -18,7 +18,7 @@ module Http
   ### XXX - significant updates made to zlib, determine whether to
   ### move this over to RestClient: https://github.com/ruby/ruby/commit/3cf7d1b57e3622430065f6a6ce8cbd5548d3d894
   ###
-  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, limit = 10, open_timeout=15, read_timeout=15)
+  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, limit = 3, open_timeout=15, read_timeout=15)
 
     response = nil
     begin
@@ -64,9 +64,8 @@ module Http
        end
 
        http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)
-
-       http.read_timeout = read_timeout
        http.open_timeout = open_timeout
+       http.read_timeout = read_timeout
 
        path = "#{uri.path}"
        path = "/" if path==""

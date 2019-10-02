@@ -25,7 +25,7 @@ module Check
           :tags => ["CMS"],
           :vendor =>"Wordpress",
           :product =>"Wordpress",
-          :match_details =>"wordpress test cookie",
+          :match_details =>"wordpress login page",
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /class=\"login login-action-login wp-core-ui/i,
