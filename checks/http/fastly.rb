@@ -14,7 +14,7 @@ module Check
             :match_details =>"header",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /^x-fastly-backend-reqs:/i,
+            :match_content =>  /^x-fastly-backend-reqs:.*$/i,
             :paths => ["#{url}"],
             :inference => false
           },
@@ -27,7 +27,20 @@ module Check
             :match_details =>"header",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /^x-fastly-service:/i,
+            :match_content =>  /^x-fastly-service:.*$/i,
+            :paths => ["#{url}"],
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "service",
+            :tags => ["Hosting", "CDN", "WAF"],
+            :vendor =>"Fastly",
+            :product =>"Fastly",
+            :match_details =>"header",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /^x-fastly-request-id:.*$/i,
             :paths => ["#{url}"],
             :inference => false
           },
