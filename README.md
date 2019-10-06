@@ -1,32 +1,42 @@
-Ident is the app fingerprinting library used within Intrigue Core. It uses Headless Chrome and Selenium to drive a browser, as well as core Ruby libraries to make requests. Identification should take around 10 seconds if using browser checks, faster if not.
+Ident is the an fingerprinting library, and is used within Intrigue Core. 
 
-Getting started on OSX:
-=======================
+The Ident project has a few stated goals: 
+
+ - To deeply identify network service ad app software while remain extremely fast by limiting necessary requests
+ - To be the most complete library for modern application and server software identification 
+ - To integrate well as a library, for easy use in other projects
+ - To be commercially viable through use of the BSD license
+ - To maintain a robust command line interface, for use as a standalone tool 
+
+ Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. It integrates with headless Chrome for checks that require the DOM. 
+
+ Below, find instruction on how to get stated
+
+
+Using ident via docker:
+======================
+1) Build the docker image 
+  `$ docker build `
+
+2) Run the command line tool via docker 
+
+
+
+Installing directly on OSX:
+===========================
 1) [Install brew](https://brew.sh/) (if you don't already have it)
 
-2)  Then install chromedriver via a brew cask: https://www.kenst.com/2015/03/installing-chromedriver-on-mac-osx/: 
+2) Install ruby [preferrably using rbenv](https://github.com/rbenv/rbenv#installation)
 
-```
-$ brew cask install chromedriver
-```
+3) Install bundler ```gem install bundler```
 
-2.1) Alias chrome so it can be started via chromedriver (unsure if this is needed)
+4) Clone the ident repository ```git clone https://github.com/intrigueio/intrigue-ident.git```
 
-```
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
-```
-
-3) Install ruby [preferrably using rbenv](https://github.com/rbenv/rbenv#installation)
-
-4) Install bundler ```gem install bundler```
-
-5) Clone the ident repository ```git clone https://github.com/intrigueio/intrigue-ident.git```
-
-6) Install the ident gem dependencies
+5) Install the ident gem dependencies
 
 ```bundle install```
 
-7) Now use the check utility to test!
+6) Now use the check utility to test!
 
 ![Ident Usage](https://api.monosnap.com/file/download?id=FRqxPx7aE3EdQMcpZ9A7YvxskvvuBo)
 
@@ -75,19 +85,6 @@ Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
- - @bcoles: Checks, Bugfixes
+ - @bcoles: Checks, bugfixes
  - @bmcdevitt: Checks
  - @retornam: Dockerization
-
-
-Troubleshooting:
-================
-
-If you hit something like the following: 
-```Selenium::WebDriver::Error::SessionNotCreatedError: session not created: Chrome version must be between 70 and 73
-  (Driver info: chromedriver=73.0.3683.68 (47787ec04b6e38e22703e856e101e840b65afe72),platform=Mac OS X 10.14.1 x86_64)
-  /Users/jcran/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/selenium-webdriver-3.142.2/lib/selenium/webdriver/remote/response.rb:72:in `assert_ok'
- ```
-
-It's likely that you need to update chromedriver. Do that by running the command: 
-```$ brew cask reinstall chromedriver```

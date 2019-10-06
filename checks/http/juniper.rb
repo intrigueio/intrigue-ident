@@ -50,7 +50,23 @@ module Check
           :version => nil,
           :paths => ["#{url}"],
           :inference => false
+        },
+        {
+          :depends => [{:product => "Junos Pulse Secure Access Service"}],
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Networking", "VPN"],
+          :vendor =>"Juniper",
+          :product =>"Junos Pulse Secure Access Service",
+          :match_details => "info disclosure in nc_gina_ver.txt",
+          :references => ["https://know.bishopfox.com/blog/breaching-the-trusted-perimeter"],
+          :match_type => :content_body,
+          :match_content => /DSSETUP_BUILD_VERSION/,
+          :version => nil,
+          :paths => ["#{url}/dana-na/nc/nc_gina_ver.txt"],
+          :inference => false
         }
+
       ]
     end
 

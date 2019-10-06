@@ -6,6 +6,7 @@ module Check
       def generate_checks(url)
         [
           {
+            :depends => [{:product => "ASP.NET"}],
             :type => "fingerprint",
             :category => "application",
             :tags => ["Web Framework"],

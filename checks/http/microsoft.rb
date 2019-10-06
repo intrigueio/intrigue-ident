@@ -148,6 +148,7 @@ module Check
             :inference => false
           },
           {
+            :depends => [{:product => "ASP.NET"}],
             :type => "fingerprint",
             :category => "application",
             :tags => ["Web Framework"],

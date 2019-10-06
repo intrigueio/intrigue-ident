@@ -71,6 +71,7 @@ module Check
             :inference => false
           },           
           {
+            :depends => [{:product => "Magento"}],
             :type => "fingerprint",
             :category => "application",
             :tags => ["COTS","Payments"],
