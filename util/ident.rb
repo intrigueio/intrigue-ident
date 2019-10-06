@@ -216,7 +216,7 @@ def check_single_url(opts)
       end
     end
 
-    puts check_result.to_json if json
+    puts JSON.pretty_generate(check_result) if json
   end 
 end
 
