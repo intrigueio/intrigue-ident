@@ -16,7 +16,7 @@ class Day < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /Server: Apache.*Communique/i,
         :dynamic_version => lambda {|x| 
-          _first_server_capture(x,/^Server: Apache.*Communique\/(\d\.+)/)
+          _first_header_capture(x,/^Server: Apache.*Communique\/(\d\.+)/)
         },
         :match_details => "Apache module from server header",
         :hide => false,
