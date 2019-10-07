@@ -142,6 +142,7 @@ def check_single_url(opts)
   enable_browser = opts[:browser] || false
   query_vulns = opts[:vulnerabilities] || false
   debug = opts[:debug]
+  json = opts[:json] || false
 
   if opts[:url] 
 
@@ -215,6 +216,7 @@ def check_single_url(opts)
       end
     end
 
+    puts JSON.pretty_generate(check_result) if json
   end 
 end
 
@@ -237,7 +239,7 @@ def main
 
       # export 
       #o.bool '--csv', 'export to csv'
-      #o.bool '--json', 'export to json'
+      o.bool '--json', 'export to json'
       
       # behavior
       o.integer '-t', '--threads', 'number of threads to use when checking a file (default: 3)'
