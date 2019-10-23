@@ -9,4 +9,9 @@ def list_checks
   #Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
 end
 
-list_checks.sort_by{|c| "#{c[:type]}" }.each {|c| puts " - #{c[:type]} ... #{c[:name]} #{c[:vendor]} #{c[:product]} #{c[:version]} (Version detection: #{!c[:dynamic_version].nil?}) #{c[:paths]} ... #{c[:tags]}"}
+list_checks.sort_by{|c| "#{c[:type]}" }.each {|c| 
+  puts " - #{c[:type]} ... #{c[:name]} #{c[:vendor]} #{c[:product]} #{c[:version]}" + 
+     " (Version detection: #{!c[:dynamic_version].nil?})" + 
+     " (Hide: #{c[:hide]})" + 
+     " (Vulns: #{c[:inference]})" + 
+     " #{c[:paths]} ... #{c[:tags]}"}
