@@ -15,11 +15,8 @@ The Ident project has a few stated goals:
 
 Using ident via Docker image:
 =============================
-1) Build the docker image  (optional, docker will download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally)
-  `$ docker build . -t intrigueio/intrigue-ident`
-
-2) Run the command line tool via docker 
-`$ docker run -it intrigueio/ident util/ident.rb -u https://intrigue.io`
+1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
+  `docker pull intrigueio/intrigue-ident && docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
 
 
 Installing directly on OSX:
