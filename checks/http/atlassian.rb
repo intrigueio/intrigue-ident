@@ -68,6 +68,19 @@ class Atlassian < Intrigue::Ident::Check::Base
         :product =>"Jira",
         :match_details =>"Atlassian Jira",
         :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /jira.webresources/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development"],
+        :vendor => "Atlassian",
+        :product =>"Jira",
+        :match_details =>"Atlassian Jira",
+        :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /atlassian.xsrf.token=/i,
         :dynamic_version => lambda{ |x|

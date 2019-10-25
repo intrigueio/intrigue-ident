@@ -17,7 +17,35 @@ module Check
             :match_content =>  /server: Lotus-Domino/i,
             :paths => ["#{url}"], 
             :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "Administrative"],
+            :vendor => "Lotus",
+            :product =>"Domino",
+            :match_details =>"Lotus Domino",
+            :match_type => :content_body,
+            :version => nil,
+            :match_content => /homepage.nsf\/homePage\.gif\?OpenImageResource/i,
+            :paths => ["#{url}"], 
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["COTS", "Administrative"],
+            :vendor => "Lotus",
+            :product =>"Domino",
+            :match_details =>"Lotus Domino",
+            :match_type => :content_body,
+            :version => nil,
+            :match_content =>  /Notes Client/i,
+            :paths => ["#{url}"], 
+            :inference => false
           }
+
+          
         ]
       end
 

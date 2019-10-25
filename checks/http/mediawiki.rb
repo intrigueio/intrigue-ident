@@ -8,7 +8,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["COTS","CMS"],
+          :tags => ["COTS", "CMS"],
           :vendor =>"MediaWiki",
           :product =>"MediaWiki",
           :match_details =>"powered by tag",
@@ -21,7 +21,20 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["COTS","CMS"],
+          :tags => ["COTS", "CMS"],
+          :vendor =>"MediaWiki",
+          :product =>"MediaWiki",
+          :match_details =>"powered by tag",
+          :match_type => :content_body,
+          :version => nil,
+          :match_content =>  /poweredby_mediawiki/,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["COTS", "CMS"],
           :vendor =>"MediaWiki",
           :product =>"MediaWiki",
           :match_details =>"generator tag",
@@ -31,7 +44,6 @@ module Check
           :dynamic_version => lambda { |x| _first_body_capture(x,/<meta name=\"generator\" content=\"MediaWiki\ (.*?)\"\/>/) },
           :paths => ["#{url}"], 
           :inference => true
-
         }
       ]
     end
