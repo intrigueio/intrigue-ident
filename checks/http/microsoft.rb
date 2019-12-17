@@ -582,6 +582,21 @@ module Check
             :tags => ["Productivity", "CMS"],
             :vendor => "Microsoft",
             :product =>"Sharepoint Server",
+            :match_details =>"Inferred from services version",
+            :version => nil,
+            :match_type => :content_headers,
+            :match_content =>  /microsoftsharepointteamservices/,
+            :dynamic_version => lambda { |x| 
+              sharepoint_server_version(_first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i)) },
+            :paths => ["#{url}"], 
+            :inference => false
+          },
+          {
+            :type => "fingerprint",
+            :category => "application",
+            :tags => ["Productivity", "CMS"],
+            :vendor => "Microsoft",
+            :product =>"Sharepoint Team Services",
             :match_details =>"Sharepoint cookie",
             :version => nil,
             :match_type => :content_headers,
@@ -596,7 +611,7 @@ module Check
             :category => "application",
             :tags => ["Productivity", "CMS"],
             :vendor => "Microsoft",
-            :product =>"Sharepoint Server",
+            :product =>"Sharepoint Team Services",
             :match_details =>"Sharepoint cookie",
             :version => nil,
             :match_type => :content_headers,
@@ -646,6 +661,27 @@ module Check
             :paths => ["#{url}"]
           }
         ]
+      end
+
+      # https://buildnumbers.wordpress.com/sharepoint/
+      # https://www.eukhost.com/blog/webhosting/difference-between-windows-sharepoint-services-and-sharepoint-servers/
+      def sharepoint_server_version(services_version)
+        case 
+        when services_version =~ /^10\.0\.0\.\d+/
+          "2003"
+        when services_version =~ /^11\.0\.0\.\d+/
+          "2003"
+        when services_version =~ /^12\.0\.0\.\d+/
+          "2007"
+        when services_version =~ /^14\.0\.0\.\d+/
+          "2010"
+        when services_version =~ /^15\.0\.0\.\d+/
+          "2013"
+        when services_version =~ /^16\.0\.0\.\d+/
+          "2016"
+        else 
+          nil
+        end
       end
 
       # https://en.wikipedia.org/wiki/Internet_Information_Services
