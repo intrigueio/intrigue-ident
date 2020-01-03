@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = "intrigue-ident"
-  spec.version       = "0.9.0"
+  spec.version       = "0.9.1"
   spec.authors       = ["jcran"]
   spec.email         = ["jcran@intrigue.io"]
 
