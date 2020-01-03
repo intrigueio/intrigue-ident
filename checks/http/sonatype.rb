@@ -8,7 +8,7 @@ class Sonatype < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS","Networking","VPN","Security"],
+        :tags => ["COTS","Security"],
         :vendor =>"Sonatype",
         :product =>"Nexus Repository Manager",
         :match_details =>"product name in body",
@@ -21,7 +21,7 @@ class Sonatype < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS","Networking","VPN","Security"],
+        :tags => ["COTS","Security"],
         :vendor =>"Sonatype",
         :product =>"Nexus Repository Manager",
         :match_details =>"version in body - specific to oss?",
