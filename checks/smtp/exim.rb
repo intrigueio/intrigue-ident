@@ -23,6 +23,7 @@ class Exim < Intrigue::Ident::SmtpCheck::Base
       }
     ]
   end
+  
 end
 end
 end

@@ -20,6 +20,7 @@ class Aruba < Intrigue::Ident::Check::Base
       }
     ]
   end
+  
 end
 end
 end

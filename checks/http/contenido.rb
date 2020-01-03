@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class ContenidoCMS < Intrigue::Ident::Check::Base
+class Contenido < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [

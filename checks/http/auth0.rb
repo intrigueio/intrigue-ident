@@ -37,6 +37,7 @@ class Auth0 < Intrigue::Ident::Check::Base
       }
     ]
   end
+  
 end
 end
 end

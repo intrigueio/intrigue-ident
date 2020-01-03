@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class ShopFactoryCMS < Intrigue::Ident::Check::Base
+class NetObjects < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
@@ -9,21 +9,21 @@ class ShopFactoryCMS < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["CMS"],
-        :vendor => "ShopFactory",
-        :product => "ShopFactory",
-        :references => [],
+        :vendor => "NetObjects Inc.",
+        :product => "Koken",
+        :references => ["http://koken.me/"],
         :version => nil,
         :match_type => :content_body,
-        :match_content => /ShopFA(.*.\d)/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /V(.\d)/)},
-        :match_details => "Header match",
+        :match_content => /koken (.*.\d)/i ,
+        :dynamic_version => lambda { |x| _first_body_capture(x, /koken (.*.\d)/i)},
+        :match_details => "header match",
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
       }
     ]
   end
-
+  
 end
 end
 end
