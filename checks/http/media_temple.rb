@@ -1,27 +1,27 @@
 module Intrigue
 module Ident
 module Check
-  class MediaTemple < Intrigue::Ident::Check::Base
+class MediaTemple < Intrigue::Ident::Check::Base
 
-    def generate_checks(url)
-      [
-        {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["Hosting"],
-          :vendor =>"MediaTemple",
-          :product =>"MediaTemple",
-          :match_details =>"default string in title",
-          :match_type => :content_title,
-          :version => nil,
-          :match_content =>  /Business-Class Web Hosting by \(mt\) Media Temple/,
-          :paths => ["#{url}"], 
-          :inference => false
-        }
-       ]
-    end
-
+  def generate_checks(url)
+    [
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Hosting"],
+        :vendor =>"MediaTemple",
+        :product =>"MediaTemple",
+        :match_details =>"default string in title",
+        :match_type => :content_title,
+        :version => nil,
+        :match_content =>  /Business-Class Web Hosting by \(mt\) Media Temple/,
+        :paths => ["#{url}"], 
+        :inference => false
+      }
+      ]
   end
+
+end
 end
 end
 end

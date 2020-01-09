@@ -1,27 +1,27 @@
 module Intrigue
 module Ident
 module Check
-    class ExpressJS < Intrigue::Ident::Check::Base
+  class ExpressJS < Intrigue::Ident::Check::Base
 
-      def generate_checks(url)
-        [
-          {
-            :type => "fingerprint",
-            :category => "application",
-            :tags => ["Application Server"],
-            :vendor => "ExpressJS",
-            :product =>"Express",
-            :version => nil,
-            :match_details =>"x-powered-by header",
-            :match_type => :content_headers,
-            :match_content =>  /x-powered-by: Express/i,
-            :paths => ["#{url}"],
-            :inference => false
-          }
-        ]
-      end
-
+    def generate_checks(url)
+      [
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Application Server"],
+          :vendor => "ExpressJS",
+          :product =>"Express",
+          :version => nil,
+          :match_details =>"x-powered-by header",
+          :match_type => :content_headers,
+          :match_content =>  /x-powered-by: Express/i,
+          :paths => ["#{url}"],
+          :inference => false
+        }
+      ]
     end
+
   end
-  end
-  end
+end
+end
+end

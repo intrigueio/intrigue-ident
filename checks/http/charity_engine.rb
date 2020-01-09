@@ -20,6 +20,7 @@ class CharityEngine < Intrigue::Ident::Check::Base
       }
     ]
   end
+  
 end
 end
 end

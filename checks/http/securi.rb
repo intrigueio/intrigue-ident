@@ -1,46 +1,46 @@
 module Intrigue
 module Ident
 module Check
-class Varnish < Intrigue::Ident::Check::Base
+class Sucuri < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server", "Cache"],
-        :vendor =>"Varnish-Cache",
-        :product =>"Varnish",
-        :match_details =>"Varnish Proxy",
+        :tags => ["SaaS", "WAF", "Security"],
+        :vendor => "Sucuri",
+        :product =>"Cloudproxy",
+        :match_details =>"",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^server: Varnish$/i,
+        :match_content =>  /Server: Sucuri\/Cloudproxy/i,
         :paths => ["#{url}"],
         :inference => false
       },
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server", "Cache"],
-        :vendor =>"Varnish-Cache",
-        :product =>"Varnish",
-        :match_details =>"Varnish Proxy",
+        :tags => ["SaaS", "WAF", "Security"],
+        :vendor => "Sucuri",
+        :product =>"Cloudproxy",
+        :match_details =>"",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^x-varnish:.*$/i,
+        :match_content =>  /^X-Sucuri-ID:.*/i,
         :paths => ["#{url}"],
         :inference => false
       },
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server", "Cache"],
-        :vendor =>"Varnish-Cache",
-        :product =>"Varnish",
-        :match_details =>"Varnish Proxy",
+        :tags => ["SaaS", "WAF", "Security"],
+        :vendor => "Sucuri",
+        :product =>"Cloudproxy",
+        :match_details =>"",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^via: [0-9\.]+ varnish$/i,
+        :match_content =>  /^X-Sucuri-Cache:.*/i,
         :paths => ["#{url}"],
         :inference => false
       }
@@ -48,6 +48,7 @@ class Varnish < Intrigue::Ident::Check::Base
   end
 
 end
+
 end
 end
 end

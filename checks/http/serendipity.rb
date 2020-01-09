@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class SerendipityCMS < Intrigue::Ident::Check::Base
+class Serendipity < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
