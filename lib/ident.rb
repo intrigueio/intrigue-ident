@@ -192,10 +192,13 @@ module Intrigue
       # group them up by path (there can be multiple paths)
       followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
         c.merge({:unique_path => p})} }.flatten
+
+      # group'm as needed to run the checks
       grouped_followon_checks = followon_checks_by_path.group_by{|x| x[:unique_path] }
+      grouped_followon_checks_minus_base = grouped_followon_checks.reject!{|k| k == url }
 
       ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
-      followon_results = _run_grouped_http_checks(url, grouped_followon_checks, dom_checks, debug)
+      followon_results = _run_grouped_http_checks(url, grouped_followon_checks_minus_base, dom_checks, debug)
 
       out = {
         "url" => initial_results["url"], # same
