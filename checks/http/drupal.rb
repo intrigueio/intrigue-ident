@@ -19,6 +19,7 @@ module Check
             _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
           },
           :paths => ["#{url}/CHANGELOG.txt"],
+          :require_product => "Magento",
           :inference => true
         },
         {
@@ -36,6 +37,7 @@ module Check
             _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
           },
           :paths => ["#{url}/core/CHANGELOG.txt"],
+          :require_product => "Magento",
           :inference => true
         },
         {

@@ -155,13 +155,12 @@ module Intrigue
 
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks
-      generated_checks = Intrigue::Ident::Http::CheckFactory.checks.map{ |x|
-        x.new.generate_checks(url)}.compact.flatten
+      initial_checks = Intrigue::Ident::Http::CheckFactory.generate_initial_checks("#{url}")
 
       ##### 
       ##### Sanity check!
       #####
-      failing_checks = generated_checks.select{|x| x if !x[:paths]}
+      failing_checks = initial_checks.select{|x| x if !x[:paths]}
       if failing_checks.compact.count > 0
         puts "FATAL! Unable to continue, the following checks are invalid, missing a path!"
         puts failing_checks.inspect
@@ -172,12 +171,48 @@ module Intrigue
       # group them up by each path, which is annoying because they're stored in
       # an array on each check. This line handles that. (take all the checks []
       # with each of their paths [], flatten and group by them
-      checks_by_path = generated_checks.map{|c| c[:paths].map{ |p|
+      initial_checks_by_path = initial_checks.map{|c| c[:paths].map{ |p|
         c.merge({:unique_path => p})} }.flatten
 
       # now we have them organized by a single path, group them up so we only
-      # have to make a single request per unique path
-      grouped_generated_checks = checks_by_path.group_by{|x| x[:unique_path] }
+      # have to make a single request per unique path 
+      grouped_initial_checks = initial_checks_by_path.group_by{|x| x[:unique_path] }
+
+      # Run'm!!!
+      initial_results = _run_grouped_http_checks url, grouped_initial_checks, dom_checks, debug
+      
+      ### Okay so, now we have a set of detected products, let's figure out our follown checks
+      followon_checks = []
+      detected_products = initial_results["fingerprint"].map{|x| x["product"] }.uniq
+      detected_products.each do |prod|
+        followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product("#{url}", prod))
+        #puts "Getting checks for product: #{prod} ... #{followon_checks.count}" if debug
+      end
+
+      # group them up by path (there can be multiple paths)
+      followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
+        c.merge({:unique_path => p})} }.flatten
+      grouped_followon_checks = followon_checks_by_path.group_by{|x| x[:unique_path] }
+
+      ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
+      followon_results = _run_grouped_http_checks(url, grouped_followon_checks, dom_checks, debug)
+
+      out = {
+        "url" => initial_results["url"], # same
+        "fingerprint" => initial_results["fingerprint"].concat(followon_results["fingerprint"]),
+        "content" => initial_results["content"].concat(followon_results["content"]),
+        "responses" => initial_results["responses"].concat(followon_results["responses"]),
+        "initial_checks" => initial_results["check_count"],
+        "followon_checks" => followon_results["check_count"]
+      }
+
+    out 
+    end
+
+
+    private
+
+    def _run_grouped_http_checks(url, grouped_generated_checks, dom_checks, debug)
 
       # shove results into an array
       results = []
@@ -243,27 +278,27 @@ module Intrigue
         end
       end
 
-    return nil unless results
+      return nil unless results
 
-    # Return all matches, minus the nils (non-matches), and grouped by check type
-    out = results.compact.group_by{|x| x["type"] }
+      # Return all matches, minus the nils (non-matches), and grouped by check type
+      out = results.compact.group_by{|x| x["type"] }
 
-    # make sure we have an empty fingerprints array if we didnt' have any Matches
-    out["fingerprint"] = [] unless out["fingerprint"]
-    out["content"] = [] unless out["content"]
+      # make sure we have an empty fingerprints array if we didnt' have any Matches
+      out["check_count"] = grouped_generated_checks.map{|x| {"url" => x.first, "count" => x.last.count } }
+      out["fingerprint"] = [] unless out["fingerprint"]
+      out["content"] = [] unless out["content"]
 
-    # only return unique results
-    out["fingerprint"] = out["fingerprint"].uniq
-    out["content"] = out["content"].uniq
-    out["url"] = url
+      # only return unique results
+      out["fingerprint"] = out["fingerprint"].uniq
+      out["content"] = out["content"].uniq
+      out["url"] = url
 
-    # attach the responses
-    out["responses"] = responses
+      # attach the responses
+      out["responses"] = responses
 
     out
     end
 
-    private
 
     def _construct_match_response(check, data)
 

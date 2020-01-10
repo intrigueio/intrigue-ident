@@ -56,7 +56,7 @@ def check_file_urls(opts)
 
           thread_name = "thread-#{rand(9999999)}"
 
-          puts "#{thread_name} checking: #{x}"
+          #puts "#{thread_name} checking: #{x}"
           check_result = generate_http_requests_and_check(x,enable_browser,debug)
 
           out = {}
@@ -155,6 +155,11 @@ def check_single_url(opts)
 
     check_result = generate_http_requests_and_check(url,enable_browser,debug)
 
+    if debug 
+      puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
+      puts "Also checked the following urls due to initial fingerprint: #{check_result["followon_checks"].map{|x| x["url"]}.join(", ")} "
+    end 
+    
     unless check_result
       puts "Error... unable to get matches!"
       exit -1

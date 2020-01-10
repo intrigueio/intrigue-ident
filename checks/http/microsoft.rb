@@ -162,6 +162,7 @@ class Microsoft < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /Microsoft \.NET Framework Version/i,
         :paths => ["#{url}/Trace.axd"], 
+        :require_product => "ASP.NET",
         :inference => true
       },
       {

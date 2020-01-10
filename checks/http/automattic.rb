@@ -100,6 +100,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /gmt_offset/,
         :paths => ["#{url}/wp-json"],
+        :require_product => "Wordpress",
         :inference => false
       },
       {
@@ -114,6 +115,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "a306a72ce0f250e5f67132dc6bcb2ccb",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -128,6 +130,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "4f04728cb4631a553c4266c14b9846aa",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -142,6 +145,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "25e1e78d5b0c221e98e14c6e8c62084f",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -156,6 +160,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "83c83d0f0a71bd57c320d93e59991c53",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -170,6 +175,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "7293453cf0ff5a9a4cfe8cebd5b5a71a",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -184,6 +190,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "61740709537bd19fb6e03b7e11eb8812",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -198,6 +205,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "e6bbc53a727f3af003af272fd229b0b2",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -212,6 +220,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "e6bbc53a727f3af003af272fd229b0b2",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       },
       {
@@ -226,6 +235,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_type => :checksum_body,
         :match_content => "128e75ed19d49a94a771586bf83265ec",
         :paths => ["#{url}/wp-includes/js/tinymce/tiny_mce.js"],
+        :require_product => "Wordpress",
         :inference => true
       }
     ]
