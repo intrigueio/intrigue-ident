@@ -188,17 +188,25 @@ module Intrigue
         followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product("#{url}", prod))
         #puts "Getting checks for product: #{prod} ... #{followon_checks.count}" if debug
       end
-
+      
       # group them up by path (there can be multiple paths)
       followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
         c.merge({:unique_path => p})} }.flatten
 
       # group'm as needed to run the checks
       grouped_followon_checks = followon_checks_by_path.group_by{|x| x[:unique_path] }
-      grouped_followon_checks_minus_base = grouped_followon_checks.reject!{|k| k == url }
-
+      
       ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
-      followon_results = _run_grouped_http_checks(url, grouped_followon_checks_minus_base, dom_checks, debug)
+      if grouped_followon_checks
+        followon_results = _run_grouped_http_checks(url, grouped_followon_checks, dom_checks, debug)
+      else
+        followon_results = {
+          "fingerprint" => [], 
+          "content" => [],
+          "responses" => [],
+          "check_count" => []
+        }
+      end
 
       out = {
         "url" => initial_results["url"], # same

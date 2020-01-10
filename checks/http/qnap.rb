@@ -8,10 +8,23 @@ module Check
         {
           :type => "fingerprint",
           :category => "hardware",
-          :tags => ["Embedded", "Appliance", "NAS"],
+          :tags => ["Embedded", "IoT", "Appliance", "NAS"],
           :vendor => "QNAP",
-          :product => "NAS",
-          :match_details => "firmware version",
+          :product => "QTS",
+          :match_details => "unique string",
+          :version => nil,
+          :match_type => :content_body,
+          :match_content => /Shone added for detecting default system language when no cookie has been set/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "hardware",
+          :tags => ["Embedded", "IoT", "Appliance", "NAS"],
+          :vendor => "QNAP",
+          :product => "QTS",
+          :match_details => "firmware version on handy cgi page",
           :version => nil,
           :dynamic_version => lambda { |x|
             _first_body_capture(x,%r{<version><!\[CDATA\[([\d\.]*)\]\]></version>})
@@ -19,7 +32,8 @@ module Check
           :match_type => :content_body,
           :match_content => /QDocRoot/,
           :paths => ["#{url}/cgi-bin/authLogin.cgi"],
-          :inference => false
+          :require_product => "QTS",
+          :inference => true
         }
       ]
     end

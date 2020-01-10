@@ -157,7 +157,10 @@ def check_single_url(opts)
 
     if debug 
       puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
-      puts "Also checked the following urls due to initial fingerprint: #{check_result["followon_checks"].map{|x| x["url"]}.join(", ")} "
+      if !check_result["followon_checks"].empty?
+        puts "Also checked the following urls due to initial fingerprint:"
+        check_result["followon_checks"].each{|x| puts " - #{x["url"]}\n" }
+      end
     end 
     
     unless check_result
