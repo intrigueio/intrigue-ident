@@ -70,6 +70,22 @@ module Check
           :match_content =>  /<!-- End Google Tag Manager -->/im,
           :paths => ["#{url}"],
           :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["CMS"],
+          :vendor => "Google",
+          :product => "blogger",
+          :references => ["https://www.blogger.com/"],
+          :version => nil,
+          :match_type => :content_body,
+          :match_content => /blogger/i,
+          :dynamic_version => nil,
+          :match_details => "header match",
+          :hide => false,
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end
