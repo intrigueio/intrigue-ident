@@ -15,7 +15,7 @@ class Contenido < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /contenido (.*.\d)/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /contenido (.*.\d)/i)},
+        :dynamic_version => lambda { |x| _first_body_capture(x, /contenido (\d.*.\d)/i)},
         :match_details => "header match",
         :hide => false,
         :paths => ["#{url}"],
