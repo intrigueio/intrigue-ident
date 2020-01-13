@@ -5,7 +5,6 @@ class Glimpse < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :depends => [{:product => "ASP.NET"}],
         :type => "fingerprint",
         :category => "application",
         :tags => ["Web Framework"],
@@ -21,7 +20,8 @@ class Glimpse < Intrigue::Ident::Check::Base
         },
         :match_type => :content_body,
         :match_content => /Glimpse - Configuration Page/,
-        :paths => ["#{url}/glimpse.axd"], 
+        :paths => ["#{url}/glimpse.axd"],
+        :require_product => "ASP.NET",
         :inference => true
       }
     ]

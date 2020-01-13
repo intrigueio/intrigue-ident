@@ -19,6 +19,7 @@ class WordpressBakery < Intrigue::Ident::Check::Base
         :match_details =>"header match",
         :hide => false,
         :paths => ["#{url}"],
+        :require_product => "Wordpress",
         :inference => false
       }
     ]

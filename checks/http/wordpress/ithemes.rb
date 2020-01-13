@@ -20,6 +20,7 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
         },
         :version => nil,
         :paths => ["#{url}"],
+        :require_product => "Wordpress",
         :inference => false
       },
       { # https://nvd.nist.gov/vuln/detail/CVE-2018-12636
@@ -37,6 +38,7 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
         },
         :version => nil,
         :paths => ["#{url}"],
+        :require_product => "Wordpress",
         :inference => false
       }
     ]

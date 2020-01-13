@@ -18,12 +18,26 @@ class CheckFactory
       @checks
     end
 
+    #
+    # Provide the full list of checks
+    #
+    def self.generate_initial_checks(url)
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| x[:require_product] == nil }
+    end
+
+    #
+    # Provide the full list of checks
+    #
+    def self.generate_checks_for_product(url,product)
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| x[:require_product] == "#{product}" }
+    end
+
 
    #
     # Provide the full list of checks
     #
     def self.configuration_checks
-      @checks.map{ |x| x.new.generate_checks("") }.flatten.compact.select{|x| x[:type] == "content"}
+      @checks.map{ |x| x.new.generate_checks("") }.flatten.compact.select{|x| x[:type] == "content" }
     end
 
 

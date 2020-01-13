@@ -68,6 +68,7 @@ class Magento < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /old school cookie functions grabbed off the web/i,
         :paths => ["#{url}/js/mage/cookies.js"], 
+        :require_product => "Magento",
         :inference => false
       },           
       {
@@ -82,7 +83,8 @@ class Magento < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /==== [\d\.]+ ====/i,
         :dynamic_version => lambda{ |x| _first_body_capture(x, /==== ([\d\.]+) ====/i)},
-        :paths => ["#{url}/RELEASE_NOTES.txt"], 
+        :paths => ["#{url}/RELEASE_NOTES.txt"],
+        :require_product => "Magento",
         :inference => false
       }              
     ]

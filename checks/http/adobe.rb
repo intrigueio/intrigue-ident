@@ -9,6 +9,7 @@ class Adobe < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
+      # TODO, put more work into finding coldfusion on the front page... 
       {
         :type => "fingerprint",
         :category => "application",
@@ -35,6 +36,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "body content",
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :require_product => "Coldfusion",
         :inference => false
       },
       { # Coldfusion 6, 7  
@@ -56,6 +58,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "Body content, version string",
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :require_product => "Coldfusion",
         :inference => true
       },
       { # Coldfusion 10 ... this needs OR/AND ?
@@ -70,6 +73,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "body content",
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :require_product => "Coldfusion",
         :inference => true
       },
       { # Coldfusion 11 ... this needs OR/AND ?
@@ -84,6 +88,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "body content",
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :require_product => "Coldfusion",
         :inference => true
       },
       # 
@@ -102,9 +107,15 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_details => "body content",
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :require_product => "Coldfusion",
         :inference => true
       },
+
+=begin
       # TODO .. implement array for match content (AND) and then grab the rest of these 
+      # 
+      # Check is disabled until we can find something better... ridiculous to make a 
+      # check against every URL just because we havent yet found something on the base page for AEM
       {
         :type => "fingerprint",
         :category => "application",
@@ -119,6 +130,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :paths => ["#{url}/libs/granite/core/content/login.html"],
         :inference => false
       },
+=end      
       {
         :type => "fingerprint",
         :category => "application",

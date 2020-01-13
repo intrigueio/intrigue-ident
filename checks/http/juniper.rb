@@ -64,6 +64,7 @@ class Juniper < Intrigue::Ident::Check::Base
         :match_content => /DSSETUP_BUILD_VERSION/,
         :version => nil,
         :paths => ["#{url}/dana-na/nc/nc_gina_ver.txt"],
+        :require_product => "Junos Pulse Secure Access Service",
         :inference => false
       }
 
