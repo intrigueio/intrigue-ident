@@ -43,7 +43,7 @@ class Automattic < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_generator,
         :match_content =>  /WordPress/i,
-        :dynamic_version => lambda { |x| _first_generator_capture(x, /WordPress\ (.*)/i)},
+        :dynamic_version => lambda { |x| _first_generator_capture(x, /WordPress\ ([\d\.]+)/i)},
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
@@ -60,6 +60,23 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_content =>  /wp-includes\/js\/wp-embed.min.js\?ver=([\d\.]+)\'/i,
         :dynamic_version => lambda { |x| _first_body_capture(x, /wp-includes\/js\/wp-embed.min.js\?ver=([\d\.]+)\'/i)},
         :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["CMS"],
+        :vendor =>"Wordpress",
+        :product =>"Wordpress",
+        :match_details =>"version string",
+        :version => nil,
+        :references => ["https://github.com/caffeinewriter/wp-fingerprinter/blob/master/wp-fingerprint.py"],
+        :match_type => :content_cookies,
+        :match_content =>  /Version ([\d\.]+)/i,
+        :dynamic_version => lambda { |x| _first_generator_capture(x, /Version ([\d\.]+)/i) },
+        :hide => false,
+        :require_product => "Wordpress",
         :paths => ["#{url}"],
         :inference => true
       },

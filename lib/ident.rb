@@ -77,6 +77,9 @@ Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
 
+# set a base directory so we can use in checks 
+$ident_dir = File.expand_path('../', File.dirname(__FILE__))
+
 module Intrigue
   module Ident
 
