@@ -704,7 +704,6 @@ module Intrigue
         # modify to fit our schema
         compare_version = build_version.gsub(/\.\d+$/,"")
         if compare_version == sp_version # # Got it 
-          puts "Sharepoint matched: #{compare_version} to #{sp_version}"
           # recturn since we matched
           return { version: sp_release, update: update_version }
         end
