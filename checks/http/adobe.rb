@@ -130,7 +130,21 @@ class Adobe < Intrigue::Ident::Check::Base
         :paths => ["#{url}/libs/granite/core/content/login.html"],
         :inference => false
       },
-=end      
+=end    
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["CMS", "Editor"],
+        :vendor => "Adobe",
+        :product => "Fireworks MX",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content => /Fireworks MX Dreamweaver MX/,
+        :match_details => "generator string in the body",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      },
       {
         :type => "fingerprint",
         :category => "application",
