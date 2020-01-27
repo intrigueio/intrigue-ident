@@ -16,9 +16,9 @@ class Nec < Intrigue::Ident::Check::Base
         :match_details =>"title",
         :version => nil,
         :match_type => :content_title,
-        :match_content =>  /^EXPRESSSCOPE Engine \d*$/i,
+        :match_content =>  /^EXPRESSSCOPE Engine \d+$/i,
         :dynamic_version => lambda { |x|
-          _first_title_capture(x,/^EXPRESSSCOPE Engine (\d*)$/i)
+          _first_title_capture(x,/^EXPRESSSCOPE Engine (\d+)$/i)
         },
         :paths => ["#{url}"],
         :inference => true # not yet in the db 20190310
