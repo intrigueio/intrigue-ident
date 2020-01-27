@@ -3,6 +3,7 @@ module Ident
 module Check
 class AgilityCMS < Intrigue::Ident::Check::Base
 
+=begin
   def generate_checks(url)
     [
       {
@@ -15,7 +16,7 @@ class AgilityCMS < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /Agility CMS/i,
-        :dynamic_version => lambda { |x|  _first_body_capture(x, /Agility CMS (.*\d)/i)},
+        :dynamic_version => lambda { |x|  _first_body_capture(x, /Agility CMS (\d+)/i)},
         :match_details => "header match",
         :hide => false,
         :paths => ["#{url}"],
@@ -23,6 +24,8 @@ class AgilityCMS < Intrigue::Ident::Check::Base
       }
     ]
   end
+=end
+
 
 end
 end

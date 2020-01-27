@@ -5,6 +5,8 @@ class TownNews < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
+=begin     
+      # Currently match_content too loose, also no point in inference if we dont' have a version
       {
         :type => "fingerprint",
         :category => "application",
@@ -21,6 +23,7 @@ class TownNews < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       }
+=ends
     ]
   end
 

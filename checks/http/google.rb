@@ -71,21 +71,22 @@ module Check
           :paths => ["#{url}"],
           :inference => false
         },
-        {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["CMS"],
-          :vendor => "Google",
-          :product => "blogger",
-          :references => ["https://www.blogger.com/"],
-          :version => nil,
-          :match_type => :content_body,
-          :match_content => /blogger/i,
-          :dynamic_version => nil,
-          :match_details => "header match",
-          :hide => false,
-          :paths => ["#{url}"],
-          :inference => true
+        # Currently match_content too loose, also no point in inference if we dont' have a versions
+        #{
+        #  :type => "fingerprint",
+        #  :category => "application",
+        #  :tags => ["CMS"],
+        #  :vendor => "Google",
+        #  :product => "blogger",
+        #  :references => ["https://www.blogger.com/"],
+        #  :version => nil,
+        #  :match_type => :content_body,
+        #  :match_content => /blogger/i,
+        #  :dynamic_version => nil,
+        #  :match_details => "header match",
+        #  :hide => false,
+        #  :paths => ["#{url}"],
+        #  :inference => true
         }
       ]
     end

@@ -3,6 +3,7 @@ module Ident
 module Check
 class Advantshop < Intrigue::Ident::Check::Base
 
+=begin
   def generate_checks(url)
     [
       {
@@ -15,7 +16,7 @@ class Advantshop < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /AdVantShop.NET/i,
-        :dynamic_version => lambda { |x|  _first_body_capture(x, /AdVantShop.NET (.*\d)/i)},
+        :dynamic_version => lambda { |x|  _first_body_capture(x, /AdVantShop.NET (  )/i)},
         :match_details => "header match",
         :hide => false,
         :paths => ["#{url}"],
@@ -23,6 +24,7 @@ class Advantshop < Intrigue::Ident::Check::Base
       }
     ]
   end
+=end
 
 end
 end

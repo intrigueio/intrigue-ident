@@ -1,8 +1,9 @@
-module Intrigue
+∞module Intrigue
 module Ident
 module Check
 class BigCommerce < Intrigue::Ident::Check::Base
 
+=begin
   def generate_checks(url)
     [
       {
@@ -23,6 +24,7 @@ class BigCommerce < Intrigue::Ident::Check::Base
       }
     ]
   end
+=end 
 
 end
 end

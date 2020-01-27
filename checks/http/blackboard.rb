@@ -19,20 +19,21 @@ class Blackboard < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       },
-      {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS", "CMS"],
-        :vendor => "Blackboard",
-        :product => "Blackboard",
-        :match_details =>"server header",
-        :version => nil,
-        :match_type => :content_body,
-        :match_content =>  /Blackboard CMS/i,
-        :dynamic_version => nil ,
-        :paths => ["#{url}"],
-        :inference => true
-      }
+      #
+      #{
+      #  :type => "fingerprint",
+      #  :category => "application",
+      #  :tags => ["COTS", "CMS"],
+      #  :vendor => "Blackboard",
+      #  :product => "Blackboard",
+      #  :match_details =>"server header",
+      #  :version => nil,
+      #  :match_type => :content_body,
+      #  :match_content =>  /Blackboard CMS/i,
+      #  :dynamic_version => nil ,
+      #  :paths => ["#{url}"],
+      #  :inference => true
+      #}
     ]
   end
 
