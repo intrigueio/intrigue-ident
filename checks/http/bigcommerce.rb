@@ -1,11 +1,12 @@
-∞module Intrigue
+module Intrigue
 module Ident
 module Check
 class BigCommerce < Intrigue::Ident::Check::Base
 
-=begin
   def generate_checks(url)
     [
+=begin
+      # Currently match_content too loose
       {
         :type => "fingerprint",
         :category => "application",
@@ -22,9 +23,9 @@ class BigCommerce < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       }
+=end 
     ]
   end
-=end 
 
 end
 end

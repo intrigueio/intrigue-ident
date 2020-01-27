@@ -23,8 +23,8 @@ class TownNews < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       }
-=ends
-    ]
+=end
+      ]
   end
 
 end

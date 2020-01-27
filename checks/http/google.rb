@@ -87,7 +87,7 @@ module Check
         #  :hide => false,
         #  :paths => ["#{url}"],
         #  :inference => true
-        }
+        #}
       ]
     end
 

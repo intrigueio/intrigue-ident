@@ -3,9 +3,10 @@ module Ident
 module Check
 class Advantshop < Intrigue::Ident::Check::Base
 
-=begin
   def generate_checks(url)
     [
+=begin
+
       {
         :type => "fingerprint",
         :category => "application",
@@ -22,9 +23,9 @@ class Advantshop < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       }
+=end
     ]
   end
-=end
 
 end
 end
