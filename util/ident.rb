@@ -217,10 +217,12 @@ def check_single_url(opts)
       end
     end
 
-    puts "Content Checks:"
-    if check_result["content"]
-      check_result["content"].each do|x|
-        puts " - #{x["name"]}: #{x["result"]}"
+    if opts[:content] 
+      puts "Content Checks:"
+      if check_result["content"]
+        check_result["content"].each do|x|
+          puts " - #{x["name"]}: #{x["result"]}"
+        end
       end
     end
 
@@ -253,7 +255,8 @@ def main
       o.integer '-t', '--threads', 'number of threads to use when checking a file (default: 3)'
       o.bool '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
       o.bool '-b', '--browser', 'use browser checks when checking a url (slows things down!!)'
-      
+      o.bool '-c', '--content', 'show content checks'
+
       o.bool '-d', '--debug', 'enable debug mode'
       
       o.on "-h", "--help" do

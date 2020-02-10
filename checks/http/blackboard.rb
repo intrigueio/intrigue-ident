@@ -19,7 +19,7 @@ class Blackboard < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => true
       },
-      #
+      # Currently match_content too loose
       #{
       #  :type => "fingerprint",
       #  :category => "application",
