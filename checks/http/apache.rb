@@ -73,7 +73,20 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server:.*Apache\/([\d\.]*).*$/i,
         :dynamic_version => lambda { |x|
-          _first_header_capture(x,/server:.*Apache\/([\d\.]*).*/)
+          # check for backported OS type
+          backported = false
+          backported = true if _first_header_match(x,/^server:.*\(CentOS\).*$/)
+          backported = true if _first_header_match(x,/^server:.*\(Red Hat\).*$/)
+          backported = true if _first_header_match(x,/^server:.*\(Red Hat Enterprise Linux\).*$/)
+
+          # grab the version
+          version = _first_header_capture(x,/server:.*Apache\/([\d\.]*).*/)
+      
+          # return a version string that indicates we can't do inference
+          return "#{version} (Backported)" if backported
+        
+        # otherwise just return the version 
+        version
         },
         :paths => ["#{url}"],
         :inference => true
@@ -234,9 +247,9 @@ class Apache < Intrigue::Ident::Check::Base
         :vendor => "Apache",
         :product => "Tomcat",
         :match_details =>"Tomcat Application Server",
-        :match_type => :content_body,
+        :match_type => :content_title,
         :version => 6,
-        :match_content =>  /<title>Tomcat 6 Welcome Page/,
+        :match_content =>  /Tomcat 6 Welcome Page/,
         :paths => ["#{url}"],
         :inference => true
       },
@@ -286,9 +299,9 @@ class Apache < Intrigue::Ident::Check::Base
         :vendor => "Apache",
         :product => "Tomcat",
         :match_details =>"Tomcat Application Server",
-        :match_type => :content_body,
+        :match_type => :content_title,
         :version => nil,
-        :match_content =>  /<title>Apache Tomcat/,
+        :match_content =>  /Apache Tomcat/,
         :dynamic_version_field => "title",
         :dynamic_version_regex => /Apache Tomcat\/(.*?) - Error report/i,
         :dynamic_version => lambda{ |x|

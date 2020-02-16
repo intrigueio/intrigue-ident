@@ -37,7 +37,7 @@ class Base
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip
-        return x if x.length > 0
+        return x if x && x.length > 0
       end
     nil
     end
@@ -63,8 +63,8 @@ class Base
       if x && x.captures
         x = x.captures.first
         filter.each{|f| x.gsub!(f,"") }
-        x = x.strip
-        return x if x.length > 0
+        x = x.strip if x
+        return x if x && x.length > 0
       end
     nil
     end
@@ -81,8 +81,8 @@ class Base
       if x && x.captures
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
-        x = x.strip
-        return x if x.length > 0
+        x = x.strip if x
+        return x if x && x.length > 0
       end
     nil
   end
@@ -100,8 +100,8 @@ class Base
     if x && x.captures
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
-      x = x.strip
-      return x if x.length > 0
+      x = x.strip if x
+      return x if x && x.length > 0
     end
   nil
   end
@@ -119,8 +119,8 @@ class Base
     if x && x.captures
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
-      x = x.strip
-      return x if x.length > 0
+      x = x.strip if x
+      return x if x && x.length > 0
     end
   nil
   end

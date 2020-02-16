@@ -15,8 +15,21 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^.*OpenSSL\/.*$/i,
-          :dynamic_version => lambda { |x|
-            _first_header_capture(x,/^.*OpenSSL\/([\w\d\.\-]*)\s.*$/i)
+          :dynamic_version => lambda { |x|         
+            # check for backported OS type
+            backported = false
+            backported = true if _first_header_match(x,/^server:.*\(CentOS\).*$/)
+            backported = true if _first_header_match(x,/^server:.*\(Red Hat\).*$/)
+            backported = true if _first_header_match(x,/^server:.*\(Red Hat Enterprise Linux\).*$/)
+
+            # grab the version
+            version = _first_header_capture(x,/^.*OpenSSL\/([\w\d\.\-]*)\s.*$/i)
+        
+            # return a version string that indicates we can't do inference
+            return "#{version} (Backported)" if backported
+          
+            # otherwise just return the version 
+          version
           },
           :paths => ["#{url}"],
           :inference => true
