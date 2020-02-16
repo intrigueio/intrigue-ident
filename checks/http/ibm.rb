@@ -36,6 +36,20 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
+        :tags => ["Web Server"],
+        :vendor => "IBM",
+        :product =>"HTTP Server",
+        :references => [],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^server: IBM_HTTP_Server/i,
+        :match_details =>"server header",
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
         :tags => ["Administrative","COTS"],
         :vendor => "IBM",
         :product =>"IBM Security Access Manager for Web",

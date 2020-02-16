@@ -14,7 +14,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :match_details =>"server header",
         :version => nil,
         :match_type => :content_headers,
-        :match_content => /^server: Mashery Proxy/i,
+        :match_content => /^server: Mashery Proxy$/i,
         :paths => ["#{url}"],
         :inference => false
       }, 
@@ -24,13 +24,27 @@ class Tibco < Intrigue::Ident::Check::Base
         :tags => ["API"],
         :vendor =>"TIBCO",
         :product =>"Mashery",
+        :match_details =>"unique header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^x-mashery-error-code:.*$/i,
+        :paths => ["#{url}"],
+        :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Analytics", "COTS"],
+        :vendor =>"TIBCO",
+        :product =>"Spotfire Server",
         :match_details =>"server header",
         :version => nil,
         :match_type => :content_headers,
-        :match_content => /^x-mashery-error-code:/i,
+        :match_content => /^server: TIBCO Spotfire Server$/i,
         :paths => ["#{url}"],
         :inference => false
       }
+      
     ]
   end
 
