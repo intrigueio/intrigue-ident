@@ -10,6 +10,19 @@ class Cpanel < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["COTS","Hosting","Administrative"],
         :vendor => "cPanel",
+        :product =>"cPanel",
+        :match_details =>"server header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /server: cPanel/i,
+        :paths => ["#{url}"], 
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS","Hosting","Administrative"],
+        :vendor => "cPanel",
         :product =>"cPanel Hosted - Missing Page",
         :match_details =>"cPanel Hosted, but either misconfigured, or accessed via ip vs hostname?",
         :version => nil,
@@ -32,7 +45,7 @@ class Cpanel < Intrigue::Ident::Check::Base
         :hide => true,
         :paths => ["#{url}"],
         :examples => ['href="/cpanel">log in</a> to launch this site'], 
-        :inference => true
+        :inference => false
       }
     ]
   end
