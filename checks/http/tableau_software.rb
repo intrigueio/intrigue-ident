@@ -8,6 +8,20 @@ class Tableau < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
+        :tags => ["Database", "COTS"],
+        :vendor => "TableauSoftware",
+        :product => "Tableau Server",
+        :match_details => "server Header",
+        :version => nil,
+        :references => [],
+        :match_type => :content_headers,
+        :match_content =>  /server: Tableau/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
         :tags => ["Database","COTS"],
         :vendor => "TableauSoftware",
         :product => "Tableau Server",

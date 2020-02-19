@@ -72,6 +72,23 @@ class Barracuda < Intrigue::Ident::Check::Base
         :match_content =>  /BN[IE]S_.*?=/i,
         :paths => ["#{url}"],
         :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["WAF"],
+        :url => "https://www.barracuda.com/products/webapplicationfirewall",
+        :vendor => "Barracuda",
+        :product =>"Web Security Gateway",
+        :match_details =>"server",
+        :version => nil,
+        :match_type => :content_headers,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/server: BarracudaHTTP ([\d\.]+)/i,)
+        },
+        :match_content =>  /server: BarracudaHTTP ([\d\.]+)/i,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
