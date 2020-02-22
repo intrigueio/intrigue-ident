@@ -15,7 +15,7 @@ class ShopFactory< Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /ShopFA([\d\.]+)/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /V(.\d)/)},
+        :dynamic_version => lambda { |x| _first_body_capture(x, /V([\.\d]+)/)},
         :match_details => "Header match",
         :hide => false,
         :paths => ["#{url}"],

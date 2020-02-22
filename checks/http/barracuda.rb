@@ -79,7 +79,7 @@ class Barracuda < Intrigue::Ident::Check::Base
         :tags => ["WAF"],
         :url => "https://www.barracuda.com/products/webapplicationfirewall",
         :vendor => "Barracuda",
-        :product =>"Web Security Gateway",
+        :product =>"Email Security Gateway",
         :match_details =>"server",
         :version => nil,
         :match_type => :content_headers,
