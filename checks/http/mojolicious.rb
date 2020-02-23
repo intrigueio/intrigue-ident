@@ -1,26 +1,26 @@
 module Intrigue
   module Ident
   module Check
-  class Kong < Intrigue::Ident::Check::Base
+  class Mojolicious < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["API"],
-          :vendor => "Kong",
-          :product =>"Kong",
+          :tags => ["Web Framework"],
+          :vendor => "Mojolicious",
+          :product =>"Mojolicious",
           :match_details =>"server header",
           :match_type => :content_headers,
           :version => nil,
           :references => [],
           :dynamic_version => lambda { |x|
-            _first_header_capture(x,/^server: kong\/([\d\.]+)/i)
+            _first_header_capture(x,/^server: Mojolicious \(Perl\)/i)
           },
-          :match_content => /^server: kong\/[\d\.]+/i,
+          :match_content => /^server: Mojolicious \(Perl\)/i,
           :paths => ["#{url}"],
-          :inference => true
+          :inference => false
         }
       ]
     end

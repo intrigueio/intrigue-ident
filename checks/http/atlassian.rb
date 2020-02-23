@@ -104,7 +104,7 @@ class Atlassian < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS", "Development"],
+        :tags => ["SaaS", "Development", "Proxy"],
         :vendor => "Atlassian",
         :product =>"Proxy",
         :references => ["https://community.atlassian.com/t5/Jira-questions/REST-API-not-returning-any-data-with-API-token/qaq-p/1292806"],
