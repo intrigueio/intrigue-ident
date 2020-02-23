@@ -106,6 +106,22 @@ class Atlassian < Intrigue::Ident::Check::Base
         :category => "service",
         :tags => ["SaaS", "Development"],
         :vendor => "Atlassian",
+        :product =>"Proxy",
+        :references => ["https://community.atlassian.com/t5/Jira-questions/REST-API-not-returning-any-data-with-API-token/qaq-p/1292806"],
+        :match_details =>"proxy server header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^server: AtlassianProxy\/[\d\.]+$/i,
+        :dynamic_version => lambda{ |x|
+          _first_header_capture(x,/^server: AtlassianProxy\/([\d\.]+)$/i) },
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development"],
+        :vendor => "Atlassian",
         :product =>"Statuspage",
         :match_details =>"statuspage header",
         :version => nil,
