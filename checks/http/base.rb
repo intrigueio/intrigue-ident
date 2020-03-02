@@ -11,15 +11,19 @@ class Base
 
   private
 
-    # matching helpers
+    def _uri_match(content, regex)
+      return nil unless content["details"]["start_url"] && content["details"]["start_url"].match(regex)
+    content["details"]["start_url"].match(regex)
+    end
 
+    # matching helpers
     def _all_body_captures(content, regex)
       return nil unless content["details"]["hidden_response_data"] &&
         content["details"]["hidden_response_data"].match(regex)
 
       match = content["details"]["hidden_response_data"].match(regex)
       return match.captures.map{|x|x.to_s.strip} if match
-
+    
     nil
     end
 

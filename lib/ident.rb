@@ -333,6 +333,17 @@ module Intrigue
 
         cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
 
+        ##
+        ## Support for Dynamic Hide
+        ##
+        if check[:dynamic_hide]
+          hide = check[:dynamic_hide].call(data)
+        elsif check[:hide]
+          hide = check[:hide]
+        else
+          hide = false
+        end
+        
         to_return = {
           "type" => check[:type],
           "vendor" => check[:vendor],
@@ -342,7 +353,7 @@ module Intrigue
           "tags" => check[:tags],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],
-          "hide" => check[:hide],
+          "hide" => hide,
           "cpe" => cpe_string,
           "inference" => check[:inference]
         }

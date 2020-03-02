@@ -200,14 +200,15 @@ def check_single_url(opts)
     puts "Fingerprint:"
     if check_result["fingerprint"]
       uniq_matches = []
-      check_result["fingerprint"].each do|x|
+      check_result["fingerprint"].each do |x|
         
         # Make sure not to include dupes, unless we're debugging 
-        next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}" unless debug
+        #next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}" #unless debug
 
         uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
+        
         # otherwise, print it out
-        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]})"
+        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]})"
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
           vulns.sort_by{|x| x["cvss_v3_score"] || 0 }.reverse.first(5).each do |v|

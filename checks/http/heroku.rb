@@ -11,11 +11,18 @@ class Heroku < Intrigue::Ident::Check::Base
         :tags => ["Hosting"],
         :vendor => "Heroku",
         :product =>"Heroku",
-        :match_details =>"Heroku (hijackable?)",
+        :match_details =>"Heroku (error page)",
         :version => nil,
         :match_type => :content_body,
-        :match_content =>  /herokucdn.com\/error-pages\/no-such-app.html/,
-        :hide => false,
+        :match_content =>  /src=\"\/\/www.herokucdn.com\/error-pages\/no-such-app.html/,
+        :dynamic_hide => lambda{ |x| 
+          return true if _uri_match(x,/heroku.com/)       || 
+                         _uri_match(x,/herokussl.com/)    || 
+                         _uri_match(x,/herokudns.com/)    ||
+                         _uri_match(x,/herokuapp.com/)    || 
+                         _uri_match(x,/amazonaws.com/)    || 
+                         _uri_match(x,/\d+.\d+.\d+.\d+:/) 
+        },
         :paths => ["#{url}"],
         :inference => false
       },
