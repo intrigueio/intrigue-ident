@@ -8,7 +8,7 @@ class InsideSales < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS". "Marketing"],
+        :tags => ["SaaS", "Marketing"],
         :vendor => "InsideSales.com",
         :product => "InsideSales.com",
         :match_details => "server header",
