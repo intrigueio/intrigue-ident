@@ -43,98 +43,125 @@ module Http
       end
 
       until( found || attempts >= max_attempts)
-       @task_result.logger.log "Getting #{uri}, attempt #{attempts}" if @task_result
-       attempts+=1
 
-       if $global_config
-         if $global_config.config["http_proxy"]
-           proxy_config = $global_config.config["http_proxy"]
-           proxy_addr = $global_config.config["http_proxy"]["host"]
-           proxy_port = $global_config.config["http_proxy"]["port"]
-           proxy_user = $global_config.config["http_proxy"]["user"]
-           proxy_pass = $global_config.config["http_proxy"]["pass"]
-         end
-       end
+        attempts+=1
 
-       # set options
-       opts = {}
-       if uri.instance_of? URI::HTTPS
-         opts[:use_ssl] = true
-         opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
-       end
+        if $global_config
+          if $global_config.config["http_proxy"]
+            proxy_config = $global_config.config["http_proxy"]
+            proxy_addr = $global_config.config["http_proxy"]["host"]
+            proxy_port = $global_config.config["http_proxy"]["port"]
+            proxy_user = $global_config.config["http_proxy"]["user"]
+            proxy_pass = $global_config.config["http_proxy"]["pass"]
+          end
+        end
 
-       http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)
-       http.open_timeout = open_timeout
-       http.read_timeout = read_timeout
+        # set options
+        opts = {}
+        if uri.instance_of? URI::HTTPS
+          opts[:use_ssl] = true
+          opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
+        end
 
-       path = "#{uri.path}"
-       path = "/" if path==""
+        http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)
+        http.open_timeout = open_timeout
+        http.read_timeout = read_timeout
 
-       # add in the query parameters
-       if uri.query
-         path += "?#{uri.query}"
-       end
+        path = "#{uri.path}"
+        path = "/" if path==""
 
-       ### ALLOW DIFFERENT VERBS HERE
-       if method == :get
-         request = Net::HTTP::Get.new(uri)
-       elsif method == :post
-         # see: https://coderwall.com/p/c-mu-a/http-posts-in-ruby
-         request = Net::HTTP::Post.new(uri)
-         request.body = data
-       elsif method == :head
-         request = Net::HTTP::Head.new(uri)
-       elsif method == :propfind
-         request = Net::HTTP::Propfind.new(uri.request_uri)
-         request.body = "Here's the body." # Set your body (data)
-         request["Depth"] = "1" # Set your headers: one header per line.
-       elsif method == :options
-         request = Net::HTTP::Options.new(uri.request_uri)
-       elsif method == :trace
-         request = Net::HTTP::Trace.new(uri.request_uri)
-         request.body = "blah blah"
-       end
-       ### END VERBS
+        # add in the query parameters
+        if uri.query
+          path += "?#{uri.query}"
+        end
 
-       # set the headers
-       headers.each do |k,v|
-         request[k] = v
-       end
+        ### ALLOW DIFFERENT VERBS HERE
+        if method == :get
+          request = Net::HTTP::Get.new(uri)
+        elsif method == :post
+          # see: https://coderwall.com/p/c-mu-a/http-posts-in-ruby
+          request = Net::HTTP::Post.new(uri)
+          request.body = data
+        elsif method == :head
+          request = Net::HTTP::Head.new(uri)
+        elsif method == :propfind
+          request = Net::HTTP::Propfind.new(uri.request_uri)
+          request.body = "Here's the body." # Set your body (data)
+          request["Depth"] = "1" # Set your headers: one header per line.
+        elsif method == :options
+          request = Net::HTTP::Options.new(uri.request_uri)
+        elsif method == :trace
+          request = Net::HTTP::Trace.new(uri.request_uri)
+          request.body = "blah blah"
+        end
+        ### END VERBS
 
-       # handle credentials
-       if credentials
-         request.basic_auth(credentials[:username],credentials[:password])
-       end
+        # set the headers
+        headers.each do |k,v|
+          request[k] = v
+        end
 
-       # USE THIS TO PRINT HTTP REQUEST
-       #request.each_header{|h| _log_debug "#{h}: #{request[h]}" }
-       # END USE THIS TO PRINT HTTP REQUEST
+        # handle credentials
+        if credentials
+          request.basic_auth(credentials[:username],credentials[:password])
+        end
 
-       # get the response
-       response = http.request(request)
+        # USE THIS TO PRINT HTTP REQUEST
+        #request.each_header{|h| puts "#{h}: #{request[h]}" }
+        # END USE THIS TO PRINT HTTP REQUEST
 
-       if response.code=="200"
-         break
-       end
+        # get the response
+        response = http.request(request)
 
-       if (response.header['location']!=nil)
-         newuri=URI.parse(response.header['location'])
-         if(newuri.relative?)
-           newuri=URI.parse("#{uri}#{response.header['location']}")
-         end
-         response_urls << ident_encode(newuri.to_s)
-         uri=newuri
+        ###
+        ### Handle redirects 
+        ### 
 
-       else
-         found=true #resp was 404, etc
-       end #end if location
-     end #until
+        
+        if response.header['location'] != nil 
+          # location header redirect
 
-     final_url = uri
+          newuri=URI.parse(response.header['location'])
+
+          # handle relative uri 
+          if(newuri.relative?)
+            newuri=URI.parse("#{uri}#{response.header['location']}")
+          end
+          
+          response_urls << ident_encode(newuri.to_s)
+          uri=newuri
+
+        elsif response.body =~ /META HTTP-EQUIV=\"?Refresh/i # meta refresh
+          # meta refresh redirect
+
+          # get the URL 
+          newuri=URI.parse(response.body.scan(/META HTTP-EQUIV=Refresh CONTENT=.*; URL=(.*)"/).first.first)        
+          
+          # handle relative uri 
+          if(newuri.relative?)
+            newuri=URI.parse("#{uri}/#{newuri}")
+          end
+          
+          response_urls << ident_encode(newuri.to_s)
+          uri=newuri
+
+        else
+
+          found = true
+
+        end #end redirect handling
+
+        ###
+        ### Done Handling Redirects
+        ###
+        final_url = uri
+
+      end #until
+
 
     ### TODO - create a global $debug config option
     
-    rescue ArgumentError => e
+    #rescue ArgumentError => e
       #puts "Unable to connect #{uri}: #{e}"
     rescue Net::OpenTimeout => e
       #puts "Unable to connect #{uri}: #{e}"

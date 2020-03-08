@@ -163,7 +163,7 @@ module Intrigue
       ##### 
       ##### Sanity check!
       #####
-      failing_checks = initial_checks.select{|x| x if !x[:paths]}
+      failing_checks = initial_checks.select{|x| x if !x[:paths] }
       if failing_checks.compact.count > 0
         puts "FATAL! Unable to continue, the following checks are invalid, missing a path!"
         puts failing_checks.inspect
@@ -180,6 +180,8 @@ module Intrigue
       # now we have them organized by a single path, group them up so we only
       # have to make a single request per unique path 
       grouped_initial_checks = initial_checks_by_path.group_by{|x| x[:unique_path] }
+
+      #puts "Grouped: #{grouped_initial_checks.map{|x,y| x}}"  
 
       # Run'm!!!
       initial_results = _run_grouped_http_checks url, grouped_initial_checks, dom_checks, debug
