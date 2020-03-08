@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class Juniper < Intrigue::Ident::Check::Base
+class PulseSecure < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
@@ -9,8 +9,8 @@ class Juniper < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["Networking", "VPN"],
-        :vendor =>"Juniper",
-        :product =>"Junos Pulse Secure Access Service",
+        :vendor =>"PulseSecure",
+        :product =>"Pulse Connect Secure",
         :match_details => "page title",
         :match_type => :content_title,
         :references => [],
@@ -23,8 +23,8 @@ class Juniper < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["Networking", "VPN"],
-        :vendor =>"Juniper",
-        :product =>"Junos Pulse Secure Access Service",
+        :vendor =>"PulseSecure",
+        :product =>"Pulse Connect Secure",
         :match_details => "unique image link",
         :references => [
           "https://kb.pulsesecure.net/articles/Pulse_Secure_Article/KB40250",
@@ -41,8 +41,8 @@ class Juniper < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["Networking", "VPN"],
-        :vendor =>"Juniper",
-        :product =>"Junos Pulse Secure Access Service",
+        :vendor =>"PulseSecure",
+        :product =>"Pulse Connect Secure",
         :match_details => "unique css link",
         :references => [],
         :match_type => :content_body,
@@ -52,22 +52,22 @@ class Juniper < Intrigue::Ident::Check::Base
         :inference => false
       },
       {
-        :depends => [{:product => "Junos Pulse Secure Access Service"}],
+        :depends => [{:product => "Pulse Connect Secure"}],
         :type => "fingerprint",
         :category => "application",
         :tags => ["Networking", "VPN"],
-        :vendor =>"Juniper",
-        :product =>"Junos Pulse Secure Access Service",
+        :vendor =>"PulseSecure",
+        :product =>"Pulse Connect Secure",
         :match_details => "info disclosure in nc_gina_ver.txt",
         :references => ["https://know.bishopfox.com/blog/breaching-the-trusted-perimeter"],
         :match_type => :content_body,
         :match_content => /DSSETUP_BUILD_VERSION/,
         :version => nil,
+        :dynamic_version => lambda{|x| _first_body_capture(x,/VALUE=\"Pulse Secure Network Connect ([\d\.]+)/i) }, 
         :paths => ["#{url}/dana-na/nc/nc_gina_ver.txt"],
         :require_product => "Junos Pulse Secure Access Service",
-        :inference => false
+        :inference => true
       }
-
     ]
   end
 
