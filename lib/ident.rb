@@ -311,7 +311,7 @@ module Intrigue
 
       # attach the responses
       out["responses"] = responses
-
+      
     out
     end
 
