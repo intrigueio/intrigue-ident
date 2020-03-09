@@ -1117,8 +1117,7 @@ module Intrigue
       elsif owa_version == "15.2.397.3" #
         out = { version: "2019", update: "Cumulative Update 2" }
       else
-        puts "Got unknown OWA version.... #{owa_version}"
-        out = { version: "[Unknown]", update: "[Unknown]" }
+        out = { version: "[Unknown #{owa_version}]", update: "[Unknown #{owa_version}]" }
       end
 
       
