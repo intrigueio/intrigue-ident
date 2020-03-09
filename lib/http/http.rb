@@ -135,7 +135,15 @@ module Http
           # meta refresh redirect
 
           # get the URL 
-          newuri=URI.parse(response.body.scan(/META HTTP-EQUIV=Refresh CONTENT=.*; URL=(.*)"/).first.first)        
+          metaurl = URI.parse(response.body.scan(/META HTTP-EQUIV=Refresh CONTENT=.*; URL=(.*)"/i).first)
+          
+          if metaurl
+            newuri = metaurl.first  
+          else # unable to parse 
+            puts "ERROR Unable to parse redirection!!"
+            found = true 
+            break 
+          end
           
           # handle relative uri 
           if(newuri.relative?)
