@@ -912,16 +912,20 @@ module Intrigue
         out = { version: "2010", update: "Update Rollup 3" }          
       elsif owa_version == "14.0.702.1"
         out = { version: "2010", update: "Update Rollup 4" }  
+      elsif owa_version == "14.0.722.0" # unknown release, found in the wild
+        out = { version: "2010", update: "Update Rollup 4 (patched)" }  
       elsif owa_version == "14.0.726.0"
         out = { version: "2010", update: "Update Rollup 5" }  
       
       # 2010 SP1
-      elsif owa_version == "14.1.218.15"
+      elsif owa_version == "14.1.218.13" || owa_version == "14.1.218.15"
         out = { version: "2010 SP1", update: "RTM" }  
       elsif owa_version == "14.1.255.2"
         out = { version: "2010 SP1", update: "Update Rollup 1" }  
       elsif owa_version == "14.1.270.1"
         out = { version: "2010 SP1", update: "Update Rollup 2" }  
+      elsif owa_version == "14.1.287.0"
+        out = { version: "2010 SP1", update: "Update Rollup 2 (patched)" }  
       elsif owa_version == "14.1.289.3"
         out = { version: "2010 SP1", update: "Update Rollup 3" }  
       elsif owa_version == "14.1.289.7"
@@ -934,6 +938,8 @@ module Intrigue
         out = { version: "2010 SP1", update: "Update Rollup 5" }  
       elsif owa_version == "14.1.355.2"
         out = { version: "2010 SP1", update: "Update Rollup 6" }  
+      elsif owa_version == "14.1.420.0"
+        out = { version: "2010 SP1", update: "Update Rollup 6 (patched)" }  
       elsif owa_version == "14.1.421.0"
         out = { version: "2010 SP1", update: "Update Rollup 7" }  
       elsif owa_version == "14.1.421.2"
@@ -964,6 +970,9 @@ module Intrigue
         out = { version: "2010 SP2", update: "Update Rollup 6" }  
       elsif owa_version == "14.2.375.0"
         out = { version: "2010 SP2", update: "Update Rollup 7" }  
+        
+      elsif owa_version == "14.2.390.1" # unknown release, found in the wild
+        out = { version: "2010 SP2", update: "Update Rollup 8 (patched)" }  
       elsif owa_version == "14.2.390.3"
         out = { version: "2010 SP2", update: "Update Rollup 8" }  
 
@@ -1008,23 +1017,41 @@ module Intrigue
         out = { version: "2010 SP3", update: "Update Rollup 18" }  
       elsif owa_version == "14.3.382.0"
         out = { version: "2010 SP3", update: "Update Rollup 19" }  
+      elsif owa_version == "14.3.388.0" # found in the wild
+        out = { version: "2010 SP3", update: "Update Rollup 19 (patched)" }  
       elsif owa_version == "14.3.389.1"
         out = { version: "2010 SP3", update: "Update Rollup 20" }  
+      elsif owa_version == "14.3.399.0" 
+        out = { version: "2010 SP3", update: "Update Rollup 21 (patched)" }  
       elsif owa_version == "14.3.399.2"
         out = { version: "2010 SP3", update: "Update Rollup 21" }  
+      elsif owa_version == "14.3.409.0"
+        out = { version: "2010 SP3", update: "Update Rollup 21 (patched)" }  
       elsif owa_version == "14.3.411.0"
         out = { version: "2010 SP3", update: "Update Rollup 22" }  
+      elsif owa_version == "14.3.415.0"
+        out = { version: "2010 SP3", update: "Update Rollup 22 (patched)" }
       elsif owa_version == "14.3.417.0"
         out = { version: "2010 SP3", update: "Update Rollup 23" }  
       elsif owa_version == "14.3.419.0"
         out = { version: "2010 SP3", update: "Update Rollup 24" }  
       elsif owa_version == "14.3.435.0"
         out = { version: "2010 SP3", update: "Update Rollup 25" }  
+      elsif owa_version == "14.3.439.0" # unknown release, found in the wild
+        out = { version: "2010 SP3", update: "Update Rollup 25 (patched)" }  
       elsif owa_version == "14.3.442.0"
         out = { version: "2010 SP3", update: "Update Rollup 26" }  
       elsif owa_version == "14.3.452.0"
         out = { version: "2010 SP3", update: "Update Rollup 27" }  
-
+      elsif owa_version == "14.3.461.1"
+        out = { version: "2010 SP3", update: "Update Rollup 28" }  
+      elsif owa_version == "14.3.468.0"
+        out = { version: "2010 SP3", update: "Update Rollup 29" }  
+      elsif owa_version == "14.3.487.0" # unknown release, found in the wild
+        out = { version: "2010 SP3", update: "Update Rollup 29 (*)" }  
+      elsif owa_version == "14.3.496.0"
+        out = { version: "2010 SP3", update: "Update Rollup 30" }      
+        
       # 2013
       elsif owa_version == "15.0.516" #.32"
           out = { version: "2013", update: "RTM" }  
@@ -1070,12 +1097,13 @@ module Intrigue
         out = { version: "2013", update: "Cumulative Update 20" }
       elsif owa_version == "15.0.1395" #.4"
         out = { version: "2013", update: "Cumulative Update 21" }
-      elsif owa_version == "15.0.1473.3" 
+      elsif owa_version == "15.0.1473.3" || owa_version == "15.0.1473"  
         out = { version: "2013", update: "Cumulative Update 22" }
       elsif owa_version == "15.0.1497" 
         out = { version: "2013", update: "Cumulative Update 23" }
       elsif owa_version == "15.0.1497.2" 
         out = { version: "2013", update: "Cumulative Update 23" }
+        
       # 2016
       elsif owa_version == "15.1.225" #.16"
         out = { version: "2016", update: "Preview" }
@@ -1105,8 +1133,14 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 11" }
       elsif owa_version == "15.1.1713.5" #.01"
         out = { version: "2016", update: "Cumulative Update 12" }
-      elsif owa_version == "15.1.1779.2" #.01"
+      elsif owa_version == "15.1.1779" || owa_version == "15.1.1779.2" #.01"
         out = { version: "2016", update: "Cumulative Update 13" }
+      elsif owa_version == "15.1.1847.3" #.01"
+        out = { version: "2016", update: "Cumulative Update 14" }
+      elsif owa_version == "15.1.1913" #.01"
+        out = { version: "2016", update: "Cumulative Update 15" }
+
+
       # 2019
       elsif owa_version == "15.2.196.0" #
         out = { version: "2019", update: "Preview" }

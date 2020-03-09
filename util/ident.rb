@@ -41,10 +41,13 @@ end
 def check_file_urls(opts)
 
   filepath = opts[:file]
+  debug = opts[:debug]
 
   # push all urls into a queue
   work_q = Queue.new
   output_q = Queue.new
+
+  puts "Parsing file #{filepath}" if debug 
   File.open(filepath,"r").each_line{|x| work_q << x.chomp }
 
   #puts "Checking: #{work_q.inspect}" if debug
@@ -95,47 +98,10 @@ def check_file_urls(opts)
   end; "ok" # workers 
   workers.map(&:join); "ok"
 
-  # first grab headings & add those to the file
-  f = output_q.pop(true)
-
-  headings = [] 
-  headings << "URL"
-  headings << "Fingerprint"
-  headings << "Tags"
-  headings.concat f["content"].keys
-  File.open("output.csv","w") { |f| f.puts headings.join(",") }
-  output_q.push f # put it back on the queue 
-
-  # then, using that header ordering, iterate through out and grab each value
-  while output_q.size > 0 do
-    o = output_q.pop
-
-    # get our url, fingerprint and tags
-    out = "#{o["url"]},"
-    out << o["fingerprint"].map{ |f| "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}"}.uniq.join(" | ")
-    out << ","
-    out << o["fingerprint"].map{ |f| "#{f["tags"].join(" ")} "}.uniq.join(" ")
-    out << ","
-
-    # dynamically dump all config values in the correct orders
-    config_values  = []
-    headings[3..-1].each do |h|
-      puts "Getting value for #{h}: #{o["content"][h]}" if debug
-      config_values << "#{o["content"][h]}"
-    end
-    out << config_values.join(",")
-
-    # print it out! 
-    File.open("output.csv","a"){ |f| f.puts out }
-  end
-
-  puts 
-  puts "============================" 
-  puts "Find results in: output.csv"
-  puts "============================"
+  # Write the file 
+  write_simple_csv(output_q)
 
 end
-
 
 def check_single_url(opts)
 
@@ -230,6 +196,78 @@ def check_single_url(opts)
   end 
 end
 
+  # Write the file 
+def write_simple_csv(output_q)
+  headings = [] 
+  headings << "URL"
+  headings << "Fingerprint"
+  File.open("output.csv","w") { |f| f.puts headings.join(", ") }
+
+  while output_q.size > 0 do
+    
+    # get a result
+    o = output_q.pop
+
+    # get our url, fingerprint and tags
+    out = ""
+    o["fingerprint"].uniq.map do |f|
+      out << "#{o["url"]}, #{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}\n"
+    end
+
+    # print it out! 
+    File.open("output.csv","a"){ |f| f.puts out }
+  end
+
+  puts 
+  puts "============================" 
+  puts "Find results in: output.csv"
+  puts "============================"
+
+
+end
+
+def write_standard_csv(output_q)
+
+  # first grab headings & add those to the file
+  f = output_q.pop(true)
+
+  headings = [] 
+  headings << "URL"
+  headings << "Fingerprint"
+  headings << "Tags"
+  headings.concat f["content"].keys
+  File.open("output.csv","w") { |f| f.puts headings.join(",") }
+  output_q.push f # put it back on the queue 
+
+  # then, using that header ordering, iterate through out and grab each value
+  while output_q.size > 0 do
+    o = output_q.pop
+
+    # get our url, fingerprint and tags
+    out = "#{o["url"]},"
+    out << o["fingerprint"].map{ |f| "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}"}.uniq.join(" | ")
+    out << ","
+    out << o["fingerprint"].map{ |f| "#{f["tags"].join(" ")} "}.uniq.join(" ")
+    out << ","
+
+    # dynamically dump all config values in the correct orders
+    config_values  = []
+    headings[3..-1].each do |h|
+      config_values << "#{o["content"][h]}"
+    end
+    out << config_values.join(",")
+
+    # print it out! 
+    File.open("output.csv","a"){ |f| f.puts out }
+  end
+
+  puts 
+  puts "============================" 
+  puts "Find results in: output.csv"
+  puts "============================"
+
+end
+
 def main
 
   begin 
@@ -287,7 +325,7 @@ def main
 
   ## handle file input 
   if opts[:file]
-    puts "Checking File: #{opts[:file]}"
+    puts "Checking File: #{opts[:file]}" if opts[:debug]
     check_file_urls(opts)
   end
 
