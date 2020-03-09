@@ -55,9 +55,9 @@ def check_file_urls(opts)
         while x = work_q.pop(true)
 
           thread_name = "thread-#{rand(9999999)}"
+          puts "#{thread_name} checking: #{x}" if debug
 
-          #puts "#{thread_name} checking: #{x}"
-          check_result = generate_http_requests_and_check(x,enable_browser,debug)
+          check_result = generate_http_requests_and_check(x,opts)
 
           out = {}
           out["url"] = check_result["url"]
@@ -139,7 +139,6 @@ end
 
 def check_single_url(opts)
 
-  enable_browser = opts[:browser] || false
   query_vulns = opts[:vulnerabilities] || false
   debug = opts[:debug]
   json = opts[:json] || false
@@ -153,7 +152,7 @@ def check_single_url(opts)
       exit
     end
 
-    check_result = generate_http_requests_and_check(url,enable_browser,debug)
+    check_result = generate_http_requests_and_check(url, opts)
 
     if debug 
       puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
@@ -255,9 +254,8 @@ def main
       # behavior
       o.integer '-t', '--threads', 'number of threads to use when checking a file (default: 3)'
       o.bool '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
-      o.bool '-b', '--browser', 'use browser checks when checking a url (slows things down!!)'
       o.bool '-c', '--content', 'show content checks'
-
+      o.bool '-b', '--only-check-base-url', 'only base url '
       o.bool '-d', '--debug', 'enable debug mode'
       
       o.on "-h", "--help" do

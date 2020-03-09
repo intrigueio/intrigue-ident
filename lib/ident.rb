@@ -154,7 +154,11 @@ module Intrigue
     end
 
     # Used by intrigue-core... note that this will currently fail unless
-    def generate_http_requests_and_check(url, dom_checks=true,debug=false)
+    def generate_http_requests_and_check(url, opts={})
+
+      dom_checks = opts[:enable_browser] || false
+      debug = opts[:debug] || false
+      only_base = opts[:'only-check-base-url']
 
       # gather all fingeprints for each product
       # this will look like an array of checks, each with a uri and a set of checks
@@ -170,6 +174,10 @@ module Intrigue
         return
       end
 
+      ###
+      ### Initial Checks
+      ###
+
       # In order to ensure we check all urls associated with a check, we need to
       # group them up by each path, which is annoying because they're stored in
       # an array on each check. This line handles that. (take all the checks []
@@ -181,11 +189,18 @@ module Intrigue
       # have to make a single request per unique path 
       grouped_initial_checks = initial_checks_by_path.group_by{|x| x[:unique_path] }
 
-      #puts "Grouped: #{grouped_initial_checks.map{|x,y| x}}"  
+      # allow us to only select the base path (speeds things up)
+      if only_base
+        grouped_initial_checks = grouped_initial_checks.select{|x,y| x == url}
+      end
 
       # Run'm!!!
       initial_results = _run_grouped_http_checks url, grouped_initial_checks, dom_checks, debug
-      
+    
+      ###
+      ### Follow-on Checks
+      ### 
+    
       ### Okay so, now we have a set of detected products, let's figure out our follown checks
       followon_checks = []
       detected_products = initial_results["fingerprint"].map{|x| x["product"] }.uniq
@@ -201,6 +216,11 @@ module Intrigue
       # group'm as needed to run the checks
       grouped_followon_checks = followon_checks_by_path.group_by{|x| x[:unique_path] }
       
+      # allow us to only select the base path (speeds things up)
+      if only_base
+        grouped_followon_checks = grouped_followon_checks.select{|x,y| x == url}
+      end
+
       ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
       if grouped_followon_checks
         followon_results = _run_grouped_http_checks(url, grouped_followon_checks, dom_checks, debug)
@@ -212,6 +232,10 @@ module Intrigue
           "check_count" => []
         }
       end
+      
+      ###
+      ### Generate output
+      ###
 
       out = {
         "url" => initial_results["url"], # same
