@@ -17,7 +17,7 @@ class Imunify360 < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/server:.*imunify360-webshield\/([\d\.]*)/i) },
         :paths => ["#{url}"],
-        :inference => false
+        :inference => true
       }
     ]
   end
