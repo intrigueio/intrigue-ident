@@ -1,0 +1,27 @@
+module Intrigue
+module Ident
+module Check
+class Imunify360 < Intrigue::Ident::Check::Base
+
+  def generate_checks(url)
+    [
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Web Server","Proxy Server"],
+        :vendor => "CloudLinux",
+        :product => "Imunify360",
+        :references => ["https://www.imunify360.com/blog/webshield-introduction-for-server-administrators"],
+        :version => nil,
+        :match_content =>  /server: imunify360-webshield/i,
+        :dynamic_version => lambda { |x| 
+          _first_header_capture(x,/server:.*imunify360-webshield\/([\d\.]*)/i) },
+        :paths => ["#{url}"],
+        :inference => false
+      }
+    ]
+  end
+end
+end
+end
+end
