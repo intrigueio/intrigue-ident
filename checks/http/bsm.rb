@@ -19,7 +19,7 @@ class BSM < Intrigue::Ident::Check::Base
           _first_header_capture(x,/server:.*dps\/([\d\.]*).*/i) },
         :hide => false,
         :paths => ["#{url}"],
-        :inference => false
+        :inference => true
       }
     ]
   end
