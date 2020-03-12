@@ -13,6 +13,7 @@ class LiteSpeed < Intrigue::Ident::Check::Base
         :product => "LiteSpeed",
         :references => ["https://www.litespeedtech.com/products/litespeed-web-server"],
         :version => nil,
+        :match_type => :content_headers,
         :match_content =>  /server: LiteSpeed/,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/server:.LiteSpeed/) },
