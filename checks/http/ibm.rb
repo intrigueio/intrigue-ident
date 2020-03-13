@@ -92,6 +92,21 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
+        :tags => ["Web Server","COTS"],
+        :vendor => "IBM",
+        :product =>"WebSEAL",
+        :references => ["https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /server: WebSEAL/i,
+        :dynamic_version => lambda { |x| 
+          _first_header_capture(x,/server:.*WebSEAL\/([\d\.]*).*/i) },
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
         :tags => ["Application Server"],
         :vendor => "IBM",
         :product =>"WebSphere",
