@@ -8,7 +8,7 @@ class Broadcom < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["CORS"],
+        :tags => ["COTS"],
         :vendor => "Broadcom",
         :product => "CA API Gateway",
         :references => ["https://techdocs.broadcom.com/content/broadcom/techdocs/us/en/ca-enterprise-software/layer7-api-management/api-gateway/9-2/learning-center/about-the-ca-api-gateway.html"],
