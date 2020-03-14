@@ -14,9 +14,9 @@ class StackPath < Intrigue::Ident::Check::Base
         :references => ["https://www.stackpath.com/products/cdn/"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server: NetDNA-cache/,
+        :match_content =>  /^server:\ NetDNA-cache\/[\d\.]{1,}$/,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server:.*NetDNA-cache\/([\d\.]*).*/i) },
+          _first_header_capture(x,/^server:\ NetDNA-cache\/[\d\.]{1,}$/i) },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
