@@ -98,9 +98,9 @@ class Ibm < Intrigue::Ident::Check::Base
         :references => ["https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server: WebSEAL/i,
+        :match_content =>  /^server:\ WebSEAL\/[\d\.]{1,}(\ \(Build \d{6}\)){0,1}$/i,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server:.*WebSEAL\/([\d\.]*).*/i) },
+          _first_header_capture(x,/^server:\ WebSEAL\/[\d\.]{1,}(\ \(Build \d{6}\)){0,1}$/i) },
         :paths => ["#{url}"],
         :inference => true
       },
