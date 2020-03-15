@@ -14,9 +14,9 @@ class Leadpages < Intrigue::Ident::Check::Base
         :references => ["https://www.leadpages.net/"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server: leadpages/i,
+        :match_content =>  /^server:\ Leadpages$/i,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server:.*leadpages/i) },
+          _first_header_capture(x,/^server:\ Leadpages$/i) },
         :paths => ["#{url}"],
         :inference => false
       }

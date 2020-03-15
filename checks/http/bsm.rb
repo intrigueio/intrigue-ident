@@ -14,9 +14,9 @@ class BSM < Intrigue::Ident::Check::Base
         :references => ["https://docs.microfocus.com/SM/9.60/Codeless/Content/integrations/business_service_management/concepts/hp_business_service_management.htm"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server: dps/i,
+        :match_content =>  /^server:\ DPS\/[\d\.]{1,}$/i,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server:.*dps\/([\d\.]*).*/i) },
+          _first_header_capture(x,/^server:\ DPS\/[\d\.]{1,}$/i) },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
