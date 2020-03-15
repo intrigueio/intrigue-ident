@@ -219,6 +219,22 @@ module Intrigue
         },
         {
           :type => "fingerprint",
+          :category => "service",
+          :tags => ["CDN"],
+          :vendor => "Microsoft",
+          :product => "Verizon Azure CDN",
+          :references => ["https://docs.microsoft.com/en-us/azure/cdn/cdn-verizon-http-headers", "https://docs.vdms.com/cdn/Content/HTTP_and_HTTPS_Data_Delivery/Response.htm"],
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}\/[a-zA-Z0-9]{4}\)$/i,
+          :dynamic_version => lambda { |x| 
+            _first_header_capture(x,/^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}\/[a-zA-Z0-9]{4}\)$/i) },
+          :hide => false,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
           :category => "application",
           :tags => ["Web Framework"],
           :vendor => "Microsoft",
