@@ -14,7 +14,7 @@ class Cherokee < Intrigue::Ident::Check::Base
         :references => ["https://cherokee-project.com/"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^server:\ Cherokee[\/]{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$/,
+        :match_content =>  /^server:\ Cherokee[\/]{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:\ Cherokee[\/]{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$/i) },
         :hide => false,
