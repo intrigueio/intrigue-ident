@@ -37,12 +37,25 @@ class Nginx < Intrigue::Ident::Check::Base
         :tags => ["Web Server"],
         :vendor => "Nginx",
         :product =>"Nginx",
-        :match_details =>"Nginx",
+        :match_details =>"Nginx (no version)",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /server: nginx/i,
+        :match_content =>  /^server: nginx$/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
+        :vendor => "Nginx",
+        :product =>"Nginx",
+        :match_details =>"Nginx (with version)",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^server:.*nginx\/([\d\.]*).*/i,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server:.*nginx\/([\d\.]*).*/i) },
+          _first_header_capture(x,/^server:.*nginx\/([\d\.]*).*/i) },
         :paths => ["#{url}"],
         :inference => true
       },

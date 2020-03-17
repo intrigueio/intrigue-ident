@@ -546,6 +546,19 @@ module Intrigue
           :category => "service",
           :tags => ["Productivity","Hosted"],
           :vendor =>"Microsoft",
+          :product =>"Office 365",
+          :match_details =>"office 365 api unique header",
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /x-ms-server-fqdn/i,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Productivity","Hosted"],
+          :vendor =>"Microsoft",
           :product =>"Office 365 API",
           :match_details =>"office 365 api auth cookie",
           :version => nil,
@@ -564,6 +577,20 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /ok3static.oktacdn.com\/assets\/img\/logos\/office365/i,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Productivity","Hosted"],
+          :vendor =>"Microsoft",
+          :product =>"Microsoft Outlook (Office 365)",
+          :match_details =>"office 365 outlook signin",
+          :version => nil,
+          :match_type => :content_title,
+          :match_content =>  /Sign in to Outlook/i,
           :paths => ["#{url}"], 
           :inference => false
         },
@@ -1128,7 +1155,7 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 1" }
       elsif owa_version == "15.1.466" #.34"
         out = { version: "2016", update: "Cumulative Update 2" }
-      elsif owa_version == "15.1.466" #.34"
+      elsif owa_version == "15.1.466" || owa_version == "15.1.544"
         out = { version: "2016", update: "Cumulative Update 3" }
       elsif owa_version == "15.1.669" #.32"
         out = { version: "2016", update: "Cumulative Update 4" }
@@ -1146,7 +1173,7 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 10" }
       elsif owa_version == "15.1.1591" #.01"
         out = { version: "2016", update: "Cumulative Update 11" }
-      elsif owa_version == "15.1.1713.5" #.01"
+      elsif owa_version == "15.1.1713" || owa_version == "15.1.1713.5" #.01"
         out = { version: "2016", update: "Cumulative Update 12" }
       elsif owa_version == "15.1.1779" || owa_version == "15.1.1779.2" #.01"
         out = { version: "2016", update: "Cumulative Update 13" }
@@ -1154,22 +1181,34 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 14" }
       elsif owa_version == "15.1.1913" #.01"
         out = { version: "2016", update: "Cumulative Update 15" }
+      elsif owa_version == "15.1.1986" #.01"
+        out = { version: "2016", update: "Cumulative Update 15",
+          note: "additional updates applied: #{owa_version}" }
 
 
       # 2019
       elsif owa_version == "15.2.196.0" #
         out = { version: "2019", update: "Preview" }
-      elsif owa_version == "15.2.221.12" #
+      elsif owa_version == "15.2.221" || owa_version == "15.2.221.12" #
         out = { version: "2019", update: "RTM" }
-      elsif owa_version == "15.2.330.6" #
+      elsif owa_version == "15.2.330" || owa_version == "15.2.330.6" #
         out = { version: "2019", update: "Cumulative Update 1" }
-        
-      elsif owa_version == "15.2.397.3" #
+      elsif owa_version == "15.2.397" || owa_version == "15.2.397.3" #
         out = { version: "2019", update: "Cumulative Update 2" }
-      elsif owa_version == "15.2.529" #
-        out = { version: "2019", update: "Cumulative Update 2", 
+      elsif owa_version == "15.2.464" ||  owa_version == "15.2.529" #
+        out = { version: "2019", update: "Cumulative Update 3", 
           note: "additional updates applied: #{owa_version}" }
         
+=begin 
+1694  Microsoft Exchange Server [Unknown 15.2.221] [Unknown 15.2.221], Exchange Server 2019 RTM	
+2287  Microsoft Exchange Server [Unknown 15.2.397] [Unknown 15.2.397], Exchange Server 2019 CU2	
+2464  Microsoft Exchange Server [Unknown 15.2.330] [Unknown 15.2.330], Exchange Server 2019 CU1	
+2670  Microsoft Exchange Server [Unknown 15.1.544] [Unknown 15.1.544], Exchange Server 2016 CU3	
+3609  Microsoft Exchange Server [Unknown 15.2.464] [Unknown 15.2.464], Exchange Server 2019 CU3	
+14034  Microsoft Exchange Server [Unknown 15.1.1713] [Unknown 15.1.1713], Exchange Server 2016 CU12	
+
+=end 
+          
       else
         out = { version: "[Unknown #{owa_version}]", update: "[Unknown #{owa_version}]" }
       end

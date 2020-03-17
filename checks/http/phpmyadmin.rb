@@ -17,6 +17,19 @@ class PhpMyAdmin < Intrigue::Ident::Check::Base
         :match_content =>  /phpMyAdmin=/i,
         :paths => ["#{url}"],
         :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Administrative","COTS"],
+        :vendor => "PhpMyAdmin",
+        :product => "PhpMyAdmin",
+        :match_details => "PhpMyAdmin",
+        :version => nil,
+        :match_type => :content_title,
+        :match_content =>  /^PhpMyAdmin$/i,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
