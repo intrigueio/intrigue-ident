@@ -25,6 +25,20 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :tags => ["Networking", "VPN"],
         :vendor =>"PulseSecure",
         :product =>"Pulse Connect Secure",
+        :match_details => "page title",
+        :match_type => :content_title,
+        :references => [],
+        :match_content =>  /^Pulse&#32;Connect&#32;Secure$/,
+        :version => nil,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Networking", "VPN"],
+        :vendor =>"PulseSecure",
+        :product =>"Pulse Connect Secure",
         :match_details => "unique image link",
         :references => [
           "https://kb.pulsesecure.net/articles/Pulse_Secure_Article/KB40250",
