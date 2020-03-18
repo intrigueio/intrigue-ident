@@ -654,7 +654,8 @@ module Intrigue
           :match_type => :content_body,
           :requires_product => "Sharepoint Server",
           :match_content =>  /Troubleshoot issues with Microsoft SharePoint Foundation. - Opens in new window/,
-          :paths => ["#{url}/WebResource.asmx"], 
+          :paths => ["#{url}/WebResource.asmx"],
+          :require_product => "ASP.NET",
           :inference => false
         },
         {
