@@ -72,6 +72,21 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_content =>  /RabbitMQ Management HTTP API/,
         :paths => ["#{url}/api"],
         :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["App Server"],
+        :vendor =>"Pivotal Software",
+        :product =>"tc server",
+        :match_details =>"body version string",
+        :references => ["https://www.vmware.com/products/pivotal-tcserver.html"],
+        :match_type => :content_body,
+        :version => nil,
+        :match_content =>  /Pivotal tc Server Standard Edition [\d\.]+\.RELEASE/i,
+        :dynamic_version => lambda { |x| _first_body_capture(x, /Pivotal tc Server Standard Edition\ ([\d\.]+)\.RELEASE/i)},
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end
