@@ -20,7 +20,6 @@ module Check
           },
           :paths => ["#{url}"],
           :inference => true
-
         }
       ]
     end
