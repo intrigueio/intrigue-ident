@@ -8,7 +8,7 @@ class Heroku < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting"],
+        :tags => ["PaaS"],
         :vendor => "Heroku",
         :product =>"Heroku",
         :match_details =>"Heroku (error page)",
@@ -29,7 +29,7 @@ class Heroku < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting"],
+        :tags => ["PaaS"],
         :vendor => "Heroku",
         :product =>"Heroku",
         :match_details =>"vegur server",
@@ -43,7 +43,7 @@ class Heroku < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting"],
+        :tags => ["PaaS"],
         :vendor => "Heroku",
         :product =>"Heroku",
         :match_details =>"Heroku",
