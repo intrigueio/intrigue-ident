@@ -8,7 +8,7 @@ class Webflow < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Framework", "Javascript"],
+        :tags => ["CMS", "SaaS"],
         :vendor =>"Webflow",
         :product =>"Webflow",
         :match_details =>"body string",
@@ -21,9 +21,9 @@ class Webflow < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Framework", "Javascript"],
+        :tags => ["CMS", "SaaS"],
         :vendor =>"Webflow",
-        :product =>"Webflow (missing page)",
+        :product =>"Webflow",
         :match_details =>"missing page body string",
         :references => ["https://webflow.com"],
         :match_type => :content_body,

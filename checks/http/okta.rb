@@ -8,7 +8,7 @@ class Okta < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS","IAM"],
+        :tags => ["IAM", "SaaS", "Security"],
         :vendor =>"Okta",
         :product =>"Okta",
         :match_details =>"okta header",
@@ -21,7 +21,7 @@ class Okta < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS","IAM"],
+        :tags => ["IAM", "SaaS", "Security"],
         :vendor =>"Okta",
         :product =>"Okta",
         :match_details =>"okta header",
@@ -34,7 +34,7 @@ class Okta < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["IAM","SaaS"],
+        :tags => ["IAM", "SaaS", "Security"],
         :vendor =>"Okta",
         :product =>"Okta",
         :match_details =>"okta container div",

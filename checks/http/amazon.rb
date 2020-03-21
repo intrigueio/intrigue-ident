@@ -8,7 +8,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Load Balancer", "Hosting", "WAF"],
+        :tags => ["Load Balancer", "Hosting", "WAF", "IaaS"],
         :url => "https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/",
         :references => ["https://stackoverflow.com/questions/49197688/is-the-most-recent-awsalb-cookie-required-aws-elb-application-load-balancer"],
         :vendor => "Amazon",
@@ -24,7 +24,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting", "WAF"],
+        :tags => ["CDN", "Hosting", "WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :version => nil,
@@ -38,7 +38,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting", "WAF"],
+        :tags => ["CDN", "Hosting", "WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :version => nil,
@@ -52,7 +52,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"no configured hostname error condition",
@@ -69,7 +69,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"cloudfront error",
@@ -86,7 +86,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"Cloudfront 403",
@@ -103,7 +103,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"generic error",
@@ -120,7 +120,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"x-amz-cf-pop header",
@@ -134,7 +134,7 @@ class Amazon < Intrigue::Ident::Check::Base
       { 
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting","WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"x-amz-cf-id header",
@@ -148,7 +148,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting", "WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"generic error",
@@ -165,7 +165,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN", "Hosting","WAF"],
+        :tags => ["CDN", "Hosting", "WAF", "IaaS"],
         :vendor => "Amazon",
         :product =>"Cloudfront",
         :match_details =>"403 error condition",
@@ -182,7 +182,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Load Balancer", "Hosting"],
+        :tags => ["Load Balancer", "Hosting", "IaaS"],
         :url => "https://aws.amazon.com/elasticloadbalancing/",
         :vendor => "Amazon",
         :product => "Elastic Load Balancer",
@@ -201,7 +201,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Load Balancer", "Hosting"],
+        :tags => ["Load Balancer", "Hosting", "IaaS"],
         :url => "https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/",
         :vendor => "Amazon",
         :product => "Elastic Load Balancer",
@@ -216,7 +216,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "operating_system",
-        :tags => ["OS"],
+        :tags => ["OS", "IaaS"],
         :vendor => "Amazon",
         :product =>"Linux",
         :match_details =>"nginx test page",
@@ -230,7 +230,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "operating_system",
-        :tags => ["OS"],
+        :tags => ["OS", "IaaS"],
         :vendor => "Amazon",
         :product =>"Linux",
         :match_details =>"nginx test page",
@@ -244,7 +244,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server", "Hosting"],
+        :tags => ["Web Server", "Hosting", "IaaS"],
         :vendor => "Amazon",
         :product =>"S3",
         :match_details =>"server header",

@@ -8,7 +8,7 @@ class Verizon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["CDN","WAF"],
+        :tags => ["CDN", "WAF"],
         :vendor =>"Verizon",
         :product =>"Edgecast",
         :match_details =>"unique header",

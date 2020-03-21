@@ -8,7 +8,7 @@ class Artifactory < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS","CMS"],
+        :tags => ["COTS", "Development", "Security"],
         :website => "https://jfrog.com/artifactory/",
         :vendor => "Artifactory",
         :product => "Artifactory",

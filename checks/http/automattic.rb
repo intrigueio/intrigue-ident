@@ -96,10 +96,10 @@ class Automattic < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["CMS"],
+        :tags => ["CMS", "SaaS"],
         :vendor =>"Wordpress",
-        :product =>"Wordpress (Hosted)",
-        :match_details =>"unique header",
+        :product =>"Wordpress",
+        :match_details =>"unique header for hosted service",
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /x-hacker: If you're reading this, you should visit automattic.com/,

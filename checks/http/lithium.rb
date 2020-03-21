@@ -8,9 +8,12 @@ class Lithium < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS", "CMS"],
+        :tags => ["SaaS", "CMS"],
         :vendor => "Lithium",
         :product =>"Lithium",
+        :references => [
+          "https://community.khoros.com/t5/Khoros-Community-Discussions/On-Premise-Hosting/td-p/213256"
+        ],
         :match_details =>"Lithium Community Management",
         :match_type => :content_cookies,
         :version => nil,
@@ -21,7 +24,7 @@ class Lithium < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS", "CMS"],
+        :tags => ["SaaS", "CMS"],
         :vendor => "Lithium",
         :product =>"Lithium",
         :match_details =>"Lithium Community Management",

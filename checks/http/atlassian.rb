@@ -91,19 +91,6 @@ class Atlassian < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS", "Development"],
-        :vendor => "Atlassian",
-        :product =>"Statuspage",
-        :match_details =>"statuspage icon",
-        :version => nil,
-        :match_type => :content_body,
-        :match_content =>  /logos-statuspage-logo-gradient-neutral.svg/i,
-        :paths => ["#{url}"],
-        :inference => false
-      },
-      {
-        :type => "fingerprint",
-        :category => "service",
         :tags => ["SaaS", "Development", "Proxy"],
         :vendor => "Atlassian",
         :product =>"Proxy",
@@ -120,7 +107,20 @@ class Atlassian < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS", "Development"],
+        :tags => ["SaaS", "Development", "SaaS"],
+        :vendor => "Atlassian",
+        :product =>"Statuspage",
+        :match_details =>"statuspage icon",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /logos-statuspage-logo-gradient-neutral.svg/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development", "SaaS"],
         :vendor => "Atlassian",
         :product =>"Statuspage",
         :match_details =>"statuspage header",
@@ -133,7 +133,7 @@ class Atlassian < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["SaaS", "Development"],
+        :tags => ["SaaS", "Development", "SaaS"],
         :vendor => "Atlassian",
         :product =>"Statuspage",
         :match_details =>"statuspage header",

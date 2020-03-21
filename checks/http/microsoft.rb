@@ -168,7 +168,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Hosting"],
+          :tags => ["Hosting", "IaaS"],
           :vendor => "Microsoft",
           :product =>"Azure",
           :match_details => "standard 404",
@@ -181,7 +181,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Hosting", "Load Balancer"],
+          :tags => ["Hosting", "Load Balancer", "IaaS"],
           :vendor => "Microsoft",
           :product =>"Azure",
           :match_details => "Proxy service header (x-msedge-ref)",
@@ -194,7 +194,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Hosting", "Load Balancer"],
+          :tags => ["Hosting", "Load Balancer", "IaaS"],
           :vendor => "Microsoft",
           :product =>"Azure",
           :match_details =>"Proxy header (x-ms-ref)",
@@ -207,7 +207,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Hosting", "Load Balancer"],
+          :tags => ["Hosting", "Load Balancer", "IaaS"],
           :vendor => "Microsoft",
           :product =>"Azure",
           :match_details =>"Storage service header",
@@ -220,10 +220,13 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["CDN"],
+          :tags => ["CDN", "IaaS"],
           :vendor => "Microsoft",
           :product => "Verizon Azure CDN",
-          :references => ["https://docs.microsoft.com/en-us/azure/cdn/cdn-verizon-http-headers", "https://docs.vdms.com/cdn/Content/HTTP_and_HTTPS_Data_Delivery/Response.htm"],
+          :references => [
+            "https://docs.microsoft.com/en-us/azure/cdn/cdn-verizon-http-headers", 
+            "https://docs.vdms.com/cdn/Content/HTTP_and_HTTPS_Data_Delivery/Response.htm"
+          ],
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}\/[a-zA-Z0-9]{4}\)$/i,
@@ -560,7 +563,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Productivity","Hosted"],
+          :tags => ["Productivity","SaaS"],
           :vendor =>"Microsoft",
           :product =>"Office 365",
           :match_details =>"office 365 api unique header",
@@ -573,7 +576,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Productivity","Hosted"],
+          :tags => ["Productivity","SaaS"],
           :vendor =>"Microsoft",
           :product =>"Office 365 API",
           :match_details =>"office 365 api auth cookie",
@@ -586,7 +589,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Productivity","Hosted"],
+          :tags => ["Productivity","SaaS"],
           :vendor =>"Microsoft",
           :product =>"Office 365",
           :match_details =>"office 365 fronted by okta",
@@ -600,7 +603,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Productivity","Hosted"],
+          :tags => ["Productivity","SaaS"],
           :vendor =>"Microsoft",
           :product =>"Microsoft Outlook (Office 365)",
           :match_details =>"office 365 outlook signin",

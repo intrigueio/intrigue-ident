@@ -8,7 +8,7 @@ class Intercom < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Javascript", "SaaS", "Support"],
+        :tags => ["Javascript", "Support"],
         :vendor =>"Intercom",
         :product =>"Intercom",
         :match_details =>"js load string",

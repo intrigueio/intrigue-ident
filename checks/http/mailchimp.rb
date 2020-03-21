@@ -8,7 +8,7 @@ class Mailchimp < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Marketing","COTS"],
+        :tags => ["Marketing", "SaaS"],
         :vendor => "Mailchimp",
         :product =>"Mandrill",
         :match_details =>"login page",

@@ -8,7 +8,7 @@ class MediaTemple < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting"],
+        :tags => ["SaaS"],
         :vendor =>"MediaTemple",
         :product =>"MediaTemple",
         :match_details =>"default string in title",
