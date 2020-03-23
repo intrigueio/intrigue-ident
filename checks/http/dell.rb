@@ -17,11 +17,7 @@ class Dell < Intrigue::Ident::Check::Base
         :match_content =>  /kboxid=/i,
         :paths => ["#{url}"],
         :inference => false
-      }
-    ]
-  end
-  def generate_checks(url)
-    [
+      },
       {
         :type => "fingerprint",
         :category => "application",
