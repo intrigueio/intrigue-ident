@@ -20,11 +20,7 @@ class OpenTextWebSolutionsCMS < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
-      }
-    ]
-  end
-  def generate_checks(url)
-    [
+      },
       {
         :type => "fingerprint",
         :category => "application",
