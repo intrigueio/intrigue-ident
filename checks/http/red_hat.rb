@@ -55,6 +55,22 @@ class RedHat < Intrigue::Ident::Check::Base
         :match_content =>  /Login - OpenShift Origin/i,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBOss Core Services",
+        :references => ["https://www.redhat.com/en/resources/jboss-core-services-collection-datasheet"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^Server:\ JBCS\ httpd$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^Server:\ JBCS\ httpd$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
