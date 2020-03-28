@@ -429,7 +429,7 @@ module Intrigue
         if check[:dynamic_issue]
           issue = check[:dynamic_issue].call(data)
         else
-          issue = nil
+          issue = false
         end
 
         ##
