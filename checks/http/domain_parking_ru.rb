@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class World4You < Intrigue::Ident::Check::Base
+  class DomainParkingRu < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [
@@ -9,14 +9,14 @@ module Intrigue
           :type => "fingerprint",
           :category => "service",
           :tags => ["Parked"],
-          :vendor => "World4You",
-          :product => "World4You",
-          :website => "https://www.world4you.com",
+          :vendor => "DomainParking.ru",
+          :product => "DomainParking.ru",
+          :website => "https://domainparking.ru/",
           :references => [],
           :version => nil,
           :match_type => :content_body,
-          :match_content => /Welcome to the high availability hosting network of World4You\!/i,
-          :match_details => "unique body string",
+          :match_content => /Domain is parked by service DomainParking.ru/i,
+          :match_details => "unique string in body",
           :hide => false,
           :paths => ["#{url}"],
           :inference => false

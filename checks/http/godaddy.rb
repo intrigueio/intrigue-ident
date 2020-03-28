@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Parking"],
+          :tags => ["Parked"],
           :vendor => "Godaddy",
           :product => "Godaddy",
           :website => "https://www.godaddy.com",

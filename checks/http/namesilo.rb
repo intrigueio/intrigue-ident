@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class World4You < Intrigue::Ident::Check::Base
+  class Namesilo < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [
@@ -9,14 +9,14 @@ module Intrigue
           :type => "fingerprint",
           :category => "service",
           :tags => ["Parked"],
-          :vendor => "World4You",
-          :product => "World4You",
-          :website => "https://www.world4you.com",
+          :vendor => "Namesilo",
+          :product => "NameSilo",
+          :website => "https://www.namesilo.com/",
           :references => [],
           :version => nil,
           :match_type => :content_body,
-          :match_content => /Welcome to the high availability hosting network of World4You\!/i,
-          :match_details => "unique body string",
+          :match_content => /This domain is parked free of charge with NameSilo.com/i,
+          :match_details => "string in body",
           :hide => false,
           :paths => ["#{url}"],
           :inference => false

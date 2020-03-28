@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Parking"],
+          :tags => ["Parked"],
           :vendor => "Sedo",
           :product => "Sedo",
           :website => "https://sedo.com/us/park-domains/",

@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Parking"],
+          :tags => ["Parked"],
           :vendor => "Dreamhost",
           :product => "Dreamhost",
           :website => "https://www.dreamhost.com",

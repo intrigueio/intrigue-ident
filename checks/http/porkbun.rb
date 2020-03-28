@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Parking"],
+          :tags => ["Parked"],
           :vendor => "Porkbun",
           :product => "Porkbun",
           :website => "https://porkbun.com/",
