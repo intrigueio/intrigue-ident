@@ -58,11 +58,28 @@ Content Checks:
  - X-XSS-Protection Header: false
 ```
 
+Implementing Ident: 
+===================
+
+If you'd like to integrate ident as a library, you have two options, you can use the library directly or you can integrate our JSON feed. Details on the feed can be here: https://app.intrigue.io/api 
+
+Implementation details: 
+```
+check types are in the following categories. See each check's 'match_content': 
+ - content_body: checks should be run against body
+ - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
+ - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
+ - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
+ - content_cookies; checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
+ ```
+
+
 Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
- - @bensalah_anas: Checks!
+ - @jen140: Checks
+ - @bensalah_anas: Checks
  - @bcoles: Checks, bugfixes, JSON output
  - @bmcdevitt: Checks
  - @retornam: Dockerization

@@ -8,7 +8,7 @@ class Zendesk < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosted","Support"],
+        :tags => ["SaaS","Support"],
         :vendor =>"Zendesk",
         :product =>"Zendesk",
         :match_details =>"unique header",
@@ -21,7 +21,7 @@ class Zendesk < Intrigue::Ident::Check::Base
       { # TODO - this might catch valid (closed) helpdesk uris too.
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosted","Support"],
+        :tags => ["SaaS","Support"],
         :vendor =>"Zendesk",
         :product =>"Zendesk",
         :match_details =>"zendesk access by IP / invalid hostname",

@@ -8,7 +8,7 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting","CDN","WAF"],
+        :tags => ["CDN","WAF"],
         :vendor =>"Incapsula",
         :product =>"CDN",
         :match_details =>"incapsula header",
@@ -21,7 +21,7 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting","CDN","WAF"],
+        :tags => ["CDN","WAF"],
         :vendor =>"Incapsula",
         :product =>"CDN",
         :match_details =>"incapsula header",
@@ -34,10 +34,10 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting","CDN","WAF"],
+        :tags => ["CDN","WAF"],
         :vendor =>"Incapsula",
-        :product =>"CDN (Miss)",
-        :match_details =>"incapsula header",
+        :product =>"CDN",
+        :match_details =>"incapsula header (miss)",
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /Request unsuccessful. Incapsula incident ID/i,

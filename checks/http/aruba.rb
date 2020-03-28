@@ -8,7 +8,7 @@ class Aruba < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "operating_system",
-        :tags => ["Networking","COTS","Wireless"],
+        :tags => ["Networking", "COTS", "Wireless"],
         :vendor => "Aruba Networks",
         :product => "Aruba OS",
         :version => nil,

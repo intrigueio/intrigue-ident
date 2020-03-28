@@ -8,7 +8,7 @@ class Netlify < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["PaaS"],
+        :tags => ["PaaS", "CDN"],
         :vendor => "Netlify",
         :product =>"Netlify",
         :match_details =>"server header",
@@ -21,7 +21,7 @@ class Netlify < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["PaaS"],
+        :tags => ["PaaS", "CDN"],
         :vendor => "Netlify",
         :product =>"Netlify",
         :match_details =>"x-nf-request-id header",

@@ -8,7 +8,7 @@ class WpEngine < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosted", "CMS"],
+        :tags => ["CMS", "SaaS"],
         :vendor =>"WPEngine",
         :product =>"WPEngine",
         :match_details =>"WPEngine - Access site by IP",
@@ -22,7 +22,21 @@ class WpEngine < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosted", "CMS"],
+        :tags => ["CMS", "SaaS"],
+        :vendor =>"WPEngine",
+        :product =>"WPEngine",
+        :match_details =>"WPEngine header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^x-powered-by: WP Engine$/,
+        :hide => true,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CMS", "SaaS"],
         :vendor =>"WPEngine",
         :product =>"WPEngine",
         :match_details =>"WPEngine header",

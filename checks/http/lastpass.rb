@@ -8,7 +8,7 @@ class Lastpass < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Security"],
+        :tags => ["Security", "SaaS"],
         :vendor =>"Lastpass",
         :product =>"Lastpass",
         :match_details =>"server header",

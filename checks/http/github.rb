@@ -8,7 +8,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["COTS", "Development"],
+          :tags => ["Development", "SaaS"],
           :vendor => "Github",
           :product => "Github",
           :match_details => "github specific header",
@@ -21,7 +21,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["COTS", "Development"],
+          :tags => ["Development", "SaaS"],
           :vendor => "Github",
           :product => "Github",
           :match_details => "github server header",

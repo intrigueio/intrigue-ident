@@ -8,7 +8,7 @@ class Unbounce < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosted","SaaS"],
+        :tags => ["SaaS"],
         :vendor =>"Unbounce",
         :product =>"Unbounce",
         :match_details =>"missing account string",

@@ -8,7 +8,7 @@ class Auth0 < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["IAM"],
+        :tags => ["IAM", "SaaS", "Security"],
         :vendor => "Auth0",
         :product => "Auth0",
         :references => [],
@@ -23,7 +23,7 @@ class Auth0 < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["IAM"],
+        :tags => ["IAM", "SaaS", "Security"],
         :vendor => "Auth0",
         :product => "Auth0",
         :references => [],

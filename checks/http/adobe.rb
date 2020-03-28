@@ -148,7 +148,7 @@ class Adobe < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["CMS","Marketing"],
+        :tags => ["CMS","Marketing", "SaaS"],
         :vendor => "Adobe",
         :product => "Omniture DC",
         :version => nil,

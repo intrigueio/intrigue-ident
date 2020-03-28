@@ -8,7 +8,7 @@ class Acquia < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Hosting", "CDN"],
+        :tags => ["Hosting", "CDN", "PaaS"],
         :vendor => "Acquia",
         :product => "Acquia",
         :references => ["https://docs.acquia.com/acquia-cloud/performance/varnish/headers/"],
