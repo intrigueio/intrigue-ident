@@ -44,19 +44,19 @@ module Check
           :paths => ["#{url}"],
           :inference => false
         },
-        {
-          :type => "fingerprint",
-          :category => "none",
-          :vendor => "Generic",
-          :product => "Empty Response",
-          :match_details =>"No response received!",
-          :version => nil,
-          :hide => true,
-          :match_type => :content_body,
-          :match_content =>  /^$/i,
-          :paths => ["#{url}"],
-          :inference => false
-        },
+        #{
+        #  :type => "fingerprint",
+        #  :category => "none",
+        #  :vendor => "Generic",
+        #  :product => "Empty Response",
+        #  :match_details =>"No response received!",
+        #  :version => nil,
+        #  :hide => true,
+        #  :match_type => :content_body,
+        #  :match_content =>  /^$/i,
+        #  :paths => ["#{url}"],
+        #  :inference => false
+        #},
         {
           :type => "fingerprint",
           :category => "service",
