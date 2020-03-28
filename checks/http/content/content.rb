@@ -7,23 +7,6 @@ class Content < Intrigue::Ident::Check::Base
     [
       {
         :type => "content",
-        :name =>"Google Analytics Account Detected",
-        :match_type => :content_body,
-        :dynamic_result => lambda { |d|
-          out = false
-          if (_body(d) =~ /gtag\(\'config\', \'[\w\d-]*\'\);/ || 
-              _body(d) =~ /ga\('create', 'UA-\d+-\d'/ )
-            out = _first_body_capture(d, /ga\('create', '(UA-\d+-\d)'/)
-              _first_body_capture(d, /gtag\(\'config\', \'(UA-\d+-\d+)/)
-          end
-        out 
-        },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
-      },
-      {
-        :type => "content",
         :name =>"Location Header",
         :match_type => :content_header,
         :dynamic_result => lambda { |d| _first_header_capture(d,/^location:(.*)$/i) },

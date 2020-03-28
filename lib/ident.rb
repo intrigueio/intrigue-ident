@@ -362,14 +362,36 @@ module Intrigue
         ##
         ## Support for Dynamic Hide
         ##
-        if check[:dynamic_hide]
-          hide = check[:dynamic_hide].call(data)
-        elsif check[:hide]
-          hide = check[:hide]
+        if check[:dynamic_issue_name]
+          issue = check[:dynamic_issue_name].call(data)
+        elsif check[:issue_name]
+          issue = check[:issue_name]
         else
-          hide = false
+          issue = false
         end
         
+        ##
+        ## Support for Dynamic Issue
+        ##
+        if check[:dynamic_issue]
+          hide = check[:dynamic_issue].call(data)
+        elsif check[:issue]
+          hide = check[:issue]
+        else
+          hide = nil
+        end
+
+        ##
+        ## Support for Dynamic Task
+        ##
+        if check[:dynamic_task]
+          task = check[:dynamic_task].call(data)
+        elsif check[:task]
+          task = check[:task]
+        else
+          task = nil
+        end
+
         to_return = {
           "type" => check[:type],
           "vendor" => check[:vendor],
@@ -381,18 +403,42 @@ module Intrigue
           "match_details" => check[:match_details],
           "hide" => hide,
           "cpe" => cpe_string,
+          "issue" => issue,
+          "task" => task,
           "inference" => check[:inference]
         }
 
       elsif check[:type] == "content"
 
+        # Mandatory lambda
         result = check[:dynamic_result].call(data)
+        
+
+        ##
+        ## Support for Dynamic Issue (must be dynamic, these checks always run)
+        ##
         if result
-          hide = check[:dynamic_hide].call(data)
-          issue = check[:dynamic_issue].call(data)  
+          hide = check[:dynamic_hide].call(data) if check[:dynamic_hide]
         else 
           hide = false
-          issue = false
+        end
+
+        ##
+        ## Support for Dynamic Issue (must be dynamic, these checks always run)
+        ##
+        if check[:dynamic_issue]
+          issue = check[:dynamic_issue].call(data)
+        else
+          issue = nil
+        end
+
+        ##
+        ## Support for Dynamic Task (must be dynamic, these checks always run)
+        ##
+        if check[:dynamic_task]
+          task = check[:dynamic_task].call(data)
+        else
+          task = nil
         end
 
         to_return = {
@@ -400,6 +446,7 @@ module Intrigue
           "name" => check[:name],
           "hide" => hide,
           "issue" => issue,
+          "task" => task,
           "result" => result
         }
       end

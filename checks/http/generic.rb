@@ -71,7 +71,34 @@ module Check
           :paths => ["#{url}"],
           :inference => false
         },
-        
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Parked"],
+          :vendor => "Generic",
+          :product => "Parked Page",
+          :match_details =>"generic parked title",
+          :version => nil,
+          :hide => false,
+          :match_type => :content_title,
+          :match_content =>  /is parked/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },        
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Parked"],
+          :vendor => "Generic",
+          :product => "Parked Page",
+          :match_details =>"generic parked string",
+          :version => nil,
+          :hide => false,
+          :match_type => :content_body,
+          :match_content =>  /registered and parked/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },
         {
           :type => "fingerprint",
           :category => "service",
