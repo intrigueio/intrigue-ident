@@ -1,4 +1,4 @@
-module Intrigue
+  module Intrigue
   module Ident
   module Check
   class Nexicom < Intrigue::Ident::Check::Base
