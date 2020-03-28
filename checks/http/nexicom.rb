@@ -30,7 +30,7 @@ module Intrigue
           :website => "https://nexicom.net/",
           :references => [""],
           :version => nil,
-          :match_type => :content_body,
+          :match_type => :content_title,
           :match_content => /Park\ your\ Domain\ \@\ Nexicom/i,
           :match_details => "Park\ your\ Domain\ \@\ Nexicom",
           :hide => false,
