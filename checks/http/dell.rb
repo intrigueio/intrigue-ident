@@ -17,6 +17,22 @@ class Dell < Intrigue::Ident::Check::Base
         :match_content =>  /kboxid=/i,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server", "PaaS"],
+        :vendor => "Dell",
+        :product => "Dell SonicWALL Secure Mobile Access SMA",
+        :references => ["https://www.sonicwall.com/products/remote-access/remote-access-appliances/"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end

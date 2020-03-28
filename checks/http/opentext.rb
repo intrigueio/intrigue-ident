@@ -20,6 +20,22 @@ class OpenTextWebSolutionsCMS < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS"],
+        :vendor => "OpenText",
+        :product => "OpenText FirstClass",
+        :references => ["https://www.opentext.com/products-and-solutions/products/specialty-technologies/firstclass"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^Server:\ OpenText\ FC\ (Sync\ Services|WebServer\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^Server:\ OpenText\ FC\ (Sync\ Services|WebServer\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end
