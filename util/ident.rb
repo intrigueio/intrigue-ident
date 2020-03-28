@@ -276,7 +276,7 @@ def main
     ###
     opts = Slop.parse do |o|
       
-      # url input 
+      # url inpu
       o.string '-u', '--url', 'a url to check'
       o.string '-f', '--file', 'a file of urls, one per line'
 
@@ -291,11 +291,12 @@ def main
       
       # behavior
       o.integer '-t', '--threads', 'number of threads to use when checking a file (default: 3)'
-      o.bool '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
-      o.bool '-c', '--content', 'show content checks'
-      o.bool '-b', '--only-check-base-url', 'only base url '
-      o.bool '-d', '--debug', 'enable debug mode'
-      
+      o.bool    '-v', '--vulnerabilities', 'query intrigue.io api for top vulnerabilities'
+      o.bool    '-c', '--content', 'show content checks'
+      o.bool    '-b', '--only-check-base-url', 'only base url '
+      o.bool    '-d', '--debug', 'enable debug mode'
+      o.string  '-e', '--external', 'require external checks from paths'
+
       o.on "-h", "--help" do
         puts o
         exit
@@ -316,6 +317,18 @@ def main
     puts "Error! At least one of --file, --url, or --ip must be specified"
     return
   end
+
+  ## include external checks
+  if opts[:external]
+    puts "Including checks from external path: #{opts[:external]}"
+    
+    # follow directory structure from ident
+    Dir.glob("#{opts[:external]}/checks/*/*.rb").each do |p|
+      puts "Requiring external path: #{p}"
+      require p
+    end
+    
+  end 
 
   ## handle url input
   if opts[:url]
