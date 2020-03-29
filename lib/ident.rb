@@ -412,33 +412,36 @@ module Intrigue
 
         # Mandatory lambda
         result = check[:dynamic_result].call(data)
-        
 
         ##
         ## Support for Dynamic Issue (must be dynamic, these checks always run)
         ##
         if result
-          hide = check[:dynamic_hide].call(data) if check[:dynamic_hide]
-        else 
-          hide = false
-        end
+        
+          if check[:dynamic_hide]
+            hide = check[:dynamic_hide].call(data) 
+          else 
+            hide = nil
+          end
 
-        ##
-        ## Support for Dynamic Issue (must be dynamic, these checks always run)
-        ##
-        if check[:dynamic_issue]
-          issue = check[:dynamic_issue].call(data)
-        else
-          issue = false
-        end
+          ##
+          ## Support for Dynamic Issue (must be dynamic, these checks always run)
+          ##
+          if check[:dynamic_issue]
+            issue = check[:dynamic_issue].call(data)
+          else
+            issue = nil
+          end
 
-        ##
-        ## Support for Dynamic Task (must be dynamic, these checks always run)
-        ##
-        if check[:dynamic_task]
-          task = check[:dynamic_task].call(data)
-        else
-          task = nil
+          ##
+          ## Support for Dynamic Task (must be dynamic, these checks always run)
+          ##
+          if check[:dynamic_task]
+            task = check[:dynamic_task].call(data)
+          else
+            task = nil
+          end
+
         end
 
         to_return = {

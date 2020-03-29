@@ -18,11 +18,12 @@ class Content < Intrigue::Ident::Check::Base
         :type => "content",
         :name =>"Directory Listing Detected",
         :match_type => :content_title,
-        :dynamic_result => lambda { |d| (  _first_title_match(d,/Index of \//) ||
-                                           _first_body_match(d, /<h1>Index of \//) || 
-                                           _first_body_match(d, /\[To Parent Directory\]/) ) ? true : false },
+        :dynamic_result => lambda { |d| (  
+          _first_title_match(d,/Index of \//) ||
+          _first_body_match(d, /<h1>Index of \//) || 
+          _first_body_match(d, /\[To Parent Directory\]/) ) ? true : false },
         :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| true },
+        :dynamic_issue => lambda { |d| "directory_listing_detected" },
         :paths => ["#{url}"]
       },
       #{
