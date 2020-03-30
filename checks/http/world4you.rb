@@ -1,44 +1,46 @@
-  module Intrigue
+module Intrigue
   module Ident
   module Check
-  class Nexicom < Intrigue::Ident::Check::Base
-
+  class World4You < Intrigue::Ident::Check::Base
+  
     def generate_checks(url)
       [
         {
           :type => "fingerprint",
           :category => "service",
           :tags => ["Parked"],
-          :vendor => "Nexicom",
-          :product => "Nexicom",
-          :website => "https://nexicom.net/",
+          :vendor => "World4You",
+          :product => "World4You",
+          :website => "https://www.world4you.com",
           :version => nil,
           :match_type => :content_body,
-          :match_content => /\<STRONG\>What\ is\ Domain\ Parking\?\<\/STRONG\>/i,
-          :match_details => "<STRONG>What is Domain Parking?</STRONG>",
+          :match_content => /This is a newly created customer website\<\/h1\>/i,
+          :match_details => "unique body string",
           :hide => false,
           :paths => ["#{url}"],
           :inference => false
-        },
+        }, 
         {
           :type => "fingerprint",
           :category => "service",
           :tags => ["Parked"],
-          :vendor => "Nexicom",
-          :product => "Nexicom",
-          :website => "https://nexicom.net/",
+          :vendor => "World4You",
+          :product => "World4You",
+          :website => "https://www.world4you.com",
           :version => nil,
           :match_type => :content_title,
-          :match_content => /Park\ your\ Domain\ \@\ Nexicom/i,
-          :match_details => "Park\ your\ Domain\ \@\ Nexicom",
+          :match_content => /Hier entsteht eine neue Kunden-Website \| World4You\</i,
+          :match_details => "unique body string",
           :hide => false,
           :paths => ["#{url}"],
           :inference => false
         }
+        
       ]
     end
-
+  
   end
   end
   end
   end
+  

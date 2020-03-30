@@ -12,12 +12,12 @@ class Parallels < Intrigue::Ident::Check::Base
         :vendor =>"Parallels",
         :product =>"Parallels Plesk Panel",
         :match_details => "page title",
-        :match_type => :content_body,
+        :match_type => :content_title,
         :references => ["https://en.wikipedia.org/wiki/Plesk"],
-        :match_content =>  /<title>Plesk (.*?)<\/title>/,
+        :match_content => /Plesk.*?/,
         :version => nil,
         :dynamic_version => lambda { |x| 
-          _first_body_capture(x,/<title>Plesk (.*?)<\/title>/) },
+          _first_title_capture(x,/Plesk (.*?)/) },
         :paths => ["#{url}"],
         :inference => true
       },

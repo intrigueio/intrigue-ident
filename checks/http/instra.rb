@@ -7,12 +7,11 @@
       [
         {
           :type => "fingerprint",
-          :category => "application",
-          :tags => ["Parking"],
+          :category => "service",
+          :tags => ["Parked"],
           :vendor => "Instra",
           :product => "Instra",
           :website => "https://www.instra.com/",
-          :references => [""],
           :version => nil,
           :match_type => :content_title,
           :match_content => /Domain\ parked\ by\ Instra/i,
@@ -23,8 +22,8 @@
         },
         {
           :type => "fingerprint",
-          :category => "application",
-          :tags => ["Parking"],
+          :category => "service",
+          :tags => ["Parked"],
           :vendor => "Instra",
           :product => "Instra",
           :website => "https://www.instra.com/",
@@ -39,8 +38,8 @@
         },
         {
           :type => "fingerprint",
-          :category => "application",
-          :tags => ["Parking"],
+          :category => "service",
+          :tags => ["Parked"],
           :vendor => "Instra",
           :product => "Instra",
           :website => "https://www.instra.com/",

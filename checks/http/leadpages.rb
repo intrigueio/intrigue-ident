@@ -11,6 +11,7 @@ class Leadpages < Intrigue::Ident::Check::Base
         :tags => ["Hosting", "CDN"],
         :vendor => "Leadpages",
         :product => "Leadpages",
+        :website => "https://www.leadpages.net/",
         :references => ["https://www.leadpages.net/"],
         :version => nil,
         :match_type => :content_headers,
