@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class 123Reg < Intrigue::Ident::Check::Base
+  class OneTwoThreeReg < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [
