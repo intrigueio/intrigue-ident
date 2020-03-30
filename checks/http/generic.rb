@@ -185,6 +185,20 @@ module Check
         },
         {
           :type => "fingerprint",
+          :category => "service",
+          :tags => ["Parked"],
+          :vendor => "Generic",
+          :product => "Parked Page",
+          :match_details =>"parked for free",
+          :version => nil,
+          :hide => false,
+          :match_type => :content_body,
+          :match_content =>  /is a parked domain/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
           :category => "none",
           :vendor => "Generic",
           :product => "Unauthorized",
