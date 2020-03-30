@@ -176,6 +176,7 @@ module Intrigue
           :match_type => :content_title,
           :match_content =>  /^Microsoft Azure Web App - Error 404$/i,
           :paths => ["#{url}"], 
+          :hide => true,
           :inference => false
         },
         {
@@ -213,7 +214,20 @@ module Intrigue
           :match_details =>"Storage service header",
           :version => nil,
           :match_type => :content_headers,
-          :match_content =>  /^x-ms-request-id:.*/i,
+          :match_content => /^x-ms-request-id:.*/i,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Hosting", "Load Balancer", "IaaS"],
+          :vendor => "Microsoft",
+          :product =>"Azure",
+          :match_details =>"cookie",
+          :version => nil,
+          :match_type => :content_cookies,
+          :match_content => /ApplicationGatewayAffinity=/i,
           :paths => ["#{url}"], 
           :inference => false
         },
