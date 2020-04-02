@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class AfterMarketPL < Intrigue::Ident::Check::Base
+  class AfterMarketPl < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [

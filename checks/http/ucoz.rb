@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class uCoz < Intrigue::Ident::Check::Base
+  class Ucoz < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [

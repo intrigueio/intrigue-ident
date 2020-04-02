@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class DAN < Intrigue::Ident::Check::Base
+  class Dan < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [

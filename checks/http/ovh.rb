@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module Check
-  class OVH < Intrigue::Ident::Check::Base
+  class Ovh < Intrigue::Ident::Check::Base
   
     def generate_checks(url)
       [

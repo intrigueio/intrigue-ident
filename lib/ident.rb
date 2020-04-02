@@ -403,8 +403,8 @@ module Intrigue
           "match_details" => check[:match_details],
           "hide" => hide,
           "cpe" => cpe_string,
-          "issue" => issue,
-          "task" => task,
+          "issue" => issue, 
+          "task" => task, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]
         }
 
