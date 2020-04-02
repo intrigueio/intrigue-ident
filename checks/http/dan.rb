@@ -14,7 +14,7 @@ module Intrigue
           :website => "https://dan.com/",
           :references => [],
           :version => nil,
-          :match_type => :content_title,
+          :match_type => :content_body,
           :match_content => /There are millions of other domains available on DAN\.COM\. You can probably find the one that fits you best!/i,
           :match_details => "There are millions of other domains available on DAN\.COM\. You can probably find the one that fits you best!",
           :hide => false,
