@@ -332,7 +332,7 @@ def main
 
   ## handle url input
   if opts[:url]
-    puts "Checking URL: #{opts[:url]}"
+    puts "Checking URL: #{opts[:url]}" if opts[:debug]
     check_single_url(opts)
   end 
 
@@ -344,7 +344,7 @@ def main
 
   ## handle ip input
   if opts[:ip]
-    puts "Checking IP: #{opts[:ip]}"
+    puts "Checking IP: #{opts[:ip]}"  if opts[:debug]
     check_single_ip(opts)
   end
 end
