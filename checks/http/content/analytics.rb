@@ -16,6 +16,15 @@ module Intrigue
         },
         {
           :type => "content",
+          :name =>"Google Site Verification",
+          :match_type => :content_body,
+          :dynamic_result => lambda { |d|
+            _first_body_capture(d, /<meta name=\"google-site-verification\" content=\"([\d\w\-]+)\" \/>/)
+          },
+          :paths => ["#{url}"]
+        },
+        {
+          :type => "content",
           :name =>"MyWebStats",
           :match_type => :content_body,
           :dynamic_result => lambda { |d|
