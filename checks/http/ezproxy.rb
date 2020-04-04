@@ -30,7 +30,7 @@ class EZproxy < Intrigue::Ident::Check::Base
             :match_content =>  /http[s]?:\/\/ezproxy\./i,
             :paths => ["#{url}"],
             :inference => false
-            },
+        },
     ]
     end
 
