@@ -11,6 +11,7 @@ class EZproxy < Intrigue::Ident::Check::Base
             :tags => ["Proxy Server"],
             :vendor => "OCLC",
             :product => "EZproxy",
+            :website => "https://www.oclc.org/en/ezproxy.html",
             :match_details => "Server header",
             :version => nil,
             :match_type => :content_headers,
