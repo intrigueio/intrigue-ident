@@ -7,7 +7,7 @@ class Wix < Intrigue::Ident::Check::Base
     [
         {
             :type => "fingerprint",
-            :category => "application",
+            :category => "service",
             :tags => ["COTS","Development"],
             :vendor => "Wix.com Ltd.",
             :product => "Wix",
