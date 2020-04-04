@@ -17,20 +17,7 @@ class EZproxy < Intrigue::Ident::Check::Base
             :match_content =>  /server: EZproxy/i,
             :paths => ["#{url}"],
             :inference => false
-        },
-        {
-            :type => "fingerprint",
-            :category => "application",
-            :tags => ["Proxy Server"],
-            :vendor => "OCLC",
-            :product => "EZproxy",
-            :match_details => "Url reference",
-            :version => nil,
-            :match_type => :content_body,
-            :match_content =>  /http[s]?:\/\/ezproxy\./i,
-            :paths => ["#{url}"],
-            :inference => false
-        },
+        }
     ]
     end
 
