@@ -8,7 +8,7 @@ class SalesForce < Intrigue::Ident::Check::Base
         {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["CRM"],
+            :tags => ["Cloud", "CRM", "SaaS", "PaaS"],
             :vendor => "Salesforce",
             :product => "Salesforce ApexPages",
             :website => "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_methods_system_apexpages.htm",
