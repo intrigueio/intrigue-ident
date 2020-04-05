@@ -8,14 +8,14 @@ class Roundcube < Intrigue::Ident::Check::Base
         {
             :type => "fingerprint",
             :category => "application",
-            :tags => ["Email"],
+            :tags => ["Email" "COTS"],
             :vendor => "Roundcube",
             :product => "Roundcube",
             :website => "https://roundcube.net/",
             :match_details => "Roundcube title",
             :version => nil,
-            :match_type => :content_body,
-            :match_content =>  /:: Welcome to Roundcube/i,
+            :match_type => :content_title,
+            :match_content =>  /:: Welcome to Roundcube Webmail$/i,
             :paths => ["#{url}"],
             :inference => false
         },
