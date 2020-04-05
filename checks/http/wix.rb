@@ -8,14 +8,14 @@ class Wix < Intrigue::Ident::Check::Base
         {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["COTS","Development"],
+            :tags => ["SaaS","Hosting"],
             :vendor => "Wix.com Ltd.",
             :product => "Wix",
-            :website => "https://dev.wix.com",
-            :match_details => "x wix request id",
+            :website => "https://www.wix.com/",
+            :match_details => "Wix hosting request id header",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /x-wix-request-id:/i,
+            :match_content =>  /^x-wix-request-id:/i,
             :paths => ["#{url}"],
             :inference => false
         }

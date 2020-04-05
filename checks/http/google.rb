@@ -128,13 +128,13 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server", "Hosting"],
+          :tags => ["Web Server", "Hosting", "SaaS"],
           :vendor => "Google",
           :product =>"Google Web Server",
-          :match_details =>"Server header",
+          :match_details =>"Google web server header",
           :version => nil,
           :match_type => :content_headers,
-          :match_content =>  /server: gws/i,
+          :match_content =>  /^server: gws$/i,
           :paths => ["#{url}"],
           :inference => false
         },

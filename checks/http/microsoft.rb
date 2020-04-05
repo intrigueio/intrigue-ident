@@ -783,6 +783,19 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /microsoftofficewebserver: 5.0_Pub/,
           :paths => ["#{url}"]
+        },
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Hosting", "IaaS"],
+          :vendor => "Microsoft",
+          :product => "Azure",
+          :website => "https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/checker/webapi/analyze",
+          :match_details =>"Azure API tracing correlation id header",
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /^x-ms-correlation-id: /i,
+          :paths => ["#{url}"]
         }
       ]
     end
