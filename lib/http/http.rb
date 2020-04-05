@@ -116,20 +116,22 @@ module Http
         ###
         ### Handle redirects 
         ### 
-
-        
-        if response.header['location'] != nil 
+        location_header = response.header['location'] || response.header['Location'] 
+        if location_header != nil
           # location header redirect
+          #puts "Following redirect: #{location_header}"
 
-          newuri=URI.parse(response.header['location'])
+          newuri=URI.parse(location_header)
 
           # handle relative uri 
           if(newuri.relative?)
-            newuri=URI.parse("#{uri}#{response.header['location']}")
+            newuri=URI.parse("#{uri}#{location_header}")
           end
           
           response_urls << ident_encode(newuri.to_s)
           uri=newuri
+
+          found = true
 
         elsif response.body =~ /META HTTP-EQUIV=\"?Refresh/i # meta refresh
           # meta refresh redirect
@@ -156,6 +158,7 @@ module Http
         else
 
           found = true
+          break
 
         end #end redirect handling
 
@@ -165,7 +168,6 @@ module Http
         final_url = uri
 
       end #until
-
 
     ### TODO - create a global $debug config option
     
