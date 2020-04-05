@@ -125,6 +125,19 @@ module Check
           :paths => ["#{url}"],
           :inference => false
         },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Web Server", "Hosting"],
+          :vendor => "Google",
+          :product =>"Google Web Server",
+          :match_details =>"Server header",
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /server: gws/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },
         # Currently match_content too loose, also no point in inference if we dont' have a versions
         #{
         #  :type => "fingerprint",
