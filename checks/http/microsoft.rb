@@ -783,7 +783,7 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /microsoftofficewebserver: 5.0_Pub/,
           :paths => ["#{url}"]
-        }
+        }        
       ]
     end
   

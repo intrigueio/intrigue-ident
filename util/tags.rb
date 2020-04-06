@@ -19,7 +19,7 @@ def tag_description(tag_name)
     "IaaS" => "Identified as Infrastructure as a Service. Used when the entity is identified as a IaaS platform (ex: AWS, GCP, Azure, etc).",
     "Networking" => "Identified as hardware or software relevant to the network infrastructure.",
     "PaaS" => "Identified as Platform as a Service. Used when a Platform that hosts user code is identified (ex: Heroku, Joyent, etc).",
-    "SaaS" => "Identified as oftware as a Service. Used when the entity is hosted as SaaS. (ex: StatusPage, Wix, etc)",
+    "SaaS" => "Identified as Software as a Service. Used when the entity is hosted as SaaS. (ex: StatusPage, Wix, etc)",
     "WAF" => "Identified as Web Application Firewall (ex: Cloudflare, Incapsula, etc).",
     "Web Server" => "Identified as web server software. (ex: Apache, Nginx, IIS)",
   }
