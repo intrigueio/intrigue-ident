@@ -1,21 +1,21 @@
 module Intrigue
 module Ident
 module Check
-class DNSME < Intrigue::Ident::Check::Base
+class DnsMadeEasy < Intrigue::Ident::Check::Base
 
     def generate_checks(url)
     [
         {
             :type => "fingerprint",
             :category => "service",
-            :tags => ["CDN","WAF","SaaS"],
+            :tags => ["CDN","SaaS"],
             :vendor => "DNS Made Easy",
             :product => "DNS Made Easy",
             :website => "https://dnsmadeeasy.com/",
-            :match_details => "Server header",
+            :match_details => "DNS Made Easy redirection header",
             :version => nil,
             :match_type => :content_headers,
-            :match_content =>  /server: DNSME HTTP Redirection/i,
+            :match_content =>  /^server: DNSME HTTP Redirection$/i,
             :paths => ["#{url}"],
             :inference => false
         }
