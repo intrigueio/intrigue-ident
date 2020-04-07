@@ -131,8 +131,6 @@ module Http
           response_urls << ident_encode(newuri.to_s)
           uri=newuri
 
-          found = true
-
         elsif response.body =~ /META HTTP-EQUIV=\"?Refresh/i # meta refresh
           # meta refresh redirect
 
@@ -163,7 +161,7 @@ module Http
         end #end redirect handling
 
         ###
-        ### Done Handling Redirects
+        ### Done Handling Redirects, proactively set final_url
         ###
         final_url = uri
 
