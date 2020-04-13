@@ -320,11 +320,11 @@ def main
 
   ## include external checks
   if opts[:include]
-    puts "Including checks from path: #{opts[:include]}"
+    puts "Including checks from path: #{opts[:include]}" if opts[:debug]
     
     # follow directory structure from ident
     Dir.glob("#{opts[:include]}/checks/*/*.rb").each do |p|
-      puts "Requiring include path: #{p}"
+      puts "Requiring include path: #{p}" if opts[:debug]
       require p
     end
     
