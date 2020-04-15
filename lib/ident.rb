@@ -360,25 +360,25 @@ module Intrigue
         cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
 
         ##
-        ## Support for Dynamic Hide
+        ## Support for Dynamic 
         ##
-        if check[:dynamic_issue_name]
-          issue = check[:dynamic_issue_name].call(data)
-        elsif check[:issue_name]
-          issue = check[:issue_name]
+        if check[:dynamic_issue]
+          issue = check[:dynamic_issue].call(data)
+        elsif check[:issue]
+          issue = check[:issue]
         else
-          issue = false
+          issue = nil
         end
         
         ##
-        ## Support for Dynamic Issue
+        ## Support for Dynamic Hide
         ##
-        if check[:dynamic_issue]
-          hide = check[:dynamic_issue].call(data)
-        elsif check[:issue]
-          hide = check[:issue]
+        if check[:dynamic_hide]
+          hide = check[:dynamic_hide].call(data)
+        elsif check[:hide]
+          hide = check[:hide]
         else
-          hide = nil
+          hide = false
         end
 
         ##
