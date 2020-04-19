@@ -89,6 +89,19 @@ class Automattic < Intrigue::Ident::Check::Base
         :match_details =>"common link",
         :version => nil,
         :match_type => :content_body,
+        :match_content => /src=\'\/wp-includes\/js\/jquery\/jquery-new\.js\'\>/,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["CMS"],
+        :vendor =>"Wordpress",
+        :product =>"Wordpress",
+        :match_details =>"common link",
+        :version => nil,
+        :match_type => :content_body,
         :match_content =>  /<link rel='https:\/\/api.w.org\/'/,
         :paths => ["#{url}"],
         :inference => false
