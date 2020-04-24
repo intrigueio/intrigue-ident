@@ -32,7 +32,23 @@ class Jquery < Intrigue::Ident::Check::Base
         :match_content =>  /jquery\.dataTables\.min\.js[\"|\']\>/i,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Javascript"],
+        :vendor => "JQuery",
+        :product =>"JQuery",
+        :match_details =>"filename",
+        :match_type => :content_body,
+        :version => nil,
+        :references => [],
+        :match_content =>  /src=.*?\/jquery-([\d\.]+).js\"\>/i,
+        :dynamic_version => lambda { |x| _first_body_capture(x, /src=.*?\/jquery-([\d\.]+).js\"\>/i)},
+        :paths => ["#{url}"],
+        :inference => true
       }
+      
     ]
   end
 
