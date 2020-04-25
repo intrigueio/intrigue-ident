@@ -17,3 +17,8 @@ jobs:
             gem update --system
             gem install bundler:2.1.4
             bundle install
+      - run specs:
+        name: Run specs
+        command:  | 
+          bundle exec rspec spec
+    
