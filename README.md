@@ -1,17 +1,15 @@
-Ident is the an fingerprinting library, and is used within Intrigue Core. 
+Ident is an application and service fingerprinting library used within Intrigue Core. 
 
 The Ident project has a few stated goals: 
-
- - To deeply identify network service ad app software while remain extremely fast by limiting necessary requests
+ - To deeply identify network service and app software while remain extremely fast - limiting unnecessary requests
  - To be the most complete library for modern application and server software identification 
  - To integrate well as a library, for easy use in other projects
  - To be commercially viable through use of the BSD license
- - To maintain a robust command line interface, for use as a standalone tool 
+ - To maintain a robust command line interface for use as a standalone tool 
 
- Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. It integrates with headless Chrome for checks that require the DOM. 
+ Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. 
 
- Below, find instruction on how to get stated
-
+ Below, find instruction on how to get stated:
 
 Using ident via Docker image:
 =============================
