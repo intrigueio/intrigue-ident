@@ -4,23 +4,6 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
-      def grab_banner_ssh(ip, port, timeout=30)
-          
-        if socket = connect_tcp(ip, port, timeout)
-          #socket.writepartial("HELO friend.local\r\n\r\n")
-          begin 
-            out = socket.readpartial(2048, timeout: timeout)
-          rescue Socketry::TimeoutError
-            puts "Error while reading! Timeout."
-            out = nil
-          end
-        else 
-          out = nil
-        end
-        
-      out
-      end
-
       def generate_ssh_request_and_check(ip, port=22, debug=false)
 
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
@@ -42,6 +25,25 @@ module Intrigue
         end
   
       results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
+      end
+
+      private
+
+      def grab_banner_ssh(ip, port, timeout=30)
+          
+        if socket = connect_tcp(ip, port, timeout)
+          #socket.writepartial("HELO friend.local\r\n\r\n")
+          begin 
+            out = socket.readpartial(2048, timeout: timeout)
+          rescue Socketry::TimeoutError
+            puts "Error while reading! Timeout."
+            out = nil
+          end
+        else 
+          out = nil
+        end
+        
+      out
       end
 
 
