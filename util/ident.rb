@@ -37,7 +37,6 @@ def check_single_ip(opts)
 
 end
 
-
 def check_file_urls(opts)
 
   filepath = opts[:file]
@@ -268,6 +267,13 @@ def write_standard_csv(output_q)
 
 end
 
+def list_checks
+  Intrigue::Ident::Http::CheckFactory.checks.map{|x| x.new.generate_checks("[uri]") }.flatten
+  #Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
+  #Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
+  #Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
+end
+
 def main
 
   begin 
@@ -296,6 +302,7 @@ def main
       o.bool    '-c', '--content', 'show content checks'
       o.bool    '-b', '--only-check-base-url', 'only base url '
       o.bool    '-d', '--debug', 'enable debug mode'
+      o.bool    '-l', '--list-checks', 'just list checks'  
 
       o.on "-h", "--help" do
         puts o
@@ -313,11 +320,6 @@ def main
     return
   end
 
-  unless opts[:url] || opts[:file] || opts[:ip]
-    puts "Error! At least one of --file, --url, or --ip must be specified"
-    return
-  end
-
   ## include external checks
   if opts[:include]
     puts "Including checks from path: #{opts[:include]}" if opts[:debug]
@@ -329,6 +331,22 @@ def main
     end
     
   end 
+
+  if opts[:'list-checks']
+    list_checks.sort_by{|c| "#{c[:type]}" }.each {|c| 
+    puts " - #{c[:type]} ... #{c[:name]} #{c[:vendor]} #{c[:product]} #{c[:version]}" + 
+        " (Version detection: #{!c[:dynamic_version].nil?})" + 
+        " (Hide: #{c[:hide]})" + 
+        " (Vulns: #{c[:inference]})" + 
+        " #{c[:paths]} ... #{c[:tags]}"}
+    return
+  end
+
+
+  unless opts[:url] || opts[:file] || opts[:ip]
+    puts "Error! At least one of --file, --url, or --ip must be specified"
+    return
+  end
 
   ## handle url input
   if opts[:url]

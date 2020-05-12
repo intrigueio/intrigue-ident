@@ -29,7 +29,7 @@ class WpEngine < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^x-powered-by: WP Engine$/,
-        :hide => true,
+        :hide => false,
         :paths => ["#{url}"],
         :inference => false
       },
@@ -42,8 +42,9 @@ class WpEngine < Intrigue::Ident::Check::Base
         :match_details =>"WPEngine header",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^wpe-backend:/, # note that this will tell us the server ala,,,   "wpe-backend: apache",
-        :hide => true,
+        # TODO note that this will tell us the server ala,,,   "wpe-backend: apache",
+        :match_content =>  /^wpe-backend:/, 
+        :hide => false,
         :paths => ["#{url}"],
         :inference => false
       }
