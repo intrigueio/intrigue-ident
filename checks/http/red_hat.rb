@@ -61,13 +61,27 @@ class RedHat < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["Application Server"],
         :vendor => "Red Hat",
-        :product => "JBOss Core Services",
+        :product => "JBoss Core Services",
         :references => ["https://www.redhat.com/en/resources/jboss-core-services-collection-datasheet"],
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^Server:\ JBCS\ httpd$/i,
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^Server:\ JBCS\ httpd$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBoss Enterprise Application Platform",
+        :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1049103"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /X-Powered-By: JSP\/2./i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false

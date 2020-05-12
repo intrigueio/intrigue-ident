@@ -25,6 +25,19 @@ module Intrigue
           :vendor => "Microsoft",
           :product =>"ASP.NET",
           :version => nil,
+          :match_type => :content_cookies,
+          :match_content =>  /AspNetCore.Antiforgery/i,
+          :match_details =>"ASP.Net Antiforgery cookie",
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Web Framework"],
+          :vendor => "Microsoft",
+          :product =>"ASP.NET",
+          :version => nil,
           :dynamic_version => lambda{|x| 
             _first_body_capture(x,/ASP.NET Version:\ ([\d\.]*)/i)},
           :match_type => :content_body,
