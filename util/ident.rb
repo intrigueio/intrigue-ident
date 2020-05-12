@@ -27,6 +27,8 @@ def check_single_ip(opts)
     results = generate_snmp_request_and_check(ip, port || 161)
   elsif  opts[:proto] == "smtp"
     results = generate_smtp_request_and_check(ip, port || 25)
+  elsif  opts[:proto] == "ssh"
+    results = generate_ssh_request_and_check(ip, port || 22)
   else 
     puts "Error! Unknown protocol!"
     puts "We know about the following: #{allowed_protocols.join(", ")}"

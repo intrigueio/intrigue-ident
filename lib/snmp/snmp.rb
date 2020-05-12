@@ -6,6 +6,31 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
+      def generate_snmp_request_and_check(ip, port=161, debug=false)
+        
+        # do the request (store as string and funky format bc of usage in core.. and  json conversions)
+        banner_string = grab_banner_smtp(ip,port)
+        details = {
+          "details" => {
+            "banner" => banner_string
+          }
+        }
+
+        results = []
+
+        # generate the checks 
+        checks = Intrigue::Ident::Snmp::CheckFactory.checks.map{ |x| x.new.generate_checks }.compact.flatten
+
+        # and run them against our result
+        checks.each do |check|
+          results << match_snmp_response_hash(check,details)
+        end
+
+      results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
+      end
+
+      private
+
       def grab_banner_snmp(ip, port=161, community="public", timeout=60)
           
         snmp_args = { :host => ip, :port => port, :community => community, :timeout => timeout }

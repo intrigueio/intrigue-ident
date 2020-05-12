@@ -1,4 +1,4 @@
-#require 'socketry'
+require 'socketry'
 
 module Intrigue
   module Ident
