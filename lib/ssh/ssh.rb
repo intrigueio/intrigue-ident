@@ -21,7 +21,7 @@ module Intrigue
       out
       end
 
-      def generate_ssh_request_and_check(ip, port=25, debug=false)
+      def generate_ssh_request_and_check(ip, port=22, debug=false)
 
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
         banner_string = grab_banner_ssh(ip,port)
