@@ -7,7 +7,7 @@ include Intrigue::Ident
 include Intrigue::Ident::Utils
 
 def allowed_protocols
-  ["ftp", "smtp", "snmp"]
+  ["ftp", "smtp", "snmp", "ssh"]
 end
 
 def check_single_ip(opts)
@@ -270,10 +270,11 @@ def write_standard_csv(output_q)
 end
 
 def list_checks
-  Intrigue::Ident::Http::CheckFactory.checks.map{|x| x.new.generate_checks("[uri]") }.flatten
-  #Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
-  #Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
-  #Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks.flatten
+  Intrigue::Ident::Http::CheckFactory.checks.map{|x| x.new.generate_checks("[uri]") }.concat(
+  Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
+  Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
+  Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
+  Intrigue::Ident::Ssh::CheckFactory.checks.map{|x| x.new.generate_checks}).flatten
 end
 
 def main
