@@ -56,6 +56,46 @@ Content Checks:
  - X-XSS-Protection Header: false
 ```
 
+
+Installing directly on Ubuntu 18.04:
+===========================
+1) [Install rbenv 2.6.5](https://gorails.com/setup/ubuntu/18.04#ruby-rbenv) (if you don't already have it, make sure to use 2.6.5 not 2.7.1)
+2) Install bundler `gem install bundler`
+4) Clone the ident repository `git clone https://github.com/intrigueio/intrigue-ident.git`
+5) Install the ident gem dependencies `bundle install`
+6) Now use the check utility to test. Example below:
+```
+$ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
+Checking... https://xyz.com:443
+Fingerprint:
+ - PHP PHP 5.4.16  - x-powered-by header (CPE: cpe:2.3:a:php:php:5.4.16:) (Tags: ["Web Framework"])
+   - Vuln: CVE-2016-5768 (CVSSv3: 9.8)
+   - Vuln: CVE-2016-4538 (CVSSv3: 9.8)
+ - PHP PHP   - PHPSESSID cookie (CPE: cpe:2.3:a:php:php::) (Tags: ["Web Framework"])
+ - Apache HTTP Server 2.4.6  - Apache web server - server header - with versions (CPE: cpe:2.3:a:apache:http_server:2.4.6:) (Tags: ["Web Server"])
+   - Vuln: CVE-2018-1312 (CVSSv3: 9.8)
+   - Vuln: CVE-2017-15715 (CVSSv3: 8.1)
+ - Wordpress Wordpress   - common link (CPE: cpe:2.3:a:wordpress:wordpress::) (Tags: ["CMS"])
+ - Yoast Wordpress SEO   - unique string (CPE: cpe:2.3:a:yoast:wordpress_seo::) (Tags: ["Marketing", "Wordpress Plugin"])
+ - Bootstrap Bootstrap   - boostrap css (CPE: cpe:2.3:a:bootstrap:bootstrap::) (Tags: ["Web Framework"])
+ - OpenSSL OpenSSL 1.0.2k-fips  - server header (CPE: cpe:2.3:a:openssl:openssl:1.0.2k-fips:) (Tags: ["Library"])
+   - Vuln: CVE-2018-0732 (CVSSv3: 7.5)
+Content Checks:
+ - Authentication - HTTP: false
+ - Authentication - Session Identifier: true
+ - Google Analytics Account Detected: false
+ - Location Header: 
+ - Directory Listing Detected: false
+ - Form Detected: false
+ - File Upload Form Detected: false
+ - Email Addresses Detected: []
+ - Access-Control-Allow-Origin Header: false
+ - P3P Header: false
+ - X-Frame-Options Header: true
+ - X-XSS-Protection Header: false
+```
+
+
 Implementing Ident: 
 ===================
 
