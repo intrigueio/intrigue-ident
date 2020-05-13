@@ -305,7 +305,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity","COTS", "Email"],
+          :tags => ["Productivity","COTS","Mail Server", "Email"],
           :vendor => "Microsoft",
           :product =>"Exchange Server",
           :references => ["https://support.microsoft.com/en-us/help/4036163/you-can-t-access-owa-or-ecp-after-you-install-exchange-server-2016-cu6"],
@@ -319,7 +319,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity","COTS", "Email"],
+          :tags => ["Productivity","COTS", "Mail Server", "Email"],
           :vendor => "Microsoft",
           :product =>"Exchange Server",
           :references => [],
@@ -333,7 +333,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity", "COTS"],
+          :tags => ["Productivity", "Mail Server", "COTS"],
           :vendor => "Microsoft",
           :product =>"Exchange Server",
           :match_details =>"OWA Header -> Exchange server inference",
@@ -354,7 +354,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity","COTS", "Email"],
+          :tags => ["Productivity","COTS", "Mail Server", "Email"],
           :vendor => "Microsoft",
           :product =>"Exchange Server",
           :references => ["https://bit.ly/2k4Yoot"],
@@ -382,7 +382,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity","COTS", "Email"],
+          :tags => ["Productivity","COTS", "Mail Server", "Email"],
           :vendor => "Microsoft",
           :product =>"Exchange Server",
           :references => ["https://bit.ly/2k4Yoot"],
@@ -449,7 +449,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Library"],
+          :tags => ["Library", "Application Server"],
           :vendor =>"Microsoft",
           :product =>"Frontpage",
           :match_details =>"server header",
@@ -656,7 +656,20 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity", "COTS"],
+          :tags => ["Productivity", "Mail Server", "COTS"],
+          :vendor => "Microsoft",
+          :product =>"Outlook Web Access",
+          :match_details =>"Microsoft Outlook Web Access",
+          :version => nil,
+          :match_type => :content_headers,
+          :match_content =>  /location: \/owa/,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Productivity", "Mail Server", "COTS"],
           :vendor => "Microsoft",
           :product =>"Outlook Web Access",
           :match_details =>"Microsoft Outlook Web Access (header)",
@@ -671,7 +684,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity", "COTS"],
+          :tags => ["Productivity", "Mail Server", "COTS"],
           :vendor => "Microsoft",
           :product =>"Outlook Web Access",
           :match_details =>"Microsoft Outlook Web Access (body)",
@@ -686,7 +699,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Productivity", "COTS"],
+          :tags => ["Productivity", "Mail Server", "COTS"],
           :vendor => "Microsoft",
           :product =>"Outlook Web Access",
           :match_details =>"title",
