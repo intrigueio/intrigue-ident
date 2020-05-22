@@ -10,7 +10,22 @@ class Cloudflare < Intrigue::Ident::Check::Base
         :category => "service",
         :tags => ["CDN","WAF"],
         :vendor => "Cloudflare",
-        :product => "Cloudflare Error",
+        :product => "Cloudflare",
+        :match_type => :content_title,
+        :match_content => /1.1.1.1 â\u0080\u0094 The free app that makes your Internet faster./i,
+        :match_details =>"cloudflare known error",
+        :dynamic_hide => lambda{ |x| 
+          return true if _uri_match(x,/1\.1\.1\.1:/) || _uri_match(x,/1\.0\.0\.1:/)
+        },        
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN","WAF"],
+        :vendor => "Cloudflare",
+        :product => "Cloudflare",
         :version => nil,
         :match_type => :content_body,
         :match_content => /<title>403 Forbidden<\/title>.*<center>cloudflare<\/center>/mi,

@@ -349,12 +349,12 @@ module Http
 
         end #end redirect handling
 
-        ###
-        ### Done Handling Redirects, proactively set final_url
-        ###
-        final_url = uri
-
       end #until
+
+      ###
+      ### Done Handling Redirects, proactively set final_url
+      ###
+      final_url = uri.to_s
 
     ### TODO - create a global $debug config option
     
@@ -410,7 +410,7 @@ module Http
     out = {
       :timeout => timeout,
       :start_url => uri_string,
-      :final_url => final_url.to_s,
+      :final_url => final_url,
       :request_type => :ruby,
       :request_method => method,
       :request_credentials => credentials,
