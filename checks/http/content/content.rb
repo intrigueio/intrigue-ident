@@ -23,7 +23,7 @@ class Content < Intrigue::Ident::Check::Base
           _first_body_match(d, /<h1>Index of \//) || 
           _first_body_match(d, /\[To Parent Directory\]/) ) ? true : false },
         :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| "directory_listing_detected" },
+        :issue => "directory_listing_detected",
         :paths => ["#{url}"]
       },
       #{
