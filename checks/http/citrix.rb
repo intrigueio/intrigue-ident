@@ -13,22 +13,8 @@ class Citrix < Intrigue::Ident::Check::Base
         :product => "NetScaler Gateway",
         :match_details => "title",
         :version => nil,
-        :match_type => :content_dom, # weird redirect thing happening...
-        :match_content => /<title>NetScaler Gateway/,
-        :hide => false,
-        :paths => ["#{url}"],
-        :inference => false
-      },
-      {
-        :type => "fingerprint",
-        :category => "operating_system",
-        :tags => ["Networking","COTS", "VPN"],
-        :vendor => "Citrix",
-        :product => "NetScaler Gateway",
-        :match_details => "title",
-        :version => nil,
         :match_type => :content_title,
-        :match_content => /NetScaler Gateway/,
+        :match_content => /NetScaler Gateway/i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
@@ -42,7 +28,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_details => "(often) customized logon page - netscaler gateway",
         :version => nil,
         :match_type => :content_body,
-        :match_content => /CTXMSAM_LogonFont/,
+        :match_content => /CTXMSAM_LogonFont/i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
@@ -57,7 +43,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :references => ["https://support.citrix.com/article/CTX211605"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content => /^cteonnt-length:.*$/,
+        :match_content => /^cteonnt-length:.*$/i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
@@ -72,12 +58,40 @@ class Citrix < Intrigue::Ident::Check::Base
         :references => ["https://support.citrix.com/article/CTX131488"],
         :version => nil,
         :match_type => :content_cookies,
-        :match_content => /citrix_ns_id=/,
+        :match_content => /citrix_ns_id=/i,
         :hide => false,
         :paths => ["#{url}"],
         :verify => ["dW5kZXJhcm1vdXIjSW50cmlndWU6OkVudGl0eTo6VXJpI2h0dHA6Ly8yMDQuMjkuMTk2LjEwMjo4MA=="],
         :inference => false
       },
+      {
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["Networking", "COTS", "VPN"],
+        :vendor => "Citrix",
+        :product => "NetScaler Gateway",
+        :match_details => "redirect",
+        :references => ["https://support.citrix.com/article/CTX131488"],
+        :match_type => :content_headers,
+        :match_content => /^location: \/vpn\/index\.html$/i ,
+        :hide => false,
+        :paths => ["#{url}/doesntexist-123"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["Networking", "COTS", "VPN"],
+        :vendor => "Citrix",
+        :product => "NetScaler Gateway",
+        :match_details => "cookie",
+        :references => [],
+        :match_type => :content_cookies,
+        :match_content => /NSC_TASS=\/doesntexist-123\/vpn\/index\.html/i ,
+        :hide => false,
+        :paths => ["#{url}/doesntexist-123"],
+        :inference => false
+      },  
       {
         :type => "fingerprint",
         :category => "application",

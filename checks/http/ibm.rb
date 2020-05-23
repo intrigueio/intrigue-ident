@@ -96,7 +96,6 @@ class Ibm < Intrigue::Ident::Check::Base
         :vendor => "IBM",
         :product =>"WebSEAL",
         :references => ["https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html"],
-        :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server:\ WebSEAL\/[\d\.]{1,}(\ \(Build \d{6}\)){0,1}$/i,
         :dynamic_version => lambda { |x| 
@@ -111,12 +110,26 @@ class Ibm < Intrigue::Ident::Check::Base
         :vendor => "IBM",
         :product =>"WebSphere",
         :references => ["https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c"],
-        :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^\$WSEP:.*$/i,
         :match_details => "header",
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "IBM",
+        :product =>"WebSphere",
+        :references => [],
+        :match_type => :content_headers,
+        :match_content =>  /^server: WebSphere Application Server\/[\d\.]+$/i,
+        :dynamic_version => lambda { |x| 
+          _first_header_capture(x,/^server: WebSphere Application Server\/([\d\.]+)/i) },
+        :match_details => "webphere header",
+        :paths => ["#{url}"],
+        :inference => true
       },
       {
         :type => "fingerprint",

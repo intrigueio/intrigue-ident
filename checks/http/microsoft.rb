@@ -469,6 +469,18 @@ module Intrigue
           :vendor => "Microsoft",
           :product => "Internet Information Services",
           :match_details =>"server header",
+          :match_type => :content_headers,
+          :match_content =>  /server: Microsoft-IIS/,
+          :paths => ["#{url}"], 
+          :inference => false # not specific enough
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Web Server"],
+          :vendor => "Microsoft",
+          :product => "Internet Information Services",
+          :match_details =>"server header",
           :version => nil,
           :dynamic_version => lambda { |x|
             _first_header_capture x, /server: Microsoft-IIS\/(.*)/
