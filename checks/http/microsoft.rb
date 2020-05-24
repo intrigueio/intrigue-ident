@@ -197,12 +197,25 @@ module Intrigue
           :category => "service",
           :tags => ["Hosting", "Load Balancer", "IaaS"],
           :vendor => "Microsoft",
-          :product =>"Azure",
+          :product => "Azure",
           :match_details => "Proxy service header (x-msedge-ref)",
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^x-msedge-ref:.*/i,
           :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "service",
+          :tags => ["Hosting", "IaaS"],
+          :vendor => "Microsoft",
+          :product => "Azure",
+          :match_details => "proxy default error",
+          :match_type => :content_body,
+          :match_content =>  /<h2>Our services aren\'t available right now<\/h2><p>We\'re working to restore all services as soon as possible. Please check back soon/i,
+          :paths => ["#{url}"], 
+          :hide => true,
           :inference => false
         },
         {
