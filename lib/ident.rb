@@ -182,26 +182,35 @@ module Intrigue
         ##
         if result
         
-          if check[:dynamic_hide]
-            hide = check[:dynamic_hide].call(data) 
-          else 
-            hide = nil
-          end
-
           ##
-          ## Support for Dynamic Issue (must be dynamic, these checks always run)
+          ## Support for Dynamic 
           ##
           if check[:dynamic_issue]
             issue = check[:dynamic_issue].call(data)
+          elsif check[:issue]
+            issue = check[:issue]
           else
             issue = nil
           end
+          
+          ##
+          ## Support for Dynamic Hide
+          ##
+          if check[:dynamic_hide]
+            hide = check[:dynamic_hide].call(data)
+          elsif check[:hide]
+            hide = check[:hide]
+          else
+            hide = false
+          end
 
           ##
-          ## Support for Dynamic Task (must be dynamic, these checks always run)
+          ## Support for Dynamic Task
           ##
           if check[:dynamic_task]
             task = check[:dynamic_task].call(data)
+          elsif check[:task]
+            task = check[:task]
           else
             task = nil
           end
