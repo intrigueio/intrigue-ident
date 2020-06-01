@@ -26,7 +26,7 @@ module Intrigue
           results << match_snmp_response_hash(check,details)
         end
 
-      results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
+      { "fingerprints" => results.uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private
