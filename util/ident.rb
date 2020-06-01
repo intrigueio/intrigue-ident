@@ -29,6 +29,8 @@ def check_single_ip(opts)
     results = generate_smtp_request_and_check(ip, port || 25)
   elsif  opts[:proto] == "ssh"
     results = generate_ssh_request_and_check(ip, port || 22)
+  elsif  opts[:proto] == "telnet"
+    results = generate_telnet_request_and_check(ip, port || 23)
   else 
     puts "Error! Unknown protocol!"
     puts "We know about the following: #{allowed_protocols.join(", ")}"
