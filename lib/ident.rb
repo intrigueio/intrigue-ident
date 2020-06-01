@@ -8,6 +8,10 @@ require 'zlib'
 require_relative 'utils'
 require_relative 'version'
 
+###
+### Start protocol requires 
+###
+
 ##################################
 # Load in http matchers and checks
 ###################################
@@ -75,7 +79,7 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
-# Load in snmp matchers and checks
+# Load in ssh matchers and checks
 ##################################
 require_relative 'ssh/matchers'
 include Intrigue::Ident::Ssh::Matchers
@@ -83,10 +87,27 @@ include Intrigue::Ident::Ssh::Matchers
 require_relative 'ssh/check_factory'
 require_relative '../checks/ssh/base'
 
-# snmp fingerprints
+# ssh fingerprints
 check_folder = File.expand_path('../checks/ssh', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+##################################
+# Load in telnet matchers and checks
+##################################
+require_relative 'telnet/matchers'
+include Intrigue::Ident::Telnet::Matchers
+
+require_relative 'telnet/check_factory'
+require_relative '../checks/telnet/base'
+
+# telnet fingerprints
+check_folder = File.expand_path('../checks/telnet', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+
+###
+### End protocol requires 
+###
 
 # Load vulndb client 
 require_relative "vulndb_client"
