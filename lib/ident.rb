@@ -180,6 +180,7 @@ module Intrigue
         end
 
         to_return = {
+          "method" => "ident",
           "type" => check[:type],
           "vendor" => check[:vendor],
           "product" => check[:product],
