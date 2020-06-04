@@ -8,6 +8,9 @@ module Matchers
   
   require_relative 'content'
   include Intrigue::Ident::Smtp::Content
+  
+  # gives us the recog smtp matchers 
+  include Intrigue::Ident::Recog::Smtp
 
   def match_smtp_response_hash(check,response_hash)
   
