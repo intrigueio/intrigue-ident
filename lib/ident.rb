@@ -8,6 +8,9 @@ require 'zlib'
 require_relative 'utils'
 require_relative 'version'
 
+# integrate recog
+require_relative 'recog'
+
 ###
 ### Start protocol requires 
 ###
@@ -103,7 +106,6 @@ require_relative '../checks/telnet/base'
 # telnet fingerprints
 check_folder = File.expand_path('../checks/telnet', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
-
 
 ###
 ### End protocol requires 
@@ -253,6 +255,8 @@ module Intrigue
 
 end
 end
+
+
 
 # always include 
 include Intrigue::Ident

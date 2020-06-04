@@ -7,7 +7,9 @@ module Http
   require_relative 'browser'
   include Intrigue::Ident::HttpBrowser
 
-  
+  # gives us the recog http matchers 
+  include Intrigue::Ident::Recog::Http 
+
   # Used by intrigue-core... note that this will currently fail unless
   def generate_http_requests_and_check(url, opts={})
 
@@ -50,7 +52,7 @@ module Http
     end
 
     # Run'm!!!
-    initial_results = run_grouped_http_checks url, grouped_initial_checks, dom_checks, debug
+    initial_results = run_grouped_http_checks(url, grouped_initial_checks, dom_checks, debug)
 
     ###
     ### Follow-on Checks
@@ -83,11 +85,12 @@ module Http
       followon_results = {
         "fingerprint" => [], 
         "content" => [],
+        "recog" => [],
         "responses" => [],
         "check_count" => []
       }
     end
-    
+  
     ###
     ### Generate output
     ###
@@ -95,6 +98,7 @@ module Http
     out = {
       "url" => initial_results["url"], # same
       "fingerprint" => initial_results["fingerprint"].concat(followon_results["fingerprint"]),
+      "recog" => initial_results["recog"].concat(followon_results["recog"]),
       "content" => initial_results["content"].concat(followon_results["content"]),
       "responses" => initial_results["responses"].concat(followon_results["responses"]),
       "initial_checks" => initial_results["check_count"],
@@ -110,6 +114,7 @@ module Http
 
     # shove results into an array
     results = []
+    recog_results = []
 
     # keep an array of the request / response details
     responses = []
@@ -156,9 +161,15 @@ module Http
         end
       end
 
+      puts "matching" if debug
+
       # Go ahead and match it up if we got a response!
       if response_hash || browser_response
+        
         # call each check, collecting the product if it's a match
+        ###
+        ### APPLY THE IDENT!
+        ###
         ggc.last.each do |check|
 
           # if we have a check that should match the dom, run it
@@ -167,8 +178,24 @@ module Http
           else #otherwise use the normal flow
             results << match_http_response_hash(check,response_hash)
           end
-
         end
+
+        ###
+        ### APPLY THE RECOG!
+        ###
+        puts "Running recog" if debug
+
+        # now run recog against the current grab
+        server_headers = response_hash[:response_headers].select{|x| x =~ /^server:.*$/i }
+        if server_headers.count > 0 
+          recog_results << recog_match_http_server_banner(server_headers.first)
+        end
+
+        cookies_headers = response_hash[:response_headers].select{|x| x =~ /^set-cookie:.*$/i }
+        if cookies_headers.count > 0 
+          recog_results << recog_match_http_cookies(cookies_headers.first)
+        end
+
       end
     end
 
@@ -183,6 +210,7 @@ module Http
     out["content"] = [] unless out["content"]
 
     # only return unique results
+    out["recog"] = recog_results.uniq
     out["fingerprint"] = out["fingerprint"].uniq
     out["content"] = out["content"].uniq
     out["url"] = url
