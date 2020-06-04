@@ -16,7 +16,6 @@ Using ident via Docker image:
 1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
   `docker pull intrigueio/intrigue-ident && docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
 
-
 Installing directly on OSX:
 ===========================
 1) [Install brew](https://brew.sh/) (if you don't already have it)
@@ -56,14 +55,10 @@ Content Checks:
  - X-XSS-Protection Header: false
 ```
 
-Implementing Ident: 
+For Check Writers: 
 ===================
-
-If you'd like to integrate ident as a library, you have two options, you can use the library directly or you can integrate our JSON feed. Details on the feed can be here: https://app.intrigue.io/api 
-
-Implementation details: 
 ```
-check types are in the following categories. See each check's 'match_content': 
+HTTP Check types are in the following categories. See each check's 'match_content': 
  - content_body: checks should be run against body
  - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
  - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
@@ -76,6 +71,7 @@ Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
+ - @duartemateus: Checks!
  - @jen140: Checks
  - @bensalah_anas: Checks
  - @bcoles: Checks, bugfixes, JSON output
