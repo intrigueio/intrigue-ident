@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = "intrigue-ident"
-  spec.version       = "0.9.3"
+  spec.version       = "0.9.9"
   spec.authors       = ["jcran"]
   spec.email         = ["jcran@intrigue.io"]
 
@@ -19,5 +19,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "socketry"
   spec.add_runtime_dependency "snmp"
-  spec.add_runtime_dependency "recog"
+  spec.add_runtime_dependency "recog-intrigue"
 end
