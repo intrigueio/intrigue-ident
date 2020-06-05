@@ -2,7 +2,7 @@ require 'recog'
 
 module Intrigue
 module Ident
-module RecogWrappers
+module RecogWrapper
 
 module Helpers
 
