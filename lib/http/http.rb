@@ -8,7 +8,7 @@ module Http
   include Intrigue::Ident::HttpBrowser
 
   # gives us the recog http matchers 
-  include Intrigue::Ident::Recog::Http 
+  include Intrigue::Ident::RecogWrapper::Http 
 
   # Used by intrigue-core... note that this will currently fail unless
   def generate_http_requests_and_check(url, opts={})

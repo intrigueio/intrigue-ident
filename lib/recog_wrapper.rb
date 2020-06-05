@@ -2,7 +2,7 @@ require 'recog'
 
 module Intrigue
 module Ident
-module Recog
+module RecogWrappers
 
 module Helpers
 
@@ -26,7 +26,7 @@ module Helpers
 end
 
 module Http
-  include Intrigue::Ident::Recog::Helpers
+  include Intrigue::Ident::RecogWrapper::Helpers
 
   def recog_match_http_server_banner(banner)
     options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
@@ -52,7 +52,7 @@ module Http
 end
 
 module Smtp
-  include Intrigue::Ident::Recog::Helpers
+  include Intrigue::Ident::RecogWrapper::Helpers
   def recog_match_smtp_banner(string)
     options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("smtp_banners.xml");nil
