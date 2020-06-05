@@ -26,7 +26,7 @@ module Intrigue
 
         recog_results = recog_match_smtp_banner(banner_string)
   
-      { "fingerprints" => results.uniq.compact, "banner" => banner_string, "recog" => recog_results, "content" => [] }
+      { "fingerprints" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private
