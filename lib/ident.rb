@@ -9,7 +9,7 @@ require_relative 'utils'
 require_relative 'version'
 
 # integrate recog
-require_relative 'recog'
+require_relative 'recog_wrapper'
 
 ###
 ### Start protocol requires 
