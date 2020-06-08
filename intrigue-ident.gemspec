@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "socketry"
   spec.add_runtime_dependency "snmp"
+  spec.add_runtime_dependency "recog-intrigue"
 end

@@ -10,7 +10,7 @@ module Matchers
   include Intrigue::Ident::Smtp::Content
   
   # gives us the recog smtp matchers 
-  include Intrigue::Ident::Recog::Smtp
+  include Intrigue::Ident::RecogWrapper::Smtp
 
   def match_smtp_response_hash(check,response_hash)
   
