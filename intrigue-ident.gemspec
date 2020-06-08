@@ -1,7 +1,10 @@
+# encoding: utf-8
+require File.expand_path("../lib/version", __FILE__)
+
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = "intrigue-ident"
-  spec.version       = "0.9.9"
+  spec.version       = Ident::VERSION
   spec.authors       = ["jcran"]
   spec.email         = ["jcran@intrigue.io"]
 

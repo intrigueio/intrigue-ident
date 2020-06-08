@@ -17,7 +17,7 @@ class Jquery < Intrigue::Ident::Check::Base
         :dynamic_version => lambda {|x| 
           _first_body_capture(x,/jQuery v(\d\.\d\.\d) \| \(c\) JS Foundation and other contributors/i) },
         :paths => ["#{url}"],
-        :inference => false
+        :inference => true
       }
     ]
   end
