@@ -36,6 +36,10 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
+# http content, javascript specific checks
+content_check_folder = File.expand_path('../checks/http/javascript', File.dirname(__FILE__)) # get absolute directory
+Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
+
 # General helpers (apply widely across protocols)
 
 require_relative 'simple_socket'
