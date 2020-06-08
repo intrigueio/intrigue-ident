@@ -4,9 +4,6 @@ module Intrigue
 module Ident
 module Http
 
-  require_relative 'browser'
-  include Intrigue::Ident::HttpBrowser
-
   # gives us the recog http matchers 
   include Intrigue::Ident::RecogWrapper::Http 
 
@@ -158,27 +155,8 @@ module Http
 
       responses << response_hash
 
-      # Only if we are running browser checks
-      if dom_checks
-        # get the dom via a browser
-        if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
-          #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
-          session = ident_create_browser_session
-          browser_response = ident_capture_document(session,"#{target_url}")
-
-          # save the response to our list of responses
-          # TODO - collect redirects here
-          # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
-          responses << browser_response
-
-          ident_destroy_browser_session session
-        end
-      end
-
-      puts "matching" if debug
-
       # Go ahead and match it up if we got a response!
-      if response_hash || browser_response
+      if response_hash
         
         # call each check, collecting the product if it's a match
         ###

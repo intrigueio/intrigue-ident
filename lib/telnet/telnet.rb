@@ -4,6 +4,9 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
+      # gives us the recog telnet matchers 
+      include Intrigue::Ident::RecogWrapper::Telnet
+
       def generate_telnet_request_and_check(ip, port=23, debug=false)
 
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
@@ -24,7 +27,10 @@ module Intrigue
           results << match_telnet_response_hash(check,details)
         end
   
-      { "fingerprints" => results.uniq.compact, "banner" => banner_string, "content" => [] }
+        # Run recog across the banner
+        recog_results = recog_match_telnet_banner(banner_string)
+  
+      { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private

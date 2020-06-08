@@ -4,6 +4,9 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
+      # gives us the recog smtp matchers 
+      include Intrigue::Ident::RecogWrapper::Smtp
+
       def generate_smtp_request_and_check(ip, port=25, debug=false)
 
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
@@ -23,10 +26,11 @@ module Intrigue
         checks.each do |check|
           results << match_smtp_response_hash(check,details)
         end
-
+  
+        # Run recog across the banner
         recog_results = recog_match_smtp_banner(banner_string)
   
-      { "fingerprints" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
+      { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private

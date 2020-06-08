@@ -25,6 +25,21 @@ module Helpers
 
 end
 
+
+module Ftp
+  include Intrigue::Ident::RecogWrapper::Helpers
+  def recog_match_ftp_banner(string)
+    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("ftp_banners.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+    # now convert it 
+    matches.map {|m| recog_to_ident_hash(m)}
+  end
+end
+
 module Http
   include Intrigue::Ident::RecogWrapper::Helpers
 
@@ -56,6 +71,48 @@ module Smtp
   def recog_match_smtp_banner(string)
     options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("smtp_banners.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+    # now convert it 
+    matches.map {|m| recog_to_ident_hash(m)}
+  end
+end
+
+module Snmp
+  include Intrigue::Ident::RecogWrapper::Helpers
+  def recog_match_snmp_banner(string)
+    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("snmp_banners.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+    # now convert it 
+    matches.map {|m| recog_to_ident_hash(m)}
+  end
+end
+
+module Ssh
+  include Intrigue::Ident::RecogWrapper::Helpers
+  def recog_match_ssh_banner(string)
+    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("ssh_banners.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+    # now convert it 
+    matches.map {|m| recog_to_ident_hash(m)}
+  end
+end
+
+module Telnet
+  include Intrigue::Ident::RecogWrapper::Helpers
+  def recog_match_telnet_banner(string)
+    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("telnet_banners.xml");nil
     options.fingerprints = ndb.fingerprints;nil
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)

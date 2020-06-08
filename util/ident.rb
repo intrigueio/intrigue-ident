@@ -6,41 +6,6 @@ require 'thread'
 include Intrigue::Ident
 include Intrigue::Ident::Utils
 
-def allowed_protocols
-  ["ftp", "smtp", "snmp", "ssh"]
-end
-
-def check_single_ip(opts)
-  
-  unless opts[:proto]
-    puts "Unable to continue, protocol must be specified!"
-    puts "Use the --proto option!"
-    return
-  end
-  
-  ip = opts[:ip]
-  port = opts[:port]
-
-  if opts[:proto] == "ftp"
-    results = generate_ftp_request_and_check(ip, port || 21)
-  elsif opts[:proto] == "snmp"
-    results = generate_snmp_request_and_check(ip, port || 161)
-  elsif  opts[:proto] == "smtp"
-    results = generate_smtp_request_and_check(ip, port || 25)
-  elsif  opts[:proto] == "ssh"
-    results = generate_ssh_request_and_check(ip, port || 22)
-  elsif  opts[:proto] == "telnet"
-    results = generate_telnet_request_and_check(ip, port || 23)
-  else 
-    puts "Error! Unknown protocol!"
-    puts "We know about the following: #{allowed_protocols.join(", ")}"
-  end
-
-  puts "Got Results:"
-  puts results.inspect
-
-end
-
 def check_file_urls(opts)
 
   filepath = opts[:file]
@@ -106,67 +71,89 @@ def check_file_urls(opts)
 
 end
 
-def check_single_url(opts)
+def check_single_uri(opts)
 
   query_vulns = opts[:vulnerabilities] || false
   debug = opts[:debug]
   json = opts[:json] || false
 
-  if opts[:url] 
+  if uri = opts[:uri]
 
-    url = opts[:url]
+    if uri =~ /^http[s]?:\/\/.*$/      
+      check_result = generate_http_requests_and_check(uri, opts)
+      if debug 
+        puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
+        if !check_result["followon_checks"].empty?
+          puts "Also checked the following urls due to initial fingerprint:"
+          check_result["followon_checks"].each{|x| puts " - #{x["url"]}\n" }
+        end
+      end 
+  
+      #
+      # Handle debug output for https  
+      #
+      if debug
+        i= 0
+        if check_result["requests"]
 
-    unless url =~ /^http[s]?:\/\/.*$/
-      puts "Unable to parse URL (#{url}), please append http or https in front."
-      exit
+          # delete any existing file
+          File.delete "debug.txt" if File.exist? "debug.txt" 
+
+          check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
+
+            safex = encode_hash x 
+
+            # increment the request number
+            i+=1
+
+            # print it
+            puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
+
+            # write the contents to a file
+            File.open("requests.txt","a") do |f|
+              f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
+            end
+
+          end
+        end
+      end
+
+    else # not http 
+
+      parsed_uri = URI(uri)
+      
+      proto = "#{parsed_uri.scheme}".downcase 
+      ip = parsed_uri.hostname
+      port = parsed_uri.port
+
+      puts "Checking ... PROTO: #{proto} | HOST: #{ip} | PORT: #{port || "default"}" if debug
+    
+      if proto == "ftp"
+        check_result = generate_ftp_request_and_check(ip, port || 21)
+      elsif proto == "snmp"
+        check_result = generate_snmp_request_and_check(ip, port || 161)
+      elsif  proto == "smtp"
+        check_result = generate_smtp_request_and_check(ip, port || 25)
+      elsif  proto == "ssh"
+        check_result = generate_ssh_request_and_check(ip, port || 22)
+      elsif  proto == "telnet"
+        check_result = generate_telnet_request_and_check(ip, port || 23)
+      else 
+        puts "Unable to parse URI (#{uri}). Check -h for supported protocols"
+        exit
+      end
     end
 
-    check_result = generate_http_requests_and_check(url, opts)
-
-    if debug 
-      puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
-      if !check_result["followon_checks"].empty?
-        puts "Also checked the following urls due to initial fingerprint:"
-        check_result["followon_checks"].each{|x| puts " - #{x["url"]}\n" }
-      end
-    end 
-    
     unless check_result
       puts "Error... unable to get matches!"
       exit -1
     end
 
-    #
-    # Handle debug output 
-    #
-    if debug
-      i= 0
-      if check_result["requests"]
+    puts "Check result: #{check_result}"
 
-        # delete any existing file
-        File.delete "debug.txt" if File.exist? "debug.txt" 
 
-        check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
-
-          safex = encode_hash x 
-
-          # increment the request number
-          i+=1
-
-          # print it
-          puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
-
-          # write the contents to a file
-          File.open("requests.txt","a") do |f|
-            f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
-          end
-
-        end
-      end
-    end
-
-    puts "Fingerprint:"
     if check_result["fingerprint"]
+      puts "Fingerprint: "
       uniq_matches = []
       check_result["fingerprint"].each do |x|
         
@@ -184,6 +171,8 @@ def check_single_url(opts)
           end
         end
       end
+    else 
+      puts "No fingerprint possible!"
     end
 
     if opts[:content] 
@@ -225,58 +214,15 @@ def write_simple_csv(output_q)
   puts "============================" 
   puts "Find results in: output.csv"
   puts "============================"
-
-
-end
-
-def write_standard_csv(output_q)
-
-  # first grab headings & add those to the file
-  f = output_q.pop(true)
-
-  headings = [] 
-  headings << "URL"
-  headings << "Fingerprint"
-  headings << "Tags"
-  headings.concat f["content"].keys
-  File.open("output.csv","w") { |f| f.puts headings.join(",") }
-  output_q.push f # put it back on the queue 
-
-  # then, using that header ordering, iterate through out and grab each value
-  while output_q.size > 0 do
-    o = output_q.pop
-
-    # get our url, fingerprint and tags
-    out = "#{o["url"]},"
-    out << o["fingerprint"].map{ |f| "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}"}.uniq.join(" | ")
-    out << ","
-    out << o["fingerprint"].map{ |f| "#{f["tags"].join(" ")} "}.uniq.join(" ")
-    out << ","
-
-    # dynamically dump all config values in the correct orders
-    config_values  = []
-    headings[3..-1].each do |h|
-      config_values << "#{o["content"][h]}"
-    end
-    out << config_values.join(",")
-
-    # print it out! 
-    File.open("output.csv","a"){ |f| f.puts out }
-  end
-
-  puts 
-  puts "============================" 
-  puts "Find results in: output.csv"
-  puts "============================"
-
 end
 
 def list_checks
   Intrigue::Ident::Http::CheckFactory.checks.map{|x| x.new.generate_checks("[uri]") }.concat(
-  Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
-  Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
-  Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks}).concat(
-  Intrigue::Ident::Ssh::CheckFactory.checks.map{|x| x.new.generate_checks}).flatten
+  Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Ssh::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Telnet::CheckFactory.checks.map{|x| x.new.generate_checks }).flatten
 end
 
 def main
@@ -288,13 +234,8 @@ def main
     opts = Slop.parse do |o|
       
       # url input
-      o.string '-u', '--url', 'a url to check'
+      o.string '-u', '--uri', 'a uri to check (supported portocols: ftp, http, https, smtp, snmp, telnet)'
       o.string '-f', '--file', 'a file of urls, one per line'
-
-      # ip input
-      o.string '--ip', 'an ip to check'
-      o.string '--proto', 'protocol to check'
-      o.string '--port', 'port to check'
 
       # export 
       #o.bool '--csv', 'export to csv'
@@ -347,29 +288,23 @@ def main
     return
   end
 
-
-  unless opts[:url] || opts[:file] || opts[:ip]
-    puts "Error! At least one of --file, --url, or --ip must be specified"
+  unless opts[:uri] || opts[:file] 
+    puts "Error! At least one of --file, or --uri must be specified"
     return
   end
 
   ## handle url input
-  if opts[:url]
-    puts "Checking URL: #{opts[:url]}" if opts[:debug]
-    check_single_url(opts)
+  if opts[:uri]
+    puts "Checking URL: #{opts[:uri]}" if opts[:debug]
+    check_single_uri(opts)
   end 
 
   ## handle file input 
   if opts[:file]
     puts "Checking File: #{opts[:file]}" if opts[:debug]
-    check_file_urls(opts)
+    check_file_uris(opts)
   end
-
-  ## handle ip input
-  if opts[:ip]
-    puts "Checking IP: #{opts[:ip]}"  if opts[:debug]
-    check_single_ip(opts)
-  end
+  
 end
 
 main  

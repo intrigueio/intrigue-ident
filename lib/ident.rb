@@ -134,8 +134,9 @@ module Intrigue
     def _construct_match_response(check, data)
 
       if check[:type] == "fingerprint"
-        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || ""
-        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update] || ""
+
+        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || nil
+        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update] || nil
 
         calculated_type = "a" if check[:category] == "application"
         calculated_type = "h" if check[:category] == "hardware"
