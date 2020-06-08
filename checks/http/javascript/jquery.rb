@@ -3,6 +3,7 @@ module Ident
 module Check
 module Javascript 
 class Jquery < Intrigue::Ident::Check::Base
+  
   def generate_checks(url)
     [    
       {
@@ -21,6 +22,7 @@ class Jquery < Intrigue::Ident::Check::Base
       }
     ]
   end
+
 end
 end
 end
