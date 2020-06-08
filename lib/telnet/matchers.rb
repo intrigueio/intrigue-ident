@@ -13,7 +13,6 @@ module Matchers
     
     if check[:type] == "fingerprint"
       if check[:match_type] == :content_banner
-        puts "Banner: #{_banner(response_hash)}"
         match = _construct_match_response(check,response_hash) if (_banner(response_hash) =~ check[:match_content])
       end
     end

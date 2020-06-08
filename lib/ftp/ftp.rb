@@ -4,6 +4,9 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
+      # gives us the recog ftp matchers 
+      include Intrigue::Ident::RecogWrapper::Ftp
+
       def generate_ftp_request_and_check(ip, port=21, debug=false)
 
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
@@ -21,10 +24,13 @@ module Intrigue
   
         # and run them against our result
         checks.each do |check|
-          results << match_smtp_response_hash(check,details)
+          results << match_ftp_response_hash(check,details)
         end
   
-      { "fingerprints" => results.uniq.compact, "banner" => banner_string, "content" => [] }
+        # Run recog across the banner
+        recog_results = recog_match_ftp_banner(banner_string)
+  
+      { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
 

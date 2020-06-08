@@ -17,6 +17,20 @@ module Check
           :match_content =>  /(document, 'script', 'facebook-jssdk')/,
           :paths => ["#{url}"],
           :inference => false
+        }, 
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Javascript"],
+          :vendor => "Facebook",
+          :product =>"React",
+          :match_details =>"version in js file",
+          :match_type => :content_body,
+          :match_content =>  /^\/\*\* @license React v\d+\.\d+.\d+/i,
+          :dynamic_version => lambda {|x| 
+            _first_body_capture(x,/^\/\*\* @license React v(\d+\.\d+.\d+)/i) },
+          :paths => ["#{url}"],
+          :inference => true
         }
       ]
     end
