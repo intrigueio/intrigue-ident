@@ -145,12 +145,9 @@ def check_single_uri(opts)
     end
 
     unless check_result
-      puts "Error... unable to get matches!"
+      puts "Internal Error! Unable to get matches!"
       exit -1
     end
-
-    puts "Check result: #{check_result}"
-
 
     if check_result["fingerprint"]
       puts "Fingerprint: "
