@@ -164,7 +164,7 @@ def check_single_uri(opts)
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
           vulns.sort_by{|x| x["cvss_v3_score"] || 0 }.reverse.first(5).each do |v|
-            puts "   - Vuln: #{v["cve"]} (CVSSv3: #{v["cvss_v3_score"]}) https://nvd.nist.gov/vuln/detail/CVE-2020-0101/#{v["cve"]}"
+            puts "   - Vuln: #{v["cve"]} (CVSSv3: #{v["cvss_v3_score"]}) https://nvd.nist.gov/vuln/detail/#{v["cve"]}"
           end
         end
       end
