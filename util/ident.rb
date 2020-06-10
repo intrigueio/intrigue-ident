@@ -163,7 +163,7 @@ def check_single_uri(opts)
         puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]})"
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
-          vulns.sort_by{|x| x["cve"] || 0 }.reverse.first(5).each do |v|
+          vulns.sort_by{|x| x["cvss_v3_score"] || x["cvss_v2_score"] || 1 }.reverse.first(5).each do |v|
             puts "   - Vuln: #{v["cve"]} (CVSS: #{v["cvss_v3_score"] || v["cvss_v2_score"]}) https://nvd.nist.gov/vuln/detail/#{v["cve"]}"
           end
         end
