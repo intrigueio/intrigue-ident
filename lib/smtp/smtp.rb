@@ -28,7 +28,8 @@ module Intrigue
         end
   
         # Run recog across the banner
-        recog_results = recog_match_smtp_banner(banner_string)
+        short_banner_string = banner_string.split(" ")[2..-1].join(" ") # skip 220 and hostname
+        recog_results = recog_match_smtp_banner(short_banner_string)
   
       { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end

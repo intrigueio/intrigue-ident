@@ -14,10 +14,11 @@ module Helpers
     out["vendor"] = recog_hash["service.vendor"]
     out["product"] = recog_hash["service.product"]
     out["version"] = recog_hash["service.version"]
-    out["cpe"] = recog_hash["service.cpe23"]
+    out["cpe"] = "#{recog_hash["service.cpe23"].gsub("cpe:/a:","cpe:2.3:a:").gsub("cpe:/o:","cpe:2.3:o:").gsub("cpe:/h:","cpe:2.3:h:")}::"
     out["match_details"] = "#{recog_hash["matched"]} (Recog: #{recog_hash["fingerprint_db"]})"
     out["inference"] = false
     out["hide"] = false
+    out["tags"] = []
     out["issue"] = nil
 
   out
@@ -35,8 +36,11 @@ module Ftp
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out
+    end  
   end
 end
 
@@ -50,8 +54,12 @@ module Http
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(banner.gsub("server:","").strip)
 
-    # now convert a match to ident match format
-    matches.compact.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out["tags"] << "Web Server" unless recog_out["tags"].include?("Web Server")
+      recog_out
+    end  
   end
 
   def recog_match_http_cookies(string)
@@ -61,8 +69,12 @@ module Http
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string.gsub("set-cookie:","").strip)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out["tags"] << "Web Server" unless recog_out["tags"].include?("Web Server")
+      recog_out
+    end  
   end
 end
 
@@ -75,8 +87,12 @@ module Smtp
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out["tags"] << "MailServer" unless recog_out["tags"].include?("MailServer")
+      recog_out
+    end  
   end
 end
 
@@ -89,8 +105,12 @@ module Snmp
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out["tags"] << "Networking" unless recog_out["tags"].include?("Networking")
+      recog_out
+    end  
   end
 end
 
@@ -103,8 +123,11 @@ module Ssh
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out
+    end  
   end
 end
 
@@ -117,8 +140,11 @@ module Telnet
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-    # now convert it 
-    matches.map {|m| recog_to_ident_hash(m)}
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out
+    end 
   end
 end
 
