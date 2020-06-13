@@ -56,18 +56,18 @@ module Http
     ###
     # now run recog against the current grab
     recog_results = []
-    first_response = initial_results["responses"].first
-    if first_response && first_response[:response_headers]
-      server_headers = first_response[:response_headers].select{|x| x =~ /^server:.*$/i }
-      if server_headers.count > 0 
-        recog_results << recog_match_http_server_banner(server_headers.first)
-      end
-
-      cookies_headers = first_response[:response_headers].select{|x| x =~ /^set-cookie:.*$/i }
-      if cookies_headers.count > 0 
-        recog_results << recog_match_http_cookies(cookies_headers.first)
-      end
-    end
+    #first_response = initial_results["responses"].first
+    #if first_response && first_response[:response_headers]
+    #  server_headers = first_response[:response_headers].select{|x| x =~ /^server:.*$/i }
+    #  if server_headers.count > 0 
+    #    recog_results << recog_match_http_server_banner(server_headers.first)
+    #  end
+    #
+    #  cookies_headers = first_response[:response_headers].select{|x| x =~ /^set-cookie:.*$/i }
+    #  if cookies_headers.count > 0 
+    #    recog_results << recog_match_http_cookies(cookies_headers.first)
+    #  end
+    #end
 
     ###
     ### Follow-on Checks
