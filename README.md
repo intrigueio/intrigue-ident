@@ -65,12 +65,7 @@ Installing directly on Ubuntu 18.04:
 6) Now use the check utility to test, same as in OSX direct install:
 ```
 $ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
-
 ```
-
-
-Implementing Ident: 
-=======
 
 For Check Writers: 
 ===================
@@ -82,7 +77,6 @@ HTTP Check types are in the following categories. See each check's 'match_conten
  - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
  - content_cookies; checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
  ```
-
 
 Contributors:
 =============
