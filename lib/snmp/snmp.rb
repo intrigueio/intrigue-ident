@@ -6,6 +6,9 @@ module Intrigue
 
       include Intrigue::Ident::SimpleSocket
 
+      # gives us the recog snmp matchers 
+      include Intrigue::Ident::RecogWrapper::Snmp
+
       def generate_snmp_request_and_check(ip, port=161, debug=false)
         
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
@@ -26,7 +29,10 @@ module Intrigue
           results << match_snmp_response_hash(check,details)
         end
 
-      results.map{|x| (x || {}).merge({"banner" => banner_string})}.uniq.compact
+        # Run recog across the banner
+        recog_results = recog_match_snmp_banner(banner_string)
+  
+      { "fingerprint" => (results + recog_results).uniq.compact, "banner" => banner_string, "content" => [] }
       end
 
       private

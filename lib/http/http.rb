@@ -4,10 +4,9 @@ module Intrigue
 module Ident
 module Http
 
-  require_relative 'browser'
-  include Intrigue::Ident::HttpBrowser
+  # gives us the recog http matchers 
+  include Intrigue::Ident::RecogWrapper::Http 
 
-  
   # Used by intrigue-core... note that this will currently fail unless
   def generate_http_requests_and_check(url, opts={})
 
@@ -50,7 +49,25 @@ module Http
     end
 
     # Run'm!!!
-    initial_results = run_grouped_http_checks url, grouped_initial_checks, dom_checks, debug
+    initial_results = run_grouped_http_checks(url, grouped_initial_checks, dom_checks, debug)
+
+    ###
+    ### APPLY THE RECOG (ONLY FIRST PAGE)!
+    ###
+    # now run recog against the current grab
+    recog_results = []
+    #first_response = initial_results["responses"].first
+    #if first_response && first_response[:response_headers]
+    #  server_headers = first_response[:response_headers].select{|x| x =~ /^server:.*$/i }
+    #  if server_headers.count > 0 
+    #    recog_results << recog_match_http_server_banner(server_headers.first)
+    #  end
+    #
+    #  cookies_headers = first_response[:response_headers].select{|x| x =~ /^set-cookie:.*$/i }
+    #  if cookies_headers.count > 0 
+    #    recog_results << recog_match_http_cookies(cookies_headers.first)
+    #  end
+    #end
 
     ###
     ### Follow-on Checks
@@ -87,14 +104,13 @@ module Http
         "check_count" => []
       }
     end
-    
+  
     ###
     ### Generate output
     ###
-
     out = {
       "url" => initial_results["url"], # same
-      "fingerprint" => initial_results["fingerprint"].concat(followon_results["fingerprint"]),
+      "fingerprint" => (initial_results["fingerprint"] + followon_results["fingerprint"] + recog_results.flatten).uniq,
       "content" => initial_results["content"].concat(followon_results["content"]),
       "responses" => initial_results["responses"].concat(followon_results["responses"]),
       "initial_checks" => initial_results["check_count"],
@@ -139,26 +155,13 @@ module Http
 
       responses << response_hash
 
-      # Only if we are running browser checks
-      if dom_checks
-        # get the dom via a browser
-        if ggc.last.map{|c| c[:match_type] }.include?(:content_dom)
-          #puts "We have a check for #{target_url} that requires the DOM, firing a browser"
-          session = ident_create_browser_session
-          browser_response = ident_capture_document(session,"#{target_url}")
-
-          # save the response to our list of responses
-          # TODO - collect redirects here
-          # https://michaeltroutt.com/using-headless-chrome-to-find-link-redirects/
-          responses << browser_response
-
-          ident_destroy_browser_session session
-        end
-      end
-
       # Go ahead and match it up if we got a response!
-      if response_hash || browser_response
+      if response_hash
+        
         # call each check, collecting the product if it's a match
+        ###
+        ### APPLY THE IDENT!
+        ###
         ggc.last.each do |check|
 
           # if we have a check that should match the dom, run it
@@ -167,8 +170,8 @@ module Http
           else #otherwise use the normal flow
             results << match_http_response_hash(check,response_hash)
           end
-
         end
+
       end
     end
 
@@ -349,12 +352,12 @@ module Http
 
         end #end redirect handling
 
-        ###
-        ### Done Handling Redirects, proactively set final_url
-        ###
-        final_url = uri
-
       end #until
+
+      ###
+      ### Done Handling Redirects, proactively set final_url
+      ###
+      final_url = uri.to_s
 
     ### TODO - create a global $debug config option
     
@@ -410,7 +413,7 @@ module Http
     out = {
       :timeout => timeout,
       :start_url => uri_string,
-      :final_url => final_url.to_s,
+      :final_url => final_url,
       :request_type => :ruby,
       :request_method => method,
       :request_credentials => credentials,

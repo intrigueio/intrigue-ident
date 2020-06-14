@@ -1,19 +1,19 @@
 module Intrigue
 module Ident
-module SshCheck
-  class OpenSsh < Intrigue::Ident::SshCheck::Base
+module TelnetCheck
+  class Huawei < Intrigue::Ident::TelnetCheck::Base
     def generate_checks
       [
         {
           :type => "fingerprint",
           :category => "operating_system",
-          :tags => ["SSH Server"],
-          :vendor => "OpenSSH",
-          :product => "OpenSSH",
+          :tags => ["Telnet Server"],
+          :vendor => "Huawei",
+          :product => "Home Gateway",
           :references => [],
           :version => nil,
           :match_type => :content_banner,
-          :match_content => /OpenSSH/i,
+          :match_content => /Welcome Visiting Huawei Home Gateway/i,
           :match_details => "banner",
           :hide => false,
           :inference => false

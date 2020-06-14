@@ -11,6 +11,20 @@ class Jquery < Intrigue::Ident::Check::Base
         :tags => ["Javascript"],
         :vendor => "JQuery",
         :product =>"JQuery",
+        :match_details =>"version in js file",
+        :match_type => :content_body,
+        :match_content =>  /jQuery v\d\.\d\.\d \| \(c\) JS Foundation and other contributors/i,
+        :dynamic_version => lambda {|x| 
+          _first_body_capture(x,/jQuery v(\d\.\d\.\d) \| \(c\) JS Foundation and other contributors/i) },
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Javascript"],
+        :vendor => "JQuery",
+        :product =>"JQuery",
         :match_details =>"filename",
         :match_type => :content_body,
         :version => nil,

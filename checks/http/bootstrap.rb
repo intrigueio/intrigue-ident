@@ -17,6 +17,20 @@ class Bootstrap < Intrigue::Ident::Check::Base
         :match_content =>  /bootstrap.min.css/,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Javascript"],
+        :vendor => "Twitter",
+        :product => "Bootstrap",
+        :match_details =>"version in js file",
+        :match_type => :content_body,
+        :match_content =>  /\s+\* Bootstrap v\d+\.\d+\.\d+ \(https:\/\/getbootstrap.com\/\)/i,
+        :dynamic_version => lambda {|x| 
+          _first_body_capture(x,/\s+\* Bootstrap v(\d+\.\d+\.\d+) \(https:\/\/getbootstrap.com\/\)/i) },
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end

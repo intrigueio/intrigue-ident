@@ -9,6 +9,10 @@ class Base
     Intrigue::Ident::Http::CheckFactory.register(base)
   end
 
+  def product_name
+
+  end
+
   private
 
     def _uri_match(content, regex)
