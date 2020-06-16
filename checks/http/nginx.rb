@@ -65,13 +65,12 @@ class Nginx < Intrigue::Ident::Check::Base
         :tags => ["Web Server"],
         :vendor => "Nginx",
         :product =>"Nginx",
-        :match_details =>"nginx default 404 page - TODO needs multiline",
-        :version => nil,
+        :match_details =>"nginx (default 404 page)",
         :match_type => :content_body,
         :match_content => /<hr><center>nginx<\/center>/i,
         :hide => true,
         :paths => ["#{url}"],
-        :inference => true
+        :inference => false
       }
     ]
   end
