@@ -31,8 +31,6 @@ module Intrigue
             :paths => ["#{url}"],
             :inference => false
           }
-
-          
         ]
       end
   
