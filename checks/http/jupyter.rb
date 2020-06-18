@@ -18,7 +18,33 @@ class Jupyter < Intrigue::Ident::Check::Base
         :match_content =>  /x-jupyterhub-version:/i,
         :paths => ["#{url}"],
         :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS","Development"],
+        :vendor => "Jupyter",
+        :product =>"Notebook",
+        :match_details =>"unique body string: data-notebook-path",
+        :match_type => :content_body,
+        :match_content =>  /data-notebook-path:/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS","Development"],
+        :vendor => "Jupyter",
+        :product =>"Notebook",
+        :match_details =>"unique title",
+        :match_type => :content_title,
+        :match_content =>  /Home Page - Select or create a notebook/i,
+        :paths => ["#{url}"],
+        :inference => false
       }
+      
+
     ]
   end
   
