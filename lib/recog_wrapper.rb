@@ -80,6 +80,7 @@ end
 
 module Smtp
   include Intrigue::Ident::RecogWrapper::Helpers
+  
   def recog_match_smtp_banner(string)
     options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("smtp_banners.xml");nil
@@ -93,11 +94,13 @@ module Smtp
       recog_out["tags"] << "MailServer" unless recog_out["tags"].include?("MailServer")
       recog_out
     end  
+
   end
 end
 
 module Snmp
   include Intrigue::Ident::RecogWrapper::Helpers
+ 
   def recog_match_snmp_banner(string)
     options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("snmp_banners.xml");nil
@@ -112,6 +115,7 @@ module Snmp
       recog_out
     end  
   end
+  
 end
 
 module Ssh
