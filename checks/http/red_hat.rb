@@ -5,7 +5,19 @@ class RedHat < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
-      #
+      { # The requested URL /doesntexist-123 was not found on this server.</p>\n<hr>\n
+        # <address>Apache/2.2.15 (Red Hat) Server at jasper.emory.edu Port 443</address>
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["OS"],
+        :vendor =>"Red Hat",
+        :product =>"Linux",
+        :match_details =>"apache error page",
+        :match_type => :content_body,
+        :match_content => /Apache.* \(Red Hat\) Server.*/i,
+        :paths => ["#{url}/doesntexist-123"],
+        :inference => false
+      },
       { # server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips PHP/7.2.12
         :type => "fingerprint",
         :category => "operating_system",

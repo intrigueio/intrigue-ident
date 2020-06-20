@@ -9,7 +9,7 @@ class Python < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Framework"],
+        :tags => ["Web Framework", "Language"],
         :vendor => "Python",
         :product =>"Python",
         :match_details =>"server header",
@@ -17,7 +17,22 @@ class Python < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server:.*Python.*$/,
         :dynamic_version => lambda{|x| 
-          _first_header_capture(x,/^server:.*Python\/([\d\.]*)\s.*$/i) },
+          _first_header_capture(x,/^server:.*Python\/([\d\.]*).*$/i) },
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Framework", "Language"],
+        :vendor => "Python",
+        :product =>"Python",
+        :match_details =>"server header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^server:.*CPython.*$/,
+        :dynamic_version => lambda{|x| 
+          _first_header_capture(x,/^server:.*CPython\/([\d\.]*).*$/i) },
         :paths => ["#{url}"],
         :inference => true
       }

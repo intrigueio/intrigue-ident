@@ -49,6 +49,24 @@ class Apache < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false
       },
+      # The requested URL /doesntexist-123 was not found on this server.</p>\n<hr>\n
+      # <address>Apache/2.2.15 (Red Hat) Server at jasper.emory.edu Port 443</address>
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
+        :vendor => "Apache",
+        :product =>"HTTP Server",
+        :match_details =>"test page title",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /<address>Apache\/([\d\.]+).*Server at.*<\/address>/i,
+        :dynamic_version => lambda { |x|
+          _first_body_capture(x,/<address>Apache\/([\d\.]+).*Server at.*<\/address>/i)
+        },
+        :paths => ["#{url}/doesntexist-123"],
+        :inference => true
+      },
       {
         :type => "fingerprint",
         :category => "application",

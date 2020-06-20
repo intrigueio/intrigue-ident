@@ -8,7 +8,7 @@ class Php < Intrigue::Ident::Check::Base
         {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Framework"],
+        :tags => ["Web Framework", "Language"],
         :vendor =>"PHP",
         :product =>"PHP",
         :match_details =>"x-powered-by header",
@@ -24,7 +24,7 @@ class Php < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Framework"],
+        :tags => ["Web Framework", "Language"],
         :vendor =>"PHP",
         :product =>"PHP",
         :match_details =>"apache server header",
@@ -53,7 +53,7 @@ class Php < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Framework"],
+        :tags => ["Web Framework", "Language"],
         :vendor =>"PHP",
         :product =>"PHP",
         :match_details =>"PHPSESSID cookie",
