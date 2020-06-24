@@ -5,7 +5,19 @@ class RedHat < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
-      #
+      { # The requested URL /doesntexist-123 was not found on this server.</p>\n<hr>\n
+        # <address>Apache/2.2.15 (Red Hat) Server at jasper.emory.edu Port 443</address>
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["OS"],
+        :vendor =>"Red Hat",
+        :product =>"Linux",
+        :match_details =>"apache error page",
+        :match_type => :content_body,
+        :match_content => /Apache.* \(Red Hat\) Server.*/i,
+        :paths => ["#{url}/doesntexist-123"],
+        :inference => false
+      },
       { # server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips PHP/7.2.12
         :type => "fingerprint",
         :category => "operating_system",
@@ -78,13 +90,46 @@ class RedHat < Intrigue::Ident::Check::Base
         :tags => ["Application Server"],
         :vendor => "Red Hat",
         :product => "JBoss Enterprise Application Platform",
+        :references => [""],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^x-powered-by:.*JBoss-[\d\.]+\/.*$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i) },
+        :hide => false,
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBoss Enterprise Application Platform",
         :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1049103"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /X-Powered-By: JSP\/2./i,
+        :match_content =>  /^X-Powered-By: JSP\/2./i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBoss Web Server",
+        :references => ["https://www.redhat.com/en/technologies/jboss-middleware/web-server"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^x-powered-by:.*JBossWeb-[\d\.]+$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^x-powered-by:.*JBossWeb-([\d\.]+)$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end
