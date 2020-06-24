@@ -90,13 +90,46 @@ class RedHat < Intrigue::Ident::Check::Base
         :tags => ["Application Server"],
         :vendor => "Red Hat",
         :product => "JBoss Enterprise Application Platform",
+        :references => [""],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^x-powered-by:.*JBoss-[\d\.]+\/.*$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i) },
+        :hide => false,
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBoss Enterprise Application Platform",
         :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1049103"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /X-Powered-By: JSP\/2./i,
+        :match_content =>  /^X-Powered-By: JSP\/2./i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Red Hat",
+        :product => "JBoss Web Server",
+        :references => ["https://www.redhat.com/en/technologies/jboss-middleware/web-server"],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content =>  /^x-powered-by:.*JBossWeb-[\d\.]+$/i,
+        :dynamic_version => lambda { |x|
+          _first_header_capture(x,/^x-powered-by:.*JBossWeb-([\d\.]+)$/i) },
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end
