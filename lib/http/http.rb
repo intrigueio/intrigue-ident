@@ -73,13 +73,20 @@ module Http
     ### Follow-on Checks
     ### 
 
-    ### Okay so, now we have a set of detected products, let's figure out our follown checks
+    ### Okay so, now we have a set of detected products, let's figure out our follown checks by product
     followon_checks = []
     detected_products = initial_results["fingerprint"].map{|x| x["product"] }.uniq
     detected_products.each do |prod|
       followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product("#{url}", prod))
-      #puts "Getting checks for product: #{prod} ... #{followon_checks.count}" if debug
     end
+   
+    ### Okay so, now we have a set of detected products, let's figure out our follown checks by vendor_product
+    followon_checks = []
+    detected_vendor_products = initial_results["fingerprint"].map{|x| [x["vendor"], x["product"]] }.uniq
+    detected_vendor_products.each do |vendor, product|
+      followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor_product("#{url}", vendor, product))
+    end    
+
     
     # group them up by path (there can be multiple paths)
     followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
