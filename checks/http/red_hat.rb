@@ -98,7 +98,6 @@ class RedHat < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i) },
         :hide => false,
-        :hide => false,
         :paths => ["#{url}"],
         :inference => true
       },
@@ -112,7 +111,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1049103"],
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^X-Powered-By: JSP\/2./i,
+        :match_content => /^X-Powered-By: JSP\/2./i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
