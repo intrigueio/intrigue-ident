@@ -250,7 +250,21 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_details =>"server header",
         :version => nil,
         :match_type => :content_headers,
-        :match_content => /server: AmazonS3/,
+        :match_content => /server: AmazonS3/i,
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Web Server", "Hosting", "IaaS"],
+        :vendor => "Amazon",
+        :product =>"S3",
+        :match_details =>"replication status header",
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /^x-amz-replication-status: .*$/i,
         :hide => false,
         :paths => ["#{url}"],
         :inference => false

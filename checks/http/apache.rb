@@ -104,6 +104,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server:.*Apache\/([\d\.]*).*$/i,
         :dynamic_version => lambda { |x|
+          
           # check for backported OS type
           backported = false
           backported = true if _first_header_match(x,/^server:.*\(CentOS\).*$/)

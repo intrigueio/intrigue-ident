@@ -146,11 +146,7 @@ module Ident
 
     def ident_gather_javascript_libraries(session, uri)
       return nil unless session # always make sure the session is real
-
-      # Test site: https://www.jetblue.com/plan-a-trip/#/
-      # Examples: https://builtwith.angularjs.org/
-      # Examples: https://www.madewithangular.com/
-
+      
       safe_browser_action do
         session.navigate.to(uri)
       end
