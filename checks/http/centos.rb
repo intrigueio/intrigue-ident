@@ -19,6 +19,23 @@ class Centos < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}"],
         :inference => false
+      },
+      { 
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Administrative"],
+        :vendor => "Centos",
+        :product => "CentOS Web Panel",
+        :references => [],
+        :version => nil,
+        :website => "http://centos-webpanel.com/",
+        :match_type => :content_headers,
+        :match_content => /^Server: cwpsrv$/i,
+        :match_details => "centos web panel server header",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => false,
+        :issue => "exposed_admin_panel_unauthenticated"
       }
     ]
   end
