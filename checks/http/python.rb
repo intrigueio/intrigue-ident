@@ -35,6 +35,23 @@ class Python < Intrigue::Ident::Check::Base
           _first_header_capture(x,/^server:.*CPython\/([\d\.]*).*$/i) },
         :paths => ["#{url}"],
         :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Web Server"],
+        :vendor => "Python",
+        :product => "SimpleHTTP",
+        :website => "https://docs.python.org/2/library/simplehttpserver.html",
+        :references => [""],
+        :version => nil,
+        :match_type => :content_headers,
+        :match_content => /Server: SimpleHTTP.*/i,
+        :dynamic_version => lambda { |x| _first_header_capture(x, /Server: SimpleHTTP\/([\d\.]+)/i)},
+        :match_details => "server header",
+        :hide => false,
+        :paths => ["#{url}"],
+        :inference => true
       }
     ]
   end
