@@ -80,6 +80,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{|x| _first_body_capture(x,/VALUE=\"Pulse Secure Network Connect ([\d\.]+)/i) }, 
         :paths => ["#{url}/dana-na/nc/nc_gina_ver.txt"],
         :require_product => "Junos Pulse Secure Access Service",
+        :issue => "pulse_secure_info_leak",
         :inference => true
       }
     ]

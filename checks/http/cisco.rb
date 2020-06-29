@@ -123,7 +123,8 @@ module Check
           :match_content => /<title>Cisco vManage/i,
           :hide => false,
           :paths => ["#{url}"],
-          :inference => false
+          :inference => false,
+          :issue => "exposed_admin_panel_unauthenticated"
         },
       ]
     end

@@ -33,7 +33,8 @@ class Webmin < Intrigue::Ident::Check::Base
         :match_content => /<title>Login to Webmin/,
         :version => nil,
         :paths => ["#{url}"],
-        :inference => false
+        :inference => false,
+        :issue => "exposed_admin_panel_unauthenticated"
       }
     ]
   end

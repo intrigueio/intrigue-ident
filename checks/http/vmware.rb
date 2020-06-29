@@ -16,7 +16,8 @@ class Vmware < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /document.write\(\"<title>\"\ \+\ ID_EESX_Welcome/,
         :paths => ["#{url}"],
-        :inference => false
+        :inference => false, 
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       {
         :type => "fingerprint",

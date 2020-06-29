@@ -37,7 +37,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
         :require_product => "Coldfusion",
-        :inference => false
+        :inference => false,
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       { # Coldfusion 6, 7  
         :type => "fingerprint",
@@ -59,7 +60,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
         :require_product => "Coldfusion",
-        :inference => true
+        :inference => true,
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       { # Coldfusion 10 ... this needs OR/AND ?
         :type => "fingerprint",
@@ -74,7 +76,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
         :require_product => "Coldfusion",
-        :inference => true
+        :inference => true,
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       { # Coldfusion 11 ... this needs OR/AND ?
         :type => "fingerprint",
@@ -89,7 +92,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
         :require_product => "Coldfusion",
-        :inference => true
+        :inference => true,
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       # 
       { # Generic check 
@@ -108,7 +112,8 @@ class Adobe < Intrigue::Ident::Check::Base
         :hide => false,
         :paths => ["#{url}/CFIDE/administrator/index.cfm"],
         :require_product => "Coldfusion",
-        :inference => true
+        :inference => true,
+        :issue => "exposed_admin_panel_unauthenticated"
       },
       {
         :type => "fingerprint",
