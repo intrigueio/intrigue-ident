@@ -152,14 +152,18 @@ module Intrigue
         cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
 
         ##
-        ## Support for Dynamic 
+        ## Support for Dynamic Issues
         ##
-        if check[:dynamic_issue]
-          issue = check[:dynamic_issue].call(data)
-        elsif check[:issue]
-          issue = check[:issue]
+        if check[:dynamic_issues]
+          issues = check[:dynamic_issues].call(data)
+        elsif check[:dynamic_issue]  # also handle singular
+          issues = [check[:dynamic_issues].call(data)]
+        elsif check[:issues]
+          issues = check[:issues]
+        elsif check[:issue]         # also handle singular
+          issues = [check[:issue]]
         else
-          issue = nil
+          issues = nil
         end
         
         ##
@@ -176,12 +180,12 @@ module Intrigue
         ##
         ## Support for Dynamic Task
         ##
-        if check[:dynamic_task]
-          task = check[:dynamic_task].call(data)
-        elsif check[:task]
-          task = check[:task]
+        if check[:dynamic_tasks]
+          tasks = check[:dynamic_tasks].call(data)
+        elsif check[:tasks]
+          tasks = check[:tasks]
         else
-          task = nil
+          tasks = nil
         end
 
         to_return = {
@@ -196,8 +200,8 @@ module Intrigue
           "match_details" => check[:match_details],
           "hide" => hide,
           "cpe" => cpe_string,
-          "issue" => issue, 
-          "task" => task, # [{ :task_name => "example", :task_options => {}}]
+          "issues" => issues, 
+          "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]
         }
 

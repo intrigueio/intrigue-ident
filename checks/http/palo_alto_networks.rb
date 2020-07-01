@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class PaloAlto < Intrigue::Ident::Check::Base
+class PaloAltoNetworks < Intrigue::Ident::Check::Base
 
   def generate_checks(uri)
     [
@@ -16,7 +16,11 @@ class PaloAlto < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /global-protect\/login.esp/i,
         :paths => ["#{uri}"],
-        :inference => false
+        :inference => false,
+        :tasks => [
+          "vuln/paloalto_globalprotect_check", 
+          "vuln/paloalto_globalprotect_check_cve202020201"
+        ]
       }
     ]
   end
