@@ -125,7 +125,7 @@ module Check
           :match_content => /BIG-IP&reg;- Redirect/,
           :hide => false,
           :paths => ["#{url}"],
-          :inference => false
+          :inference => false,
           :issue => "exposed_bigip_configuration_utility"
         },
       ]
