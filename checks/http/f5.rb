@@ -126,7 +126,7 @@ module Check
           :hide => false,
           :paths => ["#{url}"],
           :inference => false
-          :issue => "exposed_bigip_management_interface"
+          :issue => "exposed_bigip_configuration_utility"
         },
       ]
     end
