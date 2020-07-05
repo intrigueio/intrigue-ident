@@ -112,7 +112,22 @@ module Check
           :hide => false,
           :paths => ["#{url}"],
           :inference => false
-        }
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Networking", "Load Balancer"],
+          :vendor => "F5",
+          :product =>"BIG-IP Configuration Utility",
+          :match_details =>"redirect to config util",
+          :references => ["https://twitter.com/n0x08/status/1278812795031523328"],
+          :match_type => :content_title,
+          :match_content => /BIG-IP&reg;- Redirect/,
+          :hide => false,
+          :paths => ["#{url}"],
+          :inference => false
+          :issue => "exposed_bigip_management_interface"
+        },
       ]
     end
 
