@@ -18,19 +18,22 @@ class Sophos < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false
       },
-      {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS", "Security"],
-        :vendor =>"Sophos",
-        :product =>"Sophos",
-        :match_details =>"server header",
-        :version => nil,
-        :match_type => :content_headers,
-        :match_content => /^server: xxxxxxxx-xxxxx$/i,
-        :paths => ["#{url}"],
-        :inference => false
-      }
+      ###
+      ### Also fortinet?
+      ###
+      #{
+      #  :type => "fingerprint",
+      #  :category => "application",
+      #  :tags => ["COTS", "Security"],
+      #  :vendor =>"Sophos",
+      #  :product =>"Sophos",
+      #  :match_details =>"server header",
+      #  :version => nil,
+      #  :match_type => :content_headers,
+      #  :match_content => /^server: xxxxxxxx-xxxxx$/i,
+      #  :paths => ["#{url}"],
+      #  :inference => false
+      #}
     ]
   end
 
