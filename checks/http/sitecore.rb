@@ -43,11 +43,23 @@ class Sitecore < Intrigue::Ident::Check::Base
         :match_content => /<major>/,
         :paths => ["#{url}/sitecore/shell/sitecore.version.xml"],
         :dynamic_version => lambda { |x|
-          major = _body(x).scan(/<major>([\d]+)<\/major>/).first[0]
-          minor = _body(x).scan(/<minor>([\d]+)<\/minor>/).first[0]
-          build = _body(x).scan(/<build>([\d]+)<\/build>/).first[0]
-          revision = _body(x).scan(/<revision>([\d]+)<\/revision>/).first[0]
-        "#{major}.#{minor}.#{build}.#{revision}"  
+
+          majorx = _body(x).scan(/<major>([\d]+)<\/major>/).first
+          major = majorx[0] if majorx
+
+          minorx = _body(x).scan(/<minor>([\d]+)<\/minor>/).first
+          minor = minorx[0] if minorx 
+
+          revisionx = _body(x).scan(/<revision>([\d]+)<\/revision>/).first
+          revision = revisionx[0] if revisionx
+
+          buildx = _body(x).scan(/<build>([\d]+)<\/build>/).first
+          build = buildx[0] if buildx
+
+          out = "#{major}.#{minor}.#{revision}"  
+          out << ".#{build}" if build
+          
+        out
         },
         :require_vendor_product => "Sitecore_CMS",
         :inference => true
