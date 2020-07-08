@@ -67,7 +67,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :tags => ["Networking","COTS", "VPN"],
         :vendor => "Citrix",
         :product => "NetScaler Gateway",
-        :match_details => "NSC_.*_NGB TEMP cookie",
+        :match_details => "NSC_.*_NGB cookie",
         :version => nil,
         :match_type => :content_cookies,
         :match_content => /NSC_[\w]+_NGB=/i,
