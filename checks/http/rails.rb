@@ -9,7 +9,7 @@ module Intrigue
           :type => "fingerprint",
           :category => "application",
           :tags => ["Application Server"],
-          :vendor =>"Ruby",
+          :vendor =>"RubyOnRails",
           :product =>"Rails",
           :match_details => "in-page authenticity token (csrf-param)",
           :match_type => :content_body,
