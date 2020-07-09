@@ -61,7 +61,7 @@ class Sitecore < Intrigue::Ident::Check::Base
           
         out
         },
-        :require_vendor_product => "Sitecore_CMS",
+        :require_vendor_product => "sitecore_cms",
         :inference => true
       }
     ]
