@@ -97,7 +97,6 @@ class RedHat < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i) },
         :hide => false,
-        :hide => false,
         :paths => ["#{url}"],
         :inference => true
       },
