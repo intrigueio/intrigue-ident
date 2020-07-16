@@ -27,6 +27,26 @@ module Helpers
 end
 
 
+module Dns
+  include Intrigue::Ident::RecogWrapper::Helpers
+  def recog_match_dns_version(string)
+    options = OpenStruct.new(
+      color: false, detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("dns_versionbind.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out
+    end  
+  end
+end
+
+
+
 module Ftp
   include Intrigue::Ident::RecogWrapper::Helpers
   def recog_match_ftp_banner(string)

@@ -45,6 +45,21 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 require_relative 'simple_socket'
 require_relative 'banner_helpers'
 
+
+##################################
+# Load in dns matchers and checks
+#################################
+require_relative 'dns/matchers'
+include Intrigue::Ident::Dns::Matchers
+
+require_relative 'dns/check_factory'
+require_relative '../checks/dns/base'
+
+# ftp fingerprints
+check_folder = File.expand_path('../checks/dns', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+
 ##################################
 # Load in ftp matchers and checks
 #################################
@@ -265,7 +280,6 @@ module Intrigue
 
 end
 end
-
 
 
 # always include 
