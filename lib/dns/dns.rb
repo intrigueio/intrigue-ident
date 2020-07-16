@@ -26,16 +26,12 @@ module Intrigue
             "hostname.bind" => hostname_string
           }
         }
-        
-        #if debug 
-        #  puts "GOT: #{details}"
-        #end
 
         results = []
   
         # generate the checks 
         checks = Intrigue::Ident::Dns::CheckFactory.checks.map{ |x| x.new.generate_checks }.compact.flatten
-  
+
         # and run them against our result
         checks.each do |check|
           results << match_dns_response_hash(check,details)
@@ -44,12 +40,9 @@ module Intrigue
         # Run recog across the banner
         recog_results = recog_match_dns_version(version_string)
   
-      { 
-        "fingerprint" => (results + recog_results).uniq.compact, 
+      { "fingerprint" => (results + recog_results).uniq.compact, 
         "content" => [] }.merge(details["details"])
       end
-
-
     end
 
     class ServerQuery

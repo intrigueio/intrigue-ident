@@ -151,6 +151,12 @@ def check_single_uri(opts)
       exit -1
     end
 
+    if debug 
+      puts "Got Check Result:"
+      puts check_result
+    end
+
+
     if check_result["fingerprint"]
       puts "Fingerprint: "
       uniq_matches = []

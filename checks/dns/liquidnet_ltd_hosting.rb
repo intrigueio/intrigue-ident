@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module DnsCheck
-class Microsoft < Intrigue::Ident::DnsCheck::Base
+class LiquidnetLtdHosting < Intrigue::Ident::DnsCheck::Base
 
   def generate_checks
     [

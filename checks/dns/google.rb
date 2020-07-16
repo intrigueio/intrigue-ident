@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
   module DnsCheck
-  class Microsoft < Intrigue::Ident::DnsCheck::Base
+  class Google < Intrigue::Ident::DnsCheck::Base
   
     def generate_checks
       [
@@ -13,7 +13,7 @@ module Intrigue
           :product => "Eero",
           :website => "https://eero.com/",
           :references => [],
-          :match_type => :version,
+          :match_type => :hostname,
           :match_content => /^eero$/i,
         }
       ]
