@@ -285,13 +285,21 @@ def main
   end 
 
   if opts[:'list-checks']
-    list_checks.sort_by{|c| "#{c[:type]}" }.each {|c| 
-    puts " - #{c[:type]} ... #{c[:name]} #{c[:vendor]} #{c[:product]} #{c[:version]}" + 
-        " (Version detection: #{!c[:dynamic_version].nil?})" + 
-        " (Hide: #{c[:hide]})" + 
-        " (Vulns: #{c[:inference]})" + 
-        " #{c[:paths]} ... #{c[:tags]}"}
-    return
+    
+    puts "Fingerprint, Version Detection, Hide By Default, Issues, Vulnerability Inference, Check Paths, Tags"
+    list_checks.sort_by{|c| "#{c[:type]}" }.each do |c| 
+      next unless c[:type] == "fingerprint"
+      out = "" 
+      out << "#{c[:name]} #{c[:vendor]} #{c[:product]} #{c[:version]}".gsub(",","") + ", "
+      out << "#{!c[:dynamic_version].nil?}, " 
+      out << "#{c[:hide]}, "
+      out << "#{(c[:issues].join(" | ") if c[:issues]) || c[:issue]}, "
+      out << "#{c[:inference]}, "
+      out << "#{c[:paths].join(" | ") if c[:paths]}, "
+      out << "#{c[:tags].join(" | ") if c[:tags]}"
+      puts out
+    end
+    return # so we don't hit the next gate
   end
 
   unless opts[:uri] || opts[:file] 

@@ -17,7 +17,7 @@ module Intrigue
             :match_type => :content_title,
             :match_content =>  /^There is no helpdesk here\!$/i,
             :paths => ["#{url}"],
-            :issue => { name: "subdomain_takeover", details: { service: "FreshService" } }, 
+            :issue => ["subdomain_hijack"], 
             :hide => true
           }
         ]
