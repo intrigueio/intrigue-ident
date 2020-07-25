@@ -49,6 +49,19 @@ module Check
           :match_details => "Drupal headers",
           :version => nil,
           :match_type => :content_headers,
+          :match_content =>  /x-drupal/i,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["CMS"],
+          :vendor => "Drupal",
+          :product => "Drupal",
+          :match_details => "Drupal headers",
+          :version => nil,
+          :match_type => :content_headers,
           :match_content =>  /x-generator: Drupal/,
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/x-generator: Drupal\ ([0-9]+)\ \(/i,)
