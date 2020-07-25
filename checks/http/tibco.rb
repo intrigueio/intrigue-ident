@@ -16,7 +16,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /JasperServer/i,
         :paths => ["#{url}/jasperserver/login.html"],
-        :require_product => "HTTP Server",
+        :require_product => "HTTP Server", # require apache 
         :inference => false
       }, 
       { # check for jaasperreports when you see nginx
@@ -30,7 +30,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /JasperServer/i,
         :paths => ["#{url}/jasperserver/login.html"],
-        :require_product => "Nginx",
+        :require_product => "Nginx", # require nginx 
         :inference => false
       }, 
       {

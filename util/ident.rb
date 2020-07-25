@@ -92,6 +92,7 @@ def check_single_uri(opts)
       #
       # Handle debug output for https  
       #
+=begin      
       if debug
         i= 0
         if check_result["requests"]
@@ -117,7 +118,7 @@ def check_single_uri(opts)
           end
         end
       end
-
+=end
     else # not http 
 
       parsed_uri = URI(uri)
@@ -151,23 +152,17 @@ def check_single_uri(opts)
       exit -1
     end
 
-    if debug 
-      puts "Got Check Result:"
-      puts check_result
-    end
-
+    #if debug 
+    #  puts "Got Check Result:"
+    #  puts check_result
+    #end
 
     if check_result["fingerprint"]
       puts "Fingerprint: "
       uniq_matches = []
       check_result["fingerprint"].each do |x|
-        
-        # Make sure not to include dupes, unless we're debugging 
-        #next if uniq_matches.include? "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}" #unless debug
-
-        uniq_matches << "#{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]}"
-        
-        # otherwise, print it out
+              
+        # Print it out
         puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]}) (Issues: #{x["issues"]}) (Tasks: #{x["tasks"]})"
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(nil, x["cpe"]) || []
@@ -176,6 +171,7 @@ def check_single_uri(opts)
           end
         end
       end
+      
     else 
       puts "No fingerprint possible!"
     end
