@@ -334,12 +334,27 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :version => nil,
         :match_content =>  /Apache Tomcat/,
-        :dynamic_version_field => "title",
-        :dynamic_version_regex => /Apache Tomcat\/(.*?) - Error report/i,
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /<title>(.*)<\/title>/,["Apache Tomcat/"," - Error report"])
         },
         :paths => ["#{url}","#{url}/doesntexist-123"],
+        :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :require_product => "NetWeaver",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor => "Apache",
+        :product => "Tomcat",
+        :match_details =>"Netweaver tomcat error page",
+        :match_type => :content_body,
+        :version => nil,
+        :match_content =>  /Apache Tomcat\//,
+        :dynamic_version => lambda{ |x|
+          _first_body_capture(x, /Apache Tomcat\/([\d\.]+)/)
+        },
+        :paths => ["#{url}/irj/portal "],
         :inference => true
       },
       {
