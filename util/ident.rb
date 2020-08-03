@@ -79,7 +79,8 @@ def check_single_uri(opts)
 
   if uri = opts[:uri]
 
-    if uri =~ /^http[s]?:\/\/.*$/      
+    if uri =~ /^http[s]?:\/\/.*$/   
+
       check_result = generate_http_requests_and_check(uri, opts)
       if debug 
         puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
@@ -89,36 +90,6 @@ def check_single_uri(opts)
         end
       end 
   
-      #
-      # Handle debug output for https  
-      #
-=begin      
-      if debug
-        i= 0
-        if check_result["requests"]
-
-          # delete any existing file
-          File.delete "debug.txt" if File.exist? "debug.txt" 
-
-          check_result["requests"].sort_by{|r| "#{r[:request_type].to_s.upcase}"}.each do |x|
-
-            safex = encode_hash x 
-
-            # increment the request number
-            i+=1
-
-            # print it
-            puts "#{i}) #{x[:request_type].to_s.upcase} #{x[:request_method].to_s.upcase} #{x[:start_url]} -> #{x[:final_url]} (#{x[:request_attempts_used] || 1}/#{x[:request_attempts_limit]||1})"
-
-            # write the contents to a file
-            File.open("requests.txt","a") do |f|
-              f.puts "Request #{i}\n #{JSON.pretty_generate (safex)}\n\n\n\n"
-            end
-
-          end
-        end
-      end
-=end
     else # not http 
 
       parsed_uri = URI(uri)
@@ -157,7 +128,7 @@ def check_single_uri(opts)
     #  puts check_result
     #end
 
-    if check_result["fingerprint"]
+    if check_result["fingerprint"] && !json
       puts "Fingerprint: "
       uniq_matches = []
       check_result["fingerprint"].each do |x|
@@ -172,8 +143,9 @@ def check_single_uri(opts)
         end
       end
       
-    else 
-      puts "No fingerprint possible!"
+    elsif !json
+      puts "No fingerprintable technologies discovered!"
+      
     end
 
     if opts[:content]
@@ -281,7 +253,6 @@ def main
   end 
 
   if opts[:'list-checks']
-    
     puts "Fingerprint, Version Detection, Hide By Default, Issues, Vulnerability Inference, Check Paths, Tags"
     list_checks.sort_by{|c| "#{c[:type]}" }.each do |c| 
       next unless c[:type] == "fingerprint"
