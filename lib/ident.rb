@@ -18,6 +18,9 @@ require_relative 'recog_wrapper'
 ##################################
 # Load in http matchers and checks
 ###################################
+require_relative "http/http"
+require_relative "http/http_certificate"
+require_relative 'http/content'
 require_relative 'http/matchers'
 include Intrigue::Ident::Http::Matchers
 

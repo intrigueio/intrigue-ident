@@ -39,6 +39,15 @@ module Intrigue
         content["details"]["cookies"]
       end
 
+      def _cert_subject(content)
+        content["details"]["certificate"]["subject"]
+      end
+
+      def _cert_issuer(content)
+        content["details"]["certificate"]["issuer"]
+      end
+
+
     end
   end
 end

@@ -202,8 +202,6 @@ module Http
   end
 
 
-
-
   #require_relative 'content_helpers'
   #include Intrigue::Ident::Content::HttpHelpers
 
@@ -256,8 +254,12 @@ module Http
         # set options
         opts = {}
         if uri.instance_of? URI::HTTPS
+
           opts[:use_ssl] = true
           opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
+          
+          # get certificate!!
+          certificate_hash = ident_get_certificate(uri)
         end
 
         http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)
@@ -436,6 +438,7 @@ module Http
     if response
       out[:response_headers] = response.each_header.map{|x| ident_encode "#{x}: #{response[x]}" }
       out[:response_body] = ident_encode(response.body)
+      out[:response_certificate] = certificate_hash
     end
 
     out

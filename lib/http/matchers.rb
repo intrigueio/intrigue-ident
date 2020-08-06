@@ -3,8 +3,6 @@ module Ident
 module Http
 module Matchers
 
-  require_relative "http"
-  require_relative 'content'
   include Intrigue::Ident::Http
   include Intrigue::Ident::Content::Http
 
@@ -27,11 +25,14 @@ module Matchers
         "start_url" => "#{hash[:start_url]}",
         "final_url" => "#{hash[:final_url]}",
         "headers" => hash[:response_headers], # this is a hash and we need an array!
+        "certificate" => hash[:certificate] || {},
         "cookies" => set_cookie_header,
         "generator" => generator_string,
         "title" => title_string
       }
     })
+
+    #puts "matching #{check} against: #{data}"
 
   match_uri_hash(check,data)
   end
@@ -117,6 +118,10 @@ module Matchers
         match = _construct_match_response(check,data) if _generator(data) =~ check[:match_content]
       elsif check[:match_type] == :content_title
         match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
+      elsif check[:match_type] == :content_cert_subject
+        match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
+      elsif check[:match_type] == :content_cert_issuer
+        match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
       elsif check[:match_type] == :checksum_body
         match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
       end
