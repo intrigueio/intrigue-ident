@@ -259,7 +259,7 @@ module Http
           opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
           
           # get certificate!!
-          certificate_hash = ident_get_certificate(uri)
+          certificate_hash = {} #ident_get_certificate(uri)
         end
 
         http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)

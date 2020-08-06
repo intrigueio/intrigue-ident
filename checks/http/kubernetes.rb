@@ -18,20 +18,19 @@ class Kubernetes < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false
       },
-      {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Orchestration", "Networking"],
-        :vendor => "Kubernetes",
-        :product =>"Kubernetes",
-        :match_details =>"certificate",
-        :version => nil,
-        :match_type => :content_cert_issuer,
-        :match_content =>  /^\/O=Acme Co\/CN=Kubernetes Ingress Controller Fake Certificate$/,
-        :paths => ["#{url}"],
-        :inference => false
-      },
-      
+      #{
+      #  :type => "fingerprint",
+      #  :category => "application",
+      #  :tags => ["Orchestration", "Networking"],
+      #  :vendor => "Kubernetes",
+      #  :product =>"Kubernetes",
+      #  :match_details =>"certificate",
+      #  :version => nil,
+      #  :match_type => :content_cert_issuer,
+      #  :match_content =>  /^\/O=Acme Co\/CN=Kubernetes Ingress Controller Fake Certificate$/,
+      #  :paths => ["#{url}"],
+      #  :inference => false
+      #},
       {
         :type => "fingerprint",
         :category => "application",
