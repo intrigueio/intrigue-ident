@@ -215,6 +215,8 @@ module Http
   ###
   def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, limit = 3, open_timeout=15, read_timeout=15)
 
+    #puts "IDENT Requesting #{uri_string}"
+
     response = nil
     begin
 
@@ -262,9 +264,13 @@ module Http
           certificate_hash = {} #ident_get_certificate(uri)
         end
 
-        http = Net::HTTP.start(uri.host, uri.port, proxy_addr, proxy_port, opts)
+        http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port, opts)
         http.open_timeout = open_timeout
+        #http.continue_timeout = open_timeout
+        http.ssl_timeout = open_timeout
         http.read_timeout = read_timeout
+        http.write_timeout = open_timeout
+        http.start
 
         path = "#{uri.path}"
         path = "/" if path==""
