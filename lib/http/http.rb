@@ -240,7 +240,8 @@ module Http
       end
 
       until( found || attempts >= max_attempts)
-
+        _log_debug "Getting #{uri}, attempt #{attempts}" if @task_result
+        
         attempts+=1
 
         if $global_config
@@ -252,25 +253,39 @@ module Http
             proxy_pass = $global_config.config["http_proxy"]["pass"]
           end
         end
-
-        # set options
+        
         opts = {}
-        if uri.instance_of? URI::HTTPS
+        
+        # set timeouts
+        opts[:open_timeout] = open_timeout
+        opts[:ssl_timeout] = open_timeout
+        opts[:write_timeout] = read_timeout
+        opts[:read_timeout] = read_timeout
+        opts[:continue_timeout] = open_timeout
 
-          opts[:use_ssl] = true
-          opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
-          
-          # get certificate!!
-          certificate_hash = {} #ident_get_certificate(uri)
-        end
+        # set https
+        
+        #if uri.instance_of? URI::HTTPS
+        #  opts[:use_ssl] = true
+        #  opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
+        #end
 
         http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port, opts)
+        
+        # options dont seem to work when we do 'start', so set these again  
+        if uri.instance_of? URI::HTTPS
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
+        
+        # set timeouts
         http.open_timeout = open_timeout
-        #http.continue_timeout = open_timeout
         http.ssl_timeout = open_timeout
+        http.write_timeout = read_timeout
         http.read_timeout = read_timeout
-        http.write_timeout = open_timeout
-        http.start
+        http.continue_timeout = open_timeout
+      
+        http.start do |http|
 
         path = "#{uri.path}"
         path = "/" if path==""
@@ -297,11 +312,17 @@ module Http
           request = Net::HTTP::Options.new(uri.request_uri)
         elsif method == :trace
           request = Net::HTTP::Trace.new(uri.request_uri)
-          request.body = "blah blah"
+          request.body = "intrigue"
         end
         ### END VERBS
 
-        # set the headers
+        # set user agent unless one was provided
+        unless headers["User-Agent"]
+          headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
+        end
+
+
+        # set the user-specified headers
         headers.each do |k,v|
           request[k] = v
         end
@@ -311,61 +332,41 @@ module Http
           request.basic_auth(credentials[:username],credentials[:password])
         end
 
-        # USE THIS TO PRINT HTTP REQUEST
-        #request.each_header{|h| puts "#{h}: #{request[h]}" }
-        # END USE THIS TO PRINT HTTP REQUEST
-
         # get the response
         response = http.request(request)
+        end
 
-        ###
-        ### Handle redirects 
-        ### 
-        location_header = response.header['location'] || response.header['Location'] 
-        if location_header != nil
-          # location header redirect
-          #puts "Following redirect: #{location_header}"
+        # USE THIS TO PRINT HTTP RESPONSE
+        #puts
+        #puts
+        #puts "===== BEGIN RESPONSE ====="
+        #puts "Endpoint: #{response.code} http://#{uri}"
+        #puts "HEADERS:"
+        #response.each_header{ |h| puts "#{h}: #{response[h]}"}
+        #puts
+        #puts "Body:\n#{response.body}"
+        #puts "=====  END RESPONSE ====="
+        #puts
+        #puts
+        # END USE THIS TO PRINT HTTP RESPONSE
 
-          newuri=URI.parse(location_header)
+        if response.code=="200"
+          break
+        end
 
-          # handle relative uri 
+        if (response.header['location']!=nil)
+          newuri=URI.parse(response.header['location'])
           if(newuri.relative?)
-            newuri=URI.parse("#{uri}#{location_header}")
+              #@task_result.logger.log "url was relative" if @task_result
+              newuri=uri+response.header['location']
           end
-          
-          response_urls << ident_encode(newuri.to_s)
-          uri=newuri
-
-        elsif response.body =~ /META HTTP-EQUIV=\"?Refresh/i # meta refresh
-          # meta refresh redirect
-
-          # get the URL 
-          metaurl = URI.parse(response.body.scan(/META HTTP-EQUIV=Refresh CONTENT=.*; URL=(.*)"/i).first)
-          
-          if metaurl
-            newuri = metaurl.first  
-          else # unable to parse 
-            puts "ERROR Unable to parse redirection!!"
-            found = true 
-            break 
-          end
-          
-          # handle relative uri 
-          if(newuri.relative?)
-            newuri=URI.parse("#{uri}/#{newuri}")
-          end
-          
-          response_urls << ident_encode(newuri.to_s)
           uri=newuri
 
         else
-
-          found = true
-          break
-
-        end #end redirect handling
-
-      end #until
+          found=true #resp was 404, etc
+        end #end if location
+      
+      end 
 
       ###
       ### Done Handling Redirects, proactively set final_url
@@ -444,7 +445,7 @@ module Http
     if response
       out[:response_headers] = response.each_header.map{|x| ident_encode "#{x}: #{response[x]}" }
       out[:response_body] = ident_encode(response.body)
-      out[:response_certificate] = certificate_hash
+      #out[:response_certificate] = certificate_hash
     end
 
     out

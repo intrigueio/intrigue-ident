@@ -298,7 +298,7 @@ module Intrigue
           :match_details =>"powered by header",
           :version => nil,
           :match_type => :content_headers,
-          :match_content =>  /x-powered-by: ASP.NET/,
+          :match_content =>  /^X-Powered-By: ASP.NETs$/i,
           :paths => ["#{url}"], 
           :inference => false
         },
@@ -731,6 +731,19 @@ module Intrigue
           :version => nil,
           :match_type => :content_title ,
           :match_content =>  /^Outlook Web App$/,
+          :paths => ["#{url}"], 
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["Productivity", "Mail Server", "COTS"],
+          :vendor => "Microsoft",
+          :product =>"Outlook Web Access",
+          :match_details =>"title",
+          :version => nil,
+          :match_type => :conent_headers ,
+          :match_content =>  /^Location: https:\/\/.*\/owa\/$/,
           :paths => ["#{url}"], 
           :inference => false
         },
