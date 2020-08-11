@@ -18,6 +18,19 @@ class Readmeio < Intrigue::Ident::Check::Base
         :match_content =>  /cdn.readme.io\/js\/bundle-hub2.js/i,
         :paths => ["#{url}"],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "API"],
+        :vendor =>"Readme.io",
+        :product =>"Readme.io",
+        :match_details =>"readme.io api manager",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /\.hub-api \.api-definition/i,
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
