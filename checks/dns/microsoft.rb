@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["DnsServer"],
+          :tags => ["DNSServer"],
           :vendor => "Microsoft",
           :product => "DNS Server",
           :references => [],

@@ -8,7 +8,7 @@ class LiquidnetLtdHosting < Intrigue::Ident::DnsCheck::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["DnsServer"],
+        :tags => ["DNSServer"],
         :vendor => "LiquidNet Ltd Hosting",
         :product => "LiquidNet DNS",
         :website => "https://www.liquidnetlimited.com/services.html",

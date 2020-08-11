@@ -123,10 +123,9 @@ def check_single_uri(opts)
       exit -1
     end
 
-    #if debug 
-    #  puts "Got Check Result:"
-    #  puts check_result
-    #end
+    if debug 
+      puts "Check Result: #{check_result}"
+    end
 
     if check_result["fingerprint"] && !json
       puts "Fingerprint: "
@@ -240,16 +239,16 @@ def main
     return
   end
 
+  ###
   ## include external checks
-  if opts[:include]
-    puts "Including checks from path: #{opts[:include]}" if opts[:debug]
-    
+  ###
+  if opts[:include]    
     # follow directory structure from ident
-    Dir.glob("#{opts[:include]}/checks/*/*.rb").each do |p|
-      puts "Requiring include path: #{p}" if opts[:debug]
+    checks = Dir.glob("#{opts[:include]}/checks/*/*.rb")
+    puts "Requiring #{checks.count} files from include path: #{opts[:include]}" if opts[:debug]
+    checks.each do |p|
       require p
     end
-    
   end 
 
   if opts[:'list-checks']

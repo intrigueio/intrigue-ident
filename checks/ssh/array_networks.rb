@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "operating_system",
-          :tags => ["SSH Server"],
+          :tags => ["SSHServer"],
           :vendor => "Array Networks",
           :product => "ArrayOS",
           :references => [],

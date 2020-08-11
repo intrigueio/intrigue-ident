@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "operating_system",
-          :tags => ["DnsServer"],
+          :tags => ["DNSServer"],
           :vendor => "Google",
           :product => "Eero",
           :website => "https://eero.com/",
