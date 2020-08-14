@@ -83,7 +83,7 @@ def check_single_uri(opts)
 
       check_result = generate_http_requests_and_check(uri, opts)
       if debug 
-        puts "Ran #{check_result["initial_checks"].first["count"]} checks against base URL"
+        puts "Ran #{check_result["initial_checks"].first["count"]} initial checks against base URL"
         if !check_result["followon_checks"].empty?
           puts "Also checked the following urls due to initial fingerprint:"
           check_result["followon_checks"].each{|x| puts " - #{x["url"]}\n" }
@@ -123,9 +123,9 @@ def check_single_uri(opts)
       exit -1
     end
 
-    if debug 
-      puts "Check Result: #{check_result}"
-    end
+    #if debug 
+    #  puts "Check Result: #{check_result}"
+    #end
 
     if check_result["fingerprint"] && !json
       puts "Fingerprint: "
@@ -144,7 +144,6 @@ def check_single_uri(opts)
       
     elsif !json
       puts "No fingerprintable technologies discovered!"
-      
     end
 
     if opts[:content]
