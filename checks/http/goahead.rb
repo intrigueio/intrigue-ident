@@ -12,12 +12,12 @@ module Check
           :tags => ["IoT"],
           :vendor => "EmbedThis",
           :product => "GoAhead",
-          :match_details => "GoAhead",
+          :match_details => "GoAhead - server header",
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^Server: Goahead.*$/i,
           :dynamic_version => lambda{ |x|
-              _first_body_capture(x,/^Server: Goahead\/(\d.\d.\d).*$/i)
+              _first_body_capture(x,/^Server: Goahead\/(\d+(\.\d+)*).*$/i)
           },
           :paths => ["#{url}"],
           :inference => true
