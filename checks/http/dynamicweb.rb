@@ -14,9 +14,11 @@ class DynamicWeb < Intrigue::Ident::Check::Base
         :references => ["https://www.dynamicweb.com/"],
         :version => nil,
         :match_type => :content_body,
-        :match_content => /Dynamicweb ([\d\.]+)/,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /Dynamicweb ([\d\.]+)/)},
-        :match_details => "header match",
+        :match_content => /<meta name="generator" content="Dynamicweb.*" \/>/i,
+        :dynamic_version => lambda { |x| 
+            version = _first_body_capture(x, /<meta name="generator" content="Dynamicweb (\d+(\.\d+)*)" \/>/i)
+        },
+        :match_details => "Dynamicweb - generator page reference",
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
