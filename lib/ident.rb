@@ -102,7 +102,6 @@ require_relative '../checks/snmp/base'
 check_folder = File.expand_path('../checks/snmp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
-
 ##################################
 # Load in ssh matchers and checks
 ##################################
@@ -139,7 +138,6 @@ require_relative "vulndb_client"
 # set default encoding
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
-
 
 # set a base directory so we can use in checks 
 $ident_dir = File.expand_path('../', File.dirname(__FILE__))
