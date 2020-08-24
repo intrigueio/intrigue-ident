@@ -11,10 +11,11 @@ class Typo3 < Intrigue::Ident::Check::Base
         :tags => ["CMS"],
         :vendor => "TYPO3",
         :product => "TYPO3",
-        :match_details => "generator tag",
+        :website => "https://typo3.org/",
+        :match_details => "TYPO3 - generator page reference",
         :version => nil,
-        :match_type => :content_generator,
-        :match_content =>  /TYPO3 CMS/i,
+        :match_type => :content_body,
+        :match_content =>  /<meta name="generator" content="TYPO3 CMS">/i,
         :paths => ["#{url}"],
         :inference => false
       }
