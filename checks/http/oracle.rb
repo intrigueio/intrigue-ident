@@ -311,11 +311,12 @@ class Oracle < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Application Server"],
+        :tags => ["Monitoring"],
         :vendor => "Oracle",
-        :product =>"Weblogic Server",
-        :match_details =>"weblogic header",
+        :product =>"Dynamic Monitoring Service",
+        :match_details =>"Oracle Dynamic Monitoring Service - x-oracle-dms-ecid header ",
         :references => [
+          "https://docs.oracle.com/cd/E21764_01/core.1111/e10108/dms.htm#ASPER295",
           "https://support.oracle.com/knowledge/Middleware/2100514_1.html",
           "https://www.qualogy.com/techblog/oracle/how-to-harden-weblogic-and-fusion-middleware-against-worm-attacks"
         ],
