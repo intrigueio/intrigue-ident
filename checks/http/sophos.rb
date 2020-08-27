@@ -21,7 +21,7 @@ class Sophos < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS", "Security"],
+        :tags => ["COTS", "Security", "VPN"],
         :vendor =>"Sophos",
         :product =>"UTM",
         :match_details =>"devuce configuration - unique string",
