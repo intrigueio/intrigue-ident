@@ -4,6 +4,10 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
+# new http request lib
+require 'excon' 
+require_relative 'initialize/excon'
+
 # load in generic utils
 require_relative 'utils'
 require_relative 'version'
