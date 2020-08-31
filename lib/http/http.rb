@@ -234,11 +234,10 @@ module Http
 
     begin 
   
-      # disable peer verification & follow redirects
+      # Excon - disable peer verification
       Excon.defaults[:ssl_verify_peer] = false
-      middlewares = Excon.defaults[:middlewares] + [Excon::Middleware::RedirectFollower]
-      options.merge middlewares: middlewares
-
+      
+      # Excon - follow redirects (middleware loaded at initalization)
       connection = Excon.new(uri_string,options)
 
       if method == :get

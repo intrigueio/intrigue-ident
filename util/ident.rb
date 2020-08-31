@@ -59,8 +59,9 @@ def check_file_uris(opts)
 
         end # while
       rescue StandardError => e
-        puts "EXCEPTION! #{e}"
+        puts "Caught Exception! #{e}" if debug
       rescue ThreadError
+        puts "Caught Exception! #{e}" if debug
       end # begin
     end # thread
   end; "ok" # workers 
@@ -164,6 +165,7 @@ def write_simple_csv(output_q)
   headings = [] 
   headings << "URL"
   headings << "Fingerprint"
+  headings << "Match Details"
   File.open("output.csv","w") { |f| f.puts headings.join(", ") }
 
   while output_q.size > 0 do
@@ -174,7 +176,10 @@ def write_simple_csv(output_q)
     # get our url, fingerprint and tags
     out = ""
     o["fingerprint"].uniq.map do |f|
-      out << "#{o["url"]}, #{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}\n"
+      out << "#{o["url"]}, "
+      out << "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}".strip << ", "
+      out << "#{f["match_details"]} "
+      out << "\n"
     end
 
     # print it out! 

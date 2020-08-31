@@ -7,6 +7,7 @@ require 'zlib'
 # new http request lib
 require 'excon' 
 require_relative 'initialize/excon'
+Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower
 
 # load in generic utils
 require_relative 'utils'
