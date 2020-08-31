@@ -6,7 +6,7 @@ require 'thread'
 include Intrigue::Ident
 include Intrigue::Ident::Utils
 
-def check_file_urls(opts)
+def check_file_uris(opts)
 
   filepath = opts[:file]
   debug = opts[:debug]
