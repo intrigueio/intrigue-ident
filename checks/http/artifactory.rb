@@ -19,7 +19,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_content =>  /server: Artifactory/,
         :match_details =>"server header",
         :paths => ["#{url}"],
-        :inference => false
+        :inference => true
       }
     ]
   end

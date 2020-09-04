@@ -82,6 +82,20 @@ check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get a
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
+# Load in mysql matchers and checks
+#################################
+require_relative 'mysql/matchers'
+include Intrigue::Ident::Mysql::Matchers
+
+require_relative 'mysql/check_factory'
+require_relative '../checks/mysql/base'
+
+# mysql fingerprints
+check_folder = File.expand_path('../checks/mysql', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+
+##################################
 # Load in smtp matchers and checks
 ##################################
 require_relative 'smtp/matchers'

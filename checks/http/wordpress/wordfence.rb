@@ -8,7 +8,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Wordpress Plugin", "Social"],
+          :tags => ["Wordpress Plugin", "Security"],
           :vendor =>"Wordfence",
           :product =>"Wordfence",
           :match_details =>"plugin",
@@ -22,7 +22,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Wordpress Plugin", "Social"],
+          :tags => ["Wordpress Plugin", "Security"],
           :vendor =>"Wordfence",
           :product =>"Wordfence",
           :match_details =>"plugin",

@@ -86,6 +86,22 @@ module Check
         {
           :type => "fingerprint",
           :category => "service",
+          :tags => ["Development"],
+          :vendor => "Google",
+          :product => "Firebase",
+          :website => "https://firebase.google.com/",
+          :references => [],
+          :version => nil,
+          :match_type => :content_body,
+          :match_content => /This is a custom domain, but we haven't finished setting it up yet./i,
+          :match_details => "firebase error",
+          :hide => false,
+          :paths => ["#{url}"],
+          :inference => false
+        },
+        {
+          :type => "fingerprint",
+          :category => "service",
           :tags => ["IaaS", "SaaS"],
           :vendor => "Google",
           :product => "Google",

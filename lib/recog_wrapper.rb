@@ -68,7 +68,8 @@ module Http
   include Intrigue::Ident::RecogWrapper::Helpers
 
   def recog_match_http_server_banner(banner)
-    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    options = OpenStruct.new(color: false, 
+      detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("http_servers.xml");nil
     options.fingerprints = ndb.fingerprints;nil
     matcher = ::Recog::MatcherFactory.build(options);nil
@@ -83,7 +84,8 @@ module Http
   end
 
   def recog_match_http_cookies(string)
-    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    options = OpenStruct.new(color: false, 
+      detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("http_cookies.xml");nil
     options.fingerprints = ndb.fingerprints;nil
     matcher = ::Recog::MatcherFactory.build(options);nil
@@ -96,6 +98,29 @@ module Http
       recog_out
     end  
   end
+end
+
+module Mysql
+  include Intrigue::Ident::RecogWrapper::Helpers
+  
+  def recog_match_mysql_error(string)
+    options = OpenStruct.new(color: false, 
+      detail: true, fail_fast: false, multi_match: true)
+    ndb = ::Recog::DB.new("mysql_error.xml");nil
+    options.fingerprints = ndb.fingerprints;nil
+    matcher = ::Recog::MatcherFactory.build(options);nil
+    matches = matcher.match_banner(string)
+
+      require 'pry'
+      binding.pry
+
+    # now convert it & return it 
+    matches.compact.map do |m| 
+      recog_out = recog_to_ident_hash(m)
+      recog_out
+    end  
+  end
+
 end
 
 module Smtp
@@ -122,7 +147,8 @@ module Snmp
   include Intrigue::Ident::RecogWrapper::Helpers
  
   def recog_match_snmp_banner(string)
-    options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
+    options = OpenStruct.new(color: false, 
+      detail: true, fail_fast: false, multi_match: true)
     ndb = ::Recog::DB.new("snmp_banners.xml");nil
     options.fingerprints = ndb.fingerprints;nil
     matcher = ::Recog::MatcherFactory.build(options);nil
