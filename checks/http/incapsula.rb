@@ -44,7 +44,21 @@ class Incapsula < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false,
         :hide => true 
-      } 
+      } , 
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["CDN","WAF"],
+        :vendor =>"Incapsula",
+        :product =>"CDN",
+        :match_details =>"incapsula cookie (visid_incap_...)",
+        :version => nil,
+        :match_type => :content_cookies,
+        :match_content =>  /visid_incap_[\d\_]+=/i,
+        :paths => ["#{url}"],
+        :inference => false,
+        :hide => true 
+      }
     ]
   end
 
