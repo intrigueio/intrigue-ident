@@ -111,9 +111,6 @@ module Mysql
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
 
-      require 'pry'
-      binding.pry
-
     # now convert it & return it 
     matches.compact.map do |m| 
       recog_out = recog_to_ident_hash(m)
