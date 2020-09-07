@@ -53,7 +53,6 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 require_relative 'simple_socket'
 require_relative 'banner_helpers'
 
-
 ##################################
 # Load in dns matchers and checks
 #################################
@@ -166,6 +165,10 @@ module Intrigue
 
     private
 
+    def _sanitize_string(string)
+      "#{string}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    end
+    
     def _construct_match_response(check, data)
 
       if check[:type] == "fingerprint"
@@ -228,13 +231,13 @@ module Intrigue
           "type" => check[:type],
           "vendor" => check[:vendor],
           "product" => check[:product],
-          "version" => calculated_version,
-          "update" => calculated_update,
+          "version" => "#{_sanitize_string(calculated_version)}",
+          "update" => "#{_sanitize_string(calculated_update)}",
           "tags" => check[:tags],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],
           "hide" => hide,
-          "cpe" => cpe_string,
+          "cpe" => _sanitize_string(cpe_string),
           "issues" => issues, 
           "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]
@@ -291,7 +294,7 @@ module Intrigue
           "hide" => hide,
           "issue" => issue,
           "task" => task,
-          "result" => result
+          "result" => "#{_sanitize_string(result)}"
         }
       end
 

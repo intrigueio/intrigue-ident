@@ -54,7 +54,7 @@ module Intrigue
         if socket = connect_tcp(ip, port, timeout)
           #socket.writepartial("HELO friend.local\r\n\r\n")
           begin 
-            out = socket.readpartial(2048, timeout: timeout)
+            out = socket.readpartial(24576, timeout: timeout)
           rescue Socketry::TimeoutError
             puts "Error while reading! Timeout."
             out = nil
@@ -63,7 +63,7 @@ module Intrigue
           out = nil
         end
         
-      out
+      "#{out}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
       end
 
     end
