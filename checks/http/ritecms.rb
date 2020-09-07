@@ -12,11 +12,13 @@ class RiteCMS < Intrigue::Ident::Check::Base
         :vendor => "RiteCMS",
         :product => "RiteCMS",
         :references => ["http://ritecms.com/"],
+        :match_details => "RiteCMS - generator page reference",
         :version => nil,
         :match_type => :content_body,
-        :match_content => /ritecms ([\d\.]+)/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /ritecms ([\d\.]+)/i)},
-        :match_details => "header match",
+        :match_content => /<meta name="generator" content="RiteCMS/i,
+        :dynamic_version => lambda { |x| 
+          _first_body_capture(x, /<meta name="generator" content="RiteCMS (\d+(\.\d+)*)/i)
+        },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
