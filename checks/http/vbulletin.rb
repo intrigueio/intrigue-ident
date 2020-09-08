@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class Cerberus < Intrigue::Ident::Check::Base
+class VBulletin < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
@@ -11,10 +11,11 @@ class Cerberus < Intrigue::Ident::Check::Base
         :tags => ["Social", "Bulletin Board"],
         :vendor => "vBulletin", # Jelsoft Enterprises Limited
         :product =>"vBulletin",
-        :match_details =>"bb_lastactivity cookie",
+        :website => "https://www.vbulletin.com/",
+        :match_details =>"vBulletin - bblastactivity cookie",
         :version => nil,
         :match_type => :content_cookies,
-        :match_content =>  /bb_lastactivity/,
+        :match_content =>  /bb_?lastactivity=/,
         :paths => ["#{url}"],
         :inference => false
       },
@@ -24,10 +25,11 @@ class Cerberus < Intrigue::Ident::Check::Base
         :tags => ["Social", "Bulletin Board"],
         :vendor => "vBulletin", # Jelsoft Enterprises Limited
         :product =>"vBulletin",
-        :match_details =>"bb_lastvisit cookie",
+        :website => "https://www.vbulletin.com/",
+        :match_details =>"vBulletin - bblastvisit cookie",
         :version => nil,
         :match_type => :content_cookies,
-        :match_content =>  /bb_lastvisit/,
+        :match_content =>  /bb_?lastvisit=/,
         :paths => ["#{url}"],
         :inference => false
       },
@@ -37,10 +39,11 @@ class Cerberus < Intrigue::Ident::Check::Base
         :tags => ["Social", "Bulletin Board"],
         :vendor => "vBulletin", # Jelsoft Enterprises Limited
         :product =>"vBulletin",
-        :match_details =>"bb_sessionhash cookie",
+        :website => "https://www.vbulletin.com/",
+        :match_details =>"vBulletin - bbsessionhash cookie",
         :version => nil,
         :match_type => :content_cookies,
-        :match_content =>  /bb_sessionhash/,
+        :match_content =>  /bb_?sessionhash=/,
         :paths => ["#{url}"],
         :inference => false
       },
@@ -50,10 +53,11 @@ class Cerberus < Intrigue::Ident::Check::Base
         :tags => ["Social", "Bulletin Board"],
         :vendor => "vBulletin",
         :product =>"vBulletin",
-        :match_details =>"'powered by' in page content",
+        :website => "https://www.vbulletin.com/",
+        :match_details =>"vBulletin - 'powered by' page referece",
         :version => nil,
         :match_type => :content_body,
-        :match_content =>  /Powered by vBulletin®/,
+        :match_content =>  /Powered by vBulletin®?/,
         :paths => ["#{url}"],
         :inference => false
       }

@@ -11,6 +11,7 @@ module Intrigue
           :tags => ["Web Framework"],
           :vendor => "Mojolicious",
           :product =>"Mojolicious",
+          :website => "http://mojolicio.us/",
           :match_details =>"server header",
           :match_type => :content_headers,
           :version => nil,

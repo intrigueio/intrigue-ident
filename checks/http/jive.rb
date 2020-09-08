@@ -11,6 +11,7 @@ class Jive < Intrigue::Ident::Check::Base
         :tags => ["CMS"],
         :vendor => "Jive",
         :product =>"Platform",
+        :website => "http://www.jivesoftware.com/",
         :match_details =>"jive login page",
         :match_type => :content_cookies,
         :version => nil,

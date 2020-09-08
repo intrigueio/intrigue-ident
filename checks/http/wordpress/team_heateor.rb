@@ -10,7 +10,7 @@ class WordpressTeamHeateor < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["Wordpress Plugin", "Social"],
         :vendor =>"Wordpress",
-        :product =>"sassy-social-share",
+        :product =>"Sassy-Social-Share",
         :match_details =>"plugin",
         :references => [],
         :match_type => :content_body,

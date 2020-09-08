@@ -4,6 +4,11 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
+# new http request lib
+require 'excon' 
+require_relative 'initialize/excon'
+Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower
+
 # load in generic utils
 require_relative 'utils'
 require_relative 'version'
@@ -48,7 +53,6 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 require_relative 'simple_socket'
 require_relative 'banner_helpers'
 
-
 ##################################
 # Load in dns matchers and checks
 #################################
@@ -77,6 +81,20 @@ check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get a
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
+# Load in mysql matchers and checks
+#################################
+require_relative 'mysql/matchers'
+include Intrigue::Ident::Mysql::Matchers
+
+require_relative 'mysql/check_factory'
+require_relative '../checks/mysql/base'
+
+# mysql fingerprints
+check_folder = File.expand_path('../checks/mysql', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+
+##################################
 # Load in smtp matchers and checks
 ##################################
 require_relative 'smtp/matchers'
@@ -101,7 +119,6 @@ require_relative '../checks/snmp/base'
 # snmp fingerprints
 check_folder = File.expand_path('../checks/snmp', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
-
 
 ##################################
 # Load in ssh matchers and checks
@@ -140,7 +157,6 @@ require_relative "vulndb_client"
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
-
 # set a base directory so we can use in checks 
 $ident_dir = File.expand_path('../', File.dirname(__FILE__))
 
@@ -149,6 +165,10 @@ module Intrigue
 
     private
 
+    def _sanitize_string(string)
+      "#{string}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+    end
+    
     def _construct_match_response(check, data)
 
       if check[:type] == "fingerprint"
@@ -211,13 +231,13 @@ module Intrigue
           "type" => check[:type],
           "vendor" => check[:vendor],
           "product" => check[:product],
-          "version" => calculated_version,
-          "update" => calculated_update,
+          "version" => "#{_sanitize_string(calculated_version)}",
+          "update" => "#{_sanitize_string(calculated_update)}",
           "tags" => check[:tags],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],
           "hide" => hide,
-          "cpe" => cpe_string,
+          "cpe" => _sanitize_string(cpe_string),
           "issues" => issues, 
           "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]
@@ -274,7 +294,7 @@ module Intrigue
           "hide" => hide,
           "issue" => issue,
           "task" => task,
-          "result" => result
+          "result" => "#{_sanitize_string(result)}"
         }
       end
 

@@ -4,10 +4,8 @@ module Intrigue
     class Ubuntu < Intrigue::Ident::SshCheck::Base
       def generate_checks
         [
-          # SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
-          # TODO... how to handle ubuntu here?
-          {
-            :type => "fingerprint",
+          { # SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
+            :type => "fingerprint", 
             :category => "operating_system",
             :tags => ["OperatingSystem"],
             :vendor => "Ubuntu",

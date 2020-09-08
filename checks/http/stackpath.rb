@@ -12,11 +12,12 @@ class StackPath < Intrigue::Ident::Check::Base
         :vendor => "StackPath",
         :product => "NetDNA",
         :references => ["https://www.stackpath.com/products/cdn/"],
+        :match_details =>"NetDNA - server header",
         :version => nil,
         :match_type => :content_headers,
-        :match_content =>  /^server:\ NetDNA-cache\/[\d\.]{1,}$/,
+        :match_content =>  /^server:\ NetDNA-cache/,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/^server:\ NetDNA-cache\/[\d\.]{1,}$/i) },
+          _first_header_capture(x,/^server:\ NetDNA-cache\/(\d+(\.\d+)*)$/i) },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true

@@ -10,13 +10,15 @@ class ImpressPages < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["CMS"],
         :vendor => "ImpressPages",
-        :product => "ImpressPages",
-        :references => ["https://www.impresspages.org/"],
+        :product => "ImpressPages CMS",
+        :website => "http://www.impresspages.org/",
+        :match_details =>"ImpressPages - generator page reference",
         :version => nil,
         :match_type => :content_body,
-        :match_content => /impresspages/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /impresspages (.*\d)/i)},
-        :match_details => "header match",
+        :match_content =>  /<meta name="generator" content="ImpressPages/i,
+        :dynamic_version => lambda {|x| 
+            version = _first_body_capture(x,/<meta name="generator" content="ImpressPages (?:CMS\s)?(\d+(\.\d+)*)/i)
+        },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true

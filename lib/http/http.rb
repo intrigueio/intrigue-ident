@@ -209,6 +209,94 @@ module Http
     string.force_encoding('ISO-8859-1').encode('UTF-8')
   end
 
+
+  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, attempts_limit=3, write_timeout=15, read_timeout=15, connect_timeout=15)
+
+    # set user agent unless one was provided
+    unless headers["User-Agent"]
+      headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
+    end
+
+    options = {}
+    #options.merge!(debug_request: true, debug_response: true)
+    options.merge!(write_timeout: write_timeout) if write_timeout
+    options.merge!(read_timeout: read_timeout) if read_timeout
+    options.merge!(connect_timeout: connect_timeout) if connect_timeout
+    options.merge!(idempotent: true, retry_limit: attempts_limit) if attempts_limit
+    options.merge!(body: data) if data
+    options.merge!(headers: headers) if headers
+    
+    # TODO ... benchmark to see if this helps
+    #options.merge!(tcp_nodelay: true)
+    
+    # merge in credentials, must be in format :user => 'username', :password => 'password'
+    options.merge!(credentials) if credentials
+
+    begin 
+  
+      # Excon - disable peer verification
+      Excon.defaults[:ssl_verify_peer] = false
+      
+      # Excon - follow redirects (middleware loaded at initalization)
+      connection = Excon.new(uri_string,options)
+
+      if method == :get
+        response = connection.get
+      elsif method == :post
+        # see: https://coderwall.com/p/c-mu-a/http-posts-in-ruby
+        response = connection.post
+      elsif method == :head
+        response = connection.head
+      #elsif method == :propfind
+      #  request = Net::HTTP::Propfind.new(uri.request_uri)
+      #  request.body = "Here's the body." # Set your body (data)
+      #  request["Depth"] = "1" # Set your headers: one header per line.
+      elsif method == :options
+        response = connection.options
+      elsif method == :trace
+        response = connection.trace
+      end
+      ### END VERBS
+    rescue Errno::ETIMEDOUT => e
+      @task_result.logger.log_error "Generic - Socket Timeout: #{e}" if @task_result
+    rescue Excon::Error::TooManyRedirects => e
+      @task_result.logger.log_error "Excon - Too Many Redirects: #{e}" if @task_result
+    rescue Excon::Error::Socket => e
+      @task_result.logger.log_error "Excon - Socket Timeout: #{e}" if @task_result
+    rescue Excon::Error::Timeout => e 
+      @task_result.logger.log_error "Excon - HTTP Timeout: #{e}" if @task_result
+    end
+
+    # generate our output
+    out = {
+      :options => options,
+      :start_url => uri_string,
+      :final_url => uri_string,
+      :request_type => :ruby,
+      :request_method => method,
+      #:request_credentials => credentials,
+      :request_headers => headers,
+      :request_data => data,
+      #:request_attempts_limit => limit,
+      #:request_attempts_used => attempts,
+      :request_user_agent => headers["User-Agent"],
+      #:request_proxy => proxy_config,
+      #:response_urls => response_urls,
+      :response_object => response
+    }
+
+    # verify we have a response before adding these
+    if response
+      out[:response_headers] = response.headers.map{|x,y| ident_encode "#{x}: #{y}" }
+      out[:response_body] = ident_encode(response.body_utf8)
+      #out[:response_certificate] = certificate_hash
+    end
+
+  out
+  end
+
+
+=begin
   ###
   ### XXX - significant updates made to zlib, determine whether to
   ### move this over to RestClient: https://github.com/ruby/ruby/commit/3cf7d1b57e3622430065f6a6ce8cbd5548d3d894
@@ -450,6 +538,7 @@ module Http
 
     out
   end
+=end 
 
 end
 end

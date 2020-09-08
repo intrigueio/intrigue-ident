@@ -1,7 +1,7 @@
 module Intrigue
 module Ident
 module Check
-class Docuwiki < Intrigue::Ident::Check::Base
+class Dokuwiki < Intrigue::Ident::Check::Base
 
   def generate_checks(url)
     [
@@ -9,12 +9,12 @@ class Docuwiki < Intrigue::Ident::Check::Base
         :type => "fingerprint",
         :category => "application",
         :tags => ["CMS"],
-        :vendor => "Docuwiki",
-        :product => "Docuwiki",
+        :vendor => "Dokuwiki",
+        :product => "Dokuwiki",
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /DokuWiki=/,
-        :match_details =>"Cookie match",
+        :match_details =>"Dokuwiki - DokuWiki cookie",
         :paths => ["#{url}"],
         :inference => false
       }

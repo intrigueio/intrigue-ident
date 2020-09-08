@@ -18,6 +18,19 @@ class Sophos < Intrigue::Ident::Check::Base
         :paths => ["#{url}"],
         :inference => false
       },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Security", "VPN"],
+        :vendor =>"Sophos",
+        :product =>"UTM",
+        :match_details =>"devuce configuration - unique string",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content => /The device and all user certificates will be regenerated with the new signing CA. This may break current Site-to-Site VPN and Roadwarrior connections/i,
+        :paths => ["#{url}"],
+        :inference => false
+      },
       ###
       ### Also fortinet?
       ###

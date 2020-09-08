@@ -10,7 +10,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :category => "application",
         :tags => ["COTS", "Development", "Security"],
         :website => "https://jfrog.com/artifactory/",
-        :vendor => "Artifactory",
+        :vendor => "Jfrog",
         :product => "Artifactory",
         :version => nil,
         :dynamic_version => lambda { |x|
@@ -19,7 +19,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_content =>  /server: Artifactory/,
         :match_details =>"server header",
         :paths => ["#{url}"],
-        :inference => false
+        :inference => true
       }
     ]
   end

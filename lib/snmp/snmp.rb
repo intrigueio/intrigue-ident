@@ -53,7 +53,7 @@ module Intrigue
           return nil
         end
 
-      out.length > 0 ? out : nil
+      "#{out}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
       end
 
     end
