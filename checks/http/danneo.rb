@@ -12,11 +12,13 @@ class DanneoCMS < Intrigue::Ident::Check::Base
         :vendor => "Danneo",
         :product => "Danneo",
         :references => ["http://danneo.ru/"],
+        :match_details => "Danneo - generator page reference",
         :version => nil,
         :match_type => :content_body,
-        :match_content => /CMS Danneo (.*.\d)/i,
-        :dynamic_version => lambda { |x| _first_body_capture(x, /CMS Danneo (.*.\d)/i)},
-        :match_details => "header match",
+        :match_content => /<meta name="generator" content="CMS Danneo/i,
+        :dynamic_version => lambda { 
+          |x| _first_body_capture(x, /<meta name="generator" content="CMS Danneo (\d+(\.\d+)*)/i)
+        },
         :hide => false,
         :paths => ["#{url}"],
         :inference => true
