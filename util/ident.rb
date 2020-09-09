@@ -107,6 +107,8 @@ def check_single_uri(opts)
         check_result = generate_ftp_request_and_check(ip, port || 21)
       elsif proto == "mysql"
         check_result = generate_mysql_request_and_check(ip, port || 3306)
+      elsif proto == "pop3"
+        check_result = generate_pop3_request_and_check(ip, port || 110)
       elsif proto == "snmp"
         check_result = generate_snmp_request_and_check(ip, port || 161)
       elsif  proto == "smtp"
@@ -199,9 +201,10 @@ def list_checks
   Intrigue::Ident::Dns::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
   Intrigue::Ident::Ftp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
   Intrigue::Ident::Mysql::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Pop3::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
   Intrigue::Ident::Smtp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
   Intrigue::Ident::Snmp::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
-  Intrigue::Ident::Ssh::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(
+  Intrigue::Ident::Ssh::CheckFactory.checks.map{|x| x.new.generate_checks }).concat(  
   Intrigue::Ident::Telnet::CheckFactory.checks.map{|x| x.new.generate_checks }).flatten
 end
 
@@ -214,7 +217,7 @@ def main
     opts = Slop.parse do |o|
       
       # url input
-      o.string '-u', '--uri', 'a uri to check (supported portocols: dns, ftp, http, https, mysql, smtp, snmp, telnet). ex: http://intrigue.io'
+      o.string '-u', '--uri', 'a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, smtp, snmp, telnet). ex: http://intrigue.io'
       o.string '-f', '--file', 'a file of urls, one per line'
 
       # export 
