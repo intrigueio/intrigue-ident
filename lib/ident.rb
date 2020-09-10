@@ -93,6 +93,19 @@ require_relative '../checks/mysql/base'
 check_folder = File.expand_path('../checks/mysql', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+##################################
+# Load in pop3 matchers and checks
+##################################
+require_relative 'pop3/matchers'
+include Intrigue::Ident::Pop3::Matchers
+
+require_relative 'pop3/check_factory'
+require_relative '../checks/pop3/base'
+
+# pop3 fingerprints
+check_folder = File.expand_path('../checks/pop3', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 
 ##################################
 # Load in smtp matchers and checks
