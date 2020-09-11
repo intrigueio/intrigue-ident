@@ -20,6 +20,20 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_details =>"server header",
         :paths => ["#{url}"],
         :inference => true
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development", "Security"],
+        :website => "https://jfrog.com/artifactory/",
+        :vendor => "Jfrog",
+        :product => "Artifactory",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /\;URL\=\/artifactory/,
+        :match_details =>"redirect in the body",
+        :paths => ["#{url}"],
+        :inference => false
       }
     ]
   end
