@@ -34,7 +34,25 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_details =>"redirect in the body",
         :paths => ["#{url}"],
         :inference => false
+      }, 
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["COTS", "Development", "Security"],
+        :website => "https://jfrog.com/artifactory/",
+        :vendor => "Jfrog",
+        :product => "Artifactory",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /span class=\"version\">Artifactory/,
+        :match_details => "version in a span",
+        :dynamic_version => lambda { |x|
+          _first_body_capture(x,/span class=\"version\">Artifactory ([\d\.]+)/i) },
+        :paths => ["#{url}", "#{url}/artifactory"],
+        :inference => true,
+        :require_product => "Artifactory"
       }
+      # 
     ]
   end
   
