@@ -18,7 +18,7 @@ class Zscaler < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: Zscaler\/(.*)/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true # no cves as of 20190310
       }
     ]

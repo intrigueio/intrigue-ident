@@ -18,7 +18,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: Artifactory/,
         :match_details =>"server header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -32,7 +32,7 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /\;URL\=\/artifactory/,
         :match_details =>"redirect in the body",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -48,7 +48,10 @@ class Artifactory < Intrigue::Ident::Check::Base
         :match_details => "version in a span",
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/span class=\"version\">Artifactory ([\d\.]+)/i) },
-        :paths => ["#{url}", "#{url}/artifactory"],
+        :paths => [
+          { :path => "#{url}", :follow_redirects => true },
+          { :path => "#{url}/artifactory", :follow_redirects => true } 
+        ],
         :inference => true,
         :require_product => "Artifactory"
       }

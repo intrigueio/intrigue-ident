@@ -17,7 +17,7 @@ class Arris < Intrigue::Ident::Check::Base
         :match_content =>  /<meta name="description" content="ARRIS 2307">/,
         :match_details =>"unique string, admin page?",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :examples => ["<meta name=\"description\" content=\"ARRIS 2307\">"]
       }

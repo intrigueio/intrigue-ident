@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /This domain is parked free of charge with NameSilo.com/i,
           :match_details => "string in body",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

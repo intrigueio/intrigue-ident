@@ -16,7 +16,7 @@ class Plesk < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^x-powered-by: PleskLin/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class Plesk < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^PleskWin/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -44,7 +44,7 @@ class Plesk < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^x-powered-by-plesk:.*/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
 

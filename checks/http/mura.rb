@@ -19,7 +19,7 @@ module Intrigue
                 _first_body_capture(x, /<meta name="generator" content="Mura CMS (\d+(\.\d+)*)/i)
               },
               :hide => false,
-              :paths => ["#{url}"],
+              :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
               :inference => true,
             },
           ]

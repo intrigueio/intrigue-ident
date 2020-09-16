@@ -16,7 +16,7 @@ class WordpressJohnGodley < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /redirection\\\/v1/i,
         :version => nil,
-        :paths => ["#{url}/wp-json"],
+        :paths => [{ :path => "#{url}/wp-json", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

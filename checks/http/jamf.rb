@@ -19,7 +19,7 @@ class Jamf < Intrigue::Ident::Check::Base
         :dynamic_update => lambda { |x| 
           _first_body_capture(x,/<title>Jamf Pro Login - Jamf Pro v[\d\.]*-(.*)</) },
         :match_content =>  /<title>Jamf Pro Login - Jamf Pro v/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

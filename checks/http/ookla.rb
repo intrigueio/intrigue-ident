@@ -16,7 +16,7 @@ class Ookla < Intrigue::Ident::Check::Base
         :references => ["https://support.ookla.com/hc/en-us/articles/234578568-How-To-Install-Submit-Server"],
         :match_content => /<title>OoklaServer/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

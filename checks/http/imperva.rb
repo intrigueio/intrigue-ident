@@ -16,7 +16,7 @@ class Incapsula < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^x-iinfo:\ .*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class Incapsula < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^x-cdn: Incapsula$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -44,7 +44,7 @@ class Incapsula < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /Request unsuccessful. Incapsula incident ID/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :hide => true 
       } , 
@@ -59,7 +59,7 @@ class Incapsula < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /visid_incap_[\d\_]+=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :hide => true 
       }

@@ -19,7 +19,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_content => /^Citrix Access Gateway$/i,
         :hide => false,
         :require_product => "NetScaler Gateway",
-        :paths => ["#{url}/vpn/tmindex.html"],
+        :paths => [{ :path => "#{url}/vpn/tmindex.html", :follow_redirects => true } ],
         :inference => false,
         :issues => ["exposed_citrix_adc_management_interface"]
       },
@@ -35,7 +35,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /^Application Delivery Management$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issues => ["exposed_citrix_adc_management_interface"]
       },
@@ -51,7 +51,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /Citrix Gateway/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -67,7 +67,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_[\w\d]+_[\w\d]+=/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -81,7 +81,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /_ctxstxt_CitrixCopyright/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -95,7 +95,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /NetScaler Gateway/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -109,7 +109,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_TMAC=/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -123,7 +123,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_TEMP=/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -137,7 +137,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_[\w]+_NGB=/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -151,7 +151,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_PERS=/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -165,7 +165,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /CTXMSAM_LogonFont/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -180,7 +180,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^cteonnt-length:.*$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -195,8 +195,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /citrix_ns_id=/i,
         :hide => false,
-        :paths => ["#{url}"],
-        :verify => ["dW5kZXJhcm1vdXIjSW50cmlndWU6OkVudGl0eTo6VXJpI2h0dHA6Ly8yMDQuMjkuMTk2LjEwMjo4MA=="],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -210,7 +209,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^location: \/vpn\/index\.html$/i ,
         :hide => false,
-        :paths => ["#{url}/doesntexist-123"],
+        :paths => [{ :path => "#{url}/doesntexist-123", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -224,7 +223,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /NSC_TASS=\/doesntexist-123\/vpn\/index\.html/i ,
         :hide => false,
-        :paths => ["#{url}/doesntexist-123"],
+        :paths => [{ :path => "#{url}/doesntexist-123", :follow_redirects => true } ],
         :inference => false
       },  
       {
@@ -240,7 +239,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^location: \/zdm\/login_xdm_uc.jsp$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       { # <div class="info_version">XenMobile version&nbsp;</div>
@@ -256,7 +255,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /^XenMobile - Console - Logon$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -274,7 +273,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<title>XenServer/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -292,7 +291,7 @@ class Citrix < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<title>Welcome to Citrix XenServer/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

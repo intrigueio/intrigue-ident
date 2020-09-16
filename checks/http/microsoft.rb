@@ -15,7 +15,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /Home Page - My ASP.NET Application/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -28,7 +28,7 @@ module Intrigue
           :match_type => :content_cookies,
           :match_content =>  /AspNetCore.Antiforgery/i,
           :match_details =>"ASP.Net Antiforgery cookie",
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -43,7 +43,10 @@ module Intrigue
           :match_type => :content_body,
           :match_content =>  /^.*ASP.NET is configured*$/i,
           :match_details =>"ASP.Net Error Message",
-          :paths => ["#{url}", "#{url}/doesntexist-123" ],
+          :paths => [
+            { :path  => "#{url}", :follow_redirects => true }, 
+            { :path  => "#{url}/doesntexist-123", :follow_redirects => true } 
+          ],
           :inference => false
         },
         {
@@ -58,7 +61,7 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /^x-aspnet-version:.*$/i,
           :match_details =>"X-AspNet Header",
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -70,8 +73,8 @@ module Intrigue
           :match_details =>"Asp.Net Cookie",
           :version => nil,
           :match_type => :content_cookies,
-          :match_content =>  /ASPSESSIONID.*$/i,
-          :paths => ["#{url}"],
+          :match_content => /ASPSESSIONID.*$/i,
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -84,7 +87,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /ASP.NET_SessionId.*$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -100,7 +103,7 @@ module Intrigue
           ],
           :match_type => :content_cookies,
           :match_content =>  /ASPXAUTH=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -115,7 +118,7 @@ module Intrigue
             _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
           :match_type => :content_headers,
           :match_content =>  /x-aspnetmvc-version/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         #{
@@ -131,7 +134,7 @@ module Intrigue
         #    _first_header_capture(x,/^x-aspnetmvc-version:\s([\d\.]+)/i) },
         #  :match_type => :content_headers,
         #  :match_content => /x-aspnetmvc-version/i,
-        #  :paths => ["#{url}"],
+        #  :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         #  :inference => true
         #},
         {
@@ -144,7 +147,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /WebResource.axd?d=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -157,7 +160,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /__VIEWSTATEGENERATOR/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -174,7 +177,7 @@ module Intrigue
           },
           :match_type => :content_body,
           :match_content =>  /Microsoft \.NET Framework Version/i,
-          :paths => ["#{url}/Trace.axd"],
+          :paths => [{ :path => "#{url}/Trace.axd", :follow_redirects => true } ],
           :require_product => "ASP.NET",
           :inference => true
         },
@@ -188,7 +191,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /^Microsoft Azure Web App - Error 404$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :hide => true,
           :inference => false
         },
@@ -202,7 +205,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^x-msedge-ref:.*/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -214,7 +217,7 @@ module Intrigue
           :match_details => "proxy default error",
           :match_type => :content_body,
           :match_content =>  /<h2>Our services aren\'t available right now<\/h2><p>We\'re working to restore all services as soon as possible. Please check back soon/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :hide => true,
           :inference => false
         },
@@ -228,7 +231,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^x-ms-ref:.*/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -241,7 +244,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content => /^x-ms-request-id:.*/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -254,7 +257,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content => /ApplicationGatewayAffinity=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -267,7 +270,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content => /ApplicationGatewayAffinityCORS=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -286,7 +289,7 @@ module Intrigue
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}\/[a-zA-Z0-9]{4}\)$/i) },
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -299,7 +302,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^X-Powered-By: ASP.NETs$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -312,7 +315,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /commerce-server-software: Microsoft Commerce Server.*/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -326,7 +329,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^x-feserver:.*$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -340,7 +343,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^location:.*\/owa\/$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -361,7 +364,7 @@ module Intrigue
             update_string = _first_header_capture(x, /^x-owa-version:(.*)$/i)
             owa_to_exchange_version(update_string)[:update]
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -389,7 +392,7 @@ module Intrigue
 
             owa_to_exchange_version(update_string)[:update]
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true # TODO - not specific enough yet
         },
         {
@@ -417,7 +420,7 @@ module Intrigue
 
             owa_to_exchange_version(update_string)[:update]
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true # TODO - not specific enough yet
         },
         {
@@ -430,7 +433,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /<title>Microsoft Forefront TMG/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -443,7 +446,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /via:\ 1.1\ TMGSRVR/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -456,7 +459,7 @@ module Intrigue
           :match_type => :content_title,
           :match_content =>  /^Microsoft ISA Server 2006$/i,
           :match_details =>"standard title",
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -472,7 +475,7 @@ module Intrigue
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/^.*FrontPage\/([\d\.]*).*$/i)
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -484,7 +487,7 @@ module Intrigue
           :match_details =>"server header",
           :match_type => :content_headers,
           :match_content =>  /server: Microsoft-IIS/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # not specific enough
         },
         {
@@ -500,7 +503,7 @@ module Intrigue
           },
           :match_type => :content_headers,
           :match_content =>  /server: Microsoft-IIS\//,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # not specific enough
         },
         {
@@ -513,7 +516,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /401.2 - Unauthorized: Access is denied due to server configuration.<br>Internet Information Services \(IIS\)/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # not specific enough
         },
         {
@@ -526,7 +529,7 @@ module Intrigue
           :version => "8.0",
           :match_type => :content_body,
           :match_content =>  /<img src=\"iis-8.png\"/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # not specific enough
         },
         {
@@ -539,7 +542,7 @@ module Intrigue
           :version => "8.5",
           :match_type => :content_body,
           :match_content =>  /<img src=\"iis-85.png\"/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # not specific enough
         },
         {
@@ -552,7 +555,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: Microsoft-HTTPAPI\/2.0/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -566,7 +569,7 @@ module Intrigue
           :match_type => :content_body,
           :hide => true,
           :match_content =>  /Error Code: 403 Forbidden. The server denied the specified Uniform Resource Locator \(URL\)/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -580,7 +583,7 @@ module Intrigue
           :match_type => :content_body,
           :hide => true,
           :match_content =>  /HTTP Error 404. The requested resource is not found./,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -594,7 +597,7 @@ module Intrigue
           :match_type => :content_body,
           :hide => true,
           :match_content =>  /403 Forbidden. The server denied the specified Uniform Resource Locator (URL)/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -608,7 +611,7 @@ module Intrigue
           :match_type => :content_body,
           :hide => true,
           :match_content =>  /HTTP Error 503. The service is unavailable./,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -622,7 +625,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: Kestrel/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -635,7 +638,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /x-ms-server-fqdn/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -648,7 +651,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /x-ms-gateway-slice/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -661,7 +664,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /ok3static.oktacdn.com\/assets\/img\/logos\/office365/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
 
@@ -675,7 +678,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /Sign in to Outlook/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -688,7 +691,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /location: \/owa/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -703,7 +706,7 @@ module Intrigue
           :match_content =>  /x-owa-version/,
           :dynamic_version => lambda { |x|
             _first_header_capture(x, /x-owa-version:(.*)/) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -718,7 +721,7 @@ module Intrigue
           :match_content =>  /OwaPage\ =\ ASP.auth_logon_aspx/,
           :dynamic_version => lambda { |x|
             _first_body_capture x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/ },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -731,7 +734,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title ,
           :match_content =>  /^Outlook Web App$/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -744,7 +747,7 @@ module Intrigue
           :version => nil,
           :match_type => :conent_headers ,
           :match_content =>  /^Location: https:\/\/.*\/owa\/$/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -761,7 +764,7 @@ module Intrigue
             sharepoint_server_version_from_team_services(_first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i))[:version] },
           :dynamic_update => lambda { |x|
             sharepoint_server_version_from_team_services(_first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i))[:update] },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -775,7 +778,7 @@ module Intrigue
           :match_type => :content_body,
           :requires_product => "Sharepoint Server",
           :match_content =>  /Troubleshoot issues with Microsoft SharePoint Foundation. - Opens in new window/,
-          :paths => ["#{url}/WebResource.asmx"],
+          :paths => [{ :path => "#{url}/WebResource.asmx", :follow_redirects => true } ],
           :require_product => "ASP.NET",
           :inference => false
         },
@@ -791,7 +794,7 @@ module Intrigue
           :match_content =>  /sprequestguid/,
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -806,7 +809,7 @@ module Intrigue
           :match_content =>  /^microsoftsharepointteamservices:.*$/,
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/^microsoftsharepointteamservices:(.*)/i) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -819,7 +822,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_generator,
           :match_content =>  /^Microsoft SharePoint$/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -833,7 +836,7 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /microsoftofficewebserver:.*/,
           :dynamic_version => lambda { |x| _first_header_capture(x,/^microsoftofficewebserver:(.*)/i) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -846,7 +849,7 @@ module Intrigue
           :version => "3.0",
           :match_type => :content_headers,
           :match_content =>  /microsoftofficewebserver: 5.0_Pub/,
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         }
       ]
     end

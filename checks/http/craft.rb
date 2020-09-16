@@ -16,7 +16,7 @@ class Craft < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content =>  /CRAFT_CSRF_TOKEN/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class Craft < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-powered-by: Craft CMS/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

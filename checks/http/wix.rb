@@ -16,7 +16,7 @@ class Wix < Intrigue::Ident::Check::Base
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^x-wix-request-id:/i,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
         }
     ]

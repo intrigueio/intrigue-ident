@@ -18,7 +18,7 @@ class Telerik < Intrigue::Ident::Check::Base
         :match_content =>  /Telerik.Web.UI/,
         :dynamic_version => lambda { |x|  
           _first_body_capture x, /Telerik.Sitefinity.Resources, Version=([\d\.]+),/ },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -34,7 +34,7 @@ class Telerik < Intrigue::Ident::Check::Base
         :match_content =>  /Telerik.Sitefinity.Resources/,
         :dynamic_version => lambda { |x|  
           _first_body_capture x, /Version=([\d\.]+),/ },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -50,7 +50,7 @@ class Telerik < Intrigue::Ident::Check::Base
         :match_content =>  /<meta\ name=\"Generator\"\ content=\"Sitefinity/,
         :dynamic_version => lambda { |x| 
           _first_body_capture x, /<meta name=\"Generator\" content=\"Sitefinity ([\d\.]+).*\ \/>/ },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

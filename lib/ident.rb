@@ -4,10 +4,12 @@ require 'net/http'
 require 'openssl'
 require 'zlib'
 
+# monkey-patches for hash
+require_relative 'initialize/hash'
+
 # new http request lib
 require 'excon' 
 require_relative 'initialize/excon'
-#Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower
 
 # load in generic utils
 require_relative 'utils'

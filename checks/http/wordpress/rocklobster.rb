@@ -16,7 +16,7 @@ class WordpressRocklobster < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /contact-form-7/i,
         :version => nil,
-        :paths => ["#{url}/wp-json"],
+        :paths => [{ :path => "#{url}/wp-json", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }, 
@@ -30,7 +30,7 @@ class WordpressRocklobster < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_body,
         :match_content =>  /wpcf7-form/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

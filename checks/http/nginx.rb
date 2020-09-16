@@ -15,7 +15,7 @@ class Nginx < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /^Welcome to nginx\!?$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Nginx < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /^Test Page for the Nginx HTTP Server/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -41,7 +41,7 @@ class Nginx < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server: nginx$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -56,7 +56,7 @@ class Nginx < Intrigue::Ident::Check::Base
         :match_content =>  /^server:.*nginx\/([\d\.]*).*/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:.*nginx\/([\d\.]*).*/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -69,7 +69,7 @@ class Nginx < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<hr><center>nginx<\/center>/i,
         :hide => true,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

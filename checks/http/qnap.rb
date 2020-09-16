@@ -15,7 +15,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content => /Shone added for detecting default system language when no cookie has been set/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -31,7 +31,7 @@ module Check
           },
           :match_type => :content_body,
           :match_content => /QDocRoot/,
-          :paths => ["#{url}/cgi-bin/authLogin.cgi"],
+          :paths => [{ :path => "#{url}/cgi-bin/authLogin.cgi", :follow_redirects => true } ],
           :require_product => "QTS",
           :inference => true
         }

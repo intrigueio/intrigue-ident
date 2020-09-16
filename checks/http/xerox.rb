@@ -15,7 +15,7 @@ class Xerox < Intrigue::Ident::Check::Base
         :match_details =>"title",
         :match_type => :content_title,
         :match_content => /^CentreWare Internet Services$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false, 
         :issue => "exposed_printer_control_panel"
       }

@@ -15,7 +15,7 @@ class Blueimp < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /jquery.fileupload/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

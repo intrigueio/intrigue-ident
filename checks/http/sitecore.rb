@@ -15,7 +15,7 @@ class Sitecore < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content => /SC_ANALYTICS_GLOBAL_COOKIE=/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Sitecore < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /x-powered-by:.*Sitecore CMS/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -41,7 +41,7 @@ class Sitecore < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /<major>/,
-        :paths => ["#{url}/sitecore/shell/sitecore.version.xml"],
+        :paths => [{ :path => "#{url}/sitecore/shell/sitecore.version.xml", :follow_redirects => true } ],
         :dynamic_version => lambda { |x|
 
           majorx = _body(x).scan(/<major>([\d]+)<\/major>/).first

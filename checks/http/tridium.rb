@@ -16,7 +16,7 @@ class Tridium < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content => /niagara_session=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

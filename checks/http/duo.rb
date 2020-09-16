@@ -17,7 +17,7 @@ module Intrigue
           :match_content => /DUO_ACCESS_GATEWAY_AFFINITY/i,
           :match_details => "affinity cookie",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -32,7 +32,7 @@ module Intrigue
           :match_content => /^Duo Access Gateway$/i,
           :match_details => "title",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

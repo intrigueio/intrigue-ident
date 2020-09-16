@@ -23,7 +23,7 @@ class Heroku < Intrigue::Ident::Check::Base
                          _uri_match(x,/amazonaws.com/)    || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -37,7 +37,7 @@ class Heroku < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^via: [\d\.]+ vegur/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -51,7 +51,7 @@ class Heroku < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server: Cowboy$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -65,7 +65,7 @@ class Heroku < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /www\.herokucdn\.com\/error-pages\/maintenance-mode\.html\"\>\<\/iframe\>/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

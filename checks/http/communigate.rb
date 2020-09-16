@@ -20,7 +20,7 @@ class Communigate < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /server: CommuniGatePro/,
         :hide => false,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => true
       }
     ]

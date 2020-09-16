@@ -16,7 +16,7 @@ class Springfox < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /src=\'webjars\/springfox-swagger-ui\/springfox.js\'/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -30,7 +30,7 @@ class Springfox < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /Swagger UI/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
 

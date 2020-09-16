@@ -21,7 +21,7 @@ class Linksys < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/window.location.replace\(newDomain\ \+\ \'\/ui\/(.*)\/dynamic\/login/i) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :credentials => [],
         # need to get the firmware version!!
         # see: https://ioactive.com/linksys-smart-wi-fi-vulnerabilities/

@@ -16,7 +16,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /ObSSOCookie=/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :hide => false,
         :inference => false
       },
@@ -34,7 +34,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :hide => false,
         :dynamic_version => lambda { |x|
             _first_header_capture(x,/Oracle-Application-Server-[0-9]+[a-z]?\/(.*?)\ /) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -51,7 +51,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :hide => false,
         :dynamic_version => lambda { |x|
             _first_header_capture(x,/Oracle-Web-Cache-[0-9]+[a-z]?\/(.*?)\ /) },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },          {
         :type => "fingerprint",
         :category => "application",
@@ -89,7 +89,7 @@ class Oracle < Intrigue::Ident::Check::Base
         ],
         :match_content =>  /<title>Welcome to Oracle Fusion Middleware/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -107,7 +107,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/Sun GlassFish Enterprise Server\sv([\d\.]+)/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -124,7 +124,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :hide => false,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/GlassFish Server Open Source Edition\s+([\d\.]+)$/) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -142,7 +142,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
             _first_header_capture(x,/Oracle-HTTP-Server\/(.*?)\ /)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -157,7 +157,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: GoAhead-Webs/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -175,7 +175,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
             _first_header_capture(x,/Oracle-iPlanet-Web-Server\/(.*)/)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -191,7 +191,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content =>  /JSESSIONID=/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
         { ### SPECIFIC TO SAP 
@@ -205,7 +205,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: SAP NetWeaver Application Server [\d\.]+ \/ AS Java [\d\.]+/i,
         :dynamic_version => lambda { |x| _first_header_capture(x, /AP NetWeaver Application Server [\d\.]+ \/ AS Java ([\d\.]+)/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       { # TODO - this will tell us J2EE versions, see references!!!
@@ -223,7 +223,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /x-powered-by: Servlet/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       
@@ -240,7 +240,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /x-powered-by: Servlet\/.*JSP.*/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "fingerprint",
@@ -259,7 +259,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /javax.faces.ViewState/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -276,7 +276,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/Server: Sun-ONE-Web-Server\/([\d\.]*).*/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -291,7 +291,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /<faultcode>env:WebServiceFault/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -305,7 +305,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_generator,
         :match_content =>  /^WebLogic Server$/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -324,7 +324,7 @@ class Oracle < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-oracle-dms-ecid:/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

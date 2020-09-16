@@ -15,7 +15,7 @@ class Bootstrap < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /bootstrap.min.css/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -29,7 +29,7 @@ class Bootstrap < Intrigue::Ident::Check::Base
         :match_content =>  /\s+\* Bootstrap v\d+\.\d+\.\d+ \(https:\/\/getbootstrap.com\/\)/i,
         :dynamic_version => lambda {|x| 
           _first_body_capture(x,/\s+\* Bootstrap v(\d+\.\d+\.\d+) \(https:\/\/getbootstrap.com\/\)/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

@@ -17,7 +17,7 @@
           :match_content => /\<STRONG\>What\ is\ Domain\ Parking\?\<\/STRONG\>/i,
           :match_details => "<STRONG>What is Domain Parking?</STRONG>",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -32,7 +32,7 @@
           :match_content => /Park\ your\ Domain\ \@\ Nexicom/i,
           :match_details => "Park\ your\ Domain\ \@\ Nexicom",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

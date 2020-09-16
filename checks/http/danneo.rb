@@ -20,7 +20,7 @@ class DanneoCMS < Intrigue::Ident::Check::Base
           |x| _first_body_capture(x, /<meta name="generator" content="CMS Danneo (\d+(\.\d+)*)/i)
         },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

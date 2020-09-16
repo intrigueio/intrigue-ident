@@ -18,7 +18,7 @@ class Docverify < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:\ DocVerify, Inc\.$/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -17,7 +17,7 @@ class Imunify360 < Intrigue::Ident::Check::Base
         :match_content =>  /^server:\ imunify360-webshield\/[\d\.]{1,}$/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:\ imunify360-webshield\/[\d\.]{1,}$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

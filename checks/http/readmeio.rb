@@ -16,7 +16,7 @@ class Readmeio < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /cdn.readme.io\/js\/bundle-hub2.js/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -29,9 +29,23 @@ class Readmeio < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /\.hub-api \.api-definition/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "API"],
+        :vendor =>"Readme.io",
+        :product =>"Readme.io",
+        :match_details =>"readme.io string",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /id=\"hub-me\"/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
+      
     ]
   end
 

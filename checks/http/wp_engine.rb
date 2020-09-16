@@ -16,7 +16,7 @@ class WpEngine < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /This domain is successfully pointed at WP Engine, but is not configured for an account on our platform./,
         :hide => true,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class WpEngine < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^x-powered-by: WP Engine$/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -45,7 +45,7 @@ class WpEngine < Intrigue::Ident::Check::Base
         # TODO note that this will tell us the server ala,,,   "wpe-backend: apache",
         :match_content =>  /^wpe-backend:/, 
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

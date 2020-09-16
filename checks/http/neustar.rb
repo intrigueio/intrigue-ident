@@ -18,7 +18,7 @@ class Neustar < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^Server:\ UltraDNS\ Client\ Redirection\ Server$/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

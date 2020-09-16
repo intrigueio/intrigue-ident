@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /This domain is currently parked with 1st Domains and does not yet have a website/i,
           :match_details => "domain is parked",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

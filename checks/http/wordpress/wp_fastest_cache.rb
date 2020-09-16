@@ -17,7 +17,7 @@ class WordpressWpFastestCache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /<!-- WP Fastest Cache file was created in/i,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

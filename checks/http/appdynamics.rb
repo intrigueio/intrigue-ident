@@ -17,7 +17,7 @@ class Appdynamics < Intrigue::Ident::Check::Base
         :match_details =>"",
         :match_content =>  /ADRUM_BTa=/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -32,7 +32,7 @@ class Appdynamics < Intrigue::Ident::Check::Base
         :match_details =>"",
         :match_content =>  /ADRUM_BT1=/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

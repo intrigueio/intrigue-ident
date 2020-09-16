@@ -15,7 +15,7 @@ class Squarespace < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^Server: Squarespace$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Squarespace < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<h1>400 Bad Request<\/h1>[\n\s]+<p id=\"status-page\">/im,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :hide => true
       }

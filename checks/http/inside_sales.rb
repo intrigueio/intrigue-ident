@@ -15,7 +15,7 @@ class InsideSales < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^server: Insidesales.com$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

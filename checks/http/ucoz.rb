@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /title\=\"Hosted by uCoz\"/i,
           :match_details => "title\=\"Hosted by uCoz\"",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

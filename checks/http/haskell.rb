@@ -18,7 +18,7 @@ module Intrigue
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/server: Snap\/([\d\.]+)$/i)
             },
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
           }
         ]

@@ -18,7 +18,7 @@ class OpenSolutionCMS < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| _first_body_capture(x, /ext v([\d\.]+)/i)},
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -34,7 +34,7 @@ class OpenSolutionCMS < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| _first_body_capture(x, /quick.cms v([\d\.]+)/i)},
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

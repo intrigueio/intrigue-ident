@@ -20,7 +20,7 @@ class Glimpse < Intrigue::Ident::Check::Base
         },
         :match_type => :content_body,
         :match_content => /Glimpse - Configuration Page/,
-        :paths => ["#{url}/glimpse.axd"],
+        :paths => [{ :path => "#{url}/glimpse.axd", :follow_redirects => true } ],
         :require_product => "ASP.NET",
         :inference => true
       }

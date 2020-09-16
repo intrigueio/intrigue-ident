@@ -15,7 +15,7 @@ class OpenScholar < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_header,
         :match_content =>  /x-powered-by: OpenScholar/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

@@ -15,7 +15,7 @@ class Jforum < Intrigue::Ident::Check::Base
         :version => "2.x",
         :match_type => :content_cookies,
         :match_content =>  /jforum-secure-sso=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

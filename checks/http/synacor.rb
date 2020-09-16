@@ -14,7 +14,7 @@ class Synacor < Intrigue::Ident::Check::Base
         :match_details =>"login page for zimbra",
         :match_type => :content_title,
         :match_content =>  /Zimbra Web Client Sign In/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

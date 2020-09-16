@@ -18,7 +18,7 @@ class Parallels < Intrigue::Ident::Check::Base
         :version => nil,
         :dynamic_version => lambda { |x| 
           _first_title_capture(x,/Plesk (.*?)/) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -32,7 +32,7 @@ class Parallels < Intrigue::Ident::Check::Base
         :references => ["https://en.wikipedia.org/wiki/Plesk"],
         :match_content => /server: sw-cp-server/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

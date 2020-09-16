@@ -17,7 +17,7 @@ class Centos < Intrigue::Ident::Check::Base
         :match_content => /^Apache HTTP Server Test Page powered by CentOS$/i,
         :match_details => "apache server default page",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       { 
@@ -33,7 +33,7 @@ class Centos < Intrigue::Ident::Check::Base
         :match_content => /^Server: cwpsrv$/i,
         :match_details => "centos web panel server header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issue => "exposed_admin_panel_unauthenticated"
       }

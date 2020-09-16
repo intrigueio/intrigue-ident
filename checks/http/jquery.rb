@@ -16,7 +16,7 @@ class Jquery < Intrigue::Ident::Check::Base
         :match_content =>  /jQuery v\d\.\d\.\d \| \(c\) JS Foundation and other contributors/i,
         :dynamic_version => lambda {|x| 
           _first_body_capture(x,/jQuery v(\d\.\d\.\d) \| \(c\) JS Foundation and other contributors/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -30,7 +30,7 @@ class Jquery < Intrigue::Ident::Check::Base
         :version => nil,
         :references => [],
         :match_content =>  /script\ src=[\"|\']https:\/\/code\.jquery\.com\/jquery-/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -44,7 +44,7 @@ class Jquery < Intrigue::Ident::Check::Base
         :version => nil,
         :references => [],
         :match_content =>  /jquery\.dataTables\.min\.js[\"|\']\>/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -59,7 +59,7 @@ class Jquery < Intrigue::Ident::Check::Base
         :references => [],
         :match_content =>  /src=.*?\/jquery-([\d\.]+).js\"\>/i,
         :dynamic_version => lambda { |x| _first_body_capture(x, /src=.*?\/jquery-([\d\.]+).js\"\>/i)},
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
       

@@ -17,7 +17,7 @@ module Intrigue
           :match_content => /This domain name is registered and parked<br>with Cloud City/i,
           :match_details => "unique body string",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

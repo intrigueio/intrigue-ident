@@ -16,7 +16,7 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /^server: RTC\/[\d\.]+/,
           :dynamic_version => lambda { |x| _first_header_capture(x,/^server: RTC\/([\d\.]+)/)},
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

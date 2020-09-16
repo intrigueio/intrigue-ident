@@ -18,7 +18,7 @@ class Link1 < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :version => nil,
         :match_content =>  /Wireless N300 Home Router/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :credentials => [{:user => "admin", :password => ""}],
         :inference => false
       }

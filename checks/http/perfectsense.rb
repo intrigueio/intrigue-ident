@@ -16,7 +16,7 @@ class Perfectsense < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_headers,
         :match_content =>  /x-powered-by: Brightspot/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -17,7 +17,7 @@ class WordpressW3TotalCache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/x-powered-by: W3 Total Cache\/(.*)/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

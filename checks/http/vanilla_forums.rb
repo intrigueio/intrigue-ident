@@ -15,7 +15,7 @@ class VanillaForums < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_headers,
         :match_content =>  /x-nosy-parker64: TWF5YmUgeW91IHNob3VsZCBiZSByZWFkaW5nIHRoaXMgaW5zdGVhZDogaHR0cHM6Ly93d3cudmFuaWxsYWZvcnVtcy5jb20vZW4vY2FyZWVycw==/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

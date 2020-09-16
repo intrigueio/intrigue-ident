@@ -15,7 +15,7 @@ class Splunk < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^server: Splunkd$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

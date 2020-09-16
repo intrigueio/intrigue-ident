@@ -18,7 +18,7 @@ class Sailpoint < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /SailPoint IdentityIQ/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

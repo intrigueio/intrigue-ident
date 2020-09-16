@@ -16,7 +16,7 @@ class Joomla < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /files_joomla/i,
         :references => ["https://twitter.com/GreyNoiseIO/status/987547246538391552"],
-        :paths => ["#{url}/administrator/manifests/files/joomla.xml"],
+        :paths => [{ :path => "#{url}/administrator/manifests/files/joomla.xml", :follow_redirects => true } ],
         :require_product => "Joomla!",
         :inference => false
       },
@@ -31,7 +31,7 @@ class Joomla < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /^Joomla\! - Open Source Content Management$/i,
         :references => [""],
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

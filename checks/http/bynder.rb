@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /bynder=/i,
           :match_details => "unique cookie",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

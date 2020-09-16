@@ -18,7 +18,7 @@ class Webmin < Intrigue::Ident::Check::Base
         :version => nil,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/server: MiniServ\/(.*)/)},
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -32,7 +32,7 @@ class Webmin < Intrigue::Ident::Check::Base
         :references => [],
         :match_content => /<title>Login to Webmin/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issue => "exposed_admin_panel_unauthenticated"
       }

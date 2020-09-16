@@ -14,7 +14,7 @@ class Ruby < Intrigue::Ident::Check::Base
         :match_details =>"x-rack-cache header",
         :match_type => :content_headers,
         :match_content =>  /^x-rack-cache:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -27,7 +27,7 @@ class Ruby < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :dynamic_version => lambda {|d| _first_header_capture(d,/\(Ruby\/([\d\.]+)\/[\d\-]+\)/) },
         :match_content =>  /server:.*\(Ruby\/[\d\.]+\/[\d\-]+\)/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -40,7 +40,7 @@ class Ruby < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :dynamic_version => lambda {|d| _first_header_capture(d,/WEBrick\/([\d\.]+)/) },
         :match_content =>  /server:.*WEBrick\/[\d\.]+/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

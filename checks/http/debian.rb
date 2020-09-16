@@ -15,7 +15,7 @@ class Debian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /^Welcome to nginx on Debian\!$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

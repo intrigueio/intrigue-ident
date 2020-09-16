@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /This site is parked with DreamHost/i,
           :match_details => "parking string in body",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

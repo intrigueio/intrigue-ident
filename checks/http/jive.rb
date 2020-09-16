@@ -16,7 +16,7 @@ class Jive < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :version => nil,
         :match_content =>  /jive.login.ts=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

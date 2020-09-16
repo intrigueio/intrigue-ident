@@ -19,7 +19,7 @@ module Check
           :dynamic_version => lambda{ |x|
               _first_body_capture(x,/^Server: Goahead\/(\d+(\.\d+)*).*$/i)
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

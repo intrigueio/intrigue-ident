@@ -16,7 +16,7 @@ class Blackboard < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-blackboard-product: Blackboard Learn &#8482;.*$/,
         :dynamic_version => lambda{|x| _first_header_capture(x,/^x-blackboard-product: Blackboard Learn &#8482; ([\w\d\.\-\+]*)$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       # Currently match_content too loose
@@ -31,7 +31,7 @@ class Blackboard < Intrigue::Ident::Check::Base
       #  :match_type => :content_body,
       #  :match_content =>  /Blackboard CMS/i,
       #  :dynamic_version => nil ,
-      #  :paths => ["#{url}"],
+      #  :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       #  :inference => true
       #}
     ]

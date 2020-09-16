@@ -17,7 +17,7 @@ class Anelectron < Intrigue::Ident::Check::Base
         :match_content => /Powered By AEF/i,
         :match_details => "powered by message",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

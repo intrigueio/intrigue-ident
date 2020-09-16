@@ -16,7 +16,7 @@ module Intrigue
           :match_type => :content_cookies,
           :match_content => /CMSPreferredCulture=/i,
           :match_details => "cookie match",
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         }
       ]
     end

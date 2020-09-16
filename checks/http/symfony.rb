@@ -15,7 +15,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /symfony=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

@@ -18,7 +18,7 @@ module Check
           :dynamic_version => lambda { |x|
             _first_generator_capture(x,/Jekyll v(.*)/i)
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

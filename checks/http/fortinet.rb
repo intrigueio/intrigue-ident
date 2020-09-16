@@ -17,7 +17,7 @@ module Check
           :match_details =>"FortiGate SSL VPN",
           :match_type => :content_body,
           :match_content =>  /FortiToken clock drift detected/i,
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         },
         {
           :type => "fingerprint",
@@ -29,7 +29,7 @@ module Check
           :match_details =>"FortiGate SSL VPN",
           :match_type => :content_body,
           :match_content =>  /top\.location=window\.location;top\.location=\"\/remote\/login\"/i,
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         },
         {
           :type => "fingerprint",
@@ -38,10 +38,10 @@ module Check
           :vendor => "Fortinet",
           :product =>"FortiGate SSL VPN",
           :references => [],
-          :match_details =>"",
+          :match_details =>"unique string",
           :match_type => :content_body,
           :match_content =>  /top\.location=window\.location;top\.location=\"\/remote\/login\"/i,
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         },
         {
           :type => "fingerprint",
@@ -50,10 +50,10 @@ module Check
           :vendor => "Fortinet",
           :product =>"FortiGate SSL VPN",
           :references => [],
-          :match_details =>"",
+          :match_details =>"clock drift detected string",
           :match_type => :content_body,
           :match_content =>  /FortiToken clock drift detected/i,
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         }
       ]
     end

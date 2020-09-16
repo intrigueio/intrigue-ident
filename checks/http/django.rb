@@ -15,7 +15,7 @@ module Check
           :match_details =>"Django Admin Page",
           :match_type => :content_body,
           :match_content =>  /Django site admin/,
-          :paths => ["#{url}/admin"],
+          :paths => [{ :path => "#{url}/admin", :follow_redirects => true } ],
           :inference => false
         }
       ]
