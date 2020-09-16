@@ -16,7 +16,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :references => [],
         :match_content =>  /^Junos Pulse Secure Access Service$/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, {
         :type => "fingerprint",
@@ -29,7 +29,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :references => [],
         :match_content =>  /^Pulse&#32;Connect&#32;Secure$/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, {
         :type => "fingerprint",
@@ -46,7 +46,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /<td background="\/dana-na\/imgs\/footerbg.gif">/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, {
         :type => "fingerprint",
@@ -59,7 +59,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /src=\"\/dana-na\/css\/ds.js\">/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, {
         :depends => [{:product => "Pulse Connect Secure"}],
@@ -74,7 +74,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :match_content => /DSSETUP_BUILD_VERSION/,
         :version => nil,
         :dynamic_version => lambda{|x| _first_body_capture(x,/VALUE=\"Pulse Secure Network Connect ([\d\.]+)/i) }, 
-        :paths => ["#{url}/dana-na/nc/nc_gina_ver.txt"],
+        :paths => [{ :path => "#{url}/dana-na/nc/nc_gina_ver.txt", :follow_redirects => true } ],
         :require_product => "Pulse Connect Secure",
         :inference => true
       }, {
@@ -89,7 +89,7 @@ class PulseSecure < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content => /\<img border=\"0\" src=\"\/dana-na\/auth\/welcome\.cgi\?/,
         :version => nil,
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       }
     ]
   end

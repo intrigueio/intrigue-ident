@@ -17,7 +17,7 @@
           :match_content => /Domain Parked/i,
           :match_details => "Domain Parked",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

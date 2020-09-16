@@ -15,7 +15,7 @@ class CharityEngine < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /title=\"Powered By CharityEngine\">/i,
         :match_details =>"unique body string",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

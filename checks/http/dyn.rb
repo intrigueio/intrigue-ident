@@ -15,7 +15,7 @@ module Check
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /Domain=.dynect.net/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }, 
         {
@@ -28,7 +28,7 @@ module Check
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /^Login | Dyn Portal$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false,
           :hide => true
         }

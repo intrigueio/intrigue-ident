@@ -15,7 +15,7 @@ class CodeIgniter < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content =>  /Welcome to CodeIgniter/,
         :match_details =>"page title",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

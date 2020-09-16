@@ -20,7 +20,7 @@ class Contenido < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| _first_generator_capture(x, /CMS Contenido ([\d\.]+)/i)},
         :match_details => "generator tag",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
 =end

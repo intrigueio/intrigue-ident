@@ -17,7 +17,7 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<title>Cisco ASDM/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -34,7 +34,7 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -52,7 +52,7 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /^server: CE_E$/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -66,7 +66,7 @@ module Check
           :match_type => :content_body,
           :match_content =>  /<img id="header_logo" src="images\/meraki-logo.png"/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -80,7 +80,7 @@ module Check
           :match_type => :content_cookies,
           :match_content =>  /webvpn/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -94,7 +94,7 @@ module Check
           :match_type => :content_body,
           :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -108,7 +108,7 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /server: cisco-IOS/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -122,7 +122,7 @@ module Check
           :match_type => :content_body,
           :match_content => /<title>Cisco vManage/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false,
           :issue => "exposed_admin_panel_unauthenticated"
         },

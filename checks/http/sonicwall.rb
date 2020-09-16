@@ -19,7 +19,7 @@ class Sonicwall < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: SMA\/([\d\.]+)/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :examples => ["server: SMA/12.2"],
         :inference => true
       },
@@ -37,7 +37,7 @@ class Sonicwall < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: SMA\/([\d\.]+)/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :examples => ["server: SMA/12.2"],
         :inference => true
       }, 
@@ -50,7 +50,7 @@ class Sonicwall < Intrigue::Ident::Check::Base
         :match_details =>"server header",
         :match_type => :content_headers,
         :match_content =>  /server: SonicWALL$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
 

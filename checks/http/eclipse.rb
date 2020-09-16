@@ -25,7 +25,7 @@ module Check
           :dynamic_update => lambda{|x| 
             _first_header_capture(x,/^server:.*Jetty\([\w\d\.]*\.v([\w\d\.\-]*)\).*$/i) 
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :examples => [
             "server: Jetty(9.3.19.v20170502)", 
             "server: Jetty(9.2.z-SNAPSHOT)"
@@ -48,7 +48,7 @@ module Check
           :dynamic_update => lambda{|x| 
             _first_header_capture(x,/^x-powered-by:.*Jetty\([\d\.]*\.v([\w\d\.\-]*)\).*$/i) 
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :examples => [
             "x-powered-by: Jetty(9.3.19.v20170502)",
             "x-powered-by: Jetty(9.2.z-SNAPSHOT)"

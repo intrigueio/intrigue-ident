@@ -15,7 +15,7 @@ module Intrigue
               :version => nil,
               :match_type => :content_headers,
               :match_content => /^x-fastly-backend-reqs:.*$/i,
-              :paths => ["#{url}"],
+              :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
               :inference => false,
             },
             {
@@ -29,7 +29,7 @@ module Intrigue
               :version => nil,
               :match_type => :content_headers,
               :match_content => /^x-fastly-service:.*$/i,
-              :paths => ["#{url}"],
+              :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
               :inference => false,
             },
             {
@@ -43,7 +43,7 @@ module Intrigue
               :version => nil,
               :match_type => :content_headers,
               :match_content => /^x-fastly-request-id:.*$/i,
-              :paths => ["#{url}"],
+              :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
               :inference => false,
             },
             {
@@ -57,7 +57,7 @@ module Intrigue
               :hide => true,
               :match_type => :content_title,
               :match_content => /Fastly error: unknown domain/i,
-              :paths => ["#{url}"],
+              :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
               :inference => false,
             },
           ]

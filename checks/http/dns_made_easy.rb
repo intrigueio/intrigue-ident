@@ -16,7 +16,7 @@ class DnsMadeEasy < Intrigue::Ident::Check::Base
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^server: DNSME HTTP Redirection$/i,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
         }
     ]

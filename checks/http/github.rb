@@ -15,7 +15,7 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^x-github-request-id:.*$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -28,7 +28,7 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^server: GitHub.com$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

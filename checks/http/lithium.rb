@@ -18,7 +18,7 @@ class Lithium < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :version => nil,
         :match_content =>  /LithiumVisitor/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -31,7 +31,7 @@ class Lithium < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :version => nil,
         :match_content =>  /LiSESSIONID/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -16,7 +16,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /Event Marketing Software - Splash/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

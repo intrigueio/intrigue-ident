@@ -19,7 +19,7 @@ class Yoast < Intrigue::Ident::Check::Base
         :dynamic_version => lambda {|x|
           _first_body_capture(x,/Yoast SEO ([\d\.]+)/)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true 
       }
     ]

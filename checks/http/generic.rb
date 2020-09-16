@@ -15,7 +15,7 @@ module Check
           :hide => false,
           :match_type => :content_title,
           :match_content =>  /^Error$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -28,7 +28,7 @@ module Check
           :hide => false,
           :match_type => :content_title,
           :match_content =>  /^Service Unavailable$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -41,7 +41,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /internal error - server connection terminated/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         #{
@@ -54,7 +54,7 @@ module Check
         #  :hide => true,
         #  :match_type => :content_body,
         #  :match_content =>  /^$/i,
-        #  :paths => ["#{url}"],
+        #  :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         #  :inference => false
         #},
         {
@@ -68,7 +68,7 @@ module Check
           :hide => false,
           :match_type => :content_title,
           :match_content =>  /^Domain Parked$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -82,7 +82,7 @@ module Check
           :hide => false,
           :match_type => :content_title,
           :match_content =>  /is parked/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },        
         {
@@ -96,7 +96,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /registered and parked/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -110,7 +110,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /page is parked/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -124,7 +124,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /site is parked/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -138,7 +138,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /domain is parked/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -152,7 +152,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /This domain is currently parked./i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -166,7 +166,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /THIS DOMAIN IS REGISTERED AND PARKED/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -180,7 +180,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /is a parked domain/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -194,7 +194,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /is a parked domain/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -207,7 +207,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /<STRONG>401 Unauthorized/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -220,7 +220,7 @@ module Check
           :hide => false,
           :match_type => :content_title,
           :match_content =>  /^Access Denied$/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -233,7 +233,7 @@ module Check
           :hide => false,
           :match_type => :content_body,
           :match_content =>  /<HEAD><TITLE>Under construction/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -246,7 +246,7 @@ module Check
           :hide => false,
           :match_type => :content_headers,
           :match_content =>  /^xserver:/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -260,7 +260,7 @@ module Check
           :hide => true,
           :match_type => :content_body,
           :match_content =>  /<title>404 - Not Found<\/title>/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

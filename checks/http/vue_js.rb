@@ -15,7 +15,7 @@ class VueJs < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /vue\.min\.js[\"|\']\>/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

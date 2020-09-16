@@ -18,7 +18,7 @@ class Xtec < Intrigue::Ident::Check::Base
           _first_header_capture(x,/^x-tec-api-version: v(.*)/)},
         :match_type => :content_headers,
         :match_content =>  /^x-tec-api-version:.*/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true  # No cpes on 20190319
       }
     ]

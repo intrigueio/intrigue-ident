@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /<\/strong> has been registered on <strong>/i,
           :match_details => "<\/strong> has been registered on <strong>",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -34,7 +34,7 @@ module Intrigue
           :match_content => /AfterMarket\.pl :: domain /i,
           :match_details => "AfterMarket\.pl :: domain ",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

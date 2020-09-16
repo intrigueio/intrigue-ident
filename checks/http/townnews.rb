@@ -20,7 +20,7 @@ class TownNews < Intrigue::Ident::Check::Base
         :dynamic_version => nil,
         :match_details => "footer match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
 =end

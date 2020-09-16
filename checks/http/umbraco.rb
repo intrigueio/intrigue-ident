@@ -17,7 +17,7 @@ class Umbraco < Intrigue::Ident::Check::Base
         :match_content => /umbraco/,
         :match_details => "body match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

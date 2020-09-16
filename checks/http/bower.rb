@@ -15,7 +15,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /\/bower_components\//,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

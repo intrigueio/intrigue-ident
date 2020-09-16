@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /è stato registrato in ovh\.<\/p>/i,
           :match_details => "è stato registrato in ovh\.<\/p>",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -34,7 +34,7 @@ module Intrigue
           :match_content => /Complimenti! Hai registrato il tuo dominio in OVH!/i,
           :match_details => "Complimenti! Hai registrato il tuo dominio in OVH!",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

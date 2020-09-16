@@ -19,7 +19,7 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
           _first_body_capture(x,/blankshield\/blankshield\.min\.js\?ver=(\d+)/i)
         },
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       },
@@ -37,7 +37,7 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
           _first_body_capture(x,/block-tabnapping\.min\.js\?ver=(\d+)/i)
         },
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

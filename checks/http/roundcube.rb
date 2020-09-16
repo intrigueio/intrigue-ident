@@ -16,7 +16,7 @@ class Roundcube < Intrigue::Ident::Check::Base
             :version => nil,
             :match_type => :content_title,
             :match_content =>  /:: Welcome to Roundcube Webmail$/i,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
         },
         {
@@ -30,7 +30,7 @@ class Roundcube < Intrigue::Ident::Check::Base
             :version => nil,
             :match_type => :content_cookies,
             :match_content => /roundcube_sessid=/i,
-            :paths => ["#{url}"], 
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
             :inference => false
         }
     ]

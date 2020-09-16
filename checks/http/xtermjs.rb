@@ -14,7 +14,7 @@ module Intrigue
           :match_details =>"include string",
           :match_type => :content_body,
           :match_content =>  /termjs:\ \'components\/xterm\.js\/xterm/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

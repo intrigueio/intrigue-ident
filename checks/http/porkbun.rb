@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /but the owner has not put up a site yet. Visit again soon to see what amazing website they decide to build./i,
           :match_details => "unique body string",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

@@ -15,7 +15,7 @@ class ManageEngine < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content => /SDPSESSIONID=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

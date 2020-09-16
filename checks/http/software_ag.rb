@@ -16,7 +16,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: my-Channels/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -31,7 +31,7 @@ module Intrigue
           :match_type => :content_body,
           :match_content =>  /<h1>Nirvana [\d\.]+ Documentation Index/i,
           :dynamic_version => lambda{|x| _first_body_capture(x,/<h1>Nirvana ([\d\.]+) Documentation Index/i)},
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

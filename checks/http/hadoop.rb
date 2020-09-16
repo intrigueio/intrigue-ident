@@ -15,7 +15,7 @@ module Intrigue
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /user\"\>Logged in as: dr\.who\<\/div\>/im,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
           },
           {
@@ -28,7 +28,7 @@ module Intrigue
             :version => nil,
             :match_type => :content_body,
             :match_content =>  /root.users.dr_dot_who/i,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
           }
         ]

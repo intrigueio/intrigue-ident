@@ -31,7 +31,7 @@ module Check
             # otherwise just return the version 
           version
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

@@ -16,7 +16,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /X-Backside-Transport:/i,
         :match_details =>"header thrown by ibm datapower (on error)",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /<address>IBM_HTTP_Server Server/i,
         :match_details =>"error thrown by ibm http server",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -44,7 +44,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server: IBM_HTTP_Server/i,
         :match_details =>"server header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -58,7 +58,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /www-authenticate: Basic realm=\"IBM Security Access Manager for Web\"/i,
         :match_details =>"IBM security access manager login prompt",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -72,7 +72,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /<title>Access Manager for e-Business Login/i,
         :match_details =>"Generic Ibm tivoli copyright",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -86,7 +86,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /<form method=\"POST\" action=\"\/pkmslogin.form\">/i,
         :match_details =>"form action to submit to webseal (on ourselves)",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -100,7 +100,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_content =>  /^server:\ WebSEAL\/[\d\.]{1,}(\ \(Build \d{6}\)){0,1}$/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:\ WebSEAL\/[\d\.]{1,}(\ \(Build \d{6}\)){0,1}$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -113,7 +113,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^\$WSEP:.*$/i,
         :match_details => "header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -128,7 +128,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server: WebSphere Application Server\/([\d\.]+)/i) },
         :match_details => "webphere header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -142,7 +142,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /infocenter\/wasinfo\/v6r1/i,
         :match_details => "header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -156,7 +156,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /SRVE0190E: File not found/i,
         :match_details => "header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -170,7 +170,7 @@ class Ibm < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /SRVE0190E: File not found/i,
         :match_details => "header",
-        :paths => ["#{url}/doesntexist-123"],
+        :paths =>[{ :path => "#{url}/doesntexist-123", :follow_redirects => true } ],
         :inference => false
       }
     ]

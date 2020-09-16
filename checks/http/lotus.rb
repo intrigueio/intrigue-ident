@@ -15,7 +15,7 @@ class Lotus < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /server: Lotus-Domino/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Lotus < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content => /homepage.nsf\/homePage\.gif\?OpenImageResource/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -41,7 +41,7 @@ class Lotus < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /Notes Client/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       }
 

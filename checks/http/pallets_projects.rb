@@ -20,7 +20,7 @@ class PalletsProjects < Intrigue::Ident::Check::Base
           version = _first_header_capture(x,/^server: Werkzeug\/(\d+\.\d+\.\d+)\ Python\/(\d+\.\d+\.\d+)$/i)
         },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -36,7 +36,7 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         :match_content => /^Console \/\/ Werkzeug Debugger$/i,
         :match_details => "title",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issue => "exposed_werkzeug_debugger"
       },
@@ -53,7 +53,7 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         :match_content => /^Console \/\/ Werkzeug Debugger$/i,
         :match_details => "title, at /console",
         :hide => false,
-        :paths => ["#{url}/console"],
+        :paths => [{ :path => "#{url}/console", :follow_redirects => true } ],
         :require_product => "Python",
         :inference => false,
         :issue => "exposed_werkzeug_debugger"
@@ -71,7 +71,7 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         :match_content => /In this console you can execute Python expressions in the context/i,
         :match_details => "unique body string",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issue => "exposed_werkzeug_debugger"
       }

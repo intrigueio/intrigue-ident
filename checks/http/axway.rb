@@ -21,7 +21,7 @@ class Axway < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: SecureTransport/i,
         :match_details =>"server header - build is avail too",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

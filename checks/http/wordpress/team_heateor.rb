@@ -18,7 +18,7 @@ class WordpressTeamHeateor < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/wp-content\/plugins\/sassy-social-share\/public\/js\/sassy-social-share-public.js?ver=([\d\.]+)/ii)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

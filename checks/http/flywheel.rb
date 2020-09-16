@@ -19,7 +19,7 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /^server: Flywheel\/[\d\.]+$/i,
           :dynamic_version => lambda {|d| _first_header_capture(d,/^server: Flywheel\/([\d\.]+)$/i)},
-          :paths => ["#{url}"]
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         }
       ]
     end

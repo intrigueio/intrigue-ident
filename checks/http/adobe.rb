@@ -21,7 +21,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /CFTOKEN=/,
         :match_details => "Adobe Coldfusion Cookie Match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       { # Coldfusion  
@@ -35,7 +35,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe/,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :paths => [{ :path => "#{url}/CFIDE/administrator/index.cfm", :follow_redirects => true } ],
         :require_product => "Coldfusion",
         :inference => false,
         :issue => "exposed_admin_panel_unauthenticated"
@@ -58,7 +58,7 @@ class Adobe < Intrigue::Ident::Check::Base
          },
         :match_details => "Body content, version string",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :paths => [{ :path => "#{url}/CFIDE/administrator/index.cfm", :follow_redirects => true } ],
         :require_product => "Coldfusion",
         :inference => true,
         :issue => "exposed_admin_panel_unauthenticated"
@@ -74,7 +74,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Author\" content=\"Copyright \(c\) 1995\-2010 Adobe.*1997\-2012 Adobe Systems Incorporated and its licensors/m,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :paths => [{ :path => "#{url}/CFIDE/administrator/index.cfm", :follow_redirects => true } ],
         :require_product => "Coldfusion",
         :inference => true,
         :issue => "exposed_admin_panel_unauthenticated"
@@ -90,7 +90,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /&copy; 1997 - 2014 Adobe Systems Incorporated and its licensors/m,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :paths => [{ :path => "#{url}/CFIDE/administrator/index.cfm", :follow_redirects => true } ],
         :require_product => "Coldfusion",
         :inference => true,
         :issue => "exposed_admin_panel_unauthenticated"
@@ -110,7 +110,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /<meta name=\"Keywords\" content=\".*\">\s+<meta name/,
         :match_details => "body content",
         :hide => false,
-        :paths => ["#{url}/CFIDE/administrator/index.cfm"],
+        :paths => [{ :path => "#{url}/CFIDE/administrator/index.cfm", :follow_redirects => true } ],
         :require_product => "Coldfusion",
         :inference => true,
         :issue => "exposed_admin_panel_unauthenticated"
@@ -126,7 +126,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /src="\/etc\/clientlibs\//,
         :match_details => "unique path",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },  
       {
@@ -140,7 +140,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /srcset=\"\/content\/dam\//,
         :match_details => "unique path",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },  
       {
@@ -154,7 +154,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /Fireworks MX Dreamweaver MX/,
         :match_details => "generator string in the body",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -169,7 +169,7 @@ class Adobe < Intrigue::Ident::Check::Base
         :match_content => /server: Omniture DC/,
         :match_details => "Omniture server header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

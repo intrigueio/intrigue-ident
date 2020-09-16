@@ -15,7 +15,7 @@ module Check
           :match_details =>"x-powered-by header",
           :match_type => :content_headers,
           :match_content =>  /x-powered-by: Express/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

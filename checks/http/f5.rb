@@ -16,7 +16,7 @@ module Check
           :match_type => :content_cookies,
           :match_content => /MRHSession/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -31,7 +31,7 @@ module Check
           :match_type => :content_body,
           :match_content => /<img src="\/public\/images\/my\/tr.gif\//,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -48,7 +48,7 @@ module Check
           :match_type => :content_cookies,
           :match_content => /TS[0-9a-f]{6}_[0-9a-f]=/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -65,7 +65,7 @@ module Check
           :match_type => :content_cookies,
           :match_content => /TS[0-9a-f]{7}_[0-9a-f]=/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -82,7 +82,7 @@ module Check
           :match_type => :content_cookies,
           :match_content => /TS[0-9a-f]{7}[0-9a-f]=/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -96,7 +96,7 @@ module Check
           :match_type => :content_cookies,
           :match_content =>  /BIGipServer/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }, 
         {
@@ -110,7 +110,7 @@ module Check
           :match_type => :content_headers,
           :match_content =>  /^server: BigIP$/i,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -124,7 +124,7 @@ module Check
           :match_type => :content_title,
           :match_content => /BIG-IP&reg;- Redirect/,
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false,
           :issues => ["exposed_bigip_configuration_utility"]
         },

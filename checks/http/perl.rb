@@ -18,7 +18,7 @@ module Check
             :dynamic_version => lambda { |x|
               _first_header_capture(x,/^.*Perl\/v([\d\.]*)\s.*$/i)
             },
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => true
           },
           {
@@ -34,7 +34,7 @@ module Check
             :dynamic_version => lambda { |x| 
               _first_header_capture(x,/server:.*Perl Dancer2.*([\d\.]*).*/i) },
             :hide => false,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => true
          },
          {
@@ -50,7 +50,7 @@ module Check
             :dynamic_version => lambda { |x| 
               _first_header_capture(x,/server:.*HTTP::Server::PSGI/i) },
             :hide => false,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
          },
         ]

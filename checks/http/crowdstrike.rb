@@ -16,7 +16,7 @@ class Crowdstrike < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :match_content => /domain\=\.falcon-sandbox\.com/i,
         :match_details => "Falcon Sandbox cookie",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -22,14 +22,16 @@ class CheckFactory
     # Provide the full list of checks
     #
     def self.generate_initial_checks(url)
-      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| x[:require_product] == nil && x[:require_vendor_product] == nil }
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| 
+        x[:require_product] == nil && x[:require_vendor_product] == nil }
     end
 
     #
     # Provide checks givene a product
     #
     def self.generate_checks_for_product(url,product)
-      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| x[:require_product] == "#{product}" }
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| 
+        x[:require_product] == "#{product}" }
     end
 
 
@@ -37,7 +39,8 @@ class CheckFactory
     # Provide checks givene a vendor product
     #
     def self.generate_checks_for_vendor_product(url, vendor, product)
-      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(" ","_") }
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| 
+        x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(" ","_") }
     end
 
 

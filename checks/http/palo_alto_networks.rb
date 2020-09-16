@@ -17,7 +17,7 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /global-protect\/login.esp/i,
-        :paths => ["#{uri}"],
+        :paths => [ { :path  => "#{uri}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -32,13 +32,12 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
         :match_content => /Last-Modified/i,
         :require_product => "GlobalProtect",
         :paths => [
-          "#{uri}/global-protect/login.esp",
-          "#{uri}/global-protect/portal/css/login.css",
-          "#{uri}/global-protect/portal/images/favicon.ico",
-          "#{uri}/global-protect/portal/images/logo-pan-48525a.svg",
-          #"#{uri}/php/login.php", # long hang time here for some reason?
-          "#{uri}/login/images/favicon.ico",
-          "#{uri}/js/Pan.js",
+          { :path  => "#{uri}/global-protect/login.esp", :follow_redirects => false },
+          { :path  => "#{uri}/global-protect/portal/css/login.css", :follow_redirects => true },
+          { :path  => "#{uri}/global-protect/portal/images/favicon.ico", :follow_redirects => true },
+          { :path  => "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", :follow_redirects => true },
+          { :path  => "#{uri}/login/images/favicon.ico", :follow_redirects => true },
+          { :path  => "#{uri}/js/Pan.js", :follow_redirects => true }
         ],
         #:require_product => "GlobalProtect",
         :dynamic_version => lambda { |x|

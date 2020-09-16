@@ -20,7 +20,7 @@ module Intrigue
             _first_header_capture(x,/^server: Mojolicious \(Perl\)/i)
           },
           :match_content => /^server: Mojolicious \(Perl\)/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

@@ -14,7 +14,7 @@ class RuckusWireless < Intrigue::Ident::Check::Base
         :match_details =>"login page for ruckus wireless device",
         :match_type => :content_title,
         :match_content =>  /Ruckus Wireless Admin/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

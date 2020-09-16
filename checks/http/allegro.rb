@@ -17,7 +17,7 @@ class Allegro < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server:\ Allegro-Software-RomPager/,
         :match_details =>"server header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

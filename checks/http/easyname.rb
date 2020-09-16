@@ -17,7 +17,7 @@
           :match_content => /\<h1\>Domain\ geparkt\<\/h1\>/i,
           :match_details => "<h1>Domain geparkt</h1>",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -32,7 +32,7 @@
           :match_content => /easyname\ \|\ Domain geparkt/i,
           :match_details => "Park\ your\ Domain\ \@\ Nexicom",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

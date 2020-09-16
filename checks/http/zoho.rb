@@ -15,7 +15,7 @@ module Intrigue
           :references => [],
           :match_type => :content_title,
           :match_content =>  /ManageEngine Desktop Central/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -28,7 +28,7 @@ module Intrigue
           :references => [],
           :match_type => :content_title,
           :match_content =>  /ManageEngine ServiceDesk/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -41,7 +41,7 @@ module Intrigue
           :references => [],
           :match_type => :content_title,
           :match_content =>  /ManageEngine AssetExplorer/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -56,7 +56,7 @@ module Intrigue
           :match_content =>  /^server:\ ZGS$/i,
           :dynamic_version => lambda { |x| 
             _first_header_capture(x,/^server:\ ZGS$/i) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

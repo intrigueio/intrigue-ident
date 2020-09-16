@@ -18,7 +18,7 @@ module Check
           :dynamic_version => lambda { |x|
             _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
           },
-          :paths => ["#{url}/CHANGELOG.txt"],
+          :paths => [{ :path => "#{url}/CHANGELOG.txt", :follow_redirects => true } ],
           :require_product => "Magento",
           :inference => true
         },
@@ -36,7 +36,7 @@ module Check
           :dynamic_version => lambda { |x|
             _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
           },
-          :paths => ["#{url}/core/CHANGELOG.txt"],
+          :paths => [{ :path => "#{url}/CHANGELOG.txt", :follow_redirects => true } ],
           :require_product => "Magento",
           :inference => true
         },
@@ -50,7 +50,7 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /x-drupal/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -66,7 +66,7 @@ module Check
           :dynamic_version => lambda { |x|
             _first_header_capture(x,/x-generator: Drupal\ ([0-9]+)\ \(/i,)
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # Not specific enough?
         },
         {
@@ -79,7 +79,7 @@ module Check
           :version => 7,
           :match_type => :content_generator,
           :match_content =>  /Drupal 7 \(http:\/\/drupal.org\)/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # Not specific enough?
         },
         {
@@ -92,7 +92,7 @@ module Check
           :version => 8,
           :match_type => :content_generator,
           :match_content =>  /Drupal 8 \(http:\/\/drupal.org\)/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false # Not specific enough?
         }
       ]

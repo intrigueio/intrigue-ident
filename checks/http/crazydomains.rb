@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /Domain name is registered and secured with CrazyDomains.com.au/i,
           :match_details => "unique body string",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]
