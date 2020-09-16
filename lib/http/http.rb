@@ -245,12 +245,10 @@ module Http
       ## Handle Redirect-following
       ##
       if follow_redirects
-        puts "DEBUG ... following redirects for #{uri_string}"
         unless Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
           Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower 
         end
       else # it's off, so remove it if it exists
-        puts "DEBUG ... NOT following redirects for #{uri_string}"
         if Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
           Excon.defaults[:middlewares] = Excon.defaults[:middlewares] - [Excon::Middleware::RedirectFollower]
         end
