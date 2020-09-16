@@ -22,7 +22,7 @@ class Wordfence < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/Stable tag: ([\d\.]+)/i)
         },
-        :paths => ["#{url}/wp-content/plugins/wp-file-manager/readme.txt"],
+        :paths => [{ :path => "#{url}/wp-content/plugins/wp-file-manager/readme.txt", :follow_redirects => true } ],
         :require_product => "Wordpress",
         :inference => false
       }

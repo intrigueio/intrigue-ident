@@ -15,7 +15,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :match_details =>"apache error page",
         :match_type => :content_body,
         :match_content => /Apache.* \(Red Hat\) Server.*/i,
-        :paths => ["#{url}/doesntexist-123"],
+        :paths =>[{ :path => "#{url}/doesntexist-123", :follow_redirects => true } ],
         :inference => false
       },
       { # server: Apache/2.4.6 (Red Hat Enterprise Linux) OpenSSL/1.0.2k-fips PHP/7.2.12
@@ -27,7 +27,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :match_details =>"nginx test page",
         :match_type => :content_headers,
         :match_content =>  /^Apache.* \(Red Hat Enterprise Linux\).*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -39,7 +39,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :match_details =>"nginx test page",
         :match_type => :content_title,
         :match_content =>  /^Test Page for the Nginx HTTP Server on Fedora$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -52,7 +52,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :references => ["https://bugzilla.redhat.com/show_bug.cgi?id=1414657"],
         :match_type => :content_body,
         :match_content =>  /Route and path matches, but all pods are down./i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -65,7 +65,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :references => [""],
         :match_type => :content_title,
         :match_content =>  /Login - OpenShift Origin/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -81,7 +81,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^Server:\ JBCS\ httpd$/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -98,7 +98,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -113,7 +113,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^X-Powered-By: JSP\/2./i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -130,7 +130,7 @@ class RedHat < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^x-powered-by:.*JBossWeb-([\d\.]+)$/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

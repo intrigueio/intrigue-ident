@@ -16,7 +16,7 @@ class Wftpserver < Intrigue::Ident::Check::Base
         :references => [],
         :match_content => /server: Wing Ftp Server.*/i,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

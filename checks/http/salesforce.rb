@@ -16,7 +16,7 @@ class SalesForce < Intrigue::Ident::Check::Base
             :version => nil,
             :match_type => :content_headers,
             :match_content =>  /^X-Powered-By: Salesforce\.com ApexPages$/i,
-            :paths => ["#{url}"],
+            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
             :inference => false
         }
     ]

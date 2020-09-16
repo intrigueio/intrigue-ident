@@ -15,7 +15,7 @@ class MediaWiki < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /<a href="\/\/www.mediawiki.org\/">Powered by MediaWiki<\/a>/,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class MediaWiki < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /poweredby_mediawiki/,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -42,7 +42,7 @@ class MediaWiki < Intrigue::Ident::Check::Base
         :match_content =>  /<meta name=\"generator\" content=\"MediaWiki/,
         :version => nil,
         :dynamic_version => lambda { |x| _first_body_capture(x,/<meta name=\"generator\" content=\"MediaWiki\ (.*?)\"\/>/) },
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => true
       }
     ]

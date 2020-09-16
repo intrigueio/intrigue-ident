@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /sedoParkingUrl:dto.sedoParkingUrl/i,
           :match_details => "parking string in body",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -34,7 +34,7 @@ module Intrigue
           :match_content => /because\ this\ domain\ has\ been\ parked\ at\ your\ registrar/i,
           :match_details => "because this domain has been parked at your registrar",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -50,7 +50,7 @@ module Intrigue
           :match_content => /FOOTER_DOMAIN_PARKING/,
           :match_details => "FOOTER_DOMAIN_PARKING",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

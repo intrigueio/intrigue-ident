@@ -20,7 +20,7 @@ class Nec < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_title_capture(x,/^EXPRESSSCOPE Engine (\d+)$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true # not yet in the db 20190310
       }
     ]

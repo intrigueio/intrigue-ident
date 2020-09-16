@@ -17,7 +17,7 @@ class Phusion < Intrigue::Ident::Check::Base
         :match_content =>  /^x-powered-by: Phusion Passenger.*$/,
         :dynamic_version => lambda{|x| 
           _first_header_capture(x,/x-powered-by: Phusion Passenger (.*)/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -32,7 +32,7 @@ class Phusion < Intrigue::Ident::Check::Base
         :match_content =>  /^server:.*Phusion Passenger.*$/,
         :dynamic_version => lambda{|x| 
           _first_header_capture(x,/^server:.*Phusion Passenger\ ([\d\.]*).*/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -47,7 +47,7 @@ class Phusion < Intrigue::Ident::Check::Base
         :match_content =>  /^server:.*Phusion_Passenger.*$/,
         :dynamic_version => lambda{|x| 
           _first_header_capture(x,/^server:.*Phusion_Passenger\/([\w\d\.\-]*)\s.*$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

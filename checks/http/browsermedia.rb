@@ -17,7 +17,7 @@ class BrowserCMS < Intrigue::Ident::Check::Base
         :match_content => /BrowserCMS [\d\.]+/i,
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

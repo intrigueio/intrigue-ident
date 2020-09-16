@@ -18,7 +18,7 @@ class Mikrotik < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_body_capture(x,/<h1>RouterOS v(.*?)<\/h1>/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -31,7 +31,7 @@ class Mikrotik < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^server: Mikrotik HttpProxy$/,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       # 

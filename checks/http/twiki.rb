@@ -15,7 +15,7 @@ class Twiki < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /TWIKISID/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
     ]

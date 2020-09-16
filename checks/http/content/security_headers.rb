@@ -15,7 +15,7 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
@@ -27,7 +27,7 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       #{
       #  :type => "content",
@@ -48,7 +48,7 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
@@ -60,7 +60,7 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       }
     ]
   end

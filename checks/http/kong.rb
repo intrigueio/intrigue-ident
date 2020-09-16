@@ -19,7 +19,7 @@ module Intrigue
             _first_header_capture(x,/^server: kong\/([\d\.]+)/i)
           },
           :match_content => /^server: kong\/[\d\.]+/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /There are millions of other domains available on DAN\.COM\. You can probably find the one that fits you best!/i,
           :match_details => "There are millions of other domains available on DAN\.COM\. You can probably find the one that fits you best!",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

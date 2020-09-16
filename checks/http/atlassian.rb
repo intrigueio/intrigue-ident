@@ -15,7 +15,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /com.atlassian.bitbucket.server/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /X-Confluence-Request-Time/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -44,7 +44,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /Log in to FishEye and Crucible (.*)\</)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -57,7 +57,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /\$\(document\).trigger\('hipchat.load'\);/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -70,7 +70,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /jira.webresources/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -85,7 +85,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :match_content =>  /atlassian.xsrf.token=/i,
         :dynamic_version => lambda{ |x|
             _first_body_capture(x,/<meta name="ajs-version-number" content="(.*)">/) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -101,7 +101,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :match_content => /^server: AtlassianProxy\/[\d\.]+$/i,
         :dynamic_version => lambda{ |x|
           _first_header_capture(x,/^server: AtlassianProxy\/([\d\.]+)$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -114,7 +114,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /logos-statuspage-logo-gradient-neutral.svg/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -127,7 +127,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_heades,
         :match_content =>  /^x-statuspage-skip-logging:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -140,7 +140,7 @@ class Atlassian < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^x-statuspage-version:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

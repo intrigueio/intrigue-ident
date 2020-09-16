@@ -16,7 +16,7 @@ module Intrigue
           :references => ["https://www.datacenterdynamics.com/en/news/ingram-micro-acquires-odin-service-automation-platform-from-parallels/"],
           :match_content => /Operations Automation Default Page/,
           :version => nil,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

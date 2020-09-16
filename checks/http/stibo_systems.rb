@@ -23,7 +23,7 @@ class StiboSystems < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content =>  /STEP by STIBO Systems/i,
         :examples => ["<title>winc-prod-azure - STEP by STIBO Systems</title>"],
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true  # no CPEs on 20190310
       }
     ]

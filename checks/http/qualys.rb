@@ -16,7 +16,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^server: Qualys$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -30,7 +30,7 @@ module Intrigue
           :match_type => :content_headers,
           :match_content =>  /^server: qweb\/.*$/i,
           :dynamic_version => lambda { |x| _first_header_capture(x, /^server: qweb\/(.*)$/i)},
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         },
         {
@@ -43,7 +43,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^server: QMProprietary$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -56,7 +56,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_cookies,
           :match_content =>  /QualysSession=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

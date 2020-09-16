@@ -19,7 +19,7 @@ class Barracuda < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /barra_counter_session=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -36,7 +36,7 @@ class Barracuda < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /BNI__BARRACUDA_LB_COOKIE=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -53,7 +53,7 @@ class Barracuda < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /BNI_persistence=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false 
       },
       {
@@ -70,7 +70,7 @@ class Barracuda < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /BN[IE]S_.*?=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -87,7 +87,7 @@ class Barracuda < Intrigue::Ident::Check::Base
           _first_header_capture(x,/server: BarracudaHTTP ([\d\.]+)/i,)
         },
         :match_content =>  /server: BarracudaHTTP ([\d\.]+)/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -14,7 +14,7 @@ class RackProject < Intrigue::Ident::Check::Base
         :match_details =>"x-rack-cache header",
         :match_type => :content_headers,
         :match_content =>  /^x-rack-cache:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -26,7 +26,7 @@ class RackProject < Intrigue::Ident::Check::Base
         :match_details =>"x-cascade header",
         :match_type => :content_headers,
         :match_content =>  /^x-cascade:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -42,7 +42,7 @@ class RackProject < Intrigue::Ident::Check::Base
         :match_details =>"x-runtime header",
         :match_type => :content_headers,
         :match_content =>  /^x-runtime:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

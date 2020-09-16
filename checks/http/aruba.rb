@@ -15,7 +15,7 @@ class Aruba < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /arubalp=/,
         :match_details =>"Matches an aruba link, generic identifier",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -15,7 +15,7 @@ class Kibana < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^kbn-name:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -28,7 +28,7 @@ class Kibana < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^kbn-xpack-sig:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -44,7 +44,7 @@ class Kibana < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^^kbn-version:(.*)$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

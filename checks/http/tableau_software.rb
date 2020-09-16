@@ -16,7 +16,7 @@ class Tableau < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_headers,
         :match_content =>  /server: Tableau/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -30,7 +30,7 @@ class Tableau < Intrigue::Ident::Check::Base
         :references => ["https://community.tableau.com/thread/165653"],
         :match_type => :content_body,
         :match_content =>  /<meta name="vizportal-config" data-buildId=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

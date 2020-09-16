@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /Domain is parked by service DomainParking.ru/i,
           :match_details => "unique string in body",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

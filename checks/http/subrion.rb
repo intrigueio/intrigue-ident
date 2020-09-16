@@ -17,7 +17,7 @@ class SubrionCMS < Intrigue::Ident::Check::Base
         :match_content => /Subrion CMS/i,
         :match_details => "Header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

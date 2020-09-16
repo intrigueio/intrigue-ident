@@ -17,7 +17,7 @@
           :match_content => /Domain\ parked\ by\ Instra/i,
           :match_details => "Domain\ parked\ by\ Instra",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -33,7 +33,7 @@
           :match_content => /\-\ Domain\ parked\ by\ Europe\ Registry/i,
           :match_details => "\-\ Domain\ parked\ by\ Europe\ Registry",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -49,7 +49,7 @@
           :match_content => /\-\ Domain\ parked\ by\ Asia\ Registry/i,
           :match_details => "\-\ Domain\ parked\ by\ Asia\ Registry",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

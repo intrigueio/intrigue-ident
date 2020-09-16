@@ -15,7 +15,7 @@ class MediaTemple < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :version => nil,
         :match_content =>  /Business-Class Web Hosting by \(mt\) Media Temple/,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       }
       ]

@@ -12,7 +12,7 @@ class Content < Intrigue::Ident::Check::Base
         :dynamic_result => lambda { |d| _first_header_capture(d,/^location:(.*)$/i) },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
@@ -24,7 +24,7 @@ class Content < Intrigue::Ident::Check::Base
           _first_body_match(d, /\[To Parent Directory\]/) ) ? true : false },
         :dynamic_hide => lambda { |d| false },
         :issues => ["directory_listing_detected"],
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       #{
       #  :type => "content",
@@ -60,14 +60,14 @@ class Content < Intrigue::Ident::Check::Base
         :dynamic_result => lambda { |d| _first_body_match(d,/\<form/) ? true : false },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
         :name =>"File Upload Form Detected",
         :match_type => :content_body,
         :dynamic_result => lambda { |d| _first_body_match(d,/enctype=\"multipart\/form-data/) ? true : false },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
       },
@@ -82,7 +82,7 @@ class Content < Intrigue::Ident::Check::Base
         },
         :dynamic_hide => lambda { |d| false },
         :dynamic_issue => lambda { |d| false },
-        :paths => ["#{url}"]
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       }
     ]
   end

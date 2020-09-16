@@ -15,7 +15,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /\/EFTClient\/Account\/LostPassword.htm/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

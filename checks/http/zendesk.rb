@@ -15,7 +15,7 @@ class Zendesk < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_headers,
         :match_content =>  /^x-zendesk-origin-server:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       { # TODO - this might catch valid (closed) helpdesk uris too.
@@ -29,7 +29,7 @@ class Zendesk < Intrigue::Ident::Check::Base
         :hide => true,
         :match_type => :content_body,
         :match_content =>  /<title>Help Center Closed \| Zendesk/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

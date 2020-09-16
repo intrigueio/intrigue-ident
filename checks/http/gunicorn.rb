@@ -18,7 +18,7 @@ module Check
           :dynamic_version => lambda{ |x|
             _first_header_capture(x,/server: gunicorn\/(.*)/)
           },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

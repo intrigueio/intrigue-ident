@@ -36,12 +36,13 @@ module Http
     # group them up by each path, which is annoying because they're stored in
     # an array on each check. This line handles that. (take all the checks []
     # with each of their paths [], flatten and group by them
+
     initial_checks_by_path = initial_checks.map{|c| c[:paths].map{ |p|
-      c.merge({:unique_path => p})} }.flatten
+      c.merge({:unique_path => p[:path], :follow_redirects => p[:follow_redirects] }).except(:paths) }}.flatten
 
     # now we have them organized by a single path, group them up so we only
     # have to make a single request per unique path 
-    grouped_initial_checks = initial_checks_by_path.group_by{|x| x[:unique_path] }
+    grouped_initial_checks = initial_checks_by_path.group_by{|x| [ x[:unique_path], x[:follow_redirects] ]  }
 
     # allow us to only select the base path (speeds things up)
     if only_base
@@ -88,10 +89,10 @@ module Http
 
     # group them up by path (there can be multiple paths)
     followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
-      c.merge({:unique_path => p})} }.flatten
+      c.merge({:unique_path => p[:path], :follow_redirects => p[:follow_redirects] }).except(:paths) } }.flatten
 
     # group'm as needed to run the checks
-    grouped_followon_checks = followon_checks_by_path.group_by{|x| x[:unique_path] }
+    grouped_followon_checks = followon_checks_by_path.group_by{|x| [ x[:unique_path], x[:follow_redirects] ] }
     
     # allow us to only select the base path (speeds things up)
     if only_base
@@ -139,19 +140,21 @@ module Http
     timeout_count = 0
 
     # call the check on each uri
-    grouped_generated_checks.each do |ggc|
+    grouped_generated_checks.each do |ggc, checks|
 
       target_url = ggc.first
+
+      # TODO ... this should probably be a hash
+      follow_redirects = ggc.last 
 
       if timeout_count > 2
         puts "Skipping #{target_url}, too many timeouts" if debug
         next 
       end
-
+      
       # get the response using a normal http request
-      # TODO - collect redirects here
       puts "Getting #{target_url}" if debug
-      response_hash = ident_http_request :get, "#{target_url}"
+      response_hash = ident_http_request :get, "#{target_url}", nil, {}, nil, follow_redirects
     
       if response_hash[:timeout]
         puts "ERROR timed out on #{target_url}" if debug
@@ -167,12 +170,13 @@ module Http
         ###
         ### APPLY THE IDENT!
         ###
-        ggc.last.each do |check|
+        checks.each do |check|
 
           # if we have a check that should match the dom, run it
           if (check[:match_type] == :content_dom)
             results << match_browser_response_hash(check,browser_response) if dom_checks
           else #otherwise use the normal flow
+            #puts "Working on check: #{check} vs response: #{response_hash}"
             results << match_http_response_hash(check,response_hash)
           end
         end
@@ -186,7 +190,7 @@ module Http
     out = results.compact.group_by{|x| x["type"] }
 
     # make sure we have an empty fingerprints array if we didnt' have any Matches
-    out["check_count"] = grouped_generated_checks.map{|x| {"url" => x.first, "count" => x.last.count } }
+    out["check_count"] = grouped_generated_checks.map{|url,checks| {"url" => url.first, "count" => checks.count } }
     out["fingerprint"] = [] unless out["fingerprint"]
     out["content"] = [] unless out["content"]
 
@@ -210,7 +214,7 @@ module Http
   end
 
 
-  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, attempts_limit=3, write_timeout=15, read_timeout=15, connect_timeout=15)
+  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, follow_redirects=nil, attempts_limit=3, write_timeout=15, read_timeout=15, connect_timeout=15)
 
     # set user agent unless one was provided
     unless headers["User-Agent"]
@@ -236,7 +240,21 @@ module Http
   
       # Excon - disable peer verification
       Excon.defaults[:ssl_verify_peer] = false
+    
+      ##
+      ## Handle Redirect-following
+      ##
+      if follow_redirects
+        unless Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
+          Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower 
+        end
+      else # it's off, so remove it if it exists
+        if Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
+          Excon.defaults[:middlewares] = Excon.defaults[:middlewares] - [Excon::Middleware::RedirectFollower]
+        end
+      end
       
+      # only after middlware is set can we create a new connection
       # Excon - follow redirects (middleware loaded at initalization)
       connection = Excon.new(uri_string,options)
 
@@ -267,11 +285,13 @@ module Http
       @task_result.logger.log_error "Excon - HTTP Timeout: #{e}" if @task_result
     end
 
+    scheme = "#{response.port}" =~ /443/ ? "https" : "http"
+    
     # generate our output
     out = {
       :options => options,
       :start_url => uri_string,
-      :final_url => uri_string,
+      :final_url => "#{scheme}://#{response.host}:#{response.port}#{response.path}",
       :request_type => :ruby,
       :request_method => method,
       #:request_credentials => credentials,
@@ -294,251 +314,6 @@ module Http
 
   out
   end
-
-
-=begin
-  ###
-  ### XXX - significant updates made to zlib, determine whether to
-  ### move this over to RestClient: https://github.com/ruby/ruby/commit/3cf7d1b57e3622430065f6a6ce8cbd5548d3d894
-  ###
-  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, limit = 3, open_timeout=15, read_timeout=15)
-
-    #puts "IDENT Requesting #{uri_string}"
-
-    response = nil
-    begin
-
-      # set user agent
-      user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
-      headers["User-Agent"] = user_agent
-
-      attempts=0
-      max_attempts=limit
-      found = false
-      timeout = false
-
-      uri = URI.parse uri_string
-
-      # keep track of redirects
-      response_urls = ["#{uri}"]
-
-      unless uri
-        _log error "Unable to parse URI from: #{uri_string}"
-        return
-      end
-
-      until( found || attempts >= max_attempts)
-        _log_debug "Getting #{uri}, attempt #{attempts}" if @task_result
-        
-        attempts+=1
-
-        if $global_config
-          if $global_config.config["http_proxy"]
-            proxy_config = $global_config.config["http_proxy"]
-            proxy_addr = $global_config.config["http_proxy"]["host"]
-            proxy_port = $global_config.config["http_proxy"]["port"]
-            proxy_user = $global_config.config["http_proxy"]["user"]
-            proxy_pass = $global_config.config["http_proxy"]["pass"]
-          end
-        end
-        
-        opts = {}
-        
-        # set timeouts
-        opts[:open_timeout] = open_timeout
-        opts[:ssl_timeout] = open_timeout
-        opts[:write_timeout] = read_timeout
-        opts[:read_timeout] = read_timeout
-        opts[:continue_timeout] = open_timeout
-
-        # set https
-        
-        #if uri.instance_of? URI::HTTPS
-        #  opts[:use_ssl] = true
-        #  opts[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
-        #end
-
-        http = Net::HTTP.new(uri.host, uri.port, proxy_addr, proxy_port, opts)
-        
-        # options dont seem to work when we do 'start', so set these again  
-        if uri.instance_of? URI::HTTPS
-          http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        end
-        
-        # set timeouts
-        http.open_timeout = open_timeout
-        http.ssl_timeout = open_timeout
-        http.write_timeout = read_timeout
-        http.read_timeout = read_timeout
-        http.continue_timeout = open_timeout
-      
-        http.start do |http|
-
-        path = "#{uri.path}"
-        path = "/" if path==""
-
-        # add in the query parameters
-        if uri.query
-          path += "?#{uri.query}"
-        end
-
-        ### ALLOW DIFFERENT VERBS HERE
-        if method == :get
-          request = Net::HTTP::Get.new(uri)
-        elsif method == :post
-          # see: https://coderwall.com/p/c-mu-a/http-posts-in-ruby
-          request = Net::HTTP::Post.new(uri)
-          request.body = data
-        elsif method == :head
-          request = Net::HTTP::Head.new(uri)
-        elsif method == :propfind
-          request = Net::HTTP::Propfind.new(uri.request_uri)
-          request.body = "Here's the body." # Set your body (data)
-          request["Depth"] = "1" # Set your headers: one header per line.
-        elsif method == :options
-          request = Net::HTTP::Options.new(uri.request_uri)
-        elsif method == :trace
-          request = Net::HTTP::Trace.new(uri.request_uri)
-          request.body = "intrigue"
-        end
-        ### END VERBS
-
-        # set user agent unless one was provided
-        unless headers["User-Agent"]
-          headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
-        end
-
-
-        # set the user-specified headers
-        headers.each do |k,v|
-          request[k] = v
-        end
-
-        # handle credentials
-        if credentials
-          request.basic_auth(credentials[:username],credentials[:password])
-        end
-
-        # get the response
-        response = http.request(request)
-        end
-
-        # USE THIS TO PRINT HTTP RESPONSE
-        #puts
-        #puts
-        #puts "===== BEGIN RESPONSE ====="
-        #puts "Endpoint: #{response.code} http://#{uri}"
-        #puts "HEADERS:"
-        #response.each_header{ |h| puts "#{h}: #{response[h]}"}
-        #puts
-        #puts "Body:\n#{response.body}"
-        #puts "=====  END RESPONSE ====="
-        #puts
-        #puts
-        # END USE THIS TO PRINT HTTP RESPONSE
-
-        if response.code=="200"
-          break
-        end
-
-        if (response.header['location']!=nil)
-          newuri=URI.parse(response.header['location'])
-          if(newuri.relative?)
-              #@task_result.logger.log "url was relative" if @task_result
-              newuri=uri+response.header['location']
-          end
-          uri=newuri
-
-        else
-          found=true #resp was 404, etc
-        end #end if location
-      
-      end 
-
-      ###
-      ### Done Handling Redirects, proactively set final_url
-      ###
-      final_url = uri.to_s
-
-    ### TODO - create a global $debug config option
-    
-    #rescue ArgumentError => e
-      #puts "Unable to connect #{uri}: #{e}"
-    rescue Net::OpenTimeout => e
-      #puts "Unable to connect #{uri}: #{e}"
-      timeout = true
-    rescue Net::ReadTimeout => e
-      #puts "Unable to connect #{uri}: #{e}"
-      timeout = true
-    rescue Errno::ENETDOWN => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Errno::ETIMEDOUT => e
-      #puts "Unable to connect #{uri}: #{e}" 
-      timeout = true
-    rescue Errno::EINVAL => e
-      #puts "Unable to connect #{uri}: #{e}"
-    rescue Errno::ENETUNREACH => e
-      #puts "Unable to connect #{uri}: #{e}"
-    rescue Errno::EHOSTUNREACH => e
-      #puts "Unable to connect #{uri}: #{e}"
-    rescue URI::InvalidURIError => e
-      #
-      # XXX - This is an issue. We should catch this and ensure it's not
-      # due to an underscore / other acceptable character in the URI
-      # http://stackoverflow.com/questions/5208851/is-there-a-workaround-to-open-urls-containing-underscores-in-ruby
-      #
-      #puts "Unable to connect #{uri}: #{e}"
-    rescue OpenSSL::SSL::SSLError => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Errno::ECONNREFUSED => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Errno::ECONNRESET => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Net::HTTPBadResponse => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Zlib::BufError => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Zlib::DataError => e # "incorrect header check - may be specific to ruby 2.0"
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue EOFError => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue SocketError => e
-      #puts "Unable to connect #{uri}: #{e}" 
-    rescue Encoding::InvalidByteSequenceError => e
-      #puts "Encoding issue #{uri}: #{e}" 
-    rescue Encoding::UndefinedConversionError => e
-      #puts "Encoding issue #{uri}: #{e}" 
-    end
-
-    # generate our output
-    out = {
-      :timeout => timeout,
-      :start_url => uri_string,
-      :final_url => final_url,
-      :request_type => :ruby,
-      :request_method => method,
-      :request_credentials => credentials,
-      :request_headers => headers,
-      :request_data => data,
-      :request_attempts_limit => limit,
-      :request_attempts_used => attempts,
-      :request_user_agent => user_agent,
-      :request_proxy => proxy_config,
-      :response_urls => response_urls,
-      :response_object => response
-    }
-
-    # verify we have a response before adding these
-    if response
-      out[:response_headers] = response.each_header.map{|x| ident_encode "#{x}: #{response[x]}" }
-      out[:response_body] = ident_encode(response.body)
-      #out[:response_certificate] = certificate_hash
-    end
-
-    out
-  end
-=end 
 
 end
 end

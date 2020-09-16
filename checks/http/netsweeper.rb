@@ -16,7 +16,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content => /alt=\"Powered by netsweeper\"/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -30,7 +30,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /^Netsweeper WebAdmin$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -48,7 +48,7 @@ module Intrigue
           :match_content =>  /Version: ([\d.]+)/i,
           :dynamic_version => lambda { |x| 
             _first_header_capture(x,/Version: ([\d.]+)/i) },
-          :paths => ["#{url}/webadmin/tools/systemstatus_remote.php"],
+          :paths => [{ :path => "#{url}/webadmin/tools/systemstatus_remote.php", :follow_redirects => true } ],
           :require_product => "Netsweeper",
           :inference => false
         }

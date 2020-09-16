@@ -15,7 +15,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /^Diese neue Domain wurde im Kundenauftrag registriert\.$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

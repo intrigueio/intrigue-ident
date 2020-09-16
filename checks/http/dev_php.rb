@@ -18,7 +18,7 @@ class DevPhp < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_generator_capture(x,/^Dev-PHP (.*)$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

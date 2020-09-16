@@ -15,7 +15,7 @@ module Intrigue
           :version => nil,
           :match_type => :content_title,
           :match_content =>  /^Registered &amp; Protected by MarkMonitor$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

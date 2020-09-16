@@ -15,7 +15,7 @@ class Jetty < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /title=\"Jetty\">Proudly powered by Jetty<\/a>/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -17,7 +17,7 @@ module Intrigue
           :match_content => /<!-- The line below must be kept intact for Sencha Cmd to build your application -->/i,
           :match_details => "unique comment",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false  
         }
       ]

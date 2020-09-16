@@ -15,7 +15,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<title>Ambari<\/title>/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -33,7 +33,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: Apache-Coyote\/(.*)/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -46,7 +46,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /Error processing GroovyPageView:/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       # The requested URL /doesntexist-123 was not found on this server.</p>\n<hr>\n
@@ -64,7 +64,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/<address>Apache\/([\d\.]+).*Server at.*<\/address>/i)
         },
-        :paths => ["#{url}/doesntexist-123"],
+        :paths =>[{ :path => "#{url}/doesntexist-123", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -77,7 +77,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content =>  /Apache HTTP Server Test Page/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -90,7 +90,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server: Apache$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -120,7 +120,7 @@ class Apache < Intrigue::Ident::Check::Base
         # otherwise just return the version 
         version
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -133,7 +133,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server:\ Apache$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -146,7 +146,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /The server encountered an internal error or misconfiguration and was unable to complete your request./i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -162,7 +162,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_auth_kerb\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -178,7 +178,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_bwlimited\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -194,7 +194,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_fcgid\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -210,7 +210,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_jk\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -226,7 +226,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_perl\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -242,7 +242,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_ssl\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -255,7 +255,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /^server: Apache PivotalWebServer$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -269,7 +269,7 @@ class Apache < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<address>Apache Sling<\/address>/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -282,7 +282,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :version => 6,
         :match_content =>  /Tomcat 6 Welcome Page/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -295,7 +295,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /this is the default Tomcat home page/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -308,7 +308,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /If you're seeing this, you've successfully installed Tomcat. Congratulations/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -321,7 +321,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /this is the default Tomcat home page/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -337,7 +337,10 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /<title>(.*)<\/title>/,["Apache Tomcat/"," - Error report"])
         },
-        :paths => ["#{url}","#{url}/doesntexist-123"],
+        :paths => [
+          { :path  => "#{url}", :follow_redirects => true },
+          { :path  => "#{url}/doesntexist-123", :follow_redirects => true }
+        ],
         :inference => true
       },
       {
@@ -354,7 +357,7 @@ class Apache < Intrigue::Ident::Check::Base
         :dynamic_version => lambda{ |x|
           _first_body_capture(x, /Apache Tomcat\/([\d\.]+)/)
         },
-        :paths => ["#{url}/irj/portal "],
+        :paths => [{ :path => "#{url}/irj/portal", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -367,7 +370,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^server: ATS$/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -380,7 +383,7 @@ class Apache < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^via:.*ApacheTrafficServer.*$/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
       

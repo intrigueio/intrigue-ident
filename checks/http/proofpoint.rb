@@ -17,7 +17,7 @@ module Intrigue
           :match_content => /^Proofpoint Protection Server$/i,
           :match_details => "title",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

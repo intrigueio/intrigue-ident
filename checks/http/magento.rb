@@ -14,8 +14,8 @@ class Magento < Intrigue::Ident::Check::Base
         :match_details =>"cookie",
         :match_type => :content_body,
         :version => nil,
-        :match_content =>  /Mage.Cookies.path/i,
-        :paths => ["#{url}"], 
+        :match_content => /Mage.Cookies.path/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       }, 
       {
@@ -28,7 +28,7 @@ class Magento < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^x-magento-cache-debug:.*$/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -41,7 +41,7 @@ class Magento < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^x-magento-cache-control:.*$/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },    
       {
@@ -54,7 +54,7 @@ class Magento < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^x-magento-tags:.*$/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       }, 
       { # also... /skin/frontend/default/default/css/styles.css
@@ -67,7 +67,7 @@ class Magento < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /old school cookie functions grabbed off the web/i,
-        :paths => ["#{url}/js/mage/cookies.js"], 
+        :paths => [{ :path => "#{url}/js/mage/cookies.js", :follow_redirects => true } ], 
         :require_product => "Magento",
         :inference => false
       },           
@@ -83,7 +83,7 @@ class Magento < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /==== [\d\.]+ ====/i,
         :dynamic_version => lambda{ |x| _first_body_capture(x, /==== ([\d\.]+) ====/i)},
-        :paths => ["#{url}/RELEASE_NOTES.txt"],
+        :paths => [{ :path => "#{url}/RELEASE_NOTES.txt", :follow_redirects => true } ],
         :require_product => "Magento",
         :inference => false
       }              

@@ -15,7 +15,7 @@ class Unbounce < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_body,
         :match_content =>  /The requested URL was not found on this server./i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :hide => true
       }

@@ -18,7 +18,7 @@ class NationBuilder < Intrigue::Ident::Check::Base
         :match_content => />Created with NationBuilder<\/a>/i,
         :match_details => "created by string",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

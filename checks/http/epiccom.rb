@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /Why\ purchase\ this\ domain\ with\ Epik/i,
           :match_details => "Why\ purchase\ this\ domain\ with\ Epik",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

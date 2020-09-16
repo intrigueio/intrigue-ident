@@ -15,7 +15,7 @@ class Vmware < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /document.write\(\"<title>\"\ \+\ ID_EESX_Welcome/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false, 
         :issue => "exposed_admin_panel_unauthenticated"
       },
@@ -29,7 +29,7 @@ class Vmware < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /client\/VMware-viclient\.exe/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -42,7 +42,7 @@ class Vmware < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content =>  /<title>VMware Horizon/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

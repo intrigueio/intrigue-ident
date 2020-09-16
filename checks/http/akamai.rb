@@ -15,7 +15,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: AkamaiGHost$/i,
         :match_details =>"ghost server header",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -29,7 +29,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :match_content =>  /The requested URL "&#91;no&#32;URL&#93;", is invalid.<p>/,
         :match_details =>"Akamai Missing Uri",
         :hide => true,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -43,7 +43,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :match_content =>  /x-akamai-transformed:.*/,
         :match_details =>"Akamai transformed header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -60,7 +60,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :match_content =>  /X-Akamai-Staging: ESSL/,
         :match_details =>"Akamai transformed header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -77,7 +77,7 @@ class Akamai < Intrigue::Ident::Check::Base
         :match_content =>  /X-Akamai-Staging: EdgeSuite/,
         :match_details =>"Akamai transformed header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

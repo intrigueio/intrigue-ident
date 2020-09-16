@@ -18,7 +18,7 @@ class Banu < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/server: tinyproxy\/(.*)/i,)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       :inference => true
       }
     ]

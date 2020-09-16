@@ -15,7 +15,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /getTracker\([\"|\']UA-/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -28,7 +28,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /www.google-analytics.com\/analytics.js','ga'/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -41,7 +41,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content => /ng-app=\"/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -54,7 +54,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /<ng-app/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -67,7 +67,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /\*ngIf=/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -80,7 +80,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /ng-controller=/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -96,7 +96,7 @@ module Check
           :match_content => /This is a custom domain, but we haven't finished setting it up yet./i,
           :match_details => "firebase error",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -110,7 +110,7 @@ module Check
           :match_type => :content_headers,
           :version => nil,
           :match_content =>  /^x-goog-stored-content-encoding:.*$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -124,7 +124,7 @@ module Check
           :match_type => :content_headers,
           :version => nil,
           :match_content =>  /^x-goog-generation:.*$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -137,7 +137,7 @@ module Check
           :match_type => :content_headers,
           :version => nil,
           :match_content =>  /^server: ghs$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -150,7 +150,7 @@ module Check
           :match_type => :content_headers,
           :version => nil,
           :match_content =>  /^server: GSE$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -164,7 +164,7 @@ module Check
           :version => nil,
           :match_content =>  /The requested URL <code>\/<\/code> was not found on this server\./,
           :hide => true,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -177,7 +177,7 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /server: Google Search Appliance/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -190,7 +190,7 @@ module Check
           :version => nil,
           :match_type => :content_body,
           :match_content =>  /<!-- End Google Tag Manager -->/im,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -203,7 +203,7 @@ module Check
           :version => nil,
           :match_type => :content_headers,
           :match_content =>  /^server: gws$/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         # Currently match_content too loose, also no point in inference if we dont' have a versions
@@ -220,7 +220,7 @@ module Check
         #  :dynamic_version => nil,
         #  :match_details => "header match",
         #  :hide => false,
-        #  :paths => ["#{url}"],
+        #  :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         #  :inference => true
         #}
       ]

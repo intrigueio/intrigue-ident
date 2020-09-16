@@ -15,7 +15,7 @@ module Check
           :match_details =>"load string",
           :match_type => :content_body,
           :match_content =>  /(document, 'script', 'facebook-jssdk')/,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }, 
         {
@@ -29,7 +29,7 @@ module Check
           :match_content =>  /^\/\*\* @license React v\d+\.\d+.\d+/i,
           :dynamic_version => lambda {|x| 
             _first_body_capture(x,/^\/\*\* @license React v(\d+\.\d+.\d+)/i) },
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => true
         }
       ]

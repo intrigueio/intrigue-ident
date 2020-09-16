@@ -17,7 +17,7 @@ class Adeptia < Intrigue::Ident::Check::Base
         :match_content => /server: Adeptia/i,
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false  
       }
     ]

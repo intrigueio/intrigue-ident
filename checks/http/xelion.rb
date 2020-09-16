@@ -15,7 +15,7 @@ class Xelion < Intrigue::Ident::Check::Base
         :match_details =>"title",
         :match_type => :content_title,
         :match_content =>  /Xelion Phone System/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

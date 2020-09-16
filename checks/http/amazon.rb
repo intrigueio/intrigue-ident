@@ -18,7 +18,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_content =>  /AWSALB=/,
         :match_details =>"amazon App LB cookie (sticky sessions)",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -32,7 +32,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /via:.*.cloudfront.net \(CloudFront\)/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -46,7 +46,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /x-cache:.*cloudfront/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -63,7 +63,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -80,7 +80,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -97,7 +97,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -114,7 +114,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -128,7 +128,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-amz-cf-pop:.*/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       { 
@@ -142,7 +142,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /^x-amz-cf-id:.*/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -159,7 +159,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -176,7 +176,7 @@ class Amazon < Intrigue::Ident::Check::Base
           return true if _uri_match(x,/cloudfront.net/)       || 
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -195,7 +195,7 @@ class Amazon < Intrigue::Ident::Check::Base
                          _uri_match(x,/\d+.\d+.\d+.\d+:/) 
         },
         :dynamic_version => lambda { |x| _first_header_capture(x,/awselb\/(\d.\d)/) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -210,7 +210,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_content =>  /AWSELB=/,
         :match_details =>"amazon elastic cookie",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -224,7 +224,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /^Test Page for the Nginx HTTP Server on the Amazon Linux AMI$/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -238,7 +238,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :match_content => /^Test Page for the Nginx HTTP Server on Amazon Linux$/,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -252,7 +252,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /server: AmazonS3/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -266,7 +266,7 @@ class Amazon < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content => /^x-amz-replication-status: .*$/i,
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

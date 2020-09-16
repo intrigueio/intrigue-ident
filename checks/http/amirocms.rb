@@ -18,7 +18,7 @@ class AmiroCMS < Intrigue::Ident::Check::Base
         :dynamic_version => nil,
         :match_details => "header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

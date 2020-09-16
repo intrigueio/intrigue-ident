@@ -15,7 +15,7 @@ class Cpanel < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /server: cPanel/i,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -29,7 +29,7 @@ class Cpanel < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /URL=\/cgi-sys\/defaultwebpage.cgi/,
         :hide => true,
-        :paths => ["#{url}"], 
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ], 
         :inference => false
       },
       {
@@ -43,7 +43,7 @@ class Cpanel < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :match_content =>  /href=\"\/cpanel\"\>log in<\/a> to launch this site/,
         :hide => true,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :examples => ['href="/cpanel">log in</a> to launch this site'], 
         :inference => false
       }

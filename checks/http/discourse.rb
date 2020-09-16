@@ -23,7 +23,7 @@ class DiscourseCMS < Intrigue::Ident::Check::Base
           _first_body_capture(x, /<meta name="generator" content="Discourse (?:(?:\d+(?:\.\d+)*)\.)(\w+)/i)
         },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

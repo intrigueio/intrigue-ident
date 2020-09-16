@@ -18,7 +18,7 @@ class Opscode < Intrigue::Ident::Check::Base
         :match_content =>  /<title>Chef Server<\/title>/,
         :dynamic_version => lambda{|x| 
           _first_body_capture(x,/Version\ (.*)\ &mdash;/) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -31,7 +31,7 @@ class Opscode < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /chef-manage/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

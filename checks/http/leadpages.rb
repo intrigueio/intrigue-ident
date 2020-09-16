@@ -18,7 +18,7 @@ class Leadpages < Intrigue::Ident::Check::Base
         :match_content =>  /^server:\ Leadpages$/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/^server:\ Leadpages$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

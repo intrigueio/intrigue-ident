@@ -18,7 +18,7 @@ class Modwsgi < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_header_capture(x,/^.*mod_wsgi\/([\w\d\.\-]*)\s.*$/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

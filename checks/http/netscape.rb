@@ -17,7 +17,7 @@ class Netscape < Intrigue::Ident::Check::Base
         :match_content =>  /Server: Netscape-Enterprise.*/i,
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/Server: Netscape-Enterprise\/([\d\.]*).*/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

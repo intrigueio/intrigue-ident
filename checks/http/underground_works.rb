@@ -18,7 +18,7 @@ class UndergroundWorks < Intrigue::Ident::Check::Base
         :match_content => /X-Clockwork-Id:.*$/i,
         :match_details => "unique header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :issue => "exposed_debugging_interface"
       }

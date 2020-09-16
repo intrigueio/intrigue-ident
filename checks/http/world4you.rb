@@ -17,7 +17,7 @@ module Intrigue
           :match_content => /This is a newly created customer website\<\/h1\>/i,
           :match_details => "unique body string",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }, 
         {
@@ -32,7 +32,7 @@ module Intrigue
           :match_content => /Hier entsteht eine neue Kunden-Website \| World4You\</i,
           :match_details => "unique body string",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
         

@@ -15,7 +15,7 @@ class Symantec < Intrigue::Ident::Check::Base
         :match_details =>"security seal",
         :match_type => :content_body,
         :match_content => /seal\.verisign\.com\/getseal\?host_name=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

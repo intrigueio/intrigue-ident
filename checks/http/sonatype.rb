@@ -15,7 +15,7 @@ class Sonatype < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_title,
         :match_content => /Nexus Repository Manager/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -31,7 +31,7 @@ class Sonatype < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x|
           _first_body_capture(x,/app\.js\?_v\=([\d\.\-]+)\&_e\=/i)
         },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

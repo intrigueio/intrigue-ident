@@ -18,7 +18,7 @@ class Python < Intrigue::Ident::Check::Base
         :match_content =>  /^server:.*Python.*$/,
         :dynamic_version => lambda{|x| 
           _first_header_capture(x,/^server:.*Python\/([\d\.]*).*$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -33,7 +33,7 @@ class Python < Intrigue::Ident::Check::Base
         :match_content =>  /^server:.*CPython.*$/,
         :dynamic_version => lambda{|x| 
           _first_header_capture(x,/^server:.*CPython\/([\d\.]*).*$/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -50,7 +50,7 @@ class Python < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| _first_header_capture(x, /Server: SimpleHTTP\/([\d\.]+)/i)},
         :match_details => "server header",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

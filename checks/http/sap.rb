@@ -18,7 +18,7 @@ class Sap < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: SAP NetWeaver Application Server [\d\.\s]*\/ ABAP [\d]+/i,
         :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server [\d\.\s]*\/ ABAP ([\d]+)/i,) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -34,7 +34,7 @@ class Sap < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: SAP NetWeaver Application Server [\d\.\s]*\/ ICM [\d\.]+/i,
         :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server [\d\.\s]*\/ ICM ([\d\.]+)/i,) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       { ### TODO... can we get a version out of this?
@@ -48,7 +48,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => ["https://apps.support.sap.com/sap/support/knowledge/en/1749574"],
         :match_type => :content_title,
         :match_content => /SAP&#x20;NetWeaver&#x20;Portal/i,
-        :paths => ["#{url}/irj/portal"],
+        :paths => [{ :path => "#{url}/irj/portal", :follow_redirects => true } ],
         :inference => false
       },
       { ### TODO... can we get a version out of this?
@@ -64,7 +64,7 @@ class Sap < Intrigue::Ident::Check::Base
         :match_content => /SAP NetWeaver Application Server/i,
         # SAP NetWeaver Application Server 7.53
         :dynamic_version => lambda { |x| _first_header_capture(x, /SAP NetWeaver Application Server ([\d\.]+)/i,) },
-        :paths => ["#{url}/irj/portal"],
+        :paths => [{ :path => "#{url}/irj/portal", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -78,7 +78,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => ["https://apps.support.sap.com/sap/support/knowledge/en/1749574"],
         :match_type => :content_cookies,
         :match_content => /saplb_\*=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -92,7 +92,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_cookies,
         :match_content => /PortalAlias=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -106,7 +106,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_cookies,
         :match_content => /com.sap.engine.security.authentication.original_application_url=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -121,7 +121,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => ["https://apps.support.sap.com/sap/support/knowledge/en/1749574"],
         :match_type => :content_body,
         :match_content => /urn:CTCWebServiceSi/i,
-        :paths => ["#{url}/CTCWebService/CTCWebServiceBean?wsdl"],
+        :paths => [{ :path => "#{url}/CTCWebService/CTCWebServiceBean?wsdl", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -138,7 +138,7 @@ class Sap < Intrigue::Ident::Check::Base
         ],
         :match_type => :content_cookies,
         :match_content =>  /sap-usercontext=sap-language=/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -152,7 +152,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_cookies,
         :match_content =>  /com.sap.engine.security.authentication.original_application_url/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -166,7 +166,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_title,
         :match_content =>  /SAP NetWeaver Application Server Java/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -180,7 +180,7 @@ class Sap < Intrigue::Ident::Check::Base
         :references => [],
         :match_type => :content_title,
         :match_content =>  /SAP&#x20;NetWeaver&#x20;Portal/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -195,7 +195,7 @@ class Sap < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: SAP NetWeaver Application Server [\d\.]*.*/i,
         :dynamic_version => lambda { |x| _first_header_capture(x, /server: SAP NetWeaver Application Server ([\d\.]+)/i) },
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
       {
@@ -211,7 +211,7 @@ class Sap < Intrigue::Ident::Check::Base
         ],
         :match_type => :content_headers,
         :match_content =>  /bD1lbiZjPTEwMCZkPW1pbg==/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -224,7 +224,7 @@ class Sap < Intrigue::Ident::Check::Base
         :match_details =>"title",
         :match_type => :content_title,
         :match_content =>  /SAP XSEngine/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

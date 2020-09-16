@@ -22,7 +22,7 @@ class Kerio < Intrigue::Ident::Check::Base
           _first_header_capture(x,/^server: Kerio Connect (.*)/i)
         },
         :match_content =>  /^server: Kerio Connect.*/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

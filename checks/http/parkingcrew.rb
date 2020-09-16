@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /inquire\ about\ this\ domain/i,
           :match_details => "inquire\ about\ this\ domain",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         },
         {
@@ -34,7 +34,7 @@ module Intrigue
           :match_content => /The\ Sponsored\ Listings\ displayed\ above\ are\ served\ automatically\ by\ a\ third\ party/i,
           :match_details => "The\ Sponsored\ Listings\ displayed\ above\ are\ served\ automatically\ by\ a\ third\ party",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

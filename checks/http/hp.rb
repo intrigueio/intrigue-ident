@@ -15,7 +15,7 @@ class Hp < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: HP-ChaiSOE\/1.0/i,
         :match_details =>"Generic HP Printer match",
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

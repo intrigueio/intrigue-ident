@@ -15,7 +15,7 @@ module Intrigue
           :references => [],
           :match_type => :content_body,
           :match_content =>  /wordfence_lh=/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :require_product => "Wordpress",
           :inference => false
         }

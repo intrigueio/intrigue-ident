@@ -15,7 +15,7 @@ class OpenResty < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content =>  /server: openresty/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -29,7 +29,7 @@ class OpenResty < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :match_content =>  /server: openresty\/[\d\.]+/i,
         :dynamic_version => lambda {|x| _first_header_capture(x, /server: openresty\/([\d\.]+)/i)},
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

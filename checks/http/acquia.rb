@@ -17,7 +17,7 @@ class Acquia < Intrigue::Ident::Check::Base
         :match_content => /X-AH-Environment:/i,
         :match_details => "Header contains Acquia environment",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

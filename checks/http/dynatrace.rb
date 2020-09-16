@@ -15,7 +15,7 @@ class Dynatrace < Intrigue::Ident::Check::Base
         :references => ["http://ruxit.com"],
         :match_type => :content_headers,
         :match_content =>  /^x-ruxit-js-agent:.*/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Dynatrace < Intrigue::Ident::Check::Base
         :references => ["http://ruxit.com"],
         :match_type => :content_headers,
         :match_content =>  /^x-ruxit-js-agent:.*/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

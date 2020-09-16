@@ -18,7 +18,7 @@ class WebGUI < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| _first_body_capture(x, /WebGUI (\d......)/i)},
         :match_details => "Header match",
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

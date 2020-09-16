@@ -16,7 +16,7 @@ class Ivanti < Intrigue::Ident::Check::Base
         :version => nil,
         :references => ["https://community.ivanti.com/community/all-products/systems/cloudservices"],
         :match_content =>  /<title>LANDESK\(R\) Cloud Services Appliance/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

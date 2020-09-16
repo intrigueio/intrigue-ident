@@ -15,7 +15,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /\{\"timestamp\":\d.*,\"status\":999,\"error\":\"None\",\"message\":\"No message available\"\}/,
-        :paths => ["#{url}/error.json"],
+        :paths => [{ :path => "#{url}/error.json", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -29,7 +29,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /^x-springy-cache-disabled:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :examples => ["x-springy-cache-disabled: 0"],
         :inference => false
       },
@@ -44,7 +44,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_type => :content_headers,
         :version => nil,
         :match_content =>  /^X-Application-Context.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -57,7 +57,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /RabbitMQ Management/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -70,7 +70,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :match_type => :content_body,
         :version => nil,
         :match_content =>  /RabbitMQ Management HTTP API/,
-        :paths => ["#{url}/api"],
+        :paths => [{ :path => "#{url}/api", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -85,7 +85,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         :version => nil,
         :match_content =>  /Pivotal tc Server Standard Edition [\d\.]+\.RELEASE/i,
         :dynamic_version => lambda { |x| _first_body_capture(x, /Pivotal tc Server Standard Edition\ ([\d\.]+)\.RELEASE/i)},
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
     ]

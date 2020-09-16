@@ -15,7 +15,7 @@ class Bitly < Intrigue::Ident::Check::Base
         :match_type => :content_cookies,
         :version => nil,
         :match_content =>  /Domain=bitly.com;/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -28,7 +28,7 @@ class Bitly < Intrigue::Ident::Check::Base
         :match_type => :content_title,
         :version => nil,
         :match_content =>  /Branded Short Domain Powered by Bitly/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

@@ -18,7 +18,7 @@ class WebpagetestProject < Intrigue::Ident::Check::Base
         ],
         :match_content => /WebPageTest - Website Performance and Optimization Test/i,
         :version => nil,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

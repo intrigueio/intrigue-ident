@@ -15,7 +15,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content => /JasperServer/i,
-        :paths => ["#{url}/jasperserver/login.html"],
+        :paths => [{ :path => "#{url}/jasperserver/login.html", :follow_redirects => true } ],
         :require_product => "HTTP Server", # require apache 
         :inference => false
       }, 
@@ -29,7 +29,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_title,
         :match_content => /JasperServer/i,
-        :paths => ["#{url}/jasperserver/login.html"],
+        :paths => [{ :path => "#{url}/jasperserver/login.html", :follow_redirects => true } ],
         :require_product => "Nginx", # require nginx 
         :inference => false
       }, 
@@ -43,7 +43,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^Location: \/jasperserver-pro$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => false } ],
         :inference => false
       },
       {
@@ -56,7 +56,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_body,
         :match_content => /src=\"\/jasperserver\/scripts\/jasperserver\.js/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -69,7 +69,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content => /Path=\/jasperserver-pro\//i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -82,7 +82,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^server: Mashery Proxy$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -95,7 +95,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^x-mashery-error-code:.*$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }, 
       {
@@ -108,7 +108,7 @@ class Tibco < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_headers,
         :match_content => /^server: TIBCO Spotfire Server$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
       

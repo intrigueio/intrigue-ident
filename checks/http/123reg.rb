@@ -18,7 +18,7 @@ module Intrigue
           :match_content => /Want your own website\? \| 123 Reg/i,
           :match_details => "Want your own website\? \| 123 Reg",
           :hide => false,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

@@ -16,7 +16,7 @@ class MbfBioscience < Intrigue::Ident::Check::Base
         :references => ["https://www.mbfbioscience.com/biolucida"],
         :match_type => :content_headers,
         :match_content =>  /^x-biolucida-webapp: true$/,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :examples => ["x-biolucida-webapp: true"], 
         :inference => false
       }

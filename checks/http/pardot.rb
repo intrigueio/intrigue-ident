@@ -16,7 +16,7 @@ class Pardot < Intrigue::Ident::Check::Base
         :version => nil,
         :match_type => :content_cookies,
         :match_content =>  /pardot/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
       {
@@ -32,7 +32,7 @@ class Pardot < Intrigue::Ident::Check::Base
         :dynamic_version => lambda { |x| 
           _first_header_capture(x,/server:.*pardotserver/i) },
         :hide => false,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       }
     ]

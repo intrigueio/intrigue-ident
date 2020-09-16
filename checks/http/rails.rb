@@ -14,7 +14,7 @@ module Intrigue
           :match_details => "in-page authenticity token (csrf-param)",
           :match_type => :content_body,
           :match_content =>  /meta content=\"authenticity_token\" name=\"csrf-param/i,
-          :paths => ["#{url}"],
+          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
         }
       ]

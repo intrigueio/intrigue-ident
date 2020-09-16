@@ -15,7 +15,7 @@ class Uberflip < Intrigue::Ident::Check::Base
         :references => ["https://help.uberflip.com/hc/en-us/articles/360018876192-Get-Started-Host-Your-Hub-on-a-Custom-Domain"],
         :match_type => :content_title,
         :match_content =>  /^Non-hub domain$/i,
-        :paths => ["#{url}"],
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false,
         :hide => true
       }
