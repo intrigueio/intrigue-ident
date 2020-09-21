@@ -8,8 +8,7 @@ require 'zlib'
 require_relative 'initialize/hash'
 
 # new http request lib
-require 'excon' 
-require_relative 'initialize/excon'
+require 'typhoeus'
 
 # load in generic utils
 require_relative 'utils'
