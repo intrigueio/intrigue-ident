@@ -142,6 +142,22 @@ class Atlassian < Intrigue::Ident::Check::Base
         :match_content =>  /^x-statuspage-version:.*$/i,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS", "Development", "SaaS"],
+        :vendor => "Atlassian",
+        :product =>"Crowd",
+        :match_details =>"body content",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /Atlassian Crowd \- Login/,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false, #Version:&nbsp;3.5.0
+        :dynamic_version => lambda{ |x|
+          _first_body_capture(x,/Version\:\&nbsp\;(\d+(.\d+)?(.\d+)?)/)
+        }
       }
     ]
   end
