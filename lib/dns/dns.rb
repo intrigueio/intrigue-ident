@@ -100,6 +100,7 @@ module Intrigue
         begin 
           @resolver.query(name, type, klass)
         rescue Dnsruby::Refused
+        rescue Dnsruby::ServFail
         end
       end
     
