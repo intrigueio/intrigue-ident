@@ -1,22 +1,28 @@
 #!/usr/bin/env ruby
 
-require 'net/http'
-require 'openssl'
-require 'zlib'
-
 # monkey-patches for hash
 require_relative 'initialize/hash'
 
-# new http request lib
-require 'excon' 
-require_relative 'initialize/excon'
+# only necessary for cases of acual checking. if ident is being
+# used as a library, we can skip this
+begin
+  # new http request lib
+  require 'typhoeus'
+  require 'net/http'
+  require 'openssl'
+  require 'zlib'
+  
+  # integrate recog
+  require_relative 'recog_wrapper'
+  
+rescue LoadError => e 
+  # unable to load private checks, presumable unavailable
+  #puts "Unable to load hosted-version-only fingerprints #{e}"
+end
 
 # load in generic utils
 require_relative 'utils'
 require_relative 'version'
-
-# integrate recog
-require_relative 'recog_wrapper'
 
 ###
 ### Start protocol requires 

@@ -205,7 +205,6 @@ module Http
   out
   end
 
-
   #require_relative 'content_helpers'
   #include Intrigue::Ident::Content::HttpHelpers
 
@@ -214,84 +213,70 @@ module Http
   end
 
 
-  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, follow_redirects=nil, attempts_limit=3, write_timeout=15, read_timeout=15, connect_timeout=15)
+  def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, follow_redirects=true, attempts_limit=3, timeout=10)
 
     # set user agent unless one was provided
     unless headers["User-Agent"]
       headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
     end
 
-    options = {}
-    #options.merge!(debug_request: true, debug_response: true)
-    options.merge!(write_timeout: write_timeout) if write_timeout
-    options.merge!(read_timeout: read_timeout) if read_timeout
-    options.merge!(connect_timeout: connect_timeout) if connect_timeout
-    options.merge!(idempotent: true, retry_limit: attempts_limit) if attempts_limit
-    options.merge!(body: data) if data
-    options.merge!(headers: headers) if headers
-    
-    # TODO ... benchmark to see if this helps
-    #options.merge!(tcp_nodelay: true)
-    
-    # merge in credentials, must be in format :user => 'username', :password => 'password'
-    options.merge!(credentials) if credentials
-
     begin 
-  
-      # Excon - disable peer verification
-      Excon.defaults[:ssl_verify_peer] = false
-    
-      ##
-      ## Handle Redirect-following
-      ##
-      if follow_redirects
-        unless Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
-          Excon.defaults[:middlewares] << Excon::Middleware::RedirectFollower 
-        end
-      else # it's off, so remove it if it exists
-        if Excon.defaults[:middlewares].include? Excon::Middleware::RedirectFollower 
-          Excon.defaults[:middlewares] = Excon.defaults[:middlewares] - [Excon::Middleware::RedirectFollower]
-        end
-      end
-      
-      # only after middlware is set can we create a new connection
-      # Excon - follow redirects (middleware loaded at initalization)
-      connection = Excon.new(uri_string,options)
 
-      if method == :get
-        response = connection.get
-      elsif method == :post
-        # see: https://coderwall.com/p/c-mu-a/http-posts-in-ruby
-        response = connection.post
-      elsif method == :head
-        response = connection.head
-      #elsif method == :propfind
-      #  request = Net::HTTP::Propfind.new(uri.request_uri)
-      #  request.body = "Here's the body." # Set your body (data)
-      #  request["Depth"] = "1" # Set your headers: one header per line.
-      elsif method == :options
-        response = connection.options
-      elsif method == :trace
-        response = connection.trace
+      options = {}
+
+      # always
+      options[:timeout] = timeout
+      options[:ssl_verifyhost] = 0
+      options[:ssl_verifypeer] = false 
+
+      # follow redirects if we're told
+      if follow_redirects 
+        options[:followlocation] = true
       end
-      ### END VERBS
-    rescue Errno::ETIMEDOUT => e
-      @task_result.logger.log_error "Generic - Socket Timeout: #{e}" if @task_result
-    rescue Excon::Error::TooManyRedirects => e
-      @task_result.logger.log_error "Excon - Too Many Redirects: #{e}" if @task_result
-    rescue Excon::Error::Socket => e
-      @task_result.logger.log_error "Excon - Socket Timeout: #{e}" if @task_result
-    rescue Excon::Error::Timeout => e 
-      @task_result.logger.log_error "Excon - HTTP Timeout: #{e}" if @task_result
+
+      # if we're a post, set our body 
+      if method == :post
+        options[:body] = data
+      end
+
+      # merge in credentials, must be in format :user => 'username', :password => 'password'
+      if credentials
+        options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}"
+      end
+
+      # create a request
+      request = Typhoeus::Request.new(uri_string, {
+        method: method,
+        headers: headers
+      }.merge!(options))
+
+      # run the request 
+      response = request.run
+
+    # catch th
+    rescue Typhoeus::Errors::TyphoeusError => e
+      @task_result.logger.log_error "Request Error: #{e}" if @task_result
+      puts "Request Error: #{e}" unless @task_result
     end
 
-    scheme = "#{response.port}" =~ /443/ ? "https" : "http"
+    # fail unless we get a response
+    unless response
+      if @task_result
+        @task_result.logger.log_error "Unable to get a response"
+      else
+        puts "Unable to get a response"
+      end
+      return nil 
+    end
+
+    #scheme = "#{response.port}" =~ /443/ ? "https" : "http"
     
     # generate our output
     out = {
       :options => options,
       :start_url => uri_string,
-      :final_url => "#{scheme}://#{response.host}:#{response.port}#{response.path}",
+      :final_url => response.effective_url,
+      :redirect_count => response.redirect_count,
       :request_type => :ruby,
       :request_method => method,
       #:request_credentials => credentials,
@@ -310,6 +295,7 @@ module Http
       out[:response_headers] = response.headers.map{|x,y| ident_encode "#{x}: #{y}" }
       out[:response_body] = ident_encode(response.body)
       out[:response_code] = response.code
+
       #out[:response_certificate] = certificate_hash
     end
 
