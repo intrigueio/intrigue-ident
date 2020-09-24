@@ -22,6 +22,7 @@ module Matchers
     data = hash.merge({
       "details" =>  {
         "hidden_response_data" => "#{hash[:response_body]}",
+        "response_code" => "#{hash[:response_code]}",
         "start_url" => "#{hash[:start_url]}",
         "final_url" => "#{hash[:final_url]}",
         "headers" => hash[:response_headers], # this is a hash and we need an array!
@@ -41,6 +42,7 @@ module Matchers
     data = {
       "details" =>  {
         "hidden_response_data_rendered" => "#{browser_response_hash[:rendered]}",
+        "response_code" => "#{hash[:response_code]}",
         "start_url" => "#{browser_response_hash[:start_url]}",
         "final_url" => "#{browser_response_hash[:final_url]}",
         "headers" => [],
@@ -65,6 +67,10 @@ module Matchers
     headers = header_part.split("\n");
     body = body_part
 
+    # Untested!
+    status_string = headers.find{|x| x =~ /^HTTP\/[\d\.]+\s(\d+).*/i; }
+    code = status_string.captures.first if x && x.captures
+
     # TODO - fix to only grab content!!!!
     cookies = headers.select{|x| x =~ /^set-cookie:(.*)/i }
 
@@ -83,6 +89,7 @@ module Matchers
       "details" =>  {
         "hidden_response_data" => body,
         "headers" => headers,
+        "code" => code.to_i,
         "cookies" => cookies,
         "generator" => generator,
         "title" => title
@@ -122,6 +129,8 @@ module Matchers
         match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
       elsif check[:match_type] == :content_cert_issuer
         match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
+      elsif check[:match_type] == :content_code
+        match = _construct_match_response(check,data) if _code(data) == check[:match_content]
       elsif check[:match_type] == :checksum_body
         match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
       end
