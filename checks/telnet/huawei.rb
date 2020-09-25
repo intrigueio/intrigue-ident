@@ -7,7 +7,7 @@ class Huawei < Intrigue::Ident::TelnetCheck::Base
       {
         :type => "fingerprint",
         :category => "operating_system",
-        :tags => ["Telnet Server"],
+        :tags => ["TelnetServer"],
         :vendor => "Huawei",
         :product => "Home Gateway",
         :references => [],

@@ -9,7 +9,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Mailserver"],
+          :tags => ["SMTPServer"],
           :vendor => "Postfix",
           :product => "Postfix",
           :references => [],

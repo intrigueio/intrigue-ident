@@ -7,7 +7,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Pop3 Server"],
+          :tags => ["Pop3Server"],
           :vendor => "Godaddy",
           :product => "Pop Service (Dovecot)",
           :references => [],

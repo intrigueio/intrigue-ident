@@ -9,7 +9,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "service",
-          :tags => ["Mailserver"],
+          :tags => ["SMTPServer"],
           :vendor => "Cheetah Digital",
           :product => "CheetahMail",
           :references => [],

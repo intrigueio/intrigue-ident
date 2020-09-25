@@ -9,7 +9,7 @@ class Exim < Intrigue::Ident::SmtpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Mailserver"],
+        :tags => ["SMTPServer"],
         :vendor => "Exim",
         :product => "Exim",
         :references => [],
