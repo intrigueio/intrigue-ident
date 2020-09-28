@@ -2,10 +2,10 @@ Ident is an application and service fingerprinting library used within Intrigue 
 
 The Ident project has a few stated goals: 
  - To deeply identify network service and app software while remain extremely fast - limiting unnecessary requests
- - To be the most complete library for modern application and server software identification 
+ - To have the most complete set of identification checks for modern application and server software identification 
  - To integrate well as a library, for easy use in other projects
- - To be commercially viable through use of the BSD license
  - To maintain a robust command line interface for use as a standalone tool 
+ - To remain commercially viable through use of the BSD license
 
  Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. 
 
