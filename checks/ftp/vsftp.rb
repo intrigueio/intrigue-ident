@@ -8,7 +8,7 @@ class Vsftp < Intrigue::Ident::FtpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["FTP Server"],
+        :tags => ["FTPServer"],
         :vendor => "vsFTPd",
         :product => "vsFTPd",
         :references => [],

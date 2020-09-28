@@ -7,7 +7,7 @@ class Dovecot < Intrigue::Ident::Pop3Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Pop3 Server"],
+        :tags => ["Pop3Server"],
         :vendor => "Dovecot",
         :product => "Dovecot",
         :references => ["https://security.stackexchange.com/questions/192137/risks-in-open-pop3-imap-ports"],

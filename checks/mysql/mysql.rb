@@ -8,7 +8,7 @@ class Mysql < Intrigue::Ident::MysqlCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Mysql Server"],
+        :tags => ["MysqlServer", "DatabaseService"],
         :vendor => "Mysql",
         :product => "Mysql",
         :references => [],

@@ -1,11 +1,11 @@
 Ident is an application and service fingerprinting library used within Intrigue Core. 
 
 The Ident project has a few stated goals: 
- - To deeply identify network service and app software while remain extremely fast - limiting unnecessary requests
- - To be the most complete library for modern application and server software identification 
+ - To deeply identify network service and app software while remaining extremely fast - limiting unnecessary requests
+ - To have the most complete set of identification checks for modern application and server softwar 
  - To integrate well as a library, for easy use in other projects
- - To be commercially viable through use of the BSD license
  - To maintain a robust command line interface for use as a standalone tool 
+ - To be commercially viable through use of the BSD license
 
  Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. 
 
@@ -60,18 +60,19 @@ For Check Writers:
 ```
 HTTP Check types are in the following categories. See each check's 'match_content': 
  - content_body: checks should be run against body
+ - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
+ - content_cookies: checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
+ - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
  - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
  - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
- - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
- - content_cookies; checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
  ```
-
-
+ 
 Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
  - @duartemateus: Checks!
+ - @chowdud: Checks!
  - @jen140: Checks
  - @bensalah_anas: Checks
  - @bcoles: Checks, bugfixes, JSON output

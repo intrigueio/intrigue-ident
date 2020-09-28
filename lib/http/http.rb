@@ -294,6 +294,8 @@ module Http
     if response
       out[:response_headers] = response.headers.map{|x,y| ident_encode "#{x}: #{y}" }
       out[:response_body] = ident_encode(response.body)
+      out[:response_code] = response.code
+
       #out[:response_certificate] = certificate_hash
     end
 

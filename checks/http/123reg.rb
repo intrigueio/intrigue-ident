@@ -13,7 +13,6 @@ module Intrigue
           :product => "123Reg",
           :website => "https://www.123-reg.co.uk/",
           :references => [],
-          :version => nil,
           :match_type => :content_title,
           :match_content => /Want your own website\? \| 123 Reg/i,
           :match_details => "Want your own website\? \| 123 Reg",

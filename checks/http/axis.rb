@@ -17,7 +17,22 @@ class Axis < Intrigue::Ident::Check::Base
         :match_content =>  /<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=\/view\/viewer_index.shtml?id=/,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
-      }
+        #:issues => ["exposed_webcam_interface"]
+      },
+      {
+        :type => "fingerprint",
+        :category => "operating_system",
+        :tags => ["Embedded", "Webcam"],
+        :vendor => "Axis",
+        :product => "Network Camera Firmware",
+        :match_details =>"AXIS title",
+        :version => nil,
+        :match_type => :content_title,
+        :match_content =>  /AXIS/,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
+        #:issues => ["exposed_webcam_interface"]
+      } 
     ]
   end
   

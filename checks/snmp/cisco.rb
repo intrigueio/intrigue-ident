@@ -9,7 +9,7 @@ class Cisco < Intrigue::Ident::SnmpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["SNMP Server", "Networking", "Router"],
+        :tags => ["SNMPServer", "Networking", "Router"],
         :vendor => "Cisco",
         :product => "IOS XE",
         :references => [],
@@ -24,7 +24,7 @@ class Cisco < Intrigue::Ident::SnmpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Networking", "Router"],
+        :tags => ["SNMPServer", "Networking", "Router"],
         :vendor => "Cisco",
         :product => "IOS XE",
         :references => [],
@@ -39,7 +39,7 @@ class Cisco < Intrigue::Ident::SnmpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Networking", "Router"],
+        :tags => ["SNMPServer", "Networking", "Router"],
         :vendor => "Cisco",
         :product => "NX-OS",
         :references => [],

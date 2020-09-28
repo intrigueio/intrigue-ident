@@ -46,6 +46,10 @@ module Intrigue
       def _cert_issuer(content)
         content["details"]["certificate"]["issuer"]
       end
+      
+      def _code(content)
+        "#{content["details"]["response_code"]}".to_i 
+      end 
 
 
     end

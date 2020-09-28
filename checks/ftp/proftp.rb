@@ -8,7 +8,7 @@ class ProFtp < Intrigue::Ident::FtpCheck::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["FTP Server"],
+        :tags => ["FTPServer"],
         :vendor => "ProFTP",
         :product => "ProFTPd",
         :references => [],
