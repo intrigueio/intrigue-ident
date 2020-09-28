@@ -60,13 +60,13 @@ For Check Writers:
 ```
 HTTP Check types are in the following categories. See each check's 'match_content': 
  - content_body: checks should be run against body
+ - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
+ - content_cookies: checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
+ - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
  - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
  - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
- - content_generator:  checks should be run against text inside the <meta generator> tag (do not include the tag when writing checks)
- - content_cookies; checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
  ```
-
-
+ 
 Contributors:
 =============
 
