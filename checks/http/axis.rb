@@ -17,7 +17,6 @@ class Axis < Intrigue::Ident::Check::Base
         :match_content =>  /<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=\/view\/viewer_index.shtml?id=/,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
-        #:issues => ["exposed_webcam_interface"]
       },
       {
         :type => "fingerprint",
@@ -31,7 +30,6 @@ class Axis < Intrigue::Ident::Check::Base
         :match_content =>  /AXIS/,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
-        #:issues => ["exposed_webcam_interface"]
       } 
     ]
   end
