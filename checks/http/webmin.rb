@@ -14,10 +14,10 @@ class Webmin < Intrigue::Ident::Check::Base
         :match_details => "miniserv server",
         :match_type => :content_headers,
         :references => [],
-        :match_content => /server: MiniServ/,
+        :match_content => /server: MiniServ/i,
         :version => nil,
         :dynamic_version => lambda { |x| 
-          _first_header_capture(x,/server: MiniServ\/(.*)/)},
+          _first_header_capture(x,/server: MiniServ\/(.*)/i)},
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
