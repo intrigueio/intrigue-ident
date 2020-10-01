@@ -8,7 +8,7 @@ class Anelectron < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Anelectron",
         :product => "Advanced Electron Forum",
         :references => [],

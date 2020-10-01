@@ -196,7 +196,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server", "Hosting", "SaaS"],
+          :tags => ["WebServer", "Hosting", "SaaS"],
           :vendor => "Google",
           :product =>"Google Web Server",
           :match_details =>"Google web server header",

@@ -8,7 +8,7 @@ class Banu < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","Proxy Server"],
+        :tags => ["WebServer","Proxy Server"],
         :vendor => "Banu",
         :product =>"Tinyproxy",
         :match_details =>"server header",

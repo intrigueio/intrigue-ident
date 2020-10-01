@@ -8,7 +8,7 @@ class CodeIgniter < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","Embedded"],
+        :tags => ["WebServer","Embedded"],
         :vendor => "CodeIgniter",
         :product => "CodeIgniter",
         :version => nil,

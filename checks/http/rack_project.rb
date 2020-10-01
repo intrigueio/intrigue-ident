@@ -8,7 +8,7 @@ class RackProject < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor =>"Rack Project",
         :product =>"Rack",
         :match_details =>"x-rack-cache header",
@@ -20,7 +20,7 @@ class RackProject < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor =>"Rack Project",
         :product =>"Rack",
         :match_details =>"x-cascade header",
@@ -32,7 +32,7 @@ class RackProject < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor =>"Rack Project",
         :references => [
           "https://stackoverflow.com/questions/984633/how-to-remove-x-runtime-header-from-nginx-passenger",

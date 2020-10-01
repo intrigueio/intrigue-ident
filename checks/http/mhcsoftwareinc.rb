@@ -8,7 +8,7 @@ class MHCSoftwareInc < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["COTS", "Web Server"],
+        :tags => ["COTS", "WebServer"],
         :vendor => "MHCSoftwareInc",
         :product => "Document Self-Service",
         :references => ["https://www.mhcsoftwareinc.com/platform/application-suites/document-self-service/"],

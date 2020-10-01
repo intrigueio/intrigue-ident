@@ -8,7 +8,7 @@ class LiteSpeed < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "LiteSpeedTech",
         :product => "LiteSpeed",
         :references => ["https://www.litespeedtech.com/products/litespeed-web-server"],

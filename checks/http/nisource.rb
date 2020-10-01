@@ -8,7 +8,7 @@ class NiSource < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "NiSource",
         :product => "NiSource",
         :references => ["https://www.nisource.com/"],

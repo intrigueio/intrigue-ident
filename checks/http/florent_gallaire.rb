@@ -8,7 +8,7 @@ class FlorentGallaire < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Florent Gallaire",
         :product => "WSGIsserver",
         :website => "https://pypi.org/project/WSGIserver/",

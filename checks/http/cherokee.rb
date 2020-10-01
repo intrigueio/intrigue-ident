@@ -8,7 +8,7 @@ class Cherokee < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Cherokee",
         :product => "Cherokee",
         :references => ["https://cherokee-project.com/"],

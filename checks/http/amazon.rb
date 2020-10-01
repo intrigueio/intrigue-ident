@@ -257,7 +257,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server", "Hosting", "IaaS"],
+        :tags => ["WebServer", "Hosting", "IaaS"],
         :vendor => "Amazon",
         :product =>"S3",
         :match_details =>"server header",
@@ -271,7 +271,7 @@ class Amazon < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server", "Hosting", "IaaS"],
+        :tags => ["WebServer", "Hosting", "IaaS"],
         :vendor => "Amazon",
         :product =>"S3",
         :match_details =>"replication status header",
