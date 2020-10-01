@@ -8,7 +8,7 @@ class Nginx < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Nginx",
         :product =>"Nginx",
         :match_details =>"Nginx default page",
@@ -21,7 +21,7 @@ class Nginx < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Nginx",
         :product =>"Nginx",
         :match_details =>"Nginx test page",
@@ -34,7 +34,7 @@ class Nginx < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Nginx",
         :product =>"Nginx",
         :match_details =>"Nginx (no version)",
@@ -47,7 +47,7 @@ class Nginx < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Nginx",
         :product =>"Nginx",
         :match_details =>"Nginx (with version)",
@@ -62,7 +62,7 @@ class Nginx < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Nginx",
         :product =>"Nginx",
         :match_details =>"nginx (default 404 page)",

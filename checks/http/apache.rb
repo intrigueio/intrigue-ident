@@ -7,7 +7,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Administrative", "Web Server", "Database"],
+              :tags => ["Administrative", "WebServer", "Database"],
               :vendor => "Apache",
               :product => "Ambari",
               :match_details => "page title",
@@ -53,7 +53,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "test page title",
@@ -69,7 +69,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "test page title",
@@ -82,7 +82,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "Apache server header w/o version",
@@ -95,7 +95,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "Apache web server - server header - with versions",
@@ -125,7 +125,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "Apache web server - server header - no version",
@@ -138,7 +138,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "HTTP Server",
               :match_details => "Apache generic error",
@@ -247,7 +247,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server"],
+              :tags => ["WebServer"],
               :vendor => "Apache",
               :product => "PivotalWebServer",
               :match_details => "server header",

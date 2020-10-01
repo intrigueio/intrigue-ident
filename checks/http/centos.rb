@@ -8,7 +8,7 @@ class Centos < Intrigue::Ident::Check::Base
       { ## Infer from apache title...
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Centos",
         :product => "Centos",
         :references => [],

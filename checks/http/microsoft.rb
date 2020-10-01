@@ -481,7 +481,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product => "Internet Information Services",
           :match_details =>"server header",
@@ -493,7 +493,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product => "Internet Information Services",
           :match_details =>"server header",
@@ -509,7 +509,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product => "Internet Information Services",
           :match_details =>"body error messages",
@@ -522,7 +522,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Internet Information Services",
@@ -535,7 +535,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Microsoft IIS 8.5",
@@ -548,7 +548,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Microsoft-HTTPAPI/2.0 (IIS not configured)",
@@ -575,7 +575,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Microsoft IIS Missing Resource (404)",
@@ -589,7 +589,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Microsoft IIS Generic Error - 403",
@@ -603,7 +603,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Microsoft",
           :product =>"Internet Information Services",
           :match_details =>"Microsoft Generic Error - 503",
@@ -617,7 +617,7 @@ module Intrigue
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor =>"Microsoft",
           :product =>"Kestrel",
           :references => ["https://stackify.com/what-is-kestrel-web-server/"],

@@ -8,7 +8,7 @@ class LimelightNetworks < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","CDN"],
+        :tags => ["WebServer","CDN"],
         :vendor => "Limelight Networks",
         :product =>"Edgeprism",
         :match_details =>"server header",

@@ -8,7 +8,7 @@ class Tengine < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Taobao",
         :product => "Tengine",
         :references => ["https://tengine.taobao.org/"],

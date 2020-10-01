@@ -8,7 +8,7 @@ class Imunify360 < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server","Proxy Server"],
+        :tags => ["WebServer","Proxy Server"],
         :vendor => "CloudLinux",
         :product => "Imunify360",
         :references => ["https://www.imunify360.com/blog/webshield-introduction-for-server-administrators"],

@@ -130,7 +130,7 @@ class Oracle < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Oracle",
         :product =>"HTTP Server",
         :match_details =>"server header",
@@ -148,7 +148,7 @@ class Oracle < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","Embedded"],
+        :tags => ["WebServer","Embedded"],
         :vendor => "Oracle",
         :product =>"GoAhead Web Server",
         :match_details =>"server header",
@@ -163,7 +163,7 @@ class Oracle < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Oracle",
         :product =>"iPlanet Web Server",
         :match_details =>"server header",
@@ -265,7 +265,7 @@ class Oracle < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Oracle",
         :product =>"iPlanet Web Server",
         :match_details =>"server header",

@@ -8,7 +8,7 @@ class Acme < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Acme",
         :product => "Micro Httpd",
         :references => [ "https://acme.com/software/micro_httpd/" ],

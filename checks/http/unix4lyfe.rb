@@ -8,7 +8,7 @@ class Unix4lyfe < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Unix4lyfe",
         :product => "DarkHTTPd",
         :website => "https://unix4lyfe.org/darkhttpd/",

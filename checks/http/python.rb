@@ -39,7 +39,7 @@ class Python < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Python",
         :product => "SimpleHTTP",
         :website => "https://docs.python.org/2/library/simplehttpserver.html",

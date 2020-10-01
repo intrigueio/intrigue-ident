@@ -8,7 +8,7 @@ class Day < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server", "CMS"],
+        :tags => ["WebServer", "CMS"],
         :vendor => "DAY",
         :product => "Communique",
         :references => ["https://en.wikipedia.org/wiki/Day_Software"],

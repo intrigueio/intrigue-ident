@@ -8,7 +8,7 @@ class Cerberus < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Cradlepoint",
         :product =>"HTTP Service",
         :match_details =>"server header",

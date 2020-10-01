@@ -12,7 +12,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Eclipse",
           :product =>"Jetty",
           :match_details =>"server header - with update",
@@ -35,7 +35,7 @@ module Check
         {
           :type => "fingerprint",
           :category => "application",
-          :tags => ["Web Server"],
+          :tags => ["WebServer"],
           :vendor => "Eclipse",
           :product =>"Jetty",
           :match_details =>"powered by header - with update",
