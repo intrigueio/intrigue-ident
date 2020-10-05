@@ -19,6 +19,17 @@ class Blackboard < Intrigue::Ident::Check::Base
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["SaaS","CMS"],
+        :vendor => "Blackboard",
+        :product => "Blackboard",
+        :match_details =>"x-blackboard-appserver header (hosted)",
+        :match_type => :content_headers,
+        :match_content =>  /^X-Blackboard-appserver:.*$/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ]
+      },
       # Currently match_content too loose
       #{
       #  :type => "fingerprint",
