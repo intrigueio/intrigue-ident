@@ -117,7 +117,7 @@ module Check
           :type => "fingerprint",
           :category => "service",
           :tags => ["IaaS"],
-          :vendor => "Gooogle",
+          :vendor => "Google",
           :product => "Google",
           :references => ["https://cloud.google.com/storage/docs/xml-api/reference-headers"],
           :match_details => "unique header",

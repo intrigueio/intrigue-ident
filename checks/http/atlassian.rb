@@ -60,6 +60,19 @@ class Atlassian < Intrigue::Ident::Check::Base
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
       },
+      #{
+      #  :type => "fingerprint",
+      #  :category => "application",
+      #  :tags => ["COTS", "Development"],
+      #  :vendor => "Atlassian",
+      #  :product =>"Jira",
+      #  :match_details =>"favicon",
+      #  :version => nil,
+      #  :match_type => :checksum_body_mmh3,
+      #  :match_content => 981867722,
+      #  :paths => [ { :path  => "#{url}/favicon.ico", :follow_redirects => true } ],
+      #  :inference => false
+      #},
       {
         :type => "fingerprint",
         :category => "application",
