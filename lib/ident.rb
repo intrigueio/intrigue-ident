@@ -12,6 +12,9 @@ begin
   require 'openssl'
   require 'zlib'
   
+  # favicon checksums
+  require 'murmurhash3'
+  
   # integrate recog
   require_relative 'recog_wrapper'
   

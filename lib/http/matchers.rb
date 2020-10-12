@@ -22,6 +22,7 @@ module Matchers
     data = hash.merge({
       "details" =>  {
         "hidden_response_data" => "#{hash[:response_body]}",
+        "hidden_response_data_binary_base64" => "#{hash[:response_body_binary_base64]}",
         "response_code" => "#{hash[:response_code]}",
         "start_url" => "#{hash[:start_url]}",
         "final_url" => "#{hash[:final_url]}",
@@ -133,6 +134,8 @@ module Matchers
         match = _construct_match_response(check,data) if _code(data) == check[:match_content]
       elsif check[:match_type] == :checksum_body
         match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
+      elsif check[:match_type] == :checksum_body_mmh3
+        match = _construct_match_response(check,data) if _body_raw_binary_checksum_mmh3(data) == check[:match_content]
       end
     elsif check[:type] == "content"
       match = _construct_match_response(check,data)
