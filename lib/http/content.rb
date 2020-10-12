@@ -23,7 +23,7 @@ module Intrigue
         Base64.strict_decode64(content["details"]["hidden_response_data_binary_base64"])
       end
 
-      def _body_raw_binary_checksum_mmh3(content)]
+      def _body_raw_binary_checksum_mmh3(content)
 
         # Grab the content, which is already base64'd
         encoded_content = content["details"]["hidden_response_data_binary_base64"]
@@ -36,8 +36,8 @@ module Intrigue
 
         mmh3 = [MurmurHash3::V32.str_hash("#{newline_base64}\n")].pack('L').unpack('l').first
 
-        puts "DEBUG: Got favicon hash: #{mmh3}"
-        
+        #content["details"]["favicon_hash"]
+        #puts "DEBUG: Got favicon hash: #{mmh3}"
 
       mmh3 
       end
