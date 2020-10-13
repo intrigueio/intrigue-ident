@@ -11,12 +11,12 @@ begin
   require 'net/http'
   require 'openssl'
   require 'zlib'
+
+  # integrate recog
+  require_relative 'recog_wrapper'
   
   # favicon checksums
   require 'murmurhash3'
-  
-  # integrate recog
-  require_relative 'recog_wrapper'
   
 rescue LoadError => e 
   # unable to load private checks, presumable unavailable
