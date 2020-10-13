@@ -14,7 +14,7 @@ module Intrigue
             :version => nil,
             :match_type => :content_banner,
             :match_content => /dropbear/i,
-            :dynamic_version => lambda { |x| _first_banner_capture(x, /^SSH-2.0-dropbear_([\d\.]+)$/i)},
+            :dynamic_version => lambda { |x| _first_banner_capture(x, /^SSH-2.0-dropbear_([\d\.]+)\r\n$/i)},
             :match_details => "banner",
             :hide => false,
             :inference => true

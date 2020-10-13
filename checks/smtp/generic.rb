@@ -16,7 +16,21 @@ module Intrigue
           :version => nil,
           :match_type => :content_banner,
           :match_content => /ESMTP/i,
-          :match_details => "banner",
+          :match_details => "ESMTP banner",
+          :hide => false,
+          :inference => true
+        }, 
+        {
+          :type => "fingerprint",
+          :category => "application",
+          :tags => ["SMTPServer"],
+          :vendor => "Generic",
+          :product => "SMTP",
+          :references => [],
+          :version => nil,
+          :match_type => :content_banner,
+          :match_content => /^220.*$/i,
+          :match_details => "220 banner",
           :hide => false,
           :inference => true
         }
