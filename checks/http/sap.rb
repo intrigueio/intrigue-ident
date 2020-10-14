@@ -226,6 +226,58 @@ class Sap < Intrigue::Ident::Check::Base
         :match_content =>  /SAP XSEngine/i,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor =>"SAP",
+        :product =>"Solution Manager",
+        :version => nil,
+        :match_details =>"login details in response body",
+        :match_type => :content_body,
+        :match_content =>  /<form.*name="loginForm".*action=".*FioriLaunchpad\.html.*/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor =>"SAP",
+        :product =>"Solution Manager",
+        :version => nil,
+        :match_details =>"redirect to login",
+        :match_type => :content_headers,
+        :match_content =>  /location:.*FioriLaunchpad\.html/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => false } ],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor =>"SAP",
+        :product =>"Focused Run",
+        :version => nil,
+        :match_details =>"login details in response body",
+        :match_type => :content_body,
+        :match_content =>  /<form.*name="loginForm".*action="\/sap\/bc\/ui2\/flp".*/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Application Server"],
+        :vendor =>"SAP",
+        :product =>"Focued Run Manager",
+        :version => nil,
+        :match_details =>"redirect to login",
+        :match_type => :content_headers,
+        :match_content =>  /location:.*\/sap\/bc\/ui2\/flp/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => false } ],
+        :inference => false
       }
     ]
   end
