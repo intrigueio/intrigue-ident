@@ -12,7 +12,7 @@ module Intrigue
       def generate_snmp_request_and_check(ip, port=161, debug=false)
         
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
-        banner_string = grab_banner_smtp(ip,port)
+        banner_string = grab_banner_snmp(ip,port)
         details = {
           "details" => {
             "banner" => banner_string
@@ -28,7 +28,7 @@ module Intrigue
         checks.each do |check|
           results << match_snmp_response_hash(check,details)
         end
-
+        
         # Run recog across the banner
         recog_results = recog_match_snmp_banner(banner_string)
   

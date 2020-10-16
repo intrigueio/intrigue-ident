@@ -162,7 +162,7 @@ module Snmp
   def recog_match_snmp_banner(string)
     options = OpenStruct.new(color: false, 
       detail: true, fail_fast: false, multi_match: true)
-    ndb = ::Recog::DB.new("snmp_banners.xml");nil
+    ndb = ::Recog::DB.new("snmp_sysdescr.xml");nil
     options.fingerprints = ndb.fingerprints;nil
     matcher = ::Recog::MatcherFactory.build(options);nil
     matches = matcher.match_banner(string)
