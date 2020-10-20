@@ -9,7 +9,7 @@ module Check
           :type => "fingerprint",
           :category => "none",
           :vendor => "Generic",
-          :product => "Unable to Connect",
+          :product => "Connection Reset (attempted HTTP connection)",
           :match_details =>"connection reset or timeout",
           :version => nil,
           :hide => true,

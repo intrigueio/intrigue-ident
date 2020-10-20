@@ -59,10 +59,10 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/http/javascript', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
-# General helpers (apply widely across protocols)
-
+# General helpers (apply widely across different protocols)
 require_relative 'simple_socket'
 require_relative 'banner_helpers'
+require_relative 'error_helpers'
 
 ##################################
 # Load in dns matchers and checks

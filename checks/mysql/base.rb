@@ -3,7 +3,7 @@ module Ident
 module MysqlCheck
 class Base
 
-  include Intrigue::Ident::BannerHelpers
+  include Intrigue::Ident::ErrorHelpers
 
   def self.inherited(base)
     Intrigue::Ident::Mysql::CheckFactory.register(base)
