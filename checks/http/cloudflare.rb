@@ -213,7 +213,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF", "PaaS",
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
