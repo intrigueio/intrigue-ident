@@ -92,7 +92,7 @@ module Check
           :match_details =>"Cisco SSL VPN",
           :version => nil,
           :match_type => :content_body,
-          :match_content => /document.location.replace\(\"\/\+CSCOE\+\/logon.html\"\)/i,
+          :match_content => /\<script\>document\.location\.replace\(\'\/\+CSCOE\+\/logon\.html/i,
           :hide => false,
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
           :inference => false
