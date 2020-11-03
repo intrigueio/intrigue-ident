@@ -101,6 +101,7 @@ module Intrigue
           @resolver.query(name, type, klass)
         rescue Dnsruby::Refused
         rescue Dnsruby::ServFail
+        rescue Dnsruby::NXDomain
         end
       end
     

@@ -19,7 +19,7 @@ begin
   require 'murmurhash3'
   
 rescue LoadError => e 
-  # unable to load private checks, presumable unavailable
+  # unable to load dependencies, presumable unavailable
   #puts "Unable to load hosted-version-only fingerprints #{e}"
 end
 
