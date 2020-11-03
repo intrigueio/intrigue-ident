@@ -71,6 +71,8 @@ module Intrigue
         klass = 'CH'
     
         resp = _do_query name, type, klass
+        return nil unless resp 
+
       resp.answer.first.rdata.first if resp.answer.first
       end 
     
@@ -81,6 +83,8 @@ module Intrigue
         klass = 'CH'
     
         resp = _do_query name, type, klass
+        return nil unless resp 
+
       resp.answer.first.rdata.first if resp.answer.first
       end 
     
@@ -91,6 +95,8 @@ module Intrigue
         klass = 'CH'
     
         resp = _do_query name, type, klass
+        return nil unless resp 
+        
       resp.answer.first.rdata.first if resp.answer.first
       end 
 

@@ -209,9 +209,8 @@ module Http
   #include Intrigue::Ident::Content::HttpHelpers
 
   def ident_encode(string)
-    string.force_encoding('ISO-8859-1').encode('UTF-8')
+    string.force_encoding('ISO-8859-1').encode('UTF-8').gsub("\u0000","")
   end
-
 
   def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, follow_redirects=true, attempts_limit=3, timeout=10)
 
