@@ -261,7 +261,7 @@ def main
   end
 
   if opts[:'list-checks']
-    puts "Fingerprint, Version Detection, Hide By Default, Issues, Vulnerability Inference, Check Paths, Tags"
+    puts "Fingerprint, Version Detection, Hide By Default, Issues, Vulnerability Inference, Tags"
     list_checks.sort_by { |c| "#{c[:type]}" }.each do |c|
       next unless c[:type] == "fingerprint"
       out = ""
@@ -270,7 +270,7 @@ def main
       out << "#{c[:hide]}, "
       out << "#{(c[:issues].join(" | ") if c[:issues]) || c[:issue]}, "
       out << "#{c[:inference]}, "
-      out << "#{c[:paths].join(" | ") if c[:paths]}, "
+      #out << "#{c[:paths].join(" | ") if c[:paths]}, "
       out << "#{c[:tags].join(" | ") if c[:tags]}"
       puts out
     end
