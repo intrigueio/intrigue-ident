@@ -365,7 +365,7 @@ module Intrigue
             owa_to_exchange_version(update_string)[:update]
           },
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => true
+          :inference => false # temporarily set to false, @shpendk
         },
         {
           :type => "fingerprint",
@@ -393,7 +393,7 @@ module Intrigue
             owa_to_exchange_version(update_string)[:update]
           },
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => true # TODO - not specific enough yet
+          :inference => false # temporarily set to false, @shpendk
         },
         {
           :type => "fingerprint",
@@ -421,7 +421,7 @@ module Intrigue
             owa_to_exchange_version(update_string)[:update]
           },
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => true # TODO - not specific enough yet
+          :inference => false # temporarily set to false, @shpendk
         },
         {
           :type => "fingerprint",
