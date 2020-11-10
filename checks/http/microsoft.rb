@@ -776,7 +776,6 @@ module Intrigue
           :match_details =>"error page",
           :version => nil,
           :match_type => :content_body,
-          :requires_product => "Sharepoint Server",
           :match_content =>  /Troubleshoot issues with Microsoft SharePoint Foundation. - Opens in new window/,
           :paths => [{ :path => "#{url}/WebResource.asmx", :follow_redirects => true } ],
           :require_product => "ASP.NET",
