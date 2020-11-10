@@ -48,7 +48,7 @@ module Intrigue
               },
               :hide => false,
               :paths => [{ :path => "#{url}", :follow_redirects => true }],
-              :inference => true,
+              :inference => false,
             },
             {
               :type => "fingerprint",
