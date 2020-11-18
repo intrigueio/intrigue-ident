@@ -30,12 +30,14 @@ module Intrigue
         recog_results = [] 
 
         # Run recog across the banner
-        short_banner_string = banner_string.split(" ")[1..-1].join(" ").gsub("\r\n","") # skip 220 and hostname
-        recog_results << recog_match_smtp_banner(short_banner_string)
-  
-        # Run recog across the banner (also removing the hostname)
-        short_banner_string = banner_string.split(" ")[2..-1].join(" ").gsub("\r\n","") # skip 220 and hostname
-        recog_results << recog_match_smtp_banner(short_banner_string)
+        if banner_string && banner_string.length > 0
+          short_banner_string = banner_string.split(" ")[1..-1].join(" ").gsub("\r\n","") # skip 220 and hostname
+          recog_results << recog_match_smtp_banner(short_banner_string)
+    
+          # Run recog across the banner (also removing the hostname)
+          short_banner_string = banner_string.split(" ")[2..-1].join(" ").gsub("\r\n","") # skip 220 and hostname
+          recog_results << recog_match_smtp_banner(short_banner_string)
+        end
 
       { "fingerprint" => (results + recog_results.flatten).uniq.compact, "banner" => banner_string, "content" => [] }
       end
