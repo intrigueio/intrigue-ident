@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fintrigueio%2Fintrigue-ident.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fintrigueio%2Fintrigue-ident?ref=badge_shield)
+
 Ident is an application and service fingerprinting library used within Intrigue Core. 
 
 The Ident project has a few stated goals: 
@@ -78,3 +80,6 @@ A special thanks to the following contributors who help make ident awesome!
  - @bcoles: Checks, bugfixes, JSON output
  - @bmcdevitt: Checks
  - @retornam: Dockerization
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fintrigueio%2Fintrigue-ident.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fintrigueio%2Fintrigue-ident?ref=badge_large)
