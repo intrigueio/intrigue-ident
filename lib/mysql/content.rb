@@ -10,8 +10,7 @@ module Intrigue
       def _error(content)
         content["details"]["error"]
       end
-
-
+      
     end
   end
 end

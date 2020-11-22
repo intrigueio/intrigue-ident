@@ -20,10 +20,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", ">= 12.3.3"
   spec.add_development_dependency "rspec", "~> 3.0"
+  
   spec.add_runtime_dependency "dnsruby"
   spec.add_runtime_dependency "recog-intrigue"
   spec.add_runtime_dependency "socketry"
   spec.add_runtime_dependency "snmp"
   spec.add_runtime_dependency "typhoeus"
+  spec.add_runtime_dependency "murmurhash3"
+  
   
 end

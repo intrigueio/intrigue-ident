@@ -209,9 +209,8 @@ module Http
   #include Intrigue::Ident::Content::HttpHelpers
 
   def ident_encode(string)
-    string.force_encoding('ISO-8859-1').encode('UTF-8')
+    string.force_encoding('ISO-8859-1').encode('UTF-8').gsub("\u0000","")
   end
-
 
   def ident_http_request(method, uri_string, credentials=nil, headers={}, data=nil, follow_redirects=true, attempts_limit=3, timeout=10)
 
@@ -293,6 +292,7 @@ module Http
     # verify we have a response before adding these
     if response
       out[:response_headers] = response.headers.map{|x,y| ident_encode "#{x}: #{y}" }
+      out[:response_body_binary_base64] = Base64.strict_encode64(response.body)
       out[:response_body] = ident_encode(response.body)
       out[:response_code] = response.code
 

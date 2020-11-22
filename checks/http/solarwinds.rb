@@ -22,7 +22,7 @@ class Solarwinds < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Solarwinds",
         :product =>"Nginx",
         :match_details =>"",

@@ -8,7 +8,7 @@ class Lighttpd < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Lighttpd",
         :product =>"Lighttpd",
         :match_details =>"server header",

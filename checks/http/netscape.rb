@@ -8,7 +8,7 @@ class Netscape < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Netscape",
         :product =>"Enterprise Server",
         :match_details =>"server header",

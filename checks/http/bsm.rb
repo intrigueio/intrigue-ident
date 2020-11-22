@@ -8,7 +8,7 @@ class BSM < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "service",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "MicroFocus",
         :product => "BSM",
         :references => ["https://docs.microfocus.com/SM/9.60/Codeless/Content/integrations/business_service_management/concepts/hp_business_service_management.htm"],

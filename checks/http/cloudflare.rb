@@ -7,7 +7,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :match_type => :content_title,
@@ -22,7 +22,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -36,7 +36,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -50,7 +50,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -64,7 +64,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -78,7 +78,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare Error",
               :version => nil,
@@ -92,7 +92,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -106,7 +106,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :match_details => "Cloudflare error",
@@ -120,7 +120,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :match_details => "Error - Direct IP Access",
@@ -134,7 +134,21 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
+              :vendor => "Cloudflare",
+              :product => "Cloudflare",
+              :match_details => "Error - page doesnt exist",
+              :version => nil,
+              :match_type => :content_body,
+              :match_content => /^error code: 1003$/im,
+              :hide => true,
+              :paths => [{ :path => "#{url}", :follow_redirects => true }],
+              :inference => false,
+            },
+            {
+              :type => "fingerprint",
+              :category => "service",
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -147,7 +161,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -173,7 +187,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -186,7 +200,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,
@@ -199,7 +213,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "service",
-              :tags => ["CDN", "WAF"],
+              :tags => ["CDN", "WAF", "PaaS"],
               :vendor => "Cloudflare",
               :product => "Cloudflare",
               :version => nil,

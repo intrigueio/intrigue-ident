@@ -7,7 +7,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server", "Cache"],
+              :tags => ["WebServer", "Cache"],
               :vendor => "Varnish-Cache",
               :product => "Varnish",
               :website => "http://www.varnish-cache.org/",
@@ -21,7 +21,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server", "Cache"],
+              :tags => ["WebServer", "Cache"],
               :vendor => "Varnish-Cache",
               :product => "Varnish",
               :website => "http://www.varnish-cache.org/",
@@ -35,7 +35,7 @@ module Intrigue
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server", "Cache"],
+              :tags => ["WebServer", "Cache"],
               :vendor => "Varnish-Cache",
               :product => "Varnish",
               :website => "http://www.varnish-cache.org/",
@@ -48,12 +48,12 @@ module Intrigue
               },
               :hide => false,
               :paths => [{ :path => "#{url}", :follow_redirects => true }],
-              :inference => true,
+              :inference => false,
             },
             {
               :type => "fingerprint",
               :category => "application",
-              :tags => ["Web Server", "Cache"],
+              :tags => ["WebServer", "Cache"],
               :vendor => "Varnish-Cache",
               :product => "Varnish",
               :website => "http://www.varnish-cache.org/",

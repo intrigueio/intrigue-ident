@@ -8,7 +8,7 @@ class AspNetForum < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "JitBit",
         :product => "AspNetForum",
         :references => ["https://www.jitbit.com/asp-net-forum/"],

@@ -119,7 +119,7 @@ class RedHat < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Red Hat",
         :product => "JBoss Web Server",
         :match_details =>"powered by header",

@@ -21,7 +21,7 @@ class Dell < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server", "PaaS"],
+        :tags => ["WebServer", "PaaS"],
         :vendor => "Dell",
         :product => "Dell SonicWALL Secure Mobile Access SMA",
         :references => ["https://www.sonicwall.com/products/remote-access/remote-access-appliances/"],

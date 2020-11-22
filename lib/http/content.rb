@@ -19,6 +19,29 @@ module Intrigue
         Digest::MD5.hexdigest("#{_body_raw(content)}")
       end
 
+      def _body_raw_binary(content)  
+        Base64.strict_decode64(content["details"]["hidden_response_data_binary_base64"])
+      end
+
+      def _body_raw_binary_checksum_mmh3(content)
+
+        # Grab the content, which is already base64'd
+        encoded_content = content["details"]["hidden_response_data_binary_base64"]
+        return unless encoded_content.size > 0  
+
+        # calculate the hash, per 
+        # https://gist.github.com/Techbrunch/2bff00ebf359d891d161b10b6d27ba2e
+        newline_base64 = encoded_content.gsub!(/.{76}(?=.)/, '\0' + '\n')
+        return nil unless newline_base64
+
+        mmh3 = [MurmurHash3::V32.str_hash("#{newline_base64}\n")].pack('L').unpack('l').first
+
+        #content["details"]["favicon_hash"]
+        #puts "DEBUG: Got favicon hash: #{mmh3}"
+
+      mmh3 
+      end
+
       def _body_rendered_checksum(content)
         Digest::MD5.hexdigest("#{_body_rendered(content)}")
       end

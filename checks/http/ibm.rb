@@ -8,7 +8,7 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Embedded", "Appliance","COTS", "Web Server"],
+        :tags => ["Embedded", "Appliance","COTS", "WebServer"],
         :vendor => "IBM",
         :product =>"Datapower",
         :references => ["https://www.ibm.com/developerworks/community/blogs/HermannSW/entry/datapower_x_backside_transport_transfer_encoding_and_connection_header_fields9?lang=en"],
@@ -22,7 +22,7 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "IBM",
         :product =>"HTTP Server",
         :references => [],
@@ -36,7 +36,7 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "IBM",
         :product =>"HTTP Server",
         :references => [],
@@ -78,7 +78,7 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","COTS"],
+        :tags => ["WebServer","COTS"],
         :vendor => "IBM",
         :product =>"WebSEAL",
         :references => ["https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html"],
@@ -92,7 +92,7 @@ class Ibm < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","COTS"],
+        :tags => ["WebServer","COTS"],
         :vendor => "IBM",
         :product =>"WebSEAL",
         :references => ["https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html"],

@@ -48,6 +48,9 @@ module Intrigue
           #socket.writepartial("HELO friend.local\r\n\r\n")
           begin 
             out = socket.readpartial(24576, timeout: timeout)
+          rescue Errno::ECONNRESET => e 
+            puts "Error while reading! Reset."
+            out = nil
           rescue Socketry::TimeoutError
             puts "Error while reading! Timeout."
             out = nil

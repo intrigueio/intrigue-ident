@@ -8,7 +8,7 @@ class AOL < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "AOL",
         :product => "AOLserver",
         :references => ["https://aolserver.github.io/"],

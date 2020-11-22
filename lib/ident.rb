@@ -11,12 +11,15 @@ begin
   require 'net/http'
   require 'openssl'
   require 'zlib'
-  
+
   # integrate recog
   require_relative 'recog_wrapper'
   
+  # favicon checksums
+  require 'murmurhash3'
+  
 rescue LoadError => e 
-  # unable to load private checks, presumable unavailable
+  # unable to load dependencies, presumable unavailable
   #puts "Unable to load hosted-version-only fingerprints #{e}"
 end
 
@@ -56,10 +59,10 @@ Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 content_check_folder = File.expand_path('../checks/http/javascript', File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
-# General helpers (apply widely across protocols)
-
+# General helpers (apply widely across different protocols)
 require_relative 'simple_socket'
 require_relative 'banner_helpers'
+require_relative 'error_helpers'
 
 ##################################
 # Load in dns matchers and checks
@@ -187,6 +190,9 @@ module Intrigue
     private
 
     def _sanitize_string(string)
+      # return nil if string is empty, to allow valid version comparison.
+      return nil if string == "" || string == nil
+
       "#{string}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
     end
     
@@ -194,8 +200,8 @@ module Intrigue
 
       if check[:type] == "fingerprint"
 
-        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version] || nil
-        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update] || nil
+        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version]
+        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update]
 
         calculated_type = "a" if check[:category] == "application"
         calculated_type = "h" if check[:category] == "hardware"
@@ -252,8 +258,8 @@ module Intrigue
           "type" => check[:type],
           "vendor" => check[:vendor],
           "product" => check[:product],
-          "version" => "#{_sanitize_string(calculated_version)}",
-          "update" => "#{_sanitize_string(calculated_update)}",
+          "version" => _sanitize_string(calculated_version),
+          "update" => _sanitize_string(calculated_update),
           "tags" => check[:tags],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],

@@ -8,7 +8,7 @@ class Allegro < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server","Embedded"],
+        :tags => ["WebServer","Embedded"],
         :vendor => "Allegro",
         :product => "RomPager",
         :version => nil,

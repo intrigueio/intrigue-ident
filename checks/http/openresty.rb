@@ -8,7 +8,7 @@ class OpenResty < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor =>"OpenResty",
         :product =>"OpenResty",
         :match_details =>"server header for OpenResty",
@@ -21,7 +21,7 @@ class OpenResty < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor =>"OpenResty",
         :product =>"OpenResty",
         :match_details =>"server header for OpenResty with version",

@@ -8,7 +8,7 @@ class Wildfly < Intrigue::Ident::Check::Base
       {
         :type => "fingerprint",
         :category => "application",
-        :tags => ["Web Server"],
+        :tags => ["WebServer"],
         :vendor => "Wildfly",
         :product => "Wildfly",
         :references => ["https://wildfly.org/about/"],
