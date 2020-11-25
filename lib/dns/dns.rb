@@ -105,9 +105,12 @@ module Intrigue
       def _do_query(name,type,klass)
         begin 
           @resolver.query(name, type, klass)
-        rescue Dnsruby::Refused
-        rescue Dnsruby::ServFail
-        rescue Dnsruby::NXDomain
+        rescue Dnsruby::Refused => e 
+        rescue Dnsruby::ServFail => e
+        rescue Dnsruby::NXDomain => e 
+        rescue Dnsruby::NotImp => e
+        rescue Dnsruby::ResolvTimeout => e
+        rescue Dnsruby::FormErr => e
         end
       end
     
