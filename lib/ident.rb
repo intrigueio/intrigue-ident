@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-# monkey-patches for hash
+# monkey-patches for core classes
 require_relative 'initialize/hash'
+require_relative 'initialize/string'
 
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
@@ -20,7 +21,10 @@ begin
   
 rescue LoadError => e 
   # unable to load dependencies, presumable unavailable
-  #puts "Unable to load hosted-version-only fingerprints #{e}"
+  puts "Unable to load dependency, functionality may be limited #{e}"
+rescue RuntimeError => e 
+  # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
+  puts "Unable to load dependency, functionality may be limited #{e}"
 end
 
 # load in generic utils
@@ -28,7 +32,7 @@ require_relative 'utils'
 require_relative 'version'
 
 ###
-### Start protocol requires 
+### Start protocol-specific deps 
 ###
 
 ##################################

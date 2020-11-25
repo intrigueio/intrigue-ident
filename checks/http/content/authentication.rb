@@ -15,7 +15,6 @@ class Authentication < Intrigue::Ident::Check::Base
         false
         },
         :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {

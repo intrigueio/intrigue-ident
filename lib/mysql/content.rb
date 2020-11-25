@@ -8,7 +8,7 @@ module Intrigue
       #end
 
       def _error(content)
-        content["details"]["error"]
+        "#{content["details"]["error"]}".sanitize_unicode
       end
       
     end
