@@ -108,6 +108,7 @@ module Intrigue
         rescue Dnsruby::Refused => e 
         rescue Dnsruby::ServFail => e
         rescue Dnsruby::NXDomain => e 
+        rescue Dnsruby::NotAuth => e 
         rescue Dnsruby::NotImp => e
         rescue Dnsruby::ResolvTimeout => e
         rescue Dnsruby::FormErr => e
