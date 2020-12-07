@@ -48,6 +48,16 @@ module Intrigue
                 out << "#{vb.value.to_s}"
               end
           end
+
+        rescue SNMP::RequestTimeout => e
+          puts "Error connecting! Timeout!"
+          return nil
+        rescue Errno::EHOSTUNREACH => e
+          puts "Error while reading! Reset."
+          out = nil
+        rescue Errno::ECONNRESET => e 
+          puts "Error while reading! Reset."
+          out = nil
         rescue Socketry::TimeoutError
           puts "Error connecting! Timeout!"
           return nil
