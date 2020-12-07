@@ -707,7 +707,7 @@ module Intrigue
           :dynamic_version => lambda { |x|
             _first_header_capture(x, /x-owa-version:(.*)/) },
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => true
+          :inference => false
         },
         {
           :type => "fingerprint",
@@ -722,7 +722,7 @@ module Intrigue
           :dynamic_version => lambda { |x|
             _first_body_capture x, /href=\"\/owa\/auth\/(.*)\/themes\/resources\/favicon.ico/ },
           :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => true
+          :inference => false
         },
         {
           :type => "fingerprint",
