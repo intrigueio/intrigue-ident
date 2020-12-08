@@ -123,6 +123,19 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
+# Load in redis matchers and checks
+#################################
+require_relative 'redis/matchers'
+include Intrigue::Ident::Redis::Matchers
+
+require_relative 'redis/check_factory'
+require_relative '../checks/redis/base'
+
+# redis fingerprints
+check_folder = File.expand_path('../checks/redis', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+##################################
 # Load in smtp matchers and checks
 ##################################
 require_relative 'smtp/matchers'
