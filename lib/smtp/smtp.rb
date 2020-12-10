@@ -41,7 +41,7 @@ module Intrigue
           recog_results << recog_match_smtp_banner(short_banner_string)
         end
 
-      { "fingerprint" => (results + recog_results.flatten).uniq.compact, "banner" => banner_string, "content" => [] }
+      { "fingerprint" => (results + recog_results.flatten).uniq.compact, "banner" => banner_string }
       end
 
       private

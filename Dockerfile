@@ -12,9 +12,9 @@ RUN adduser --disabled-password --gecos "" ident \
        readline-common  \
     && mkdir -p /src/ruby  \
     && cd /src/ruby \
-    && curl -O https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.5.tar.gz \
-    && tar -xvzf ruby-2.6.5.tar.gz \
-    && cd ruby-2.6.5 \
+    && curl -O https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.2.tar.gz \
+    && tar -xvzf ruby-2.7.2.tar.gz \
+    && cd ruby-2.7.2 \
     && ./configure --disable-install-rdoc \
     && make && make install \
     && rm -rf /var/cache/apt/* \
