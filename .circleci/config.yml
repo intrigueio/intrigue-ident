@@ -1,9 +1,25 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@0.1.2
+  slack: circleci/slack@4.1.3
 
+workflows:
+  build_and_upload:
+    jobs:
+      - build-intrigue-ident:
+          context:
+              - slack-and-gemfury 
+      - deploy-intrigue-ident:
+          requires:
+            - build-intrigue-ident
+          context:
+              - slack-and-gemfury 
+          filters:
+              branches:
+                only:
+                  - main 
 jobs:
-  build:
+  build-intrigue-ident:
     docker:
       - image: circleci/ruby:2.7.2
         environment:
@@ -17,5 +33,74 @@ jobs:
             gem update --system
             gem install bundler:2.1.4
             bundle install
-            bundle exec rspec spec/*   
-    
+            bundle exec rspec spec/* 
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "@here Job *${CIRCLE_JOB}* in branch `<< pipeline.git.branch >>` by committer ${CIRCLE_USERNAME} has *failed* :warning:. View job <${CIRCLE_BUILD_URL}|here>."
+                  }
+                }
+              ]
+            }
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Job *${CIRCLE_JOB}* in branch `<< pipeline.git.branch >>` by committer ${CIRCLE_USERNAME} successful :white_check_mark:. View job <${CIRCLE_BUILD_URL}|here>."
+                  }
+                }
+              ]
+            }
+  deploy-intrigue-ident:
+    docker:
+      - image: circleci/ruby:2.7.2
+        environment:
+          BUNDLER_VERSION: 2.1.4
+    executor: ruby/default
+    steps:
+      - checkout
+      - run:
+          name: Build gem and upload to gemfury
+          command:  | 
+            gem build intrigue-ident.gemspec
+            ls *.gem | xargs -I{} curl --silent -F package=@{} https://${GEMFURY_TOKEN}@push.fury.io/intrigueio --stderr - | tee curl.out
+            if grep -E "already exists|unauthorized|denied|error" curl.out; then exit -1; fi
+      - slack/notify:
+          event: fail
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "@here Job *${CIRCLE_JOB}* in branch `<< pipeline.git.branch >>` by committer ${CIRCLE_USERNAME} has *failed* :warning:. View job <${CIRCLE_BUILD_URL}|here>."
+                  }
+                }
+              ]
+            }
+      - slack/notify:
+          event: pass
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Job *${CIRCLE_JOB}* in branch `<< pipeline.git.branch >>` by committer ${CIRCLE_USERNAME} successful :white_check_mark:. View job <${CIRCLE_BUILD_URL}|here>."
+                  }
+                }
+              ]
+            }
