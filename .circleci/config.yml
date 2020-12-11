@@ -30,6 +30,7 @@ jobs:
       - run:
           name: Install dependencies & run specs 
           command:  | 
+            apt-get -y install git-core
             gem update --system
             gem install bundler:2.1.4
             bundle install
