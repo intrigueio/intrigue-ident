@@ -9,8 +9,12 @@ class Base
     Intrigue::Ident::Http::CheckFactory.register(base)
   end
 
-  def product_name
-
+  def uri_host(url)
+    begin 
+      URI.parse(url).host
+    rescue URI::InvalidURIError => e
+      puts "WARNING! attempted to parse invalid URL! #{url}"
+    end
   end
 
   private
