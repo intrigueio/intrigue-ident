@@ -11,33 +11,14 @@ module Check
           :tags => ["CMS"],
           :vendor => "Drupal",
           :product => "Drupal",
-          :match_details => "Drupal version in page content",
-          :version => nil,
-          :match_type => :content_body,
-          :match_content => /^Drupal [0-9]+\.[0-9]+/,
-          :dynamic_version => lambda { |x|
-            _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
-          },
-          :paths => [{ :path => "#{url}/CHANGELOG.txt", :follow_redirects => true } ],
-          :require_product => "Magento",
-          :inference => true
-        },
-        {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["CMS"],
-          :vendor => "Drupal",
-          :product => "Drupal",
           :references => ["https://twitter.com/bad_packets/status/1098843918127398912"],
-          :version => 8, #default to 8
           :match_details => "Drupal version in page content",
           :match_type => :content_body,
-          :match_content => /^Drupal [0-9]+\.[0-9]+/,
+          :match_content => /^Drupal [\d]+\.[\d]+/,
           :dynamic_version => lambda { |x|
-            _first_body_capture(x,/^Drupal ([0-9\.]*?)[ ,<\.].*$/)
+            _first_body_capture(x,/^Drupal ([\d\.]+?)[ ,<\.].*$/)
           },
           :paths => [{ :path => "#{url}/CHANGELOG.txt", :follow_redirects => true } ],
-          :require_product => "Magento",
           :inference => true
         },
         {
