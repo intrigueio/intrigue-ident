@@ -19,6 +19,7 @@ module Check
             _first_body_capture(x,/^Drupal ([\d\.]+?)[ ,<\.].*$/)
           },
           :paths => [{ :path => "#{url}/CHANGELOG.txt", :follow_redirects => true } ],
+          :require_product => "Drupal",
           :inference => true
         },
         {
