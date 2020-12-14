@@ -64,8 +64,8 @@ class Solarwinds < Intrigue::Ident::Check::Base
         :product =>"Orion Platform",
         :match_details =>"solarwinds version string",
         :match_type => :content_body,
-        :match_content =>  /Orion Platform [\d\w\,\s]+: [\d\.]+ Â©/,
-        :dynamic_version => lambda {|x| _first_body_capture(x, /Orion Platform [\d\w\,\s]+: ([\d\.]+) Â©/)},
+        :match_content =>  /Orion Platform ([\d\.]+\ ?[a-zA-z0-9]{3})/,
+        :dynamic_version => lambda {|x| _first_body_capture(x, /Orion Platform ([\d\.]+\ ?[a-zA-z0-9]{3})/)},
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => true
       }
