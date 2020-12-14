@@ -8,25 +8,19 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name => "Access-Control-Allow-Origin Header",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^Access-Control-Allow-Origin:.*/i;
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
         :name => "P3P Header",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^p3p:.*/i;
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       #{
@@ -41,25 +35,19 @@ class SecurityHeaders < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name => "X-Frame-Options Header",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^x-frame-options:.*/i;
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
         :name => "X-XSS-Protection Header",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return true if _first_header_match d, /^x-xss-protection:.*/i;
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       }
     ]

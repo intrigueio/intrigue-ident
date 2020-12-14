@@ -8,26 +8,21 @@ class Authentication < Intrigue::Ident::Check::Base
       {
         :type => "content",
         :name => "Authentication - HTTP",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["headers"]
           return true if _first_header_match(d, /^www-authenticate:.*$/)
         false
         },
-        :dynamic_hide => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
         :type => "content",
         :name => "Authentication - NTLM",
-        :match_type => :content_headers,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["headers"]
           return true if _first_header_match(d, /^www-authenticate: NTLM$/i)
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
@@ -37,7 +32,6 @@ class Authentication < Intrigue::Ident::Check::Base
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
           "https://nmap.org/nsedoc/scripts/http-auth-finder.html"
         ],
-        :match_type => :content_body,
         :dynamic_result => lambda { |d|
           return true if _body(d) =~ /<input type=\"password\"/im;
           return true if _body(d) =~ /<script>[^>]*login/im;
@@ -62,8 +56,6 @@ class Authentication < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /create_account/im;
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
       {
@@ -72,7 +64,6 @@ class Authentication < Intrigue::Ident::Check::Base
         :references => [
           "https://github.com/fuzzdb-project/fuzzdb/blob/ecb0850538bc9152949fa4579654d6b64e2fdb97/regex/sessionid.txt"
         ],
-        :match_type => :content_cookies,
         :dynamic_result => lambda { |d|
           return false unless d["details"]["cookies"]
           return true if _first_cookie_match d, /ASP.NET_SessionId/i
@@ -98,8 +89,6 @@ class Authentication < Intrigue::Ident::Check::Base
           return true if _first_cookie_match d, /zenid/i
         false
         },
-        :dynamic_hide => lambda { |d| false },
-        :dynamic_issue => lambda { |d| false },
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
       },
     ]
