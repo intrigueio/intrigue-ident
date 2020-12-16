@@ -9,6 +9,10 @@ workflows:
       - build-intrigue-ident:
           context:
               - slack-and-gemfury 
+          filters:
+              branches:
+                only:
+                  - main 
       - deploy-intrigue-ident:
           requires:
             - build-intrigue-ident
