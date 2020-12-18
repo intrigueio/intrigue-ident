@@ -8,16 +8,12 @@ workflows:
     jobs:
       - build-intrigue-ident:
           context:
-              - slack-and-gemfury 
-          filters:
-              branches:
-                only:
-                  - main 
+              - Build Context (Low Security) 
       - deploy-intrigue-ident:
           requires:
             - build-intrigue-ident
           context:
-              - slack-and-gemfury 
+              - Deploy Context (High Security) 
           filters:
               branches:
                 only:
