@@ -291,7 +291,7 @@ module Http
 
     # verify we have a response before adding these
     if response
-          out[:response_headers] = response.headers.map { |x, y| y.kind_of?(Array) ? y.map { |v| ident_encode("#{x}: #{v}") } : ident_encode("#{x}: #{y}") }
+      out[:response_headers] = response.headers.map { |x, y| y.kind_of?(Array) ? y.map { |v| ident_encode("#{x}: #{v}") } : ident_encode("#{x}: #{y}") }
       out[:response_body_binary_base64] = Base64.strict_encode64(response.body)
       out[:response_body] = ident_encode(response.body)
       out[:response_code] = response.code
