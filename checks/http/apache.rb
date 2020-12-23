@@ -101,17 +101,17 @@ module Intrigue
               :match_details => "Apache web server - server header - with versions",
               :version => nil,
               :match_type => :content_headers,
-              :match_content => /^server:.*Apache\/([\d\.]*).*$/i,
+              :match_content => /^server:.*Apache\/([\d\.]*)/i,
               :dynamic_version => lambda { |x|
 
                 # check for backported OS type
                 backported = false
-                backported = true if _first_header_match(x, /^server:.*\(CentOS\).*$/)
-                backported = true if _first_header_match(x, /^server:.*\(Red Hat\).*$/)
-                backported = true if _first_header_match(x, /^server:.*\(Red Hat Enterprise Linux\).*$/)
+                backported = true if _first_header_match(x, /^server:.*\(CentOS\).*$/i)
+                backported = true if _first_header_match(x, /^server:.*\(Red Hat\).*$/i)
+                backported = true if _first_header_match(x, /^server:.*\(Red Hat Enterprise Linux\).*$/i)
 
                 # grab the version
-                version = _first_header_capture(x, /server:.*Apache\/([\d\.]*).*/)
+                version = _first_header_capture(x, /server:.*Apache\/([\d\.]*)/i)
 
                 # return a version string that indicates we can't do inference
                 return "#{version} (Backported)" if backported
