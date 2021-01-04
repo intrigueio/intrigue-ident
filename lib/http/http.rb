@@ -80,6 +80,12 @@ module Http
     detected_products.each do |prod|
       followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product("#{url}", prod))
     end
+
+    ### Add checks for vendors
+    detected_products = initial_results["fingerprint"].map{|x| x["vendor"] }.uniq
+    detected_products.each do |vendor|
+      followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor("#{url}", vendor))
+    end
    
     ### Okay so, now we have a set of detected products, let's figure out our follown checks by vendor_product
     detected_vendor_products = initial_results["fingerprint"].map{|x| [x["vendor"], x["product"]] }.uniq

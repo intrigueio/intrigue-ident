@@ -23,9 +23,17 @@ class CheckFactory
     #
     def self.generate_initial_checks(url)
       @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| 
-        x[:require_product] == nil && x[:require_vendor_product] == nil }
+        x[:require_product] == nil && x[:require_vendor] == nil && x[:require_vendor_product] == nil }
     end
 
+    #
+    # Provide checks given a vendor
+    #
+    def self.generate_checks_for_vendor(url,vendor)
+      @checks.map{ |x| x.new.generate_checks("#{url}") }.flatten.compact.select{|x| 
+        x[:require_vendor] == "#{vendor}" }
+    end
+    
     #
     # Provide checks givene a product
     #
