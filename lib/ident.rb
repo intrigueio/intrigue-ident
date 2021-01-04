@@ -217,8 +217,9 @@ module Intrigue
 
       if check[:type] == "fingerprint"
 
-        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version]
-        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update]
+        calculated_product = _sanitize_string((check[:dynamic_product].call(data) if check[:dynamic_product]) || check[:product])
+        calculated_version = _sanitize_string((check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version])
+        calculated_update = _sanitize_string((check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update])
 
         calculated_type = "a" if check[:category] == "application"
         calculated_type = "h" if check[:category] == "hardware"
@@ -226,15 +227,24 @@ module Intrigue
         calculated_type = "s" if check[:category] == "service" # literally made up
 
         vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
-        product_string = check[:product].gsub(" ","_") if check[:product]
+        product_string = calculated_product.gsub(" ","_") if calculated_product
 
         version = "#{calculated_version}".gsub(" ","_")
         update = "#{calculated_update}".gsub(" ","_")
 
-        cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
+        cpe_string = _sanitize_string("cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase)
 
         ##
-        ## Support for Dynamic Issues
+        # Support for Dynamic Product
+        ##
+        if check[:dynamic_product]
+          calculated_product = check[:dynamic_product].call(data)
+        elsif check[:product]  # also handle singular
+          calculated_product = check[:product]
+        end
+
+        ##
+        # Support for Dynamic Issues
         ##
         if check[:dynamic_issues]
           issues = check[:dynamic_issues].call(data)
@@ -249,7 +259,7 @@ module Intrigue
         end
         
         ##
-        ## Support for Dynamic Hide
+        # Support for Dynamic Hide
         ##
         if check[:dynamic_hide]
           hide = check[:dynamic_hide].call(data)
@@ -260,7 +270,7 @@ module Intrigue
         end
 
         ##
-        ## Support for Dynamic Task
+        # Support for Dynamic Task
         ##
         if check[:dynamic_tasks]
           tasks = check[:dynamic_tasks].call(data)
@@ -274,14 +284,14 @@ module Intrigue
           "method" => "ident",
           "type" => check[:type],
           "vendor" => check[:vendor],
-          "product" => check[:product],
-          "version" => _sanitize_string(calculated_version),
-          "update" => _sanitize_string(calculated_update),
+          "product" => calculated_product,
+          "version" => calculated_version,
+          "update" => calculated_update,
           "tags" => check[:tags],
           "match_type" => check[:match_type],
           "match_details" => check[:match_details],
           "hide" => hide,
-          "cpe" => _sanitize_string(cpe_string),
+          "cpe" => cpe_string,
           "issues" => issues, 
           "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]
