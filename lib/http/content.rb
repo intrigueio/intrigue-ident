@@ -36,9 +36,6 @@ module Intrigue
 
         mmh3 = [MurmurHash3::V32.str_hash("#{newline_base64}\n")].pack('L').unpack('l').first
 
-        #content["details"]["favicon_hash"]
-        #puts "DEBUG: Got favicon hash: #{mmh3}"
-
       mmh3 
       end
 
