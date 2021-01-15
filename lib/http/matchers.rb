@@ -17,8 +17,10 @@ module Matchers
     title_string = title_match.captures.first.strip if title_match
 
     # grab the set cookie header
-    set_cookie_header = "#{(hash[:response_headers]||[]).select{|x| x =~ /^set-cookie:(.*)/i}.first}".gsub("set-cookie:","").strip
-
+    ### note: the cookies in hash[:response_headers] can be an array or just a string, which is why we call .flatten on it
+    ### when multiple cookies are given (as an array), we join them first for comprehensive fingerprint checking
+    set_cookie_header = (hash[:response_headers]||[]).flatten.select{|x| x =~ /^set-cookie:(.*)/i}.join(";").gsub("set-cookie:","").strip
+      
     data = hash.merge({
       "details" =>  {
         "hidden_response_data" => "#{hash[:response_body]}",
