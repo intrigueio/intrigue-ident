@@ -390,7 +390,7 @@ module Intrigue
               :category => "application",
               :tags => ["Application Server"],
               :vendor => "Apache",
-              :product => "Nifi",
+              :product => "NiFi",
               :match_details => "Shortcut icon in content body",
               :match_type => :content_body,
               :version => nil,
@@ -403,10 +403,10 @@ module Intrigue
               :category => "application",
               :tags => ["Application Server"],
               :vendor => "Apache",
-              :product => "Nifi",
+              :product => "NiFi",
               :match_details => "Shortcut icon in content body",
               :match_type => :content_body,
-              :require_product => "Nifi",
+              :require_product => "NiFi",
               :dynamic_version => lambda { |x|
                 _first_body_capture(x,/"version":"([\d\.]+)"/i)
               },
