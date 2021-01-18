@@ -385,6 +385,35 @@ module Intrigue
               :paths => [{ :path => "#{url}", :follow_redirects => true }],
               :inference => false,
             },
+            {
+              :type => "fingerprint",
+              :category => "application",
+              :tags => ["Application Server"],
+              :vendor => "Apache",
+              :product => "Nifi",
+              :match_details => "Shortcut icon in content body",
+              :match_type => :content_body,
+              :version => nil,
+              :match_content => /<link rel="shortcut icon" href="images\/nifi16.ico"\/>/,
+              :paths => [{ :path => "#{url}", :follow_redirects => true }],
+              :inference => false,
+            },
+            {
+              :type => "fingerprint",
+              :category => "application",
+              :tags => ["Application Server"],
+              :vendor => "Apache",
+              :product => "Nifi",
+              :match_details => "Shortcut icon in content body",
+              :match_type => :content_body,
+              :require_product => "Nifi",
+              :dynamic_version => lambda { |x|
+                _first_body_capture(x,/"version":"([\d\.]+)"/i)
+              },
+              :match_content => /{"about":{"title":"NiFi"/,
+              :paths => [{ :path => "#{url}/../nifi-api/flow/about", :follow_redirects => true }],
+              :inference => false,
+            },
 
           ]
         end
