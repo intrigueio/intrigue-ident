@@ -105,7 +105,6 @@ module Intrigue
       def _do_query(name,type,klass)
         begin 
           @resolver.query(name, type, klass)
-        rescue IOError => e 
         rescue Errno::EHOSTUNREACH => e
         rescue Dnsruby::Refused => e 
         rescue Dnsruby::ServFail => e
