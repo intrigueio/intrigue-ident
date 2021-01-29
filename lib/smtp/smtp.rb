@@ -47,22 +47,21 @@ module Intrigue
       private
 
       def grab_banner_smtp(ip, port, timeout=60)
-          
-        if socket = connect_tcp(ip, port, timeout)
-          #socket.writepartial("HELO friend.local\r\n\r\n")
-          begin 
+        begin
+          if socket = connect_tcp(ip, port, timeout)
+            #socket.writepartial("HELO friend.local\r\n\r\n")
             out = socket.readpartial(24576, timeout: timeout)
-          rescue Errno::EHOSTUNREACH => e
-            puts "Error while reading! Reset."
-            out = nil
-          rescue Errno::ECONNRESET => e 
-            puts "Error while reading! Reset."
-            out = nil
-          rescue Socketry::TimeoutError
-            puts "Error while reading! Timeout."
+          else 
             out = nil
           end
-        else 
+        rescue Errno::EHOSTUNREACH => e
+          puts "Error while reading! Reset."
+          out = nil
+        rescue Errno::ECONNRESET => e 
+          puts "Error while reading! Reset."
+          out = nil
+        rescue Socketry::TimeoutError
+          puts "Error while reading! Timeout."
           out = nil
         end
         
