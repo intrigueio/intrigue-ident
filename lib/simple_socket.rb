@@ -17,6 +17,9 @@ module Intrigue
 
         begin
           Socketry::TCP::Socket.connect(ip.strip, port, local_addr: nil, local_port: nil, timeout: timeout)
+        rescue Errno::ENETUNREACH => e 
+          puts "Error connecting! Refused."
+          return nil
         rescue Socketry::ConnectionRefusedError => e
           puts "Error connecting! Refused."
           return nil
