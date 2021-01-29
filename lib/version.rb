@@ -1,3 +1,3 @@
 module Ident
-  VERSION = "4.1.5"
+  VERSION = "4.1.7"
 end
