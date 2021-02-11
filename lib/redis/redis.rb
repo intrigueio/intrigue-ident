@@ -38,8 +38,12 @@ module Intrigue
       #private
 
       def grab_info_redis(ip, port=6379, timeout=60)
-        redis = ::Redis.new(host: ip, port: port, timeout: timeout)
-        out = redis.info
+        begin 
+          redis = ::Redis.new(host: ip, port: port, timeout: timeout)
+          out = redis.info
+        rescue Redis::CannotConnectError => e 
+        rescue Redis::TimeoutError => e
+        end
       out
       end
 
