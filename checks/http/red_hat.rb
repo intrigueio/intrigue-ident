@@ -90,17 +90,17 @@ module Intrigue
               :tags => ["Application Server"],
               :vendor => "RedHat",
               :product => "JBoss Enterprise Application Platform",
-              :references => [""],
               :version => nil,
               :match_type => :content_headers,
               :match_details => "powered by header",
-              :match_content => /^x-powered-by:.*JBoss-[\d\.]+\/.*$/i,
+              :match_content => /^x-powered-by:.*JBoss/i,
               :dynamic_version => lambda { |x|
-                _first_header_capture(x, /^x-powered-by:.*JBoss-([\d\.]+)\/.*$/i)
+                _first_header_capture(x, /^x-powered-by:.*JBoss-(\d+(.\d+)*)/i)
               },
               :hide => false,
               :paths => [{ :path => "#{url}", :follow_redirects => true }],
               :inference => true,
+              :test_target => ["http://187.120.194.50:8080"],
             },
             {
               :type => "fingerprint",
