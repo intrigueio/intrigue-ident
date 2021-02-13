@@ -23,14 +23,12 @@ module Intrigue
               :tags => ["Application Server"],
               :vendor => "Apache",
               :product => "Coyote",
-              :match_details => "Apache coyote application server - server header",
+              :match_details => "Apache Coyote application server - server header",
               :version => nil,
               :match_type => :content_headers,
-              :match_content => /server:\ Apache-Coyote/i,
-              :dynamic_version_field => "headers",
-              :dynamic_version_regex => /server: Apache-Coyote\/(.*)/i,
+              :match_content => /server:\ Apache[-\s]Coyote/i,
               :dynamic_version => lambda { |x|
-                _first_header_capture(x, /server: Apache-Coyote\/(.*)/i)
+                _first_header_capture(x, /server: Apache[-\s]Coyote\/(.*)/i)
               },
               :paths => [{ :path => "#{url}", :follow_redirects => true }],
               :inference => true,
@@ -408,7 +406,7 @@ module Intrigue
               :match_type => :content_body,
               :require_product => "NiFi",
               :dynamic_version => lambda { |x|
-                _first_body_capture(x,/"version":"([\d\.]+)"/i)
+                _first_body_capture(x, /"version":"([\d\.]+)"/i)
               },
               :match_content => /{"about":{"title":"NiFi"/,
               :paths => [{ :path => "#{url}/../nifi-api/flow/about", :follow_redirects => true }],
