@@ -44,6 +44,19 @@ class Vmware < Intrigue::Ident::Check::Base
         :match_content =>  /<title>VMware Horizon/,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "application",
+        :tags => ["Hypervisor"],
+        :vendor => "VMWare",
+        :product =>"vSphere",
+        :match_details =>"page title",
+        :version => nil,
+        :match_type => :content_body,
+        :match_content =>  /document.write\(\"<title>\"\ \+\ ID_VC_Welcome/,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
       }
     ]
   end
