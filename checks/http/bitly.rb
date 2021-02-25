@@ -27,10 +27,26 @@ class Bitly < Intrigue::Ident::Check::Base
         :match_details =>"bitly title - branded short domain",
         :match_type => :content_title,
         :version => nil,
+        :hide => true, # dynamic hide only on ip access?
         :match_content =>  /Branded Short Domain Powered by Bitly/i,
         :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
         :inference => false
+      },
+      {
+        :type => "fingerprint",
+        :category => "service",
+        :tags => ["Marketing", "Hosting"],
+        :vendor => "Bitly",
+        :product =>"Bitly",
+        :match_details =>"bitly title - custom domain",
+        :match_type => :content_title,
+        :version => nil,
+        :hide => true, # dynamic hide only on ip access?
+        :match_content =>  /Custom Domain by Bitly/i,
+        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        :inference => false
       }
+
     ]
   end
 

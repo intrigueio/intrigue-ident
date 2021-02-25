@@ -35,13 +35,11 @@ module Intrigue
       { "fingerprint" => (results).uniq.compact, "info" => info_hash }
       end
 
-      #private
 
       def grab_info_redis(ip, port=6379, timeout=60)
         begin 
           redis = ::Redis.new(host: ip, port: port, timeout: timeout)
           out = redis.info
-        rescue Redis::CannotConnectError => e 
         rescue Redis::TimeoutError => e
         end
       out
