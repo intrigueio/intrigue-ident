@@ -15,7 +15,7 @@ module Helpers
     out["product"] = recog_hash["service.product"]
     out["version"] = recog_hash["service.version"]
     out["cpe"] = "#{recog_hash["service.cpe23"]}".gsub("cpe:/a:","cpe:2.3:a:").gsub("cpe:/o:","cpe:2.3:o:").gsub("cpe:/h:","cpe:2.3:h:") << "::"
-    out["match_details"] = "#{recog_hash["matched"]} (Recog: #{recog_hash["fingerprint_db"]})"
+    out["description"] = "#{recog_hash["matched"]} (Recog: #{recog_hash["fingerprint_db"]})"
     out["inference"] = false
     out["hide"] = false
     out["tags"] = []

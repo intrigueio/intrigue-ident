@@ -6,20 +6,20 @@ class IceWarp < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Productivity", "COTS", "Email"],
-        :vendor => "IceWarp",
-        :product => "IceWarp",
-        :references => ["https://www.icewarp.com/"],
-        :version => nil,
-        :match_type => :content_headers,
-        :match_content =>  /^server:\ IceWarp\/(\d{1,}\.\d{1,}\.\d{1,})$/i,
-        :dynamic_version => lambda { |x| 
+        type: "fingerprint",
+        category: "application",
+        tags: ["Productivity", "COTS", "Email"],
+        vendor: "IceWarp",
+        product: "IceWarp",
+        references: ["https://www.icewarp.com/"],
+        version: nil,
+        match_type: :content_headers,
+        match_content:  /^server:\ IceWarp\/(\d{1,}\.\d{1,}\.\d{1,})$/i,
+        dynamic_version: lambda { |x| 
           _first_header_capture(x,/^server:\ IceWarp\/(\d{1,}\.\d{1,}\.\d{1,})$/i) },
-        :hide => false,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        hide: false,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       }
     ]
   end

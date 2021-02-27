@@ -289,7 +289,7 @@ module Intrigue
           "update" => calculated_update,
           "tags" => check[:tags],
           "match_type" => check[:match_type],
-          "match_details" => check[:match_details],
+          "description" => check[:description],
           "hide" => hide,
           "cpe" => cpe_string,
           "issues" => issues, 

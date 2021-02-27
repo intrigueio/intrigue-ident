@@ -6,20 +6,20 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["COTS", "Appliance", "Administrative"],
-          :vendor => "Kemp",
-          :product => "Edge Security Pack",
-          :match_details => "lm_auth_proxy?LMimage=",
-          :website => "https://kemptechnologies.com/loadmaster-family-virtual-server-load-balancers-application-delivery-controllers/",
-          :match_type => :content_body,
-          :version => nil,
-          :references => [
+          type: "fingerprint",
+          category: "application",
+          tags: ["COTS", "Appliance", "Administrative"],
+          vendor: "Kemp",
+          product: "Edge Security Pack",
+          description: "lm_auth_proxy?LMimage=",
+          website: "https://kemptechnologies.com/loadmaster-family-virtual-server-load-balancers-application-delivery-controllers/",
+          match_type: :content_body,
+          version: nil,
+          references: [
             "https://support.kemptechnologies.com/hc/en-us/articles/203125029-Edge-Security-Pack-ESP-"
           ],
-          :match_content =>  /lm_auth_proxy\?LMimage\=/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ]
+          match_content:  /lm_auth_proxy\?LMimage\=/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ]
         }
       ]
     end

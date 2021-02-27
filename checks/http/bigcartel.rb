@@ -8,20 +8,20 @@ class Bigcartel < Intrigue::Ident::Check::Base
       # Currently match_content too loose
 =begin
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["CMS"],
-        :vendor => "BigCartel",
-        :product => "BigCartel",
-        :references => ["https://www.bigcartel.com/"],
-        :version => nil,
-        :match_type => :content_body,
-        :match_content => /Big Cartel/i,
-        :dynamic_version => nil,
-        :match_details => "header match",
-        :hide => false,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["CMS"],
+        vendor: "BigCartel",
+        product: "BigCartel",
+        references: ["https://www.bigcartel.com/"],
+        version: nil,
+        match_type: :content_body,
+        match_content: /Big Cartel/i,
+        dynamic_version: nil,
+        description: "header match",
+        hide: false,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       }
 =end
     ]

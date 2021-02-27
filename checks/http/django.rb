@@ -6,17 +6,17 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["Application Server"],
-          :vendor => "Django",
-          :product =>"Django",
-          :version => nil,
-          :match_details =>"Django Admin Page",
-          :match_type => :content_body,
-          :match_content =>  /Django site admin/,
-          :paths => [{ :path => "#{url}/admin", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["Application Server"],
+          vendor: "Django",
+          product:"Django",
+          version: nil,
+          description:"Django Admin Page",
+          match_type: :content_body,
+          match_content:  /Django site admin/,
+          paths: [{ path: "#{url}/admin", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

@@ -6,15 +6,15 @@ module Intrigue
     def generate_checks
       [
         {
-          :type => "fingerprint",
-          :category => "operating_system",
-          :tags => ["DNSServer"],
-          :vendor => "Google",
-          :product => "Eero",
-          :website => "https://eero.com/",
-          :references => [],
-          :match_type => :hostname,
-          :match_content => /^eero$/i,
+          type: "fingerprint",
+          category: "operating_system",
+          tags: ["DNSServer"],
+          vendor: "Google",
+          product: "Eero",
+          website: "https://eero.com/",
+          references: [],
+          match_type: :hostname,
+          match_content: /^eero$/i,
         }
       ]
     end

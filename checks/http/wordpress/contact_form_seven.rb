@@ -6,18 +6,18 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["Wordpress Plugin"],
-          :vendor =>"Contact Form 7",
-          :product =>"Contact Form 7",
-          :match_details =>"plugin",
-          :references => [],
-          :match_type => :content_body,
-          :match_content =>  /wordfence_lh=/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :require_product => "Wordpress",
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["Wordpress Plugin"],
+          vendor:"Contact Form 7",
+          product:"Contact Form 7",
+          description:"plugin",
+          references: [],
+          match_type: :content_body,
+          match_content:  /wordfence_lh=/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          require_product: "Wordpress",
+          inference: false
         }
       ]
     end

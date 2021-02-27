@@ -20,7 +20,7 @@ module Matchers
     ### note: the cookies in hash[:response_headers] can be an array or just a string, which is why we call .flatten on it
     ### when multiple cookies are given (as an array), we join them first for comprehensive fingerprint checking
     set_cookie_header = (hash[:response_headers]||[]).flatten.select{|x| x =~ /^set-cookie:(.*)/i}.join(";").gsub("set-cookie:","").strip
-      
+
     data = hash.merge({
       "details" =>  {
         "hidden_response_data" => "#{hash[:response_body]}",
@@ -39,23 +39,6 @@ module Matchers
     #puts "matching #{check} against: #{data}"
 
   match_uri_hash(check,data)
-  end
-
-  def match_browser_response_hash(check,browser_response_hash)
-    data = {
-      "details" =>  {
-        "hidden_response_data_rendered" => "#{browser_response_hash[:rendered]}",
-        "response_code" => "#{hash[:response_code]}",
-        "start_url" => "#{browser_response_hash[:start_url]}",
-        "final_url" => "#{browser_response_hash[:final_url]}",
-        "headers" => [],
-        "cookies" => "",
-        "generator" => "",
-        "title" => "#{browser_response_hash[:title]}",
-      }
-    }
-
-    match_uri_hash(check,data)
   end
 
   # Matches a text http response
@@ -102,8 +85,14 @@ module Matchers
     match_uri_hash(check,data)
   end
 
+  ###
+  ### Tasks a single check and the data, and returns an array of match hashes
+  ###
   def match_uri_hash(check, data)
     return nil unless check && data
+
+    # for backward compatibility, we allow checks to be a single check 
+    #
 
     # data[:body] => page body
     # data[:headers] => block of text with headers, one per line
@@ -113,36 +102,83 @@ module Matchers
     # data[:body_md5] => md5 hash of the body
     # if type "content", do the content check
 
+  
     if check[:type] == "fingerprint"
-      if check[:match_type] == :content_body
-        match = _construct_match_response(check,data) if _body(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_body_raw
-        match = _construct_match_response(check,data) if _body_raw(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_dom
-        match = _construct_match_response(check,data) if _body_rendered(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_headers
-        match = _construct_match_response(check,data) if _headers(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_cookies
-        match = _construct_match_response(check,data) if _cookies(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_generator
-        match = _construct_match_response(check,data) if _generator(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_title
-        match = _construct_match_response(check,data) if _title(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_cert_subject
-        match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_cert_issuer
-        match = _construct_match_response(check,data) if _cert_subject(data) =~ check[:match_content]
-      elsif check[:match_type] == :content_code
-        match = _construct_match_response(check,data) if _code(data) == check[:match_content]
-      elsif check[:match_type] == :checksum_body
-        match = _construct_match_response(check,data) if _body_raw_checksum(data) == check[:match_content]
-      elsif check[:match_type] == :checksum_body_mmh3
-        match = _construct_match_response(check,data) if _body_raw_binary_checksum_mmh3(data) == check[:match_content]
+
+      # this is here for backward compatability! 
+      unless check[:matches] #
+        check[:matches] = [
+          {
+            match_type: check[:match_type],
+            match_content: check[:match_content]
+          }
+        ]
       end
+      
+      # Now, go through each one and determine if it's a match based on its type
+      match_results = []
+      check[:matches].each do |m|
+        
+        ###
+        ### Different check types require differnt check methods,
+        ### this handles that 
+        ###
+        if m[:match_type] == :content_body
+          value = _body(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_body_raw
+          value = _body_raw(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_dom
+          value = _body_rendered(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_headers
+          value = _headers(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_cookies
+          value = _cookies(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_generator
+          value = _generator(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_title
+          value = _title(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_cert_subject
+          value = _cert_subject(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_cert_issuer
+          value = _cert_subject(data) =~ m[:match_content] ? true : false
+        elsif m[:match_type] == :content_code
+          value = _code(data) == m[:match_content] ? true : false
+        elsif m[:match_type] == :checksum_body
+          value = _body_raw_checksum(data) == m[:match_content] ? true : false
+        elsif m[:match_type] == :checksum_body_mmh3
+          value = _body_raw_binary_checksum_mmh3(data) == m[:match_content] ? true : false
+        end
+
+        # stick it in our array, so we can keep track of each individual match
+        match_results << value
+
+      end
+
+    
+      #
+      # Now, we need to apply our logic about what a match actually is
+      # before we can return the right thing
+      #
+      # valid values: 
+      # - :any 
+      # - :all
+      # 
+      out = nil
+      if check[:match_logic] == :any && match_results.any? 
+        out = _construct_match_response(check,data) 
+      elsif check[:match_logic] == :all && match_results.all? 
+        out = _construct_match_response(check,data) 
+      # legacy, default to simply returning if all (can only be one)
+      elsif !check[:match_logic] && match_results.all? 
+        out = _construct_match_response(check,data) 
+      end
+  
+    # content stuff will always return a response 
     elsif check[:type] == "content"
-      match = _construct_match_response(check,data)
-    end
-  match
+      out = _construct_match_response(check,data)
+    end 
+
+  out
   end
 
 end

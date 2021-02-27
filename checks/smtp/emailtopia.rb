@@ -7,18 +7,18 @@ class Emailtopia < Intrigue::Ident::SmtpCheck::Base
   def generate_checks
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["SMTPServer"],
-        :vendor => "Emailtopia",
-        :product => "Response Manager",
-        :references => [],
-        :version => nil,
-        :match_type => :content_banner,
-        :match_content => /emailtopia Response Manager [\d\.]+ SMTP service ready/i,
-        :dynamic_version => lambda { |x| _first_banner_capture(x, /emailtopia Response Manager ([\d\.]+) SMTP service ready/i)},
-        :match_details => "banner",
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["SMTPServer"],
+        vendor: "Emailtopia",
+        product: "Response Manager",
+        references: [],
+        version: nil,
+        match_type: :content_banner,
+        match_content: /emailtopia Response Manager [\d\.]+ SMTP service ready/i,
+        dynamic_version: lambda { |x| _first_banner_capture(x, /emailtopia Response Manager ([\d\.]+) SMTP service ready/i)},
+        description: "banner",
+        inference: true
       }
     ]
   end

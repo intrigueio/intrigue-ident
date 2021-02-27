@@ -6,19 +6,19 @@ class Axios < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Javascript"],
-        :vendor => "Axios",
-        :product => "Axios",
-        :references => [],
-        :version => nil,
-        :match_type => :content_body,
-        :match_content => /axios\.min\.js[\"|\']\>/i,
-        :match_details => "filename",
-        :hide => false,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => false
+        type: "fingerprint",
+        category: "application",
+        tags: ["Javascript"],
+        vendor: "Axios",
+        product: "Axios",
+        references: [],
+        version: nil,
+        match_type: :content_body,
+        match_content: /axios\.min\.js[\"|\']\>/i,
+        description: "filename",
+        hide: false,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: false
       }
     ]
   end
