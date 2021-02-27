@@ -6,16 +6,16 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["Javascript","Development"],
-          :vendor => "Xtermjs",
-          :product =>"Xterm.js",
-          :match_details =>"include string",
-          :match_type => :content_body,
-          :match_content =>  /termjs:\ \'components\/xterm\.js\/xterm/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["Javascript","Development"],
+          vendor: "Xtermjs",
+          product:"Xterm.js",
+          description:"include string",
+          match_type: :content_body,
+          match_content:  /termjs:\ \'components\/xterm\.js\/xterm/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

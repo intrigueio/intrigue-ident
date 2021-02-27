@@ -5,20 +5,20 @@ module Intrigue
         def generate_checks(url)
           [
             {
-              :type => "fingerprint",
-              :category => "service",
-              :tags => ["WebServer", "Proxy Server"],
-              :vendor => "CloudLinux",
-              :product => "Imunify360",
-              :references => ["https://www.imunify360.com/blog/webshield-introduction-for-server-administrators"],
-              :version => nil,
-              :match_type => :content_headers,
-              :match_content => /^server:\ imunify360-webshield/i,
-              :dynamic_version => lambda { |x|
+              type: "fingerprint",
+              category: "service",
+              tags: ["WebServer", "Proxy Server"],
+              vendor: "CloudLinux",
+              product: "Imunify360",
+              references: ["https://www.imunify360.com/blog/webshield-introduction-for-server-administrators"],
+              version: nil,
+              match_type: :content_headers,
+              match_content: /^server:\ imunify360-webshield/i,
+              dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server:\ imunify360-webshield\/(\d+(\.\d+)*)/i)
               },
-              :paths => [{ :path => "#{url}", :follow_redirects => true }],
-              :inference => true,
+              paths: [{ path: "#{url}", follow_redirects: true }],
+              inference: true,
             },
           ]
         end

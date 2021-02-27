@@ -6,22 +6,22 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["Wordpress Plugin"],
-          :vendor =>"Code Supply Co",
-          :product =>"Powerkit",
-          :references => ["https://wordpress.org/plugins/powerkit/"],
-          :version => nil,
-          :match_type => :content_body,
-          :match_content => /powerkit\.css\?ver=/i,
-          :dynamic_version => lambda { |x| 
+          type: "fingerprint",
+          category: "application",
+          tags: ["Wordpress Plugin"],
+          vendor:"Code Supply Co",
+          product:"Powerkit",
+          references: ["https://wordpress.org/plugins/powerkit/"],
+          version: nil,
+          match_type: :content_body,
+          match_content: /powerkit\.css\?ver=/i,
+          dynamic_version: lambda { |x| 
             _first_body_capture(x, /powerkit\.css\?ver=([\d\.]+)/i)},
-          :match_details =>"header match",
-          :hide => false,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :require_product => "Wordpress",
-          :inference => false
+          description:"header match",
+          hide: false,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          require_product: "Wordpress",
+          inference: false
         }
       ]
     end

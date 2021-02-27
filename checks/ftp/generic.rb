@@ -7,18 +7,18 @@ class Generic < Intrigue::Ident::FtpCheck::Base
   def generate_checks
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["FTPServer"],
-        :vendor => "Generic",
-        :product => "FTP",
-        :references => [],
-        :version => nil,
-        :match_type => :content_banner,
-        :match_content => /FTP/i,
-        :match_details => "banner",
-        :hide => false,
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["FTPServer"],
+        vendor: "Generic",
+        product: "FTP",
+        references: [],
+        version: nil,
+        match_type: :content_banner,
+        match_content: /FTP/i,
+        description: "banner",
+        hide: false,
+        inference: true
       }
     ]
   end

@@ -6,17 +6,17 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["Parked"],
-          :vendor => "MarkMonitor",
-          :product => "MarkMonitor",
-          :website => "https://markmonitor.com/",
-          :version => nil,
-          :match_type => :content_title,
-          :match_content =>  /^Registered &amp; Protected by MarkMonitor$/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "service",
+          tags: ["Parked"],
+          vendor: "MarkMonitor",
+          product: "MarkMonitor",
+          website: "https://markmonitor.com/",
+          version: nil,
+          match_type: :content_title,
+          match_content:  /^Registered &amp; Protected by MarkMonitor$/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

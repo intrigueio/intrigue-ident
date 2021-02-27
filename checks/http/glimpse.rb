@@ -5,24 +5,24 @@ class Glimpse < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Web Framework"],
-        :vendor => "Glimpse",
-        :product => "Glimpse",
-        :match_details => "glimpse.axd version",
-        :version => nil,
-        :references => [
+        type: "fingerprint",
+        category: "application",
+        tags: ["Web Framework"],
+        vendor: "Glimpse",
+        product: "Glimpse",
+        description: "glimpse.axd version",
+        version: nil,
+        references: [
           "https://docs.microsoft.com/en-us/aspnet/mvc/overview/performance/profile-and-debug-your-aspnet-mvc-app-with-glimpse"
         ],
-        :dynamic_version => lambda { |x| 
+        dynamic_version: lambda { |x| 
           _first_body_capture(x,/name="glimpseRuntimeVersion" value="([\d\.]*)"/) 
         },
-        :match_type => :content_body,
-        :match_content => /Glimpse - Configuration Page/,
-        :paths => [{ :path => "#{url}/glimpse.axd", :follow_redirects => true } ],
-        :require_product => "ASP.NET",
-        :inference => true
+        match_type: :content_body,
+        match_content: /Glimpse - Configuration Page/,
+        paths: [{ path: "#{url}/glimpse.axd", follow_redirects: true } ],
+        require_product: "ASP.NET",
+        inference: true
       }
     ]
   end

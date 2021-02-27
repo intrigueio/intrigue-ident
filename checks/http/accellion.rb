@@ -6,19 +6,19 @@ module Intrigue
       def generate_checks(url)
         [
           {
-            :type => "fingerprint",
-            :category => "application",
-            :tags => ["Appliance"],
-            :vendor => "Accellion",
-            :product => "Secure File Transfer",
-            :references => [ "https://www.accellion.com/platform/simple/secure-file-sharing/" ],
-            :version => nil,
-            :match_type => :content_body,
-            :match_content => /<div title="Secured by Accellion" id="securedlogo">/,
-            :match_details => "Logo in content body",
-            :hide => false,
-            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-            :inference => false
+            type: "fingerprint",
+            category: "application",
+            tags: ["Appliance"],
+            vendor: "Accellion",
+            product: "Secure File Transfer",
+            references: [ "https://www.accellion.com/platform/simple/secure-file-sharing/" ],
+            version: nil,
+            match_type: :content_body,
+            match_content: /<div title="Secured by Accellion" id="securedlogo">/,
+            description: "Logo in content body",
+            hide: false,
+            paths: [ { path: "#{url}", follow_redirects: true } ],
+            inference: false
           }
         ]
       end

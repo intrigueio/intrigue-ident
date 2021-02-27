@@ -131,7 +131,7 @@ def check_single_uri(opts)
       check_result["fingerprint"].each do |x|
 
         # Print it out
-        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]}) (Issues: #{x["issues"]}) (Tasks: #{x["tasks"]})"
+        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["description"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]}) (Issues: #{x["issues"]}) (Tasks: #{x["tasks"]})"
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(ENV["INTRIGUEIO_KEY"], x["cpe"]) || []
           vulns.sort_by { |x| x["cvss_v3_score"] || x["cvss_v2_score"] || 1 }.reverse.first(5).each do |v|
@@ -174,7 +174,7 @@ def write_simple_csv(output_q)
     o["fingerprint"].uniq.map do |f|
       out << "#{o["url"]}, "
       out << "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}".strip << ", "
-      out << "#{f["match_details"]} "
+      out << "#{f["description"]} "
       out << "\n"
     end
 

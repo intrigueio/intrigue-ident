@@ -6,20 +6,20 @@ module Intrigue
       def generate_checks(url)
         [
           {
-            :type => "fingerprint",
-            :category => "service",
-            :tags => ["panel"],
-            :website => "https://www.adminer.org/",
-            :vendor => "Adminer",
-            :product => "Adminer",
-            :version => nil,
-            :match_type => :content_body,
-            :match_content => /Login \- Adminer/,
-            :match_details => "body content match",
-            :hide => false,
-            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-            :inference => false,
-            :dynamic_version => lambda{ |x|
+            type: "fingerprint",
+            category: "service",
+            tags: ["panel"],
+            website: "https://www.adminer.org/",
+            vendor: "Adminer",
+            product: "Adminer",
+            version: nil,
+            match_type: :content_body,
+            match_content: /Login \- Adminer/,
+            description: "body content match",
+            hide: false,
+            paths: [ { path: "#{url}", follow_redirects: true } ],
+            inference: false,
+            dynamic_version: lambda{ |x|
           _first_body_capture(x,/<span class\=\"version\">(\d+(.\d+)?(.\d+)?)/)},
           }
         ]

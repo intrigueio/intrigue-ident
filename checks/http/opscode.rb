@@ -7,32 +7,32 @@ class Opscode < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS","Development"],
-        :vendor => "Opscode",
-        :product =>"Chef",
-        :match_details =>"Chef Server",
-        :version => nil,
-        :match_type => :content_body,
-        :match_content =>  /<title>Chef Server<\/title>/,
-        :dynamic_version => lambda{|x| 
+        type: "fingerprint",
+        category: "application",
+        tags: ["COTS","Development"],
+        vendor: "Opscode",
+        product:"Chef",
+        description:"Chef Server",
+        version: nil,
+        match_type: :content_body,
+        match_content:  /<title>Chef Server<\/title>/,
+        dynamic_version: lambda{|x| 
           _first_body_capture(x,/Version\ (.*)\ &mdash;/) },
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       },
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS","Development"],
-        :vendor => "Opscode",
-        :product =>"Chef",
-        :match_details =>"Chef Server",
-        :version => nil,
-        :match_type => :content_cookies,
-        :match_content =>  /chef-manage/i,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => false
+        type: "fingerprint",
+        category: "application",
+        tags: ["COTS","Development"],
+        vendor: "Opscode",
+        product:"Chef",
+        description:"Chef Server",
+        version: nil,
+        match_type: :content_cookies,
+        match_content:  /chef-manage/i,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: false
       }
     ]
   end

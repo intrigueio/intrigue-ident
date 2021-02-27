@@ -6,18 +6,18 @@ class Ookla < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS"],
-        :vendor =>"Ookla",
-        :product =>"Speedtest Server",
-        :match_details => "page title",
-        :match_type => :content_body,
-        :references => ["https://support.ookla.com/hc/en-us/articles/234578568-How-To-Install-Submit-Server"],
-        :match_content => /<title>OoklaServer/,
-        :version => nil,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["COTS"],
+        vendor:"Ookla",
+        product:"Speedtest Server",
+        description: "page title",
+        match_type: :content_body,
+        references: ["https://support.ookla.com/hc/en-us/articles/234578568-How-To-Install-Submit-Server"],
+        match_content: /<title>OoklaServer/,
+        version: nil,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       }
     ]
   end

@@ -180,9 +180,8 @@ module Http
 
           # if we have a check that should match the dom, run it
           if (check[:match_type] == :content_dom)
-            results << match_browser_response_hash(check,browser_response) if dom_checks
+             # skip it, no longer supported. 
           else #otherwise use the normal flow
-            #puts "Working on check: #{check} vs response: #{response_hash}"
             results << match_http_response_hash(check,response_hash)
           end
         end
@@ -190,10 +189,8 @@ module Http
       end
     end
 
-    return nil unless results
-
     # Return all matches, minus the nils (non-matches), and grouped by check type
-    out = results.compact.group_by{|x| x["type"] }
+    out = results.flatten.compact.group_by{|x| x["type"] }
 
     # make sure we have an empty fingerprints array if we didnt' have any Matches
     out["check_count"] = grouped_generated_checks.map{|url,checks| {"url" => url.first, "count" => checks.count } }

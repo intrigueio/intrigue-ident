@@ -6,33 +6,33 @@ class Authentication < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "content",
-        :name => "Authentication - HTTP",
-        :dynamic_result => lambda { |d|
+        type: "content",
+        name: "Authentication - HTTP",
+        dynamic_result: lambda { |d|
           return false unless d["details"]["headers"]
           return true if _first_header_match(d, /^www-authenticate:.*$/)
         false
         },
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        paths: [ { path: "#{url}", follow_redirects: true } ],
       },
       {
-        :type => "content",
-        :name => "Authentication - NTLM",
-        :dynamic_result => lambda { |d|
+        type: "content",
+        name: "Authentication - NTLM",
+        dynamic_result: lambda { |d|
           return false unless d["details"]["headers"]
           return true if _first_header_match(d, /^www-authenticate: NTLM$/i)
         false
         },
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        paths: [ { path: "#{url}", follow_redirects: true } ],
       },
       {
-        :type => "content",
-        :name =>"Authentication - Forms",
-        :references => [
+        type: "content",
+        name:"Authentication - Forms",
+        references: [
           "https://webstersprodigy.net/2010/04/07/nmap-script-to-try-and-detect-login-pages/",
           "https://nmap.org/nsedoc/scripts/http-auth-finder.html"
         ],
-        :dynamic_result => lambda { |d|
+        dynamic_result: lambda { |d|
           return true if _body(d) =~ /<input type=\"password\"/im;
           return true if _body(d) =~ /<script>[^>]*login/im;
           return true if _body(d) =~ /<[^>]*login/im;
@@ -56,15 +56,15 @@ class Authentication < Intrigue::Ident::Check::Base
           return true if _body(d) =~ /create_account/im;
         false
         },
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        paths: [ { path: "#{url}", follow_redirects: true } ],
       },
       {
-        :type => "content",
-        :name => "Authentication - Session Identifier",
-        :references => [
+        type: "content",
+        name: "Authentication - Session Identifier",
+        references: [
           "https://github.com/fuzzdb-project/fuzzdb/blob/ecb0850538bc9152949fa4579654d6b64e2fdb97/regex/sessionid.txt"
         ],
-        :dynamic_result => lambda { |d|
+        dynamic_result: lambda { |d|
           return false unless d["details"]["cookies"]
           return true if _first_cookie_match d, /ASP.NET_SessionId/i
           return true if _first_cookie_match d, /ASPSESSIONID/i
@@ -89,7 +89,7 @@ class Authentication < Intrigue::Ident::Check::Base
           return true if _first_cookie_match d, /zenid/i
         false
         },
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+        paths: [ { path: "#{url}", follow_redirects: true } ],
       },
     ]
   end

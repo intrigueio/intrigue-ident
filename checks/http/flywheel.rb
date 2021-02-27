@@ -6,20 +6,20 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["CMS","SaaS"],
-          :vendor => "Flywheel",
-          :product =>"Hosted Wordpress",
-          :references => [
+          type: "fingerprint",
+          category: "service",
+          tags: ["CMS","SaaS"],
+          vendor: "Flywheel",
+          product:"Hosted Wordpress",
+          references: [
             "https://getflywheel.com/wordpress-support/a-description-of-the-flywheel-technology-stack/"
           ],
-          :match_details =>"server header",
-          :version => nil,
-          :match_type => :content_headers,
-          :match_content =>  /^server: Flywheel\/[\d\.]+$/i,
-          :dynamic_version => lambda {|d| _first_header_capture(d,/^server: Flywheel\/([\d\.]+)$/i)},
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+          description:"server header",
+          version: nil,
+          match_type: :content_headers,
+          match_content:  /^server: Flywheel\/[\d\.]+$/i,
+          dynamic_version: lambda {|d| _first_header_capture(d,/^server: Flywheel\/([\d\.]+)$/i)},
+          paths: [ { path: "#{url}", follow_redirects: true } ],
         }
       ]
     end

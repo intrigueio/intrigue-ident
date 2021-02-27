@@ -6,17 +6,17 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["CDN", "WAF"],
-          :vendor =>"Distil",
-          :product =>"Distil",
-          :match_details =>"unique header",
-          :version => nil,
-          :match_type => :content_headers,
-          :match_content =>  /x-distil-cs/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "service",
+          tags: ["CDN", "WAF"],
+          vendor:"Distil",
+          product:"Distil",
+          description:"unique header",
+          version: nil,
+          match_type: :content_headers,
+          match_content:  /x-distil-cs/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end
