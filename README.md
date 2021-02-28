@@ -2,8 +2,8 @@ Ident is an application and service fingerprinting library used within Intrigue 
 
 The Ident project has a few stated goals: 
  - To deeply identify network service and app software while remaining extremely fast - limiting unnecessary requests
- - To have the most complete set of identification checks for modern application and server softwar 
- - To integrate well as a library, for easy use in other projects
+ - To have the most complete set of identification checks for modern application and server software
+ - To integrate well as a library, for easy use in other projects such as Intrigue Core
  - To maintain a robust command line interface for use as a standalone tool 
  - To be commercially viable through use of the BSD license
 
