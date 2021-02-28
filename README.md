@@ -14,16 +14,7 @@ The Ident project has a few stated goals:
 Using ident via Docker image:
 =============================
 1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
-  `docker pull intrigueio/intrigue-ident && docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
-
-Installing directly on OSX:
-===========================
-1) [Install brew](https://brew.sh/) (if you don't already have it)
-2) Install ruby [preferrably using rbenv](https://github.com/rbenv/rbenv#installation)
-3) Install bundler `gem install bundler`
-4) Clone the ident repository `git clone https://github.com/intrigueio/intrigue-ident.git`
-5) Install the ident gem dependencies `bundle install`
-6) Now use the check utility to test. Example below:
+  `docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
 
 Usage:
 ======
@@ -70,8 +61,38 @@ Check types can be written against supported protocols:
  - Smtp
  - Ssh
  - Telnet
- - 
-Here are some example matcher types for HTTP checks. 
+
+Generally speaking, checks have the following structure. This is a check for HTTP and HTTPS: 
+```
+ [
+        {
+          type: "fingerprint",
+          category: "service",
+          vendor: "Some",
+          product: "Product",
+          website: "https://www.somewhere.co.uk/",
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /The Title of the Page/i
+            },
+            {
+              match_type: :content_body,
+              match_content: /any body string/i
+            }, 
+            {
+              match_type: :content_code,
+              match_content: 200
+            }  
+          ],
+          description: "just an example check",
+          paths: [ { path: "#{url}", follow_redirects: true } ]
+        }
+      ]
+```
+ 
+There are many types of matchers, which tell the check what part of the target's response to check.  
 ```
  - content_body: checks should be run against body
  - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
@@ -92,6 +113,7 @@ A special thanks to the following contributors who help make ident awesome!
  - @duartemateus: Checks!
  - @chowdud: Checks!
  - @jen140: Checks
+ - @shpendk: Checks, Architecture
  - @bensalah_anas: Checks
  - @bcoles: Checks, bugfixes, JSON output
  - @bmcdevitt: Checks
