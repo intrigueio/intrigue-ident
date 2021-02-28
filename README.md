@@ -24,6 +24,9 @@ Installing directly on OSX:
 4) Clone the ident repository `git clone https://github.com/intrigueio/intrigue-ident.git`
 5) Install the ident gem dependencies `bundle install`
 6) Now use the check utility to test. Example below:
+
+Usage:
+======
 ```
 $ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
 Checking... https://xyz.com:443
@@ -57,8 +60,19 @@ Content Checks:
 
 For Check Writers: 
 ===================
+
+Check types can be written against supported protocols: 
+ - Dns
+ - Ftp
+ - Http/Https
+ - Mysql
+ - Redis
+ - Smtp
+ - Ssh
+ - Telnet
+ - 
+Here are some example matcher types for HTTP checks. 
 ```
-HTTP Check types are in the following categories. See each check's 'match_content': 
  - content_body: checks should be run against body
  - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
  - content_cookies: checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
@@ -66,6 +80,10 @@ HTTP Check types are in the following categories. See each check's 'match_conten
  - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
  - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
  ```
+
+Multiple matches per check are supported, see: https://github.com/intrigueio/intrigue-ident/pull/87
+
+For more details, have a look at the checks in the 'checks' directory, or jump into our slack channel for help. 
  
 Contributors:
 =============
