@@ -6,16 +6,16 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["SaaS"],
-          :vendor => "SmugMug",
-          :product => "SmugMug",
-          :references => ["https://www.smugmug.com/"],
-          :match_type => :content_headers,
-          :match_content => /P3P: CP=\"This is not a P3P policy. SmugMug respects your privacy/i,
-          :match_details => "header",
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
+          type: "fingerprint",
+          category: "service",
+          tags: ["SaaS"],
+          vendor: "SmugMug",
+          product: "SmugMug",
+          references: ["https://www.smugmug.com/"],
+          match_type: :content_headers,
+          match_content: /P3P: CP=\"This is not a P3P policy. SmugMug respects your privacy/i,
+          description: "header",
+          paths: [ { path: "#{url}", follow_redirects: true } ],
         }
       ]
     end

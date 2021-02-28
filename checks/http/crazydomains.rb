@@ -6,20 +6,20 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["Parked"],
-          :vendor => "CrazyDomains",
-          :product => "CrazyDomains",
-          :website => "https://www.crazydomains.com.au/",
-          :references => [],
-          :version => nil,
-          :match_type => :content_body,
-          :match_content => /Domain name is registered and secured with CrazyDomains.com.au/i,
-          :match_details => "unique body string",
-          :hide => false,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "service",
+          tags: ["Parked"],
+          vendor: "CrazyDomains",
+          product: "CrazyDomains",
+          website: "https://www.crazydomains.com.au/",
+          references: [],
+          version: nil,
+          match_type: :content_body,
+          match_content: /Domain name is registered and secured with CrazyDomains.com.au/i,
+          description: "unique body string",
+          hide: false,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

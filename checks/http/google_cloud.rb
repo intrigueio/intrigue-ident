@@ -6,17 +6,17 @@ module Check
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["Networking", "Load Balancer"],
-          :vendor => "Google Cloud",
-          :product =>"Load Balancewr",
-          :match_details =>"cookie",
-          :version => nil,
-          :match_type => :content_cookies,
-          :match_content => /GCLB=/i,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "service",
+          tags: ["Networking", "Load Balancer"],
+          vendor: "Google Cloud",
+          product:"Load Balancewr",
+          description:"cookie",
+          version: nil,
+          match_type: :content_cookies,
+          match_content: /GCLB=/i,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

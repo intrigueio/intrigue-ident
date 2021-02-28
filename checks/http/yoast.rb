@@ -5,21 +5,21 @@ module Intrigue
         def generate_checks(url)
           [
             {
-              :type => "fingerprint",
-              :category => "application",
-              :tags => ["Marketing", "Wordpress Plugin"],
-              :vendor => "Yoast",
-              :product => "Wordpress SEO",
-              :website => "https://yoast.com/wordpress/plugins/seo/",
-              :match_details => "Yoast - page reference.",
-              :match_type => :content_body,
-              :match_content => /<!-- This site is optimized with the Yoast SEO plugin/,
-              :version => nil,
-              :dynamic_version => lambda { |x|
+              type: "fingerprint",
+              category: "application",
+              tags: ["Marketing", "Wordpress Plugin"],
+              vendor: "Yoast",
+              product: "Wordpress SEO",
+              website: "https://yoast.com/wordpress/plugins/seo/",
+              description: "Yoast - page reference.",
+              match_type: :content_body,
+              match_content: /<!-- This site is optimized with the Yoast SEO plugin/,
+              version: nil,
+              dynamic_version: lambda { |x|
                 _first_body_capture(x, /<!-- This site is optimized with the Yoast SEO plugin v?(\d+(\.\d+)*)/)
               },
-              :paths => [{ :path => "#{url}", :follow_redirects => true }],
-              :inference => true,
+              paths: [{ path: "#{url}", follow_redirects: true }],
+              inference: true,
             },
           ]
         end

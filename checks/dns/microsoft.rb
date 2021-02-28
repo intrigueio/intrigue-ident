@@ -6,14 +6,14 @@ module Intrigue
     def generate_checks
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["DNSServer"],
-          :vendor => "Microsoft",
-          :product => "DNS Server",
-          :references => [],
-          :match_type => :version,
-          :match_content => /Microsoft/i,
+          type: "fingerprint",
+          category: "application",
+          tags: ["DNSServer"],
+          vendor: "Microsoft",
+          product: "DNS Server",
+          references: [],
+          match_type: :version,
+          match_content: /Microsoft/i,
         }
       ]
     end

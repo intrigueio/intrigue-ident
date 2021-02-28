@@ -7,19 +7,19 @@ class Exim < Intrigue::Ident::SmtpCheck::Base
   def generate_checks
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["SMTPServer"],
-        :vendor => "Exim",
-        :product => "Exim",
-        :references => [],
-        :version => nil,
-        :match_type => :content_banner,
-        :match_content => /ESMTP Exim/i,
-        :dynamic_version => lambda { |x| _first_banner_capture(x, /ESMTP Exim ([\d\.]+)\s\#.*/i)},
-        :match_details => "banner",
-        :hide => false,
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["SMTPServer"],
+        vendor: "Exim",
+        product: "Exim",
+        references: [],
+        version: nil,
+        match_type: :content_banner,
+        match_content: /ESMTP Exim/i,
+        dynamic_version: lambda { |x| _first_banner_capture(x, /ESMTP Exim ([\d\.]+)\s\#.*/i)},
+        description: "banner",
+        hide: false,
+        inference: true
       }
     ]
   end

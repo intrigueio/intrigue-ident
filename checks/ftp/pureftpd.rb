@@ -6,18 +6,18 @@ class PureFtpd < Intrigue::Ident::FtpCheck::Base
   def generate_checks
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["FTPServer"],
-        :vendor => "PureFtpd",
-        :product => "PureFtpd",
-        :references => [],
-        :version => nil,
-        :match_type => :content_banner,
-        :match_content => /Welcome to Pure-FTPd/i,
-        :match_details => "banner",
-        :hide => false,
-        :inference => false
+        type: "fingerprint",
+        category: "application",
+        tags: ["FTPServer"],
+        vendor: "PureFtpd",
+        product: "PureFtpd",
+        references: [],
+        version: nil,
+        match_type: :content_banner,
+        match_content: /Welcome to Pure-FTPd/i,
+        description: "banner",
+        hide: false,
+        inference: false
       }
     ]
   end

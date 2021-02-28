@@ -6,34 +6,34 @@ module Intrigue
     def generate_checks(url)
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["COTS", "Security", "IAM"],
-          :vendor => "Duo",
-          :product => "Access Gateway",
-          :references => ["https://duo.com/docs/dag"],
-          :version => nil,
-          :match_type => :content_cookies,
-          :match_content => /DUO_ACCESS_GATEWAY_AFFINITY/i,
-          :match_details => "affinity cookie",
-          :hide => false,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["COTS", "Security", "IAM"],
+          vendor: "Duo",
+          product: "Access Gateway",
+          references: ["https://duo.com/docs/dag"],
+          version: nil,
+          match_type: :content_cookies,
+          match_content: /DUO_ACCESS_GATEWAY_AFFINITY/i,
+          description: "affinity cookie",
+          hide: false,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         },
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["COTS", "Security", "IAM"],
-          :vendor => "Duo",
-          :product => "Access Gateway",
-          :references => ["https://duo.com/docs/dag"],
-          :version => nil,
-          :match_type => :content_title,
-          :match_content => /^Duo Access Gateway$/i,
-          :match_details => "title",
-          :hide => false,
-          :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["COTS", "Security", "IAM"],
+          vendor: "Duo",
+          product: "Access Gateway",
+          references: ["https://duo.com/docs/dag"],
+          version: nil,
+          match_type: :content_title,
+          match_content: /^Duo Access Gateway$/i,
+          description: "title",
+          hide: false,
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
         }
       ]
     end

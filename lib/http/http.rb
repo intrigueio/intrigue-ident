@@ -80,6 +80,12 @@ module Http
     detected_products.each do |prod|
       followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product("#{url}", prod))
     end
+
+    ### Add checks for vendors
+    detected_products = initial_results["fingerprint"].map{|x| x["vendor"] }.uniq
+    detected_products.each do |vendor|
+      followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor("#{url}", vendor))
+    end
    
     ### Okay so, now we have a set of detected products, let's figure out our follown checks by vendor_product
     detected_vendor_products = initial_results["fingerprint"].map{|x| [x["vendor"], x["product"]] }.uniq
@@ -174,9 +180,8 @@ module Http
 
           # if we have a check that should match the dom, run it
           if (check[:match_type] == :content_dom)
-            results << match_browser_response_hash(check,browser_response) if dom_checks
+             # skip it, no longer supported. 
           else #otherwise use the normal flow
-            #puts "Working on check: #{check} vs response: #{response_hash}"
             results << match_http_response_hash(check,response_hash)
           end
         end
@@ -184,10 +189,8 @@ module Http
       end
     end
 
-    return nil unless results
-
     # Return all matches, minus the nils (non-matches), and grouped by check type
-    out = results.compact.group_by{|x| x["type"] }
+    out = results.flatten.compact.group_by{|x| x["type"] }
 
     # make sure we have an empty fingerprints array if we didnt' have any Matches
     out["check_count"] = grouped_generated_checks.map{|url,checks| {"url" => url.first, "count" => checks.count } }
@@ -291,7 +294,7 @@ module Http
 
     # verify we have a response before adding these
     if response
-      out[:response_headers] = response.headers.map{|x,y| ident_encode "#{x}: #{y}" }
+      out[:response_headers] = response.headers.map { |x, y| y.kind_of?(Array) ? y.map { |v| ident_encode("#{x}: #{v}") } : ident_encode("#{x}: #{y}") }
       out[:response_body_binary_base64] = Base64.strict_encode64(response.body)
       out[:response_body] = ident_encode(response.body)
       out[:response_code] = response.code
@@ -301,7 +304,6 @@ module Http
 
   out
   end
-
 end
 end
 end

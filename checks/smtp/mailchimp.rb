@@ -7,17 +7,17 @@ module Intrigue
     def generate_checks
       [
         {
-          :type => "fingerprint",
-          :category => "service",
-          :tags => ["SMTPServer"],
-          :vendor => "Mailchimp",
-          :product => "Mandrill",
-          :references => [],
-          :match_type => :content_banner,
-          :match_content => /220 smtp.mandrillapp.com ESMTP\r\n/i,
-          :match_details => "banner",
-          :hide => false,
-          :inference => false
+          type: "fingerprint",
+          category: "service",
+          tags: ["SMTPServer"],
+          vendor: "Mailchimp",
+          product: "Mandrill",
+          references: [],
+          match_type: :content_banner,
+          match_content: /220 smtp.mandrillapp.com ESMTP\r\n/i,
+          description: "banner",
+          hide: false,
+          inference: false
         }
       ]
     end

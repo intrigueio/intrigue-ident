@@ -6,19 +6,19 @@ module Intrigue
       def generate_checks(url)
         [
           {
-            :type => "fingerprint",
-            :category => "service",
-            :tags => ["Support","SaaS"],
-            :vendor => "FreshService",
-            :product =>"FreshService",
-            :references => [],
-            :match_details =>"missing helpdesk (title)",
-            :version => nil,
-            :match_type => :content_title,
-            :match_content =>  /^There is no helpdesk here\!$/i,
-            :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-            :issue => ["subdomain_hijack"], 
-            :hide => true
+            type: "fingerprint",
+            category: "service",
+            tags: ["Support","SaaS"],
+            vendor: "FreshService",
+            product:"FreshService",
+            references: [],
+            description:"missing helpdesk (title)",
+            version: nil,
+            match_type: :content_title,
+            match_content:  /^There is no helpdesk here\!$/i,
+            paths: [ { path: "#{url}", follow_redirects: true } ],
+            issue: ["subdomain_hijack"], 
+            hide: true
           }
         ]
       end

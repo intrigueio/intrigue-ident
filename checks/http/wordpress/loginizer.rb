@@ -6,20 +6,20 @@ module Intrigue
       def generate_checks(url)
         [
           {
-            :type => "fingerprint",
-            :category => "application",
-            :tags => ["Wordpress Plugin"],
-            :vendor =>"Wordpress",
-            :product =>"Loginizer",
-            :match_details =>"readme file",
-            :match_type => :content_body,
-            :match_content =>  /=== Loginizer ===/i,
-            :dynamic_version => lambda { |x|
+            type: "fingerprint",
+            category: "application",
+            tags: ["Wordpress Plugin"],
+            vendor:"Wordpress",
+            product:"Loginizer",
+            description:"readme file",
+            match_type: :content_body,
+            match_content:  /=== Loginizer ===/i,
+            dynamic_version: lambda { |x|
               _first_body_capture(x,/Stable tag\: (\d+\.\d+\.\d+)/i)
             },
-            :paths => [ { :path  => "#{url}/wp-content/plugins/loginizer/readme.txt", :follow_redirects => true } ],
-            :require_product => "Wordpress",
-            :inference => false
+            paths: [ { path: "#{url}/wp-content/plugins/loginizer/readme.txt", follow_redirects: true } ],
+            require_product: "Wordpress",
+            inference: false
           }
         ]
       end

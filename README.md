@@ -2,8 +2,8 @@ Ident is an application and service fingerprinting library used within Intrigue 
 
 The Ident project has a few stated goals: 
  - To deeply identify network service and app software while remaining extremely fast - limiting unnecessary requests
- - To have the most complete set of identification checks for modern application and server softwar 
- - To integrate well as a library, for easy use in other projects
+ - To have the most complete set of identification checks for modern application and server software
+ - To integrate well as a library, for easy use in other projects such as Intrigue Core
  - To maintain a robust command line interface for use as a standalone tool 
  - To be commercially viable through use of the BSD license
 
@@ -14,16 +14,10 @@ The Ident project has a few stated goals:
 Using ident via Docker image:
 =============================
 1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
-  `docker pull intrigueio/intrigue-ident && docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
+  `docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
 
-Installing directly on OSX:
-===========================
-1) [Install brew](https://brew.sh/) (if you don't already have it)
-2) Install ruby [preferrably using rbenv](https://github.com/rbenv/rbenv#installation)
-3) Install bundler `gem install bundler`
-4) Clone the ident repository `git clone https://github.com/intrigueio/intrigue-ident.git`
-5) Install the ident gem dependencies `bundle install`
-6) Now use the check utility to test. Example below:
+Usage:
+======
 ```
 $ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
 Checking... https://xyz.com:443
@@ -57,8 +51,49 @@ Content Checks:
 
 For Check Writers: 
 ===================
+
+Check types can be written against supported protocols: 
+ - Dns
+ - Ftp
+ - Http/Https
+ - Mysql
+ - Redis
+ - Smtp
+ - Ssh
+ - Telnet
+
+Generally speaking, checks have the following structure. This is a check for HTTP and HTTPS: 
 ```
-HTTP Check types are in the following categories. See each check's 'match_content': 
+ [
+        {
+          type: "fingerprint",
+          category: "service",
+          vendor: "Some",
+          product: "Product",
+          website: "https://www.somewhere.co.uk/",
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /The Title of the Page/i
+            },
+            {
+              match_type: :content_body,
+              match_content: /any body string/i
+            }, 
+            {
+              match_type: :content_code,
+              match_content: 200
+            }  
+          ],
+          description: "just an example check",
+          paths: [ { path: "#{url}", follow_redirects: true } ]
+        }
+      ]
+```
+ 
+There are many types of matchers, which tell the check what part of the target's response to check.  
+```
  - content_body: checks should be run against body
  - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
  - content_cookies: checks should be run against the set-cookie: header (do not include the header name, just the content when writing checks)
@@ -66,6 +101,10 @@ HTTP Check types are in the following categories. See each check's 'match_conten
  - content_headers: checks should be run against response headers (assumes one string of text, each header '\n' delimited)
  - content_title: checks should be run against text inside the <title> tag (do not include the tag when writing checks)
  ```
+
+Multiple matches per check are supported, see: https://github.com/intrigueio/intrigue-ident/pull/87
+
+For more details, have a look at the checks in the 'checks' directory, or jump into our slack channel for help. 
  
 Contributors:
 =============
@@ -74,6 +113,7 @@ A special thanks to the following contributors who help make ident awesome!
  - @duartemateus: Checks!
  - @chowdud: Checks!
  - @jen140: Checks
+ - @shpendk: Checks, Architecture
  - @bensalah_anas: Checks
  - @bcoles: Checks, bugfixes, JSON output
  - @bmcdevitt: Checks

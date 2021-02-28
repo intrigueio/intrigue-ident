@@ -6,17 +6,17 @@ class Twiki < Intrigue::Ident::Check::Base
   def generate_checks(url)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["COTS"],
-        :vendor => "Twiki",
-        :product =>"Twiki",
-        :match_details =>"",
-        :version => nil,
-        :match_type => :content_cookies,
-        :match_content =>  /TWIKISID/,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["COTS"],
+        vendor: "Twiki",
+        product:"Twiki",
+        description:"",
+        version: nil,
+        match_type: :content_cookies,
+        match_content:  /TWIKISID/,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       },
     ]
   end

@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-# monkey-patches for hash
+# monkey-patches for core classes
 require_relative 'initialize/hash'
+require_relative 'initialize/string'
 
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
@@ -20,7 +21,10 @@ begin
   
 rescue LoadError => e 
   # unable to load dependencies, presumable unavailable
-  #puts "Unable to load hosted-version-only fingerprints #{e}"
+  puts "Unable to load dependency, functionality may be limited #{e}"
+rescue RuntimeError => e 
+  # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
+  puts "Unable to load dependency, functionality may be limited #{e}"
 end
 
 # load in generic utils
@@ -28,7 +32,7 @@ require_relative 'utils'
 require_relative 'version'
 
 ###
-### Start protocol requires 
+### Start protocol-specific deps 
 ###
 
 ##################################
@@ -119,6 +123,19 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
+# Load in redis matchers and checks
+#################################
+require_relative 'redis/matchers'
+include Intrigue::Ident::Redis::Matchers
+
+require_relative 'redis/check_factory'
+require_relative '../checks/redis/base'
+
+# redis fingerprints
+check_folder = File.expand_path('../checks/redis', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+##################################
 # Load in smtp matchers and checks
 ##################################
 require_relative 'smtp/matchers'
@@ -200,8 +217,9 @@ module Intrigue
 
       if check[:type] == "fingerprint"
 
-        calculated_version = (check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version]
-        calculated_update = (check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update]
+        calculated_product = _sanitize_string((check[:dynamic_product].call(data) if check[:dynamic_product]) || check[:product])
+        calculated_version = _sanitize_string((check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version])
+        calculated_update = _sanitize_string((check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update])
 
         calculated_type = "a" if check[:category] == "application"
         calculated_type = "h" if check[:category] == "hardware"
@@ -209,15 +227,24 @@ module Intrigue
         calculated_type = "s" if check[:category] == "service" # literally made up
 
         vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
-        product_string = check[:product].gsub(" ","_") if check[:product]
+        product_string = calculated_product.gsub(" ","_") if calculated_product
 
         version = "#{calculated_version}".gsub(" ","_")
         update = "#{calculated_update}".gsub(" ","_")
 
-        cpe_string = "cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase
+        cpe_string = _sanitize_string("cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase)
 
         ##
-        ## Support for Dynamic Issues
+        # Support for Dynamic Product
+        ##
+        if check[:dynamic_product]
+          calculated_product = check[:dynamic_product].call(data)
+        elsif check[:product]  # also handle singular
+          calculated_product = check[:product]
+        end
+
+        ##
+        # Support for Dynamic Issues
         ##
         if check[:dynamic_issues]
           issues = check[:dynamic_issues].call(data)
@@ -232,7 +259,7 @@ module Intrigue
         end
         
         ##
-        ## Support for Dynamic Hide
+        # Support for Dynamic Hide
         ##
         if check[:dynamic_hide]
           hide = check[:dynamic_hide].call(data)
@@ -243,7 +270,7 @@ module Intrigue
         end
 
         ##
-        ## Support for Dynamic Task
+        # Support for Dynamic Task
         ##
         if check[:dynamic_tasks]
           tasks = check[:dynamic_tasks].call(data)
@@ -257,14 +284,14 @@ module Intrigue
           "method" => "ident",
           "type" => check[:type],
           "vendor" => check[:vendor],
-          "product" => check[:product],
-          "version" => _sanitize_string(calculated_version),
-          "update" => _sanitize_string(calculated_update),
+          "product" => calculated_product,
+          "version" => calculated_version,
+          "update" => calculated_update,
           "tags" => check[:tags],
           "match_type" => check[:match_type],
-          "match_details" => check[:match_details],
+          "description" => check[:description],
           "hide" => hide,
-          "cpe" => _sanitize_string(cpe_string),
+          "cpe" => cpe_string,
           "issues" => issues, 
           "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
           "inference" => check[:inference]

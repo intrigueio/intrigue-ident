@@ -100,6 +100,8 @@ def check_single_uri(opts)
         check_result = generate_mysql_request_and_check(ip, port || 3306)
       elsif proto == "pop3"
         check_result = generate_pop3_request_and_check(ip, port || 110)
+      elsif proto == "redis"
+        check_result = generate_redis_request_and_check(ip, port || 6379)
       elsif proto == "snmp"
         check_result = generate_snmp_request_and_check(ip, port || 161)
       elsif proto == "smtp"
@@ -129,7 +131,7 @@ def check_single_uri(opts)
       check_result["fingerprint"].each do |x|
 
         # Print it out
-        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["match_details"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]}) (Issues: #{x["issues"]}) (Tasks: #{x["tasks"]})"
+        puts " - #{x["vendor"]} #{x["product"]} #{x["version"]} #{x["update"]} - #{x["description"]} (CPE: #{x["cpe"]}) (Tags: #{x["tags"]}) (Hide: #{x["hide"]}) (Issues: #{x["issues"]}) (Tasks: #{x["tasks"]})"
         if query_vulns
           vulns = Intrigue::Vulndb::Client.query(ENV["INTRIGUEIO_KEY"], x["cpe"]) || []
           vulns.sort_by { |x| x["cvss_v3_score"] || x["cvss_v2_score"] || 1 }.reverse.first(5).each do |v|
@@ -172,7 +174,7 @@ def write_simple_csv(output_q)
     o["fingerprint"].uniq.map do |f|
       out << "#{o["url"]}, "
       out << "#{f["vendor"]} #{f["product"]} #{f["version"]} #{f["update"]}".strip << ", "
-      out << "#{f["match_details"]} "
+      out << "#{f["description"]} "
       out << "\n"
     end
 
@@ -196,6 +198,8 @@ def list_checks
   ).concat(
     Intrigue::Ident::Pop3::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).concat(
+    Intrigue::Ident::Redis::CheckFactory.checks.map { |x| x.new.generate_checks }
+  ).concat(
     Intrigue::Ident::Smtp::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).concat(
     Intrigue::Ident::Snmp::CheckFactory.checks.map { |x| x.new.generate_checks }
@@ -214,7 +218,7 @@ def main
     opts = Slop.parse do |o|
 
       # url input
-      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, smtp, snmp, telnet). ex: http://intrigue.io"
+      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet). ex: http://intrigue.io"
       o.string "-f", "--file", "a file of urls, one per line"
 
       # export
@@ -250,10 +254,9 @@ def main
   ###
   if opts[:include]
     # follow directory structure from ident
+    checks = Dir.glob("#{opts[:include]}/checks/*.rb")
     checks = Dir.glob("#{opts[:include]}/checks/*/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/drupal/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/joomla/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/wordpress/*.rb")
+    checks += Dir.glob("#{opts[:include]}/checks/*/*/*.rb")
     puts "Requiring #{checks.count} files from include path: #{opts[:include]}" if opts[:debug]
     checks.each do |p|
       require p

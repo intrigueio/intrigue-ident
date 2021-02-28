@@ -26,6 +26,7 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    redis (4.2.5)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -54,6 +55,7 @@ DEPENDENCIES
   openssl
   pry
   recog-intrigue!
+  redis
   rspec-core
   rspec-expectations
   slop
@@ -62,7 +64,7 @@ DEPENDENCIES
   typhoeus
 
 RUBY VERSION
-   ruby 2.6.5p114
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4

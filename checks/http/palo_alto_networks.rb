@@ -8,43 +8,43 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
   def generate_checks(uri)
     [
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Networking", "VPN", "Firewall"],
-        :vendor => "PaloAltoNetworks",
-        :product =>"GlobalProtect",
-        :match_details => "login page string",
-        :version => nil,
-        :match_type => :content_body,
-        :match_content =>  /global-protect\/login.esp/i,
-        :paths => [ { :path  => "#{uri}", :follow_redirects => true } ],
-        :inference => false
+        type: "fingerprint",
+        category: "application",
+        tags: ["Networking", "VPN", "Firewall"],
+        vendor: "PaloAltoNetworks",
+        product:"GlobalProtect",
+        description: "login page string",
+        version: nil,
+        match_type: :content_body,
+        match_content:  /global-protect\/login.esp/i,
+        paths: [ { path: "#{uri}", follow_redirects: true } ],
+        inference: false
       },
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["Networking", "VPN", "Firewall"],
-        :vendor => "PaloAltoNetworks",
-        :product =>"GlobalProtect", 
-        :match_details =>"getting last-modified header",
-        :version => nil,
-        :match_type => :content_headers,
-        :match_content => /Last-Modified/i,
-        :require_product => "GlobalProtect",
-        :paths => [
-          { :path  => "#{uri}/global-protect/login.esp", :follow_redirects => false },
-          { :path  => "#{uri}/global-protect/portal/css/login.css", :follow_redirects => true },
-          { :path  => "#{uri}/global-protect/portal/images/favicon.ico", :follow_redirects => true },
-          { :path  => "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", :follow_redirects => true },
-          { :path  => "#{uri}/login/images/favicon.ico", :follow_redirects => true },
-          { :path  => "#{uri}/js/Pan.js", :follow_redirects => true }
+        type: "fingerprint",
+        category: "application",
+        tags: ["Networking", "VPN", "Firewall"],
+        vendor: "PaloAltoNetworks",
+        product:"GlobalProtect", 
+        description:"getting last-modified header",
+        version: nil,
+        match_type: :content_headers,
+        match_content: /Last-Modified/i,
+        require_product: "GlobalProtect",
+        paths: [
+          { path: "#{uri}/global-protect/login.esp", follow_redirects: false },
+          { path: "#{uri}/global-protect/portal/css/login.css", follow_redirects: true },
+          { path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
+          { path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
+          { path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
+          { path: "#{uri}/js/Pan.js", follow_redirects: true }
         ],
-        #:require_product => "GlobalProtect",
-        :dynamic_version => lambda { |x|
+        #require_product: "GlobalProtect",
+        dynamic_version: lambda { |x|
           date_string = _first_header_capture(x,/Last-Modified:\ (.*)$/i)
           version, approximate = get_pan_version_from_date(date_string) if date_string
         version },
-        :inference => true
+        inference: true
       }
     ]
   end
@@ -208,6 +208,9 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
     8.1.14,Apr,1,2020
     8.1.14-h2,Apr,18,2020
     8.1.15,Jun,13,2020
+    8.1.16,Aug,12,2020
+    8.1.17,Sep,23,2020
+    8.1.18,Nov,17,2020
     9.0.0,Jan,29,2019
     9.0.1,Mar,26,2019
     9.0.2,May,7,2019
@@ -221,12 +224,24 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
     9.0.7,Mar,13,2020
     9.0.8,Apr,7,2020
     9.0.9,Jun,20,2020
+    9.0.10,Aug,20,2020
+    9.0.11,Oct,7,2020
+    9.0.12,Nov,24,2020
     9.1.0,Dec,11,2019
     9.1.0-h3,Dec,21,2019
     9.1.1,Jan,24,2020
     9.1.2,Mar,30,2020
     9.1.2-h1,Apr,9,2020
-    9.1.3,Jun,20,2020'
+    9.1.3,Jun,20,2020
+    9.1.3-h1,Jun,26,2020
+    9.1.4,Jul,27,2020
+    9.1.5,Sep,16,2020
+    9.1.6,Oct,23,2020
+    9.1.7,Dec,15,2020
+    10.0.0,Jul,16,2020
+    10.0.1,Aug,28,2020
+    10.0.2,Oct,27,2020
+    10.0.3,Dec,7,2020'
     out = {} 
     data.split("\n").each do |item|
       item = item.split(",")

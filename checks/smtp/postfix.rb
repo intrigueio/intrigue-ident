@@ -7,17 +7,17 @@ module Intrigue
     def generate_checks
       [
         {
-          :type => "fingerprint",
-          :category => "application",
-          :tags => ["SMTPServer"],
-          :vendor => "Postfix",
-          :product => "Postfix",
-          :references => [],
-          :match_type => :content_banner,
-          :match_content => /220 ESMTP Postfix/i,
-          :match_details => "banner",
-          :hide => false,
-          :inference => false
+          type: "fingerprint",
+          category: "application",
+          tags: ["SMTPServer"],
+          vendor: "Postfix",
+          product: "Postfix",
+          references: [],
+          match_type: :content_banner,
+          match_content: /220 ESMTP Postfix/i,
+          description: "banner",
+          hide: false,
+          inference: false
         }
       ]
     end

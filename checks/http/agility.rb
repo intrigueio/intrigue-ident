@@ -8,20 +8,20 @@ class AgilityCMS < Intrigue::Ident::Check::Base
     [
 =begin
       {
-        :type => "fingerprint",
-        :category => "application",
-        :tags => ["CMS"],
-        :vendor => "Agility",
-        :product => "AgilityCMS",
-        :references => ["https://agilitycms.com/"],
-        :version => nil,
-        :match_type => :content_body,
-        :match_content => /Agility CMS/i,
-        :dynamic_version => lambda { |x|  _first_body_capture(x, /Agility CMS (\d+)/i)},
-        :match_details => "header match",
-        :hide => false,
-        :paths => [ { :path  => "#{url}", :follow_redirects => true } ],
-        :inference => true
+        type: "fingerprint",
+        category: "application",
+        tags: ["CMS"],
+        vendor: "Agility",
+        product: "AgilityCMS",
+        references: ["https://agilitycms.com/"],
+        version: nil,
+        match_type: :content_body,
+        match_content: /Agility CMS/i,
+        dynamic_version: lambda { |x|  _first_body_capture(x, /Agility CMS (\d+)/i)},
+        description: "header match",
+        hide: false,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       }
 =end
     ]
