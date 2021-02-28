@@ -254,13 +254,9 @@ def main
   ###
   if opts[:include]
     # follow directory structure from ident
+    checks = Dir.glob("#{opts[:include]}/checks/*.rb")
     checks = Dir.glob("#{opts[:include]}/checks/*/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/dns/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/ssh/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/smtp/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/drupal/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/joomla/*.rb")
-    checks += Dir.glob("#{opts[:include]}/checks/http/wordpress/*.rb")
+    checks += Dir.glob("#{opts[:include]}/checks/*/*/*.rb")
     puts "Requiring #{checks.count} files from include path: #{opts[:include]}" if opts[:debug]
     checks.each do |p|
       require p
