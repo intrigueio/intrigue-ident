@@ -1302,7 +1302,9 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 17" }
       elsif owa_version == "15.1.2106.2" #.01"
         out = { version: "2016", update: "Cumulative Update 18" }
-      elsif owa_version == "15.1.2176.2" #.01"
+      elsif owa_version == "15.1.2176" #.01" ? seen in wild
+        out = { version: "2016", update: "Cumulative Update 19" }
+      elsif owa_version == "15.1.2176.2" 
         out = { version: "2016", update: "Cumulative Update 19" }
 
 
