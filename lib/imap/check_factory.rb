@@ -1,6 +1,6 @@
 module Intrigue
   module Ident
-    module Pop3
+    module Imap
       class CheckFactory
 
         #

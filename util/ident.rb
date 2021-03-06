@@ -110,6 +110,8 @@ def check_single_uri(opts)
         check_result = generate_ssh_request_and_check(ip, port || 22)
       elsif proto == "telnet"
         check_result = generate_telnet_request_and_check(ip, port || 23)
+      elsif proto == "imap"
+        check_result = generate_imap_request_and_check(ip, port || 143)
       else
         puts "Unable to parse URI (#{uri}). Check -h for supported protocols"
         exit
@@ -207,6 +209,8 @@ def list_checks
     Intrigue::Ident::Ssh::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).concat(
     Intrigue::Ident::Telnet::CheckFactory.checks.map { |x| x.new.generate_checks }
+  ).concat(
+    Intrigue::Ident::Imap::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).flatten
 end
 
@@ -218,7 +222,7 @@ def main
     opts = Slop.parse do |o|
 
       # url input
-      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet). ex: http://intrigue.io"
+      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet, imap). ex: http://intrigue.io"
       o.string "-f", "--file", "a file of urls, one per line"
 
       # export
@@ -255,7 +259,7 @@ def main
   if opts[:include]
     # follow directory structure from ident
     checks = Dir.glob("#{opts[:include]}/checks/*.rb")
-    checks = Dir.glob("#{opts[:include]}/checks/*/*.rb")
+    checks += Dir.glob("#{opts[:include]}/checks/*/*.rb")
     checks += Dir.glob("#{opts[:include]}/checks/*/*/*.rb")
     puts "Requiring #{checks.count} files from include path: #{opts[:include]}" if opts[:debug]
     checks.each do |p|

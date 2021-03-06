@@ -1,14 +1,15 @@
 module Intrigue
   module Ident
-    module Telnet
+    module Imap
       module Matchers
-        require_relative "telnet"
-        include Intrigue::Ident::Telnet
+        require_relative "imap"
+        include Intrigue::Ident::Imap
 
         require_relative "content"
-        include Intrigue::Ident::Telnet::Content
+        include Intrigue::Ident::Imap::Content
 
-        def match_telnet_response_hash(check, response_hash)
+        def match_imap_response_hash(check, response_hash)
+          # puts check[:matches->:match_content]
           if check[:type] == "fingerprint"
             unless check[:matches] #
               check[:matches] = [
