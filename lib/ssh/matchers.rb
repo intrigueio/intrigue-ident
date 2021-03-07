@@ -9,7 +9,6 @@ module Intrigue
         include Intrigue::Ident::Ssh::Content
 
         def match_ssh_response_hash(check, response_hash)
-          puts response_hash
           if check[:type] == "fingerprint"
             unless check[:matches] #
               check[:matches] = [
