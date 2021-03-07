@@ -32,26 +32,25 @@ module Intrigue
               elsif m[:match_type] == :content_redis_version
                 value = _redis_version(response_hash) =~ m[:match_content] ? true : false
                 # stick it in our array, so we can keep track of each individual match
-                match_results << value
               end
-
-              #
-              # Now, we need to apply our logic about what a match actually is
-              # before we can return the right thing
-              #
-              # valid values:
-              # - :any
-              # - :all
-              #
-              out = nil
-              if check[:match_logic] == :any && match_results.any?
-                out = _construct_match_response(check, response_hash)
-              elsif check[:match_logic] == :all && match_results.all?
-                out = _construct_match_response(check, response_hash)
-                # legacy, default to simply returning if all (can only be one)
-              elsif !check[:match_logic] && match_results.all?
-                out = _construct_match_response(check, response_hash)
-              end
+              match_results << value
+            end
+            #
+            # Now, we need to apply our logic about what a match actually is
+            # before we can return the right thing
+            #
+            # valid values:
+            # - :any
+            # - :all
+            #
+            out = nil
+            if check[:match_logic] == :any && match_results.any?
+              out = _construct_match_response(check, response_hash)
+            elsif check[:match_logic] == :all && match_results.all?
+              out = _construct_match_response(check, response_hash)
+              # legacy, default to simply returning if all (can only be one)
+            elsif !check[:match_logic] && match_results.all?
+              out = _construct_match_response(check, response_hash)
             end
           elsif check[:type] == "content"
             match = _construct_match_response(check, response_hash)
