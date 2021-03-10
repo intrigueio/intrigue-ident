@@ -213,7 +213,6 @@ module Intrigue
         include Intrigue::Ident::RecogWrapper::Helpers
 
         def recog_match_imap_banner(string)
-          puts string
           options = OpenStruct.new(color: false, detail: true, fail_fast: false, multi_match: true)
           ndb = ::Recog::DB.new("imap_banners.xml"); nil
           options.fingerprints = ndb.fingerprints; nil

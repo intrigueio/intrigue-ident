@@ -25,11 +25,13 @@ module Intrigue
 
         results = []
 
-        # generate the checks
-        checks = Intrigue::Ident::Mysql::CheckFactory.checks.map { |x|
-          x.new.generate_checks
-        }.compact.flatten
-
+        checks = []
+        if Intrigue::Ident::Mysql::CheckFactory.checks != nil
+          # generate the checks
+          checks = Intrigue::Ident::Mysql::CheckFactory.checks.map { |x|
+            x.new.generate_checks
+          }.compact.flatten
+        end
         # and run them against our result
         checks.each do |check|
           results << match_mysql_response_hash(check, details)

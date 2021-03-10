@@ -17,10 +17,14 @@ module Intrigue
         }
 
         results = []
-
-        # generate the checks
-        checks = Intrigue::Ident::Ssh::CheckFactory.checks.map { |x| x.new.generate_checks }.compact.flatten
-
+        checks = []
+        if Intrigue::Ident::Ssh::CheckFactory.checks != nil
+          # generate the checks
+          checks = Intrigue::Ident::Ssh::CheckFactory.checks.map {
+            |x|
+            x.new.generate_checks
+          }.compact.flatten
+        end
         # and run them against our result
         checks.each do |check|
           results << match_ssh_response_hash(check, details)

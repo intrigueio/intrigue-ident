@@ -19,8 +19,13 @@ module Intrigue
         results = []
 
         # generate the checks
-        checks = Intrigue::Ident::Imap::CheckFactory.checks.map { |x| x.new.generate_checks }.compact.flatten
-
+        checks = []
+        if Intrigue::Ident::Imap::CheckFactory.checks != nil
+          checks = Intrigue::Ident::Imap::CheckFactory.checks.map {
+            |x|
+            x.new.generate_checks
+          }.compact.flatten
+        end
         # and run them against our result
         checks.each do |check|
           results << match_imap_response_hash(check, details)
