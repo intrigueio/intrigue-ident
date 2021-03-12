@@ -112,6 +112,8 @@ def check_single_uri(opts)
         check_result = generate_telnet_request_and_check(ip, port || 23)
       elsif proto == "imap"
         check_result = generate_imap_request_and_check(ip, port || 143)
+      elsif proto == "elasticsearch"
+        check_result = generate_elastic_search_request_and_check(ip, port || 9200)
       else
         puts "Unable to parse URI (#{uri}). Check -h for supported protocols"
         exit
