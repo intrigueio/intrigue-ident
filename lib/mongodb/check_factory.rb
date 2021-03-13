@@ -1,6 +1,6 @@
 module Intrigue
   module Ident
-    module Dns
+    module MongoDb
       class CheckFactory
 
         #

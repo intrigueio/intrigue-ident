@@ -1300,6 +1300,12 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 16" }
       elsif owa_version == "15.1.2044" #.01"
         out = { version: "2016", update: "Cumulative Update 17" }
+      elsif owa_version == "15.1.2106.2" #.01"
+        out = { version: "2016", update: "Cumulative Update 18" }
+      elsif owa_version == "15.1.2176" #.01" ? seen in wild
+        out = { version: "2016", update: "Cumulative Update 19" }
+      elsif owa_version == "15.1.2176.2" 
+        out = { version: "2016", update: "Cumulative Update 19" }
 
 
       # 2019
@@ -1320,6 +1326,10 @@ module Intrigue
         out = { version: "2019", update: "Cumulative Update 5"}
       elsif owa_version == "15.2.659" ||  owa_version == "15.2.659.4" #
         out = { version: "2019", update: "Cumulative Update 6"}
+      elsif owa_version == "15.2.721" ||  owa_version == "15.2.721.2" #
+        out = { version: "2019", update: "Cumulative Update 7"}
+      elsif owa_version == "15.2.792.3" ||  owa_version == "15.2.792.3" #
+        out = { version: "2019", update: "Cumulative Update 8"}
 
           #note: "additional updates applied: #{owa_version}" }
 

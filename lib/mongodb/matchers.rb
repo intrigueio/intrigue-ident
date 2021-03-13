@@ -1,14 +1,16 @@
 module Intrigue
   module Ident
-    module Telnet
+    module MongoDb
       module Matchers
-        require_relative "telnet"
-        include Intrigue::Ident::Telnet
+        require_relative "mongodb"
+        include Intrigue::Ident::MongoDb
 
         require_relative "content"
-        include Intrigue::Ident::Telnet::Content
+        include Intrigue::Ident::MongoDb::Content
 
-        def match_telnet_response_hash(check, response_hash)
+        def match_mongodb_response_hash(check, response_hash)
+          p response_hash
+          # puts check[:matches->:match_content]
           if check[:type] == "fingerprint"
             unless check[:matches] #
               check[:matches] = [

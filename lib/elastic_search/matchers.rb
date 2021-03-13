@@ -1,14 +1,15 @@
 module Intrigue
   module Ident
-    module Telnet
+    module ElasticSearch
       module Matchers
-        require_relative "telnet"
-        include Intrigue::Ident::Telnet
+        require_relative "elastic_search"
+        include Intrigue::Ident::ElasticSearch
 
         require_relative "content"
-        include Intrigue::Ident::Telnet::Content
+        include Intrigue::Ident::ElasticSearch::Content
 
-        def match_telnet_response_hash(check, response_hash)
+        def match_elastic_search_response_hash(check, response_hash)
+          # puts check[:matches->:match_content]
           if check[:type] == "fingerprint"
             unless check[:matches] #
               check[:matches] = [
@@ -27,8 +28,8 @@ module Intrigue
               ### Different check types require differnt check methods,
               ### this handles that
               ###
-              if m[:match_type] == :content_banner
-                value = _banner(response_hash) =~ m[:match_content] ? true : false
+              if m[:match_type] == :content_response_body
+                value = _response_body(response_hash) =~ m[:match_content] ? true : false
               end
               # stick it in our array, so we can keep track of each individual match
               match_results << value
