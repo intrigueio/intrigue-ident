@@ -4,8 +4,8 @@ module Intrigue
 module Ident
 module Http
 
-  # gives us the recog http matchers 
-  include Intrigue::Ident::RecogWrapper::Http 
+  # gives us the recog http matchers
+  include Intrigue::Ident::RecogWrapper::Http
 
   # Used by intrigue-core... note that this will currently fail unless
   def generate_http_requests_and_check(url, opts={})
@@ -18,7 +18,7 @@ module Http
     # this will look like an array of checks, each with a uri and a set of checks
     initial_checks = Intrigue::Ident::Http::CheckFactory.generate_initial_checks("#{url}")
 
-    ##### 
+    #####
     ##### Sanity check!
     #####
     failing_checks = initial_checks.select{|x| x if !x[:paths] }
@@ -41,7 +41,7 @@ module Http
       c.merge({:unique_path => p[:path], :follow_redirects => p[:follow_redirects] }).except(:paths) }}.flatten
 
     # now we have them organized by a single path, group them up so we only
-    # have to make a single request per unique path 
+    # have to make a single request per unique path
     grouped_initial_checks = initial_checks_by_path.group_by{|x| [ x[:unique_path], x[:follow_redirects] ]  }
 
     # allow us to only select the base path (speeds things up)
@@ -60,19 +60,19 @@ module Http
     #first_response = initial_results["responses"].first
     #if first_response && first_response[:response_headers]
     #  server_headers = first_response[:response_headers].select{|x| x =~ /^server:.*$/i }
-    #  if server_headers.count > 0 
+    #  if server_headers.count > 0
     #    recog_results << recog_match_http_server_banner(server_headers.first)
     #  end
     #
     #  cookies_headers = first_response[:response_headers].select{|x| x =~ /^set-cookie:.*$/i }
-    #  if cookies_headers.count > 0 
+    #  if cookies_headers.count > 0
     #    recog_results << recog_match_http_cookies(cookies_headers.first)
     #  end
     #end
 
     ###
     ### Follow-on Checks
-    ### 
+    ###
 
     ### Okay so, now we have a set of detected products, let's figure out our follown checks by product
     followon_checks = []
@@ -86,12 +86,12 @@ module Http
     detected_products.each do |vendor|
       followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor("#{url}", vendor))
     end
-   
+
     ### Okay so, now we have a set of detected products, let's figure out our follown checks by vendor_product
     detected_vendor_products = initial_results["fingerprint"].map{|x| [x["vendor"], x["product"]] }.uniq
     detected_vendor_products.each do |vendor, product|
       followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor_product("#{url}", vendor, product))
-    end    
+    end
 
     # group them up by path (there can be multiple paths)
     followon_checks_by_path = followon_checks.map{|c| c[:paths].map{ |p|
@@ -99,7 +99,7 @@ module Http
 
     # group'm as needed to run the checks
     grouped_followon_checks = followon_checks_by_path.group_by{|x| [ x[:unique_path], x[:follow_redirects] ] }
-    
+
     # allow us to only select the base path (speeds things up)
     if only_base
       grouped_followon_checks = grouped_followon_checks.select{|x,y| x == url}
@@ -110,13 +110,13 @@ module Http
       followon_results = run_grouped_http_checks(url, grouped_followon_checks, dom_checks, debug)
     else
       followon_results = {
-        "fingerprint" => [], 
+        "fingerprint" => [],
         "content" => [],
         "responses" => [],
         "check_count" => []
       }
     end
-  
+
     ###
     ### Generate output
     ###
@@ -129,7 +129,7 @@ module Http
       "followon_checks" => followon_results["check_count"]
     }
 
-  out 
+  out
   end
 
   private
@@ -151,27 +151,27 @@ module Http
       target_url = ggc.first
 
       # TODO ... this should probably be a hash
-      follow_redirects = ggc.last 
+      follow_redirects = ggc.last
 
       if timeout_count > 2
         puts "Skipping #{target_url}, too many timeouts" if debug
-        next 
+        next
       end
-      
+
       # get the response using a normal http request
       puts "Getting #{target_url}" if debug
       response_hash = ident_http_request :get, "#{target_url}", nil, {}, nil, follow_redirects
-    
+
       if response_hash[:timeout]
         puts "ERROR timed out on #{target_url}" if debug
         timeout_count += 1
-      end 
+      end
 
       responses << response_hash
 
       # Go ahead and match it up if we got a response!
       if response_hash
-        
+
         # call each check, collecting the product if it's a match
         ###
         ### APPLY THE IDENT!
@@ -180,7 +180,7 @@ module Http
 
           # if we have a check that should match the dom, run it
           if (check[:match_type] == :content_dom)
-             # skip it, no longer supported. 
+             # skip it, no longer supported.
           else #otherwise use the normal flow
             results << match_http_response_hash(check,response_hash)
           end
@@ -204,7 +204,7 @@ module Http
 
     # attach the responses
     out["responses"] = responses
-    
+
   out
   end
 
@@ -222,21 +222,21 @@ module Http
       headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36"
     end
 
-    begin 
+    begin
 
       options = {}
 
       # always
       options[:timeout] = timeout
       options[:ssl_verifyhost] = 0
-      options[:ssl_verifypeer] = false 
+      options[:ssl_verifypeer] = false
 
       # follow redirects if we're told
-      if follow_redirects 
+      if follow_redirects
         options[:followlocation] = true
       end
 
-      # if we're a post, set our body 
+      # if we're a post, set our body
       if method == :post
         options[:body] = data
       end
@@ -252,7 +252,7 @@ module Http
         headers: headers
       }.merge!(options))
 
-      # run the request 
+      # run the request
       response = request.run
 
     # catch th
@@ -268,11 +268,11 @@ module Http
       else
         puts "Unable to get a response"
       end
-      return nil 
+      return nil
     end
 
     #scheme = "#{response.port}" =~ /443/ ? "https" : "http"
-    
+
     # generate our output
     out = {
       :options => options,
