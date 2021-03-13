@@ -197,6 +197,19 @@ require_relative "../checks/imap/base"
 check_folder = File.expand_path("../checks/imap", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+##################################
+# Load in elastic search matchers and checks
+##################################
+require_relative "elastic_search/matchers"
+include Intrigue::Ident::ElasticSearch::Matchers
+
+require_relative "elastic_search/check_factory"
+require_relative "../checks/elastic_search/base"
+
+# elastic search fingerprints
+check_folder = File.expand_path("../checks/elastic_search", File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 ###
 ### End protocol requires
 ###
