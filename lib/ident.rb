@@ -1,38 +1,37 @@
 #!/usr/bin/env ruby
 
 # monkey-patches for core classes
-require_relative 'initialize/hash'
-require_relative 'initialize/string'
+require_relative "initialize/hash"
+require_relative "initialize/string"
 
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
 begin
   # new http request lib
-  require 'typhoeus'
-  require 'net/http'
-  require 'openssl'
-  require 'zlib'
+  require "typhoeus"
+  require "net/http"
+  require "openssl"
+  require "zlib"
 
   # integrate recog
-  require_relative 'recog_wrapper'
-  
+  require_relative "recog_wrapper"
+
   # favicon checksums
-  require 'murmurhash3'
-  
-rescue LoadError => e 
+  require "murmurhash3"
+rescue LoadError => e
   # unable to load dependencies, presumable unavailable
   puts "Unable to load dependency, functionality may be limited #{e}"
-rescue RuntimeError => e 
+rescue RuntimeError => e
   # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
   puts "Unable to load dependency, functionality may be limited #{e}"
 end
 
 # load in generic utils
-require_relative 'utils'
-require_relative 'version'
+require_relative "utils"
+require_relative "version"
 
 ###
-### Start protocol-specific deps 
+### Start protocol-specific deps
 ###
 
 ##################################
@@ -40,183 +39,191 @@ require_relative 'version'
 ###################################
 require_relative "http/http"
 require_relative "http/http_certificate"
-require_relative 'http/content'
-require_relative 'http/matchers'
+require_relative "http/content"
+require_relative "http/matchers"
 include Intrigue::Ident::Http::Matchers
 
-require_relative 'http/check_factory'
-require_relative '../checks/http/base'
+require_relative "http/check_factory"
+require_relative "../checks/http/base"
 
 # http fingerprints
-check_folder = File.expand_path('../checks/http', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/http", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 # http content checks (always run)
-content_check_folder = File.expand_path('../checks/http/content', File.dirname(__FILE__)) # get absolute directory
+content_check_folder = File.expand_path("../checks/http/content", File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # http content, wordpress specific checks
-content_check_folder = File.expand_path('../checks/http/wordpress', File.dirname(__FILE__)) # get absolute directory
+content_check_folder = File.expand_path("../checks/http/wordpress", File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # http content, javascript specific checks
-content_check_folder = File.expand_path('../checks/http/javascript', File.dirname(__FILE__)) # get absolute directory
+content_check_folder = File.expand_path("../checks/http/javascript", File.dirname(__FILE__)) # get absolute directory
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # General helpers (apply widely across different protocols)
-require_relative 'simple_socket'
-require_relative 'banner_helpers'
-require_relative 'error_helpers'
+require_relative "simple_socket"
+require_relative "banner_helpers"
+require_relative "error_helpers"
 
 ##################################
 # Load in dns matchers and checks
 #################################
-require_relative 'dns/matchers'
+require_relative "dns/matchers"
 include Intrigue::Ident::Dns::Matchers
 
-require_relative 'dns/check_factory'
-require_relative '../checks/dns/base'
+require_relative "dns/check_factory"
+require_relative "../checks/dns/base"
 
 # ftp fingerprints
-check_folder = File.expand_path('../checks/dns', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/dns", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
-
 
 ##################################
 # Load in ftp matchers and checks
 #################################
-require_relative 'ftp/matchers'
+require_relative "ftp/matchers"
 include Intrigue::Ident::Ftp::Matchers
 
-require_relative 'ftp/check_factory'
-require_relative '../checks/ftp/base'
+require_relative "ftp/check_factory"
+require_relative "../checks/ftp/base"
 
 # ftp fingerprints
-check_folder = File.expand_path('../checks/ftp', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/ftp", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in mysql matchers and checks
 #################################
-require_relative 'mysql/matchers'
+require_relative "mysql/matchers"
 include Intrigue::Ident::Mysql::Matchers
 
-require_relative 'mysql/check_factory'
-require_relative '../checks/mysql/base'
+require_relative "mysql/check_factory"
+require_relative "../checks/mysql/base"
 
 # mysql fingerprints
-check_folder = File.expand_path('../checks/mysql', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/mysql", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in pop3 matchers and checks
 ##################################
-require_relative 'pop3/matchers'
+require_relative "pop3/matchers"
 include Intrigue::Ident::Pop3::Matchers
 
-require_relative 'pop3/check_factory'
-require_relative '../checks/pop3/base'
+require_relative "pop3/check_factory"
+require_relative "../checks/pop3/base"
 
 # pop3 fingerprints
-check_folder = File.expand_path('../checks/pop3', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/pop3", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
-
 
 ##################################
 # Load in redis matchers and checks
 #################################
-require_relative 'redis/matchers'
+require_relative "redis/matchers"
 include Intrigue::Ident::Redis::Matchers
 
-require_relative 'redis/check_factory'
-require_relative '../checks/redis/base'
+require_relative "redis/check_factory"
+require_relative "../checks/redis/base"
 
 # redis fingerprints
-check_folder = File.expand_path('../checks/redis', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/redis", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in smtp matchers and checks
 ##################################
-require_relative 'smtp/matchers'
+require_relative "smtp/matchers"
 include Intrigue::Ident::Smtp::Matchers
 
-require_relative 'smtp/check_factory'
-require_relative '../checks/smtp/base'
+require_relative "smtp/check_factory"
+require_relative "../checks/smtp/base"
 
 # smtp fingerprints
-check_folder = File.expand_path('../checks/smtp', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/smtp", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in snmp matchers and checks
 ##################################
-require_relative 'snmp/matchers'
+require_relative "snmp/matchers"
 include Intrigue::Ident::Snmp::Matchers
 
-require_relative 'snmp/check_factory'
-require_relative '../checks/snmp/base'
+require_relative "snmp/check_factory"
+require_relative "../checks/snmp/base"
 
 # snmp fingerprints
-check_folder = File.expand_path('../checks/snmp', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/snmp", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in ssh matchers and checks
 ##################################
-require_relative 'ssh/matchers'
+require_relative "ssh/matchers"
 include Intrigue::Ident::Ssh::Matchers
 
-require_relative 'ssh/check_factory'
-require_relative '../checks/ssh/base'
+require_relative "ssh/check_factory"
+require_relative "../checks/ssh/base"
 
 # ssh fingerprints
-check_folder = File.expand_path('../checks/ssh', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/ssh", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ##################################
 # Load in telnet matchers and checks
 ##################################
-require_relative 'telnet/matchers'
+require_relative "telnet/matchers"
 include Intrigue::Ident::Telnet::Matchers
 
-require_relative 'telnet/check_factory'
-require_relative '../checks/telnet/base'
+require_relative "telnet/check_factory"
+require_relative "../checks/telnet/base"
 
 # telnet fingerprints
-check_folder = File.expand_path('../checks/telnet', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path("../checks/telnet", File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+##################################
+# Load in imap matchers and checks
+##################################
+require_relative "imap/matchers"
+include Intrigue::Ident::Imap::Matchers
+
+require_relative "imap/check_factory"
+require_relative "../checks/imap/base"
+
+# imap fingerprints
+check_folder = File.expand_path("../checks/imap", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ###
-### End protocol requires 
+### End protocol requires
 ###
 
-# Load vulndb client 
+# Load vulndb client
 require_relative "vulndb_client"
 
 # set default encoding
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
-# set a base directory so we can use in checks 
-$ident_dir = File.expand_path('../', File.dirname(__FILE__))
+# set a base directory so we can use in checks
+$ident_dir = File.expand_path("../", File.dirname(__FILE__))
 
 module Intrigue
   module Ident
-
     private
 
     def _sanitize_string(string)
       # return nil if string is empty, to allow valid version comparison.
       return nil if string == "" || string == nil
 
-      "#{string}".encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
+      "#{string}".encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
     end
-    
+
     def _construct_match_response(check, data)
-
       if check[:type] == "fingerprint"
-
         calculated_product = _sanitize_string((check[:dynamic_product].call(data) if check[:dynamic_product]) || check[:product])
         calculated_version = _sanitize_string((check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version])
         calculated_update = _sanitize_string((check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update])
@@ -226,11 +233,11 @@ module Intrigue
         calculated_type = "o" if check[:category] == "operating_system"
         calculated_type = "s" if check[:category] == "service" # literally made up
 
-        vendor_string = check[:vendor].gsub(" ","_") if check[:vendor]
-        product_string = calculated_product.gsub(" ","_") if calculated_product
+        vendor_string = check[:vendor].gsub(" ", "_") if check[:vendor]
+        product_string = calculated_product.gsub(" ", "_") if calculated_product
 
-        version = "#{calculated_version}".gsub(" ","_")
-        update = "#{calculated_update}".gsub(" ","_")
+        version = "#{calculated_version}".gsub(" ", "_")
+        update = "#{calculated_update}".gsub(" ", "_")
 
         cpe_string = _sanitize_string("cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase)
 
@@ -239,7 +246,7 @@ module Intrigue
         ##
         if check[:dynamic_product]
           calculated_product = check[:dynamic_product].call(data)
-        elsif check[:product]  # also handle singular
+        elsif check[:product] # also handle singular
           calculated_product = check[:product]
         end
 
@@ -248,16 +255,16 @@ module Intrigue
         ##
         if check[:dynamic_issues]
           issues = check[:dynamic_issues].call(data)
-        elsif check[:dynamic_issue]  # also handle singular
+        elsif check[:dynamic_issue] # also handle singular
           issues = [check[:dynamic_issues].call(data)]
         elsif check[:issues]
           issues = check[:issues]
-        elsif check[:issue]         # also handle singular
+        elsif check[:issue] # also handle singular
           issues = [check[:issue]]
         else
           issues = nil
         end
-        
+
         ##
         # Support for Dynamic Hide
         ##
@@ -292,11 +299,10 @@ module Intrigue
           "description" => check[:description],
           "hide" => hide,
           "cpe" => cpe_string,
-          "issues" => issues, 
+          "issues" => issues,
           "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
-          "inference" => check[:inference]
+          "inference" => check[:inference],
         }
-
       elsif check[:type] == "content"
 
         # Mandatory lambda
@@ -306,9 +312,9 @@ module Intrigue
         ## Support for Dynamic Issue (must be dynamic, these checks always run)
         ##
         if result
-        
+
           ##
-          ## Support for Dynamic 
+          ## Support for Dynamic
           ##
           if check[:dynamic_issue]
             issue = check[:dynamic_issue].call(data)
@@ -317,7 +323,7 @@ module Intrigue
           else
             issue = nil
           end
-          
+
           ##
           ## Support for Dynamic Hide
           ##
@@ -339,7 +345,6 @@ module Intrigue
           else
             task = nil
           end
-
         end
 
         to_return = {
@@ -348,16 +353,14 @@ module Intrigue
           "hide" => hide,
           "issue" => issue,
           "task" => task,
-          "result" => "#{_sanitize_string(result)}"
+          "result" => "#{_sanitize_string(result)}",
         }
       end
 
-    to_return
+      to_return
     end
-
+  end
 end
-end
 
-
-# always include 
+# always include
 include Intrigue::Ident
