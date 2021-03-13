@@ -114,6 +114,8 @@ def check_single_uri(opts)
         check_result = generate_imap_request_and_check(ip, port || 143)
       elsif proto == "elasticsearch"
         check_result = generate_elastic_search_request_and_check(ip, port || 9200)
+      elsif proto == "mongodb"
+        check_result = generate_mongodb_request_and_check(ip, port || 27017)
       else
         puts "Unable to parse URI (#{uri}). Check -h for supported protocols"
         exit
@@ -213,6 +215,10 @@ def list_checks
     Intrigue::Ident::Telnet::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).concat(
     Intrigue::Ident::Imap::CheckFactory.checks.map { |x| x.new.generate_checks }
+  ).concat(
+    Intrigue::Ident::ElasticSearch::CheckFactory.checks.map { |x| x.new.generate_checks }
+  ).concat(
+    Intrigue::Ident::MongoDb::CheckFactory.checks.map { |x| x.new.generate_checks }
   ).flatten
 end
 
@@ -224,7 +230,7 @@ def main
     opts = Slop.parse do |o|
 
       # url input
-      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet, imap). ex: http://intrigue.io"
+      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet, imap, elasticsearch, mongodb). ex: http://intrigue.io"
       o.string "-f", "--file", "a file of urls, one per line"
 
       # export

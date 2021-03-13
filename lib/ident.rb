@@ -63,6 +63,7 @@ content_check_folder = File.expand_path("../checks/http/javascript", File.dirnam
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # General helpers (apply widely across different protocols)
+require_relative "mongodb_wire"
 require_relative "simple_socket"
 require_relative "banner_helpers"
 require_relative "error_helpers"
@@ -208,6 +209,19 @@ require_relative "../checks/elastic_search/base"
 
 # elastic search fingerprints
 check_folder = File.expand_path("../checks/elastic_search", File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+##################################
+# Load in mongodb matchers and checks
+##################################
+require_relative "mongodb/matchers"
+include Intrigue::Ident::MongoDb::Matchers
+
+require_relative "mongodb/check_factory"
+require_relative "../checks/mongodb/base"
+
+# mongodb fingerprints
+check_folder = File.expand_path("../checks/mongodb", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ###
