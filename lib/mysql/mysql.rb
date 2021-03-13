@@ -19,7 +19,7 @@ module Intrigue
         details = {
           "details" => {
             #"banner" => nil, #banner_string
-            "error" => error_string,
+            "error" => error_string
           },
         }
 
