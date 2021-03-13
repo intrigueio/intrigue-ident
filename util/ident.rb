@@ -94,8 +94,14 @@ def check_single_uri(opts)
 
       if proto == "dns"
         check_result = generate_dns_request_and_check(ip, port || 53)
+      elsif proto == "elasticsearch"
+        check_result = generate_elastic_search_request_and_check(ip, port || 9200)
       elsif proto == "ftp"
         check_result = generate_ftp_request_and_check(ip, port || 21)
+      elsif proto == "imap"
+        check_result = generate_imap_request_and_check(ip, port || 143)
+      elsif proto == "mongodb"
+        check_result = generate_mongodb_request_and_check(ip, port || 27017)
       elsif proto == "mysql"
         check_result = generate_mysql_request_and_check(ip, port || 3306)
       elsif proto == "pop3"
@@ -103,19 +109,13 @@ def check_single_uri(opts)
       elsif proto == "redis"
         check_result = generate_redis_request_and_check(ip, port || 6379)
       elsif proto == "snmp"
-        check_result = generate_snmp_request_and_check(ip, port || 161)
-      elsif proto == "smtp"
         check_result = generate_smtp_request_and_check(ip, port || 25)
       elsif proto == "ssh"
+        check_result = generate_snmp_request_and_check(ip, port || 161)
+      elsif proto == "smtp"
         check_result = generate_ssh_request_and_check(ip, port || 22)
       elsif proto == "telnet"
         check_result = generate_telnet_request_and_check(ip, port || 23)
-      elsif proto == "imap"
-        check_result = generate_imap_request_and_check(ip, port || 143)
-      elsif proto == "elasticsearch"
-        check_result = generate_elastic_search_request_and_check(ip, port || 9200)
-      elsif proto == "mongodb"
-        check_result = generate_mongodb_request_and_check(ip, port || 27017)
       else
         puts "Unable to parse URI (#{uri}). Check -h for supported protocols"
         exit
@@ -126,10 +126,6 @@ def check_single_uri(opts)
       puts "Internal Error! Unable to get matches!"
       exit -1
     end
-
-    #if debug
-    #  puts "Check Result: #{check_result}"
-    #end
 
     if check_result["fingerprint"] && !json
       puts "Fingerprint: "
@@ -230,7 +226,9 @@ def main
     opts = Slop.parse do |o|
 
       # url input
-      o.string "-u", "--uri", "a uri to check (supported portocols: dns, ftp, http, https, mysql, pop3, redis, smtp, snmp, telnet, imap, elasticsearch, mongodb). ex: http://intrigue.io"
+      o.string "-u", "--uri", "a uri to check (supported portocols: " +
+        "(dns, elasticsearch, ftp, http, https, imap, mongodb, mysql, pop3, redis, smtp, snmp, telnet) " +
+        "ex: http://intrigue.io"
       o.string "-f", "--file", "a file of urls, one per line"
 
       # export
