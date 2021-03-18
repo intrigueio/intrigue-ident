@@ -347,7 +347,7 @@ module Intrigue
           ident_matches = generate_redis_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if (port == 25 || port =~ /^\d+25$/) #587?
+        if (port == 587 || port =~ /^\d+587$/)
           ident_matches = generate_smtp_request_and_check(ip_address_or_hostname) || {}
         end
 
@@ -405,13 +405,13 @@ module Intrigue
         when "mongodb"
           27017
         when "mysql"
-          143
+          3306
         when "pop3"
-          143
+          110
         when "redis"
-          143
+          6379
         when "smtp"
-          143
+          587
         when "snmp"
           161
         when "ssh"
