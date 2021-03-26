@@ -52,12 +52,29 @@ module Intrigue
               tags: ["WebServer"],
               vendor: "Nginx",
               product: "Nginx",
-              description: "nginx (default 404 page)",
+              description: "nginx (default page)",
               match_type: :content_body,
-              match_content: /<hr><center>nginx<\/center>/i,
-              hide: true,
+              match_content: /<hr><center>nginx\/?([\d\.]*)<\/center>/i,
+              dynamic_version: lambda { |x|
+              _first_body_capture(x,/<hr><center>nginx\/?([\d\.]*)<\/center>/i)
+              },
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
+            },
+            {
+              type: "fingerprint",
+              category: "application",
+              tags: ["WebServer"],
+              vendor: "Nginx",
+              product: "Nginx",
+              description: "nginx (default page - could be redirect)",
+              match_type: :content_body,
+              match_content: /<hr><center>nginx\/?[\d\.]*<\/center>/i,
+              dynamic_version: lambda { |x|
+              _first_body_capture(x,/<hr><center>nginx\/?([\d\.]*)<\/center>/i)
+              },
+              paths: [{ path: "#{url}", follow_redirects: false }],
+              inference: false
             },
           ]
         end
