@@ -98,7 +98,7 @@ def main
     return # so we don't hit the next gate
   end
 
-  unless opts[:uri] || opts[:file] || opts[:list - checks]
+  unless opts[:uri] || opts[:file] || opts[:list]
     print "Error! At least one of --list, --file or --uri must be specified"
     return
   end
