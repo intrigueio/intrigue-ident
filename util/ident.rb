@@ -21,8 +21,8 @@ def main
 
       # url input
       o.string "-u", "--uri", "a uri to check (supported portocols: " +
-        "(dns, elasticsearch, ftp, http, https, imap, mongodb, mysql, pop3, redis, smtp, snmp, telnet) " +
-        "ex: http://intrigue.io"
+                              "(dns, elasticsearch, ftp, http, https, imap, mongodb, mysql, pop3, redis, smtp, snmp, telnet, amqp) " +
+                              "ex: http://intrigue.io"
       o.string "-f", "--file", "a file of urls, one per line"
 
       # export
@@ -47,7 +47,6 @@ def main
         print Ident::VERSION
         exit
       end
-
     end
   rescue Slop::MissingArgument => e
     print "Error! #{e}"
@@ -99,7 +98,7 @@ def main
     return # so we don't hit the next gate
   end
 
-  unless opts[:uri] || opts[:file] || opts[:list-checks]
+  unless opts[:uri] || opts[:file] || opts[:list - checks]
     print "Error! At least one of --list, --file or --uri must be specified"
     return
   end
@@ -116,7 +115,6 @@ def main
     check_uris_from_file(opts)
   end
 end
-
 
 # Write the file (helper method)
 def write_simple_csv(filename, output_q)
@@ -149,7 +147,6 @@ def write_simple_csv(filename, output_q)
   print "Find results in: #{filename}"
   print "============================"
 end
-
 
 def check_uris_from_file(opts)
   filepath = opts[:file]
@@ -216,13 +213,11 @@ def check_uris_from_file(opts)
 end
 
 def check_single_uri(opts)
-
   print_debug "Options: #{opts}"
   query_vulns = opts[:vulnerabilities] || false
 
   if uri = opts[:uri]
     if uri =~ /^http[s]?:\/\/.*$/
-
       check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri)
       if @debug
         print_debug "Ran #{check_result["initial_checks"].first["count"]} initial checks against base URL"
@@ -231,7 +226,6 @@ def check_single_uri(opts)
           check_result["followon_checks"].each { |x| print_debug " - #{x["url"]}\n" }
         end
       end
-
     else # not http
       parsed_uri = URI(uri)
       print_debug "Checking ... #{parsed_uri}"
@@ -269,15 +263,12 @@ def check_single_uri(opts)
         end
       end
     end
-
   end
 
   if @json
     # Not print, since that's blocked on @json
     puts JSON.pretty_generate(check_result)
   end
-
 end
-
 
 main
