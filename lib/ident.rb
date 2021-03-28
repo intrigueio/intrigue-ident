@@ -28,6 +28,8 @@ end
 
 # load in generic utils
 require_relative "utils"
+include Intrigue::Ident::Utils
+
 require_relative "version"
 
 ###
@@ -224,6 +226,19 @@ require_relative "../checks/mongodb/base"
 check_folder = File.expand_path("../checks/mongodb", File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+##################################
+# Load in amqp matchers and checks
+##################################
+require_relative "amqp/matchers"
+include Intrigue::Ident::Amqp::Matchers
+
+require_relative "amqp/check_factory"
+require_relative "../checks/amqp/base"
+
+# amqp fingerprints
+check_folder = File.expand_path("../checks/amqp", File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 ###
 ### End protocol requires
 ###
@@ -240,119 +255,228 @@ $ident_dir = File.expand_path("../", File.dirname(__FILE__))
 
 module Intrigue
   module Ident
-    private
+    class Ident
 
-    def _sanitize_string(string)
-      # return nil if string is empty, to allow valid version comparison.
-      return nil if string == "" || string == nil
+      # list all checks
+      def list_checks(path = "[URI]")
+        Intrigue::Ident::Http::CheckFactory.checks.map { |x|
+          x.new.generate_checks(path)
+        }.concat(
+          Intrigue::Ident::Dns::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::ElasticSearch::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Ftp::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Imap::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::MongoDb::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Mysql::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Pop3::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Redis::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Smtp::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Snmp::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Ssh::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Telnet::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Amqp::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).flatten
+      end
 
-      "#{string}".encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
-    end
+      # This is the main  interface for interaction going foward!!!
+      #
+      # Fingerprint by uri
+      #
+      def fingerprint_uri(uri, opts = {})
+        x = URI.parse(uri)
+        port = x.port || _service_to_port(x.scheme)
+        hostname = x.host
 
-    def _construct_match_response(check, data)
-      if check[:type] == "fingerprint"
-        calculated_product = _sanitize_string((check[:dynamic_product].call(data) if check[:dynamic_product]) || check[:product])
-        calculated_version = _sanitize_string((check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version])
-        calculated_update = _sanitize_string((check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update])
+        fingerprint_service(hostname, port, opts)
+      end
 
-        calculated_type = "a" if check[:category] == "application"
-        calculated_type = "h" if check[:category] == "hardware"
-        calculated_type = "o" if check[:category] == "operating_system"
-        calculated_type = "s" if check[:category] == "service" # literally made up
+      # Fingerprint by hostname and port
+      #
+      def fingerprint_service(ip_address_or_hostname, port, opts = {})
+        ident_matches = nil
 
-        vendor_string = check[:vendor].gsub(" ", "_") if check[:vendor]
-        product_string = calculated_product.gsub(" ", "_") if calculated_product
-
-        version = "#{calculated_version}".gsub(" ", "_")
-        update = "#{calculated_update}".gsub(" ", "_")
-
-        cpe_string = _sanitize_string("cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase)
-
-        ##
-        # Support for Dynamic Product
-        ##
-        if check[:dynamic_product]
-          calculated_product = check[:dynamic_product].call(data)
-        elsif check[:product] # also handle singular
-          calculated_product = check[:product]
+        if (port == 53 || port =~ /^[\d]+53$/)
+          ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {}
         end
 
-        ##
-        # Support for Dynamic Issues
-        ##
-        if check[:dynamic_issues]
-          issues = check[:dynamic_issues].call(data)
-        elsif check[:dynamic_issue] # also handle singular
-          issues = [check[:dynamic_issues].call(data)]
-        elsif check[:issues]
-          issues = check[:issues]
-        elsif check[:issue] # also handle singular
-          issues = [check[:issue]]
+        if (port == 9200 || port =~ /^[\d]?920\d$/)
+          ident_matches = generate_elastic_search_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 21 || port =~ /^[\d]+21$/)
+          ident_matches = generate_ftp_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 80 || port =~ /^[\d]+80$/)
+          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+        end
+
+        if (port == 443 || port =~ /^[\d]+443$/)
+          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+        end
+
+        if (port == 143 || port =~ /^[\d]+143$/)
+          ident_matches = generate_imap_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 27017)
+          ident_matches = generate_mongodb_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 3306 || port =~ /^[\d]+3306$/)
+          ident_matches = generate_mysql_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 110 || port =~ /^[\d]+110$/)
+          ident_matches = generate_pop3_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if port == 6379 || port =~ /^\d?6379$/
+          ident_matches = generate_redis_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 587 || port =~ /^\d+587$/)
+          ident_matches = generate_smtp_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 161 || port =~ /^\d+161$/)
+          ident_matches = generate_snmp_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 22 || port =~ /^[\d]+22$/)
+          ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 23 || port =~ /^[\d]+23$/)
+          ident_matches = generate_telnet_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        if (port == 5672 || port =~ /^\d+5672$/)
+          ident_matches = generate_amqp_request_and_check(ip_address_or_hostname) || {}
+        end
+
+        ###
+        ### But default to HTTP through each known port
+        ###
+        if ident_matches
+          return ident_matches # return right away if we a FP
         else
-          issues = nil
+          url = "http://#{ip_address_or_hostname}:#{port}"
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
+
+          # if we didnt fail, pull out the FP and match to vulns
+          ident_fingerprints = ident_matches["fingerprint"] || []
+
+          # merge them
+          out = ident_matches.merge({ "fingerprint" => ident_fingerprints })
         end
 
-        ##
-        # Support for Dynamic Hide
-        ##
-        if check[:dynamic_hide]
-          hide = check[:dynamic_hide].call(data)
-        elsif check[:hide]
-          hide = check[:hide]
+        out
+      end
+
+      private
+
+      def _service_to_port(service_name)
+        case service_name
+        when "dns"
+          53
+        when "elasticsearch"
+          9200
+        when "ftp"
+          21
+        when "http"
+          80
+        when "https"
+          443
+        when "imap"
+          143
+        when "mongodb"
+          27017
+        when "mysql"
+          3306
+        when "pop3"
+          110
+        when "redis"
+          6379
+        when "smtp"
+          587
+        when "snmp"
+          161
+        when "ssh"
+          22
+        when "telnet"
+          23
+        when "amqp"
+          5672
         else
-          hide = false
+          raise "Unkown service"
         end
+      end
 
-        ##
-        # Support for Dynamic Task
-        ##
-        if check[:dynamic_tasks]
-          tasks = check[:dynamic_tasks].call(data)
-        elsif check[:tasks]
-          tasks = check[:tasks]
-        else
-          tasks = nil
-        end
+      def _sanitize_string(string)
+        # return nil if string is empty, to allow valid version comparison.
+        return nil if string == "" || string == nil
 
-        to_return = {
-          "method" => "ident",
-          "type" => check[:type],
-          "vendor" => check[:vendor],
-          "product" => calculated_product,
-          "version" => calculated_version,
-          "update" => calculated_update,
-          "tags" => check[:tags],
-          "match_type" => check[:match_type],
-          "description" => check[:description],
-          "hide" => hide,
-          "cpe" => cpe_string,
-          "issues" => issues,
-          "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
-          "inference" => check[:inference],
-        }
-      elsif check[:type] == "content"
+        "#{string}".encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
+      end
 
-        # Mandatory lambda
-        result = check[:dynamic_result].call(data)
+      def _construct_match_response(check, data)
+        if check[:type] == "fingerprint"
+          calculated_product = _sanitize_string((check[:dynamic_product].call(data) if check[:dynamic_product]) || check[:product])
+          calculated_version = _sanitize_string((check[:dynamic_version].call(data) if check[:dynamic_version]) || check[:version])
+          calculated_update = _sanitize_string((check[:dynamic_update].call(data) if check[:dynamic_update]) || check[:update])
 
-        ##
-        ## Support for Dynamic Issue (must be dynamic, these checks always run)
-        ##
-        if result
+          calculated_type = "a" if check[:category] == "application"
+          calculated_type = "h" if check[:category] == "hardware"
+          calculated_type = "o" if check[:category] == "operating_system"
+          calculated_type = "s" if check[:category] == "service" # literally made up
+
+          vendor_string = check[:vendor].gsub(" ", "_") if check[:vendor]
+          product_string = calculated_product.gsub(" ", "_") if calculated_product
+
+          version = "#{calculated_version}".gsub(" ", "_")
+          update = "#{calculated_update}".gsub(" ", "_")
+
+          cpe_string = _sanitize_string("cpe:2.3:#{calculated_type}:#{vendor_string}:#{product_string}:#{version}:#{update}".downcase)
 
           ##
-          ## Support for Dynamic
+          # Support for Dynamic Product
           ##
-          if check[:dynamic_issue]
-            issue = check[:dynamic_issue].call(data)
-          elsif check[:issue]
-            issue = check[:issue]
-          else
-            issue = nil
+          if check[:dynamic_product]
+            calculated_product = check[:dynamic_product].call(data)
+          elsif check[:product] # also handle singular
+            calculated_product = check[:product]
           end
 
           ##
-          ## Support for Dynamic Hide
+          # Support for Dynamic Issues
+          ##
+          if check[:dynamic_issues]
+            issues = check[:dynamic_issues].call(data)
+          elsif check[:dynamic_issue] # also handle singular
+            issues = [check[:dynamic_issues].call(data)]
+          elsif check[:issues]
+            issues = check[:issues]
+          elsif check[:issue] # also handle singular
+            issues = [check[:issue]]
+          else
+            issues = nil
+          end
+
+          ##
+          # Support for Dynamic Hide
           ##
           if check[:dynamic_hide]
             hide = check[:dynamic_hide].call(data)
@@ -363,31 +487,95 @@ module Intrigue
           end
 
           ##
-          ## Support for Dynamic Task
+          # Support for Dynamic Task
           ##
-          if check[:dynamic_task]
-            task = check[:dynamic_task].call(data)
-          elsif check[:task]
-            task = check[:task]
+          if check[:dynamic_tasks]
+            tasks = check[:dynamic_tasks].call(data)
+          elsif check[:tasks]
+            tasks = check[:tasks]
           else
-            task = nil
+            tasks = nil
+          end
+
+          to_return = {
+            "method" => "ident",
+            "type" => check[:type],
+            "vendor" => check[:vendor],
+            "product" => calculated_product,
+            "version" => calculated_version,
+            "update" => calculated_update,
+            "tags" => check[:tags],
+            "match_type" => check[:match_type],
+            "description" => check[:description],
+            "hide" => hide,
+            "cpe" => cpe_string,
+            "issues" => issues,
+            "tasks" => tasks, # [{ :task_name => "example", :task_options => {}}]
+            "inference" => check[:inference],
+          }
+        elsif check[:type] == "content"
+
+          # Mandatory lambda
+          result = check[:dynamic_result].call(data)
+
+          ##
+          ## Support for Dynamic Issue (must be dynamic, these checks always run)
+          ##
+          if result
+
+            ##
+            ## Support for Dynamic
+            ##
+            if check[:dynamic_issue]
+              issue = check[:dynamic_issue].call(data)
+            elsif check[:issue]
+              issue = check[:issue]
+            else
+              issue = nil
+            end
+
+            ##
+            ## Support for Dynamic Hide
+            ##
+            if check[:dynamic_hide]
+              hide = check[:dynamic_hide].call(data)
+            elsif check[:hide]
+              hide = check[:hide]
+            else
+              hide = false
+            end
+
+            ##
+            ## Support for Dynamic Task
+            ##
+            if check[:dynamic_task]
+              task = check[:dynamic_task].call(data)
+            elsif check[:task]
+              task = check[:task]
+            else
+              task = nil
+            end
+
+            to_return = {
+              "type" => check[:type],
+              "name" => check[:name],
+              "hide" => hide,
+              "issue" => issue,
+              "task" => task,
+              "result" => result,
+            }
+
+            # only return if not empty in this case
+            if result.kind_of?(Hash) || result.kind_of?(Array)
+              to_return = nil if result.empty?
+            end
+          else
+            to_return = nil
           end
         end
 
-        to_return = {
-          "type" => check[:type],
-          "name" => check[:name],
-          "hide" => hide,
-          "issue" => issue,
-          "task" => task,
-          "result" => "#{_sanitize_string(result)}",
-        }
+        to_return
       end
-
-      to_return
     end
   end
 end
-
-# always include
-include Intrigue::Ident
