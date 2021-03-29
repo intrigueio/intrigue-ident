@@ -65,10 +65,10 @@ content_check_folder = File.expand_path("../checks/http/javascript", File.dirnam
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # General helpers (apply widely across different protocols)
-require_relative "mongodb_wire"
 require_relative "simple_socket"
 require_relative "banner_helpers"
 require_relative "error_helpers"
+require_relative "mongodb_connection_helper"
 
 ##################################
 # Load in dns matchers and checks
@@ -331,7 +331,7 @@ module Intrigue
           ident_matches = generate_imap_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if (port == 27017)
+        if (port == 27017 || port =~ /^[\d]+27017$/)
           ident_matches = generate_mongodb_request_and_check(ip_address_or_hostname) || {}
         end
 
@@ -367,6 +367,9 @@ module Intrigue
           ident_matches = generate_amqp_request_and_check(ip_address_or_hostname) || {}
         end
 
+        if (port == 2083 || port =~ /^[\d]+2083$/)
+          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+        end
         ###
         ### But default to HTTP through each known port
         ###
@@ -420,6 +423,8 @@ module Intrigue
           23
         when "amqp"
           5672
+        when "cpanel"
+          2083
         else
           raise "Unkown service"
         end

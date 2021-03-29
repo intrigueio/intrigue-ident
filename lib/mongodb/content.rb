@@ -2,8 +2,8 @@ module Intrigue
   module Ident
     module MongoDb
       module Content
-        def _banner(content)
-          content["details"]["banner"]
+        def _response(content)
+          content["details"]["response"]
         end
       end
     end
