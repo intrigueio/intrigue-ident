@@ -426,7 +426,31 @@ module Intrigue
               paths: [{ path: "#{url}/../nifi-api/flow/about", follow_redirects: true }],
               inference: false,
             },
-
+            {
+              type: "fingerprint",
+              category: "application",
+              tags: ["Platform"],
+              vendor: "Apache",
+              product: "Solr",
+              description: "Main url redirect",
+              match_logic: :all,
+                matches: [
+                  {
+                    match_type: :content_code,
+                    match_content: 302,
+                  },
+                  {
+                    match_type: :content_headers,
+                    match_content: /Location: http(s?):\/\/[a-zA-Z0-9\-\.\:]+\/solr/i,
+                  }
+                ],
+                paths: [ 
+                  { path: "#{url}",
+                    follow_redirects: false
+                  }
+                ],
+              inference: false
+            }
           ]
         end
       end
