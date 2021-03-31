@@ -7,7 +7,7 @@ The Ident project has a few stated goals:
  - To maintain a robust command line interface for use as a standalone tool 
  - To be commercially viable through use of the BSD license
 
- Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. 
+ Ident is written in Ruby and uses the lightning fast libcurl-backed Typhoeus and the powerful Socketry libraries to make requests. 
 
  Below, find instruction on how to get stated:
 
