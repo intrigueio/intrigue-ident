@@ -53,12 +53,17 @@ For Check Writers:
 ===================
 
 Check types can be written against supported protocols: 
+ - Amqp 
  - Dns
+ - Elasticsearch
  - Ftp
  - Http/Https
+ - Mongodb 
  - Mysql
+ - Pop3
  - Redis
  - Smtp
+ - Snmp
  - Ssh
  - Telnet
 
@@ -110,11 +115,12 @@ Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
- - @duartemateus: Checks!
- - @chowdud: Checks!
- - @jen140: Checks
- - @shpendk: Checks, Architecture
- - @bensalah_anas: Checks
- - @bcoles: Checks, bugfixes, JSON output
- - @bmcdevitt: Checks
+ - @duartemateus: Protocol support and fingerprints
+ - @chowdud: Fingerprints++ ** 
+ - @jen140: Fingerprints
+ - @shpendk: Fingerprints, Architecture
+ - @m-q-t: Fingerprints, Architecture 
+ - @bensalah_anas: Fingerprints
+ - @bcoles: Fingerprints, Bugfixes, JSON output
+ - @bmcdevitt: Fingerprints
  - @retornam: Dockerization
