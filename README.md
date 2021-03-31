@@ -19,7 +19,7 @@ Using ident via Docker image:
 Usage:
 ======
 ```
-$ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
+$ bundle exec ruby ./util/ident.rb -c -v -u https://xyz.com:443
 Checking... https://xyz.com:443
 Fingerprint:
  - PHP PHP 5.4.16  - x-powered-by header (CPE: cpe:2.3:a:php:php:5.4.16:) (Tags: ["Web Framework"])
