@@ -14,7 +14,7 @@ The Ident project has a few stated goals:
 Using ident via Docker image:
 =============================
 1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
-  `docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
+  `docker run -t intrigueio/intrigue-ident -u https://intrigue.io`
 
 Usage:
 ======
