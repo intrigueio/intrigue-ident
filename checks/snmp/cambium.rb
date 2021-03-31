@@ -15,7 +15,6 @@ module Intrigue
             version: nil,
             match_type: :content_banner,
             match_content: /Linux ePMP 3000/i,
-            dynamic_version: lambda { |x| _first_banner_capture(x, /(\d\.\d\.\d\.\d\-?\w*)/i)},
             description: "snmp banner",
             hide: false,
             inference: false
