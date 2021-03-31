@@ -15,7 +15,6 @@ module Intrigue
             match_type: :content_body,
             match_content:  /<title>ePMP/,
             version: nil, 
-            },
             paths: [ { path: "#{url}", follow_redirects: true } ],
             inference: false
           },
