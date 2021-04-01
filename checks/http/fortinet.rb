@@ -54,6 +54,21 @@ module Check
           match_type: :content_body,
           match_content:  /FortiToken clock drift detected/i,
           paths: [ { path: "#{url}", follow_redirects: true } ],
+        },
+        {
+          type: "fingerprint",
+          category: "application",
+          tags: ["WAF","Networking"],
+          vendor: "Fortinet",
+          product:"FortiWeb",
+          references: [],
+          description:"response header",
+          match_type: :content_headers,
+          match_content:  /^server: fortiweb-.*$/i,
+          dynamic_version: lambda { |x|
+            _first_header_capture(x, /^server: fortiweb-(\d\.\d\.\d)$/i)
+          },
+          paths: [ { path: "#{url}", follow_redirects: true } ],
         }
       ]
     end
