@@ -218,7 +218,7 @@ def check_single_uri(opts)
 
   if uri = opts[:uri]
     if uri =~ /^http[s]?:\/\/.*$/
-      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri)
+      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri, {ssl: true})
       if @debug
         print_debug "Ran #{check_result["initial_checks"].first["count"]} initial checks against base URL"
         if !check_result["followon_checks"].empty?

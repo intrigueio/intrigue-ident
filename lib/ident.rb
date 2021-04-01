@@ -373,7 +373,11 @@ module Intrigue
         if ident_matches
           return ident_matches # return right away if we a FP
         else
-          url = "http://#{ip_address_or_hostname}:#{port}"
+          url = if opts.key?(:ssl) && opts[:ssl] == true
+                  "https://#{ip_address_or_hostname}:#{port}"
+                else
+                  "http://#{ip_address_or_hostname}:#{port}"
+                end
           ident_matches = generate_http_requests_and_check(url, opts) || {}
 
           # if we didnt fail, pull out the FP and match to vulns
