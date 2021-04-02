@@ -378,10 +378,10 @@ module Intrigue
           return ident_matches # return right away if we a FP
         else
           # if scheme was provided by original uri use that, otherwise default to "http"
-          schema = opts.key?(:scheme) ? opts[:scheme] : "http"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
 
           # create url and fingerprint it
-          url = "#{schema}://#{ip_address_or_hostname}:#{port}"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
           ident_matches = generate_http_requests_and_check(url, opts) || {}
 
           # if we didnt fail, pull out the FP and match to vulns
