@@ -1,7 +1,6 @@
 module Intrigue
   module Ident
   module Http
-  
 
   def ident_get_certificate(uri)
     begin
@@ -16,7 +15,7 @@ module Intrigue
 
       unless socket && socket.peer_cert
         puts "Unable to get socket or peer cert"
-        return nil 
+        return nil
       end
 
       # Parse the cert
@@ -36,7 +35,7 @@ module Intrigue
         "signature_algorithm" => "#{cert.signature_algorithm}",
         #"hidden_text" => "#{cert.to_text}"
       }
-    
+
     rescue SocketError => e
       puts "Error: #{e}"
     rescue Errno::ECONNRESET => e

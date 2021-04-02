@@ -301,7 +301,7 @@ module Intrigue
 
         # set scheme as option
         opts[:scheme] = x.scheme
-        
+
         # fingerprint it
         fingerprint_service(hostname, port, opts)
       end
@@ -324,11 +324,21 @@ module Intrigue
         end
 
         if (port == 80 || port =~ /^[\d]+80$/)
-          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+
+          # if scheme was provided by original uri use that, otherwise default to "http"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
         if (port == 443 || port =~ /^[\d]+443$/)
-          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+
+          # if scheme was provided by original uri use that, otherwise default to "https"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "https"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
         if (port == 143 || port =~ /^[\d]+143$/)
