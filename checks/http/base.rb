@@ -10,7 +10,7 @@ class Base
   end
 
   def uri_host(url)
-    begin 
+    begin
       URI.parse(url).host
     rescue URI::InvalidURIError => e
       puts "WARNING! attempted to parse invalid URL! #{url}"
@@ -31,7 +31,7 @@ class Base
 
       match = content["details"]["hidden_response_data"].match(regex)
       return match.captures.map{|x|x.to_s.strip} if match
-    
+
     nil
     end
 
@@ -45,7 +45,7 @@ class Base
     def _first_body_capture(content, regex, filter=[])
       return nil unless content["details"]["hidden_response_data"]
       x = content["details"]["hidden_response_data"].match(regex)
-      if x && x.captures
+      if x && x.captures && !x.captures.empty?
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip
@@ -72,7 +72,7 @@ class Base
         headers = content["details"]["headers"].kind_of? Array
       end
       x = headers.match(regex)
-      if x && x.captures
+      if x && x.captures && !x.captures.empty?
         x = x.captures.first
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip if x
@@ -90,7 +90,7 @@ class Base
     def _first_cookie_capture(content, regex, filter=[])
       return nil unless content["details"]["headers"]
       x = content["details"]["cookies"].match(regex)
-      if x && x.captures
+      if x && x.captures && !x.captures.empty?
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
         x = x.strip if x
@@ -109,7 +109,7 @@ class Base
   def _first_title_capture(content, regex, filter=[])
     return nil unless content["details"]["title"]
     x = content["details"]["title"].match(regex)
-    if x && x.captures
+    if x && x.captures && !x.captures.empty?
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
       x = x.strip if x
@@ -128,7 +128,7 @@ class Base
   def _first_generator_capture(content, regex, filter=[])
     return nil unless content["details"]["generator"]
     x = content["details"]["generator"].match(regex)
-    if x && x.captures
+    if x && x.captures && !x.captures.empty?
       x = x.captures.first.strip
       filter.each{|f| x.gsub!(f,"") }
       x = x.strip if x

@@ -2,14 +2,14 @@ module Intrigue
   module Ident
   module Check
   class Analytics < Intrigue::Ident::Check::Base
-    
+
     def generate_checks(url)
       [
         {
           type: "content",
           name:"Google Analytics",
           dynamic_result: lambda { |d|
-            _first_body_capture(d, /gtag\(\'config\', \'(UA-\d+-\d+)/)
+            _first_body_capture(d, /\'(UA-\d+-\d+)\'/)
           },
           paths: [ { path: "#{url}", follow_redirects: true } ],
         },

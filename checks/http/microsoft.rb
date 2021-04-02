@@ -300,7 +300,7 @@ module Intrigue
           description:"powered by header",
           version: nil,
           match_type: :content_headers,
-          match_content:  /^X-Powered-By: ASP.NETs$/i,
+          match_content:  /^X-Powered-By: ASP.NET$/i,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
         },
