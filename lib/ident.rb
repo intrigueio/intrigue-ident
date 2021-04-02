@@ -299,8 +299,9 @@ module Intrigue
         port = x.port || _service_to_port(x.scheme)
         hostname = x.host
 
-        # set scheme as option
+        # set scheme and path as options
         opts[:scheme] = x.scheme
+        opts[:path] = x.path
 
         # fingerprint it
         fingerprint_service(hostname, port, opts)
@@ -327,7 +328,8 @@ module Intrigue
 
           # if scheme was provided by original uri use that, otherwise default to "http"
           scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+          path = opts.key?(:path) ? opts[:path] : ""
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
 
           ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
@@ -336,7 +338,8 @@ module Intrigue
 
           # if scheme was provided by original uri use that, otherwise default to "https"
           scheme = opts.key?(:scheme) ? opts[:scheme] : "https"
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+          path = opts.key?(:path) ? opts[:path] : ""
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
 
           ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
@@ -392,9 +395,10 @@ module Intrigue
         else
           # if scheme was provided by original uri use that, otherwise default to "http"
           scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
+          path = opts.key?(:path) ? opts[:path] : ""
 
           # create url and fingerprint it
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
           ident_matches = generate_http_requests_and_check(url, opts) || {}
 
           # if we didnt fail, pull out the FP and match to vulns
