@@ -12,9 +12,18 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         vendor:"Pivotal Software",
         product:"Spring Framework",
         description:"Standard Spring MVC error page",
-        match_type: :content_body,
         version: nil,
-        match_content:  /\{\"timestamp\":\d.*,\"status\":999,\"error\":\"None\",\"message\":\"No message available\"\}/,
+        match_logic: :any,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /\{\"timestamp\":\d.*,\"status\":999,\"error\":\"None\",\"message\":\"No message available\"\}/,
+          },
+          {
+            match_type: :content_body,
+            match_content:  /This application has no explicit mapping for \/error, so you are seeing this as a fallback/i,
+          }
+        ],
         paths: [{ path: "#{url}/error.json", follow_redirects: true } ],
         inference: false
       },
