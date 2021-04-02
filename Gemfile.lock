@@ -5,35 +5,59 @@ GIT
     recog-intrigue (2.3.7)
       nokogiri
 
+PATH
+  remote: .
+  specs:
+    intrigue-ident (5.0.0)
+      dnsruby
+      mongo
+      murmurhash3
+      recog-intrigue
+      snmp
+      socketry
+      typhoeus
+
 GEM
   remote: https://rubygems.org/
   specs:
+    bson (4.12.0)
     coderay (1.1.3)
     diff-lcs (1.4.4)
-    dnsruby (1.61.4)
+    dnsruby (1.61.5)
       simpleidn (~> 0.1)
     ethon (0.12.0)
       ffi (>= 1.3.0)
-    ffi (1.13.1)
+    ffi (1.15.0)
     hitimes (1.3.1)
-    json (2.3.1)
+    json (2.5.1)
     method_source (1.0.0)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.0)
+    mongo (2.14.0)
+      bson (>= 4.8.2, < 5.0.0)
     murmurhash3 (0.1.6)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     openssl (2.2.0)
-    pry (0.13.1)
+    pry (0.14.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    racc (1.5.2)
     redis (4.2.5)
-    rspec-core (3.9.2)
-      rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.2)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.1)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-support (3.9.3)
-    simpleidn (0.1.1)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.2)
+    simpleidn (0.2.1)
       unf (~> 0.1.4)
     slop (4.8.2)
     snmp (1.3.2)
@@ -50,12 +74,15 @@ PLATFORMS
 
 DEPENDENCIES
   dnsruby
+  intrigue-ident!
   json
+  mongo
   murmurhash3
   openssl
   pry
   recog-intrigue!
   redis
+  rspec (~> 3.0)
   rspec-core
   rspec-expectations
   slop
@@ -67,4 +94,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.1.4
+   2.2.14

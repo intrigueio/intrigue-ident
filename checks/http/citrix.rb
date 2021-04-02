@@ -293,6 +293,21 @@ class Citrix < Intrigue::Ident::Check::Base
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true
+      },
+      {
+        type: "fingerprint",
+        category: "application",
+        vendor: "Citrix",
+        tags: ["Networking","COTS", "Fileserver"],
+        product: "ShareFile",
+        description: "page title",
+        references: [],
+        version: nil,
+        match_type: :content_body,
+        match_content: /<title>ShareFile Storage Server<\/title>/,
+        hide: false,
+        paths: [ { path: "#{url}", follow_redirects: true } ],
+        inference: true
       }
     ]
   end

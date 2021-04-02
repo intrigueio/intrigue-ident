@@ -1,16 +1,18 @@
-source 'https://rubygems.org'
-ruby '2.7.2'
+source "https://rubygems.org"
+ruby "2.7.2"
 
-gem 'pry'
-gem 'typhoeus'
-gem 'recog-intrigue',         :git => 'https://github.com/intrigueio/recog.git'
-gem 'socketry'
-gem 'slop'
-gem 'snmp'
-gem 'dnsruby'
-gem 'json'
-gem 'rspec-core'
-gem 'rspec-expectations'
-gem 'openssl'
-gem 'murmurhash3'
-gem 'redis'
+gem "dnsruby"
+gem "json"
+gem "murmurhash3"
+gem "openssl"
+gem "pry"
+gem "redis"
+gem "recog-intrigue", :git => "https://github.com/intrigueio/recog.git"
+gem "rspec-core"
+gem "rspec-expectations"
+gem "socketry"
+gem "slop"
+gem "snmp"
+gem "typhoeus"
+
+gemspec

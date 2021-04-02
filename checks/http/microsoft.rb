@@ -44,8 +44,8 @@ module Intrigue
           match_content:  /^.*ASP.NET is configured*$/i,
           description:"ASP.Net Error Message",
           paths: [
-            { path: "#{url}", follow_redirects: true }, 
-            { path: "#{url}/doesntexist-123", follow_redirects: true } 
+            { path: "#{url}", follow_redirects: true },
+            { path: "#{url}/doesntexist-123", follow_redirects: true }
           ],
           inference: false
         },
@@ -300,7 +300,7 @@ module Intrigue
           description:"powered by header",
           version: nil,
           match_type: :content_headers,
-          match_content:  /^X-Powered-By: ASP.NETs$/i,
+          match_content:  /^X-Powered-By: ASP.NET$/i,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
         },
@@ -1205,7 +1205,10 @@ module Intrigue
           note: "additional updates applied: #{owa_version}" }
       elsif owa_version == "14.3.496.0"
         out = { version: "2010", update: "SP3 Rollup 30" }
-
+      elsif owa_version == "14.3.509.0"
+        out = { version: "2010", update: "SP3 Rollup 31" }
+      elsif owa_version == "14.3.513.0"
+        out = { version: "2010", update: "SP3 Rollup 32" }
       # 2013
       elsif owa_version == "15.0.516" #.32"
           out = { version: "2013", update: "RTM" }
@@ -1253,9 +1256,7 @@ module Intrigue
         out = { version: "2013", update: "Cumulative Update 21" }
       elsif owa_version == "15.0.1473.3" || owa_version == "15.0.1473"
         out = { version: "2013", update: "Cumulative Update 22" }
-      elsif owa_version == "15.0.1497"
-        out = { version: "2013", update: "Cumulative Update 23" }
-      elsif owa_version == "15.0.1497.2"
+      elsif owa_version == "15.0.1497" || owa_version == "15.0.1497.2"
         out = { version: "2013", update: "Cumulative Update 23" }
 
       # 2016
@@ -1300,6 +1301,12 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 16" }
       elsif owa_version == "15.1.2044" #.01"
         out = { version: "2016", update: "Cumulative Update 17" }
+      elsif owa_version == "15.1.2106.2" #.01"
+        out = { version: "2016", update: "Cumulative Update 18" }
+      elsif owa_version == "15.1.2176" || owa_version == "15.1.2176.2" #.01" ? seen in wild
+        out = { version: "2016", update: "Cumulative Update 19" }
+      elsif owa_version == "15.1.2242.4"
+        out = { version: "2016", update: "Cumulative Update 20" }
 
 
       # 2019
@@ -1320,6 +1327,17 @@ module Intrigue
         out = { version: "2019", update: "Cumulative Update 5"}
       elsif owa_version == "15.2.659" ||  owa_version == "15.2.659.4" #
         out = { version: "2019", update: "Cumulative Update 6"}
+      elsif owa_version == "15.2.721" ||  owa_version == "15.2.721.2" #
+        out = { version: "2019", update: "Cumulative Update 7"}
+      elsif owa_version == "15.2.792.3" ||  owa_version == "15.2.792.3" #
+        out = { version: "2019", update: "Cumulative Update 8"}
+      elsif owa_version == "15.2.858.5"
+        out = { version: "2019", update: "Cumulative Update 9"}
+
+      # office 365
+      # https://www.msoutlook.info/question/277
+      elsif owa_version == "15.20.*"
+        out = { version: "O365", update: "Current"}
 
           #note: "additional updates applied: #{owa_version}" }
 

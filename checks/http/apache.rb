@@ -149,6 +149,20 @@ module Intrigue
             {
               type: "fingerprint",
               category: "application",
+              tags: ["WebServer"],
+              vendor: "Apache",
+              product: "HTTP Server",
+              description: "Apache default page (Ubuntu)",
+              version: nil,
+              match_type: :content_title,
+              match_content: /^Apache2 Ubuntu Default Page: It works$/i,
+              paths: [{ path: "#{url}", follow_redirects: true }],
+              inference: false,
+              issues: ["default_web_server_page_exposed"],
+            },
+            {
+              type: "fingerprint",
+              category: "application",
               tags: ["Library"],
               vendor: "Apache",
               product: "mod_auth_kerb",
@@ -412,7 +426,31 @@ module Intrigue
               paths: [{ path: "#{url}/../nifi-api/flow/about", follow_redirects: true }],
               inference: false,
             },
-
+            {
+              type: "fingerprint",
+              category: "application",
+              tags: ["Platform"],
+              vendor: "Apache",
+              product: "Solr",
+              description: "Main url redirect",
+              match_logic: :all,
+                matches: [
+                  {
+                    match_type: :content_code,
+                    match_content: 302,
+                  },
+                  {
+                    match_type: :content_headers,
+                    match_content: /Location: http(s?):\/\/[a-zA-Z0-9\-\.\:]+\/solr/i,
+                  }
+                ],
+                paths: [ 
+                  { path: "#{url}",
+                    follow_redirects: false
+                  }
+                ],
+              inference: false
+            }
           ]
         end
       end
