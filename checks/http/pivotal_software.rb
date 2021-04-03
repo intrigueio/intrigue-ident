@@ -17,7 +17,7 @@ class PivotalSoftware < Intrigue::Ident::Check::Base
         matches: [
           {
             match_type: :content_body,
-            match_content:  /\{\"timestamp\":\d.*,\"status\":999,\"error\":\"None\",\"message\":\"No message available\"\}/,
+            match_content:  /\{\"timestamp\":.*,\"status\":.*,\"error\":\".*\",\"message\":\".*\"\}/,
           },
           {
             match_type: :content_body,

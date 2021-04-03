@@ -39,7 +39,7 @@ module Intrigue
               tags: ["Application Server", "Administrative", "DatabaseService"],
               vendor: "Apache",
               product: "Druid",
-              description: "Apache Druid Title",
+              description: "Apache Druid HTML Title",
               match_type: :content_body,
               version: nil,
               match_content: /<title>Apache Druid<\/title>/i,
