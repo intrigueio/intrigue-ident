@@ -47,6 +47,7 @@ def main
         print Ident::VERSION
         exit
       end
+
     end
   rescue Slop::MissingArgument => e
     print "Error! #{e}"

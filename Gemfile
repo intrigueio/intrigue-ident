@@ -3,7 +3,6 @@ ruby "2.7.2"
 
 gem "dnsruby"
 gem "json"
-gem "mongo"
 gem "murmurhash3"
 gem "openssl"
 gem "pry"

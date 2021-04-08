@@ -7,19 +7,6 @@ class Dell < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "operating_system",
-        tags: ["OS"],
-        vendor:"Dell",
-        product:"KACE K1000 Systems Management Appliance",
-        description:"cookie",
-        version: nil,
-        match_type: :content_cookies,
-        match_content:  /kboxid=/i,
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: false
-      },
-      {
-        type: "fingerprint",
         category: "application",
         tags: ["WebServer", "PaaS"],
         vendor: "Dell",

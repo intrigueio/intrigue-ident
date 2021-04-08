@@ -7,19 +7,19 @@ The Ident project has a few stated goals:
  - To maintain a robust command line interface for use as a standalone tool 
  - To be commercially viable through use of the BSD license
 
- Ident is written in Ruby and uses core Ruby (HTTP|Socket|etc) libraries to make requests. 
+ Ident is written in Ruby and uses the lightning fast libcurl-backed Typhoeus and the powerful Socketry libraries to make requests. 
 
  Below, find instruction on how to get stated:
 
 Using ident via Docker image:
 =============================
 1) Pull and run the docker image! It'll download directly from [DockerHub](https://cloud.docker.com/u/intrigueio/repository/docker/intrigueio/intrigue-ident) if the image doesnt exist locally
-  `docker run -t intrigueio/intrigue-ident --url https://intrigue.io`
+  `docker run -t intrigueio/intrigue-ident -u https://intrigue.io`
 
 Usage:
 ======
 ```
-$ bundle exec ruby ./util/ident.rb -v -u https://xyz.com:443
+$ bundle exec ruby ./util/ident.rb -c -v -u https://xyz.com:443
 Checking... https://xyz.com:443
 Fingerprint:
  - PHP PHP 5.4.16  - x-powered-by header (CPE: cpe:2.3:a:php:php:5.4.16:) (Tags: ["Web Framework"])
@@ -53,12 +53,17 @@ For Check Writers:
 ===================
 
 Check types can be written against supported protocols: 
+ - Amqp 
  - Dns
+ - Elasticsearch
  - Ftp
  - Http/Https
+ - Mongodb 
  - Mysql
+ - Pop3
  - Redis
  - Smtp
+ - Snmp
  - Ssh
  - Telnet
 
@@ -110,11 +115,12 @@ Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
- - @duartemateus: Checks!
- - @chowdud: Checks!
- - @jen140: Checks
- - @shpendk: Checks, Architecture
- - @bensalah_anas: Checks
- - @bcoles: Checks, bugfixes, JSON output
- - @bmcdevitt: Checks
+ - @duartemateus: Protocol support and fingerprints
+ - @chowdud: Fingerprints++ ** 
+ - @jen140: Fingerprints
+ - @shpendk: Fingerprints, Architecture
+ - @m-q-t: Fingerprints, Architecture 
+ - @bensalah_anas: Fingerprints
+ - @bcoles: Fingerprints, Bugfixes, JSON output
+ - @bmcdevitt: Fingerprints
  - @retornam: Dockerization

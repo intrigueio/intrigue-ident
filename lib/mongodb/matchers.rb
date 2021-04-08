@@ -9,7 +9,6 @@ module Intrigue
         include Intrigue::Ident::MongoDb::Content
 
         def match_mongodb_response_hash(check, response_hash)
-          p response_hash
           # puts check[:matches->:match_content]
           if check[:type] == "fingerprint"
             unless check[:matches] #
@@ -29,8 +28,8 @@ module Intrigue
               ### Different check types require differnt check methods,
               ### this handles that
               ###
-              if m[:match_type] == :content_banner
-                value = _banner(response_hash) =~ m[:match_content] ? true : false
+              if m[:match_type] == :content_response
+                value = _response(response_hash) =~ m[:match_response] ? true : false
               end
               # stick it in our array, so we can keep track of each individual match
               match_results << value

@@ -65,10 +65,10 @@ content_check_folder = File.expand_path("../checks/http/javascript", File.dirnam
 Dir["#{content_check_folder}/*.rb"].each { |file| require_relative file }
 
 # General helpers (apply widely across different protocols)
-require_relative "mongodb_wire"
 require_relative "simple_socket"
 require_relative "banner_helpers"
 require_relative "error_helpers"
+require_relative "mongodb_connection_helper"
 
 ##################################
 # Load in dns matchers and checks
@@ -299,6 +299,10 @@ module Intrigue
         port = x.port || _service_to_port(x.scheme)
         hostname = x.host
 
+        # set scheme as option
+        opts[:scheme] = x.scheme
+
+        # fingerprint it
         fingerprint_service(hostname, port, opts)
       end
 
@@ -320,18 +324,28 @@ module Intrigue
         end
 
         if (port == 80 || port =~ /^[\d]+80$/)
-          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+
+          # if scheme was provided by original uri use that, otherwise default to "http"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
         if (port == 443 || port =~ /^[\d]+443$/)
-          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+
+          # if scheme was provided by original uri use that, otherwise default to "https"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "https"
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
+
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
         if (port == 143 || port =~ /^[\d]+143$/)
           ident_matches = generate_imap_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if (port == 27017)
+        if (port == 27017 || port =~ /^[\d]+27017$/)
           ident_matches = generate_mongodb_request_and_check(ip_address_or_hostname) || {}
         end
 
@@ -367,13 +381,20 @@ module Intrigue
           ident_matches = generate_amqp_request_and_check(ip_address_or_hostname) || {}
         end
 
+        if (port == 2083 || port =~ /^[\d]+2083$/)
+          ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
+        end
         ###
         ### But default to HTTP through each known port
         ###
         if ident_matches
           return ident_matches # return right away if we a FP
         else
-          url = "http://#{ip_address_or_hostname}:#{port}"
+          # if scheme was provided by original uri use that, otherwise default to "http"
+          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
+
+          # create url and fingerprint it
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}"
           ident_matches = generate_http_requests_and_check(url, opts) || {}
 
           # if we didnt fail, pull out the FP and match to vulns
@@ -420,6 +441,8 @@ module Intrigue
           23
         when "amqp"
           5672
+        when "cpanel"
+          2083
         else
           raise "Unkown service"
         end
