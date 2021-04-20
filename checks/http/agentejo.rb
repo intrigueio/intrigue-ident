@@ -8,7 +8,7 @@ module Intrigue
               {
                 type: "fingerprint",
                 category: "application",
-                tags: ["CMS",],
+                tags: ["CMS"],
                 vendor: "Agentejo",
                 product: "Cockpit",
                 website: "https://getcockpit.com/",
