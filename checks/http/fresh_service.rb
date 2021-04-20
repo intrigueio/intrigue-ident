@@ -17,7 +17,6 @@ module Intrigue
             match_type: :content_title,
             match_content:  /^There is no helpdesk here\!$/i,
             paths: [ { path: "#{url}", follow_redirects: true } ],
-            issue: ["subdomain_hijack"], 
             hide: true
           }
         ]
