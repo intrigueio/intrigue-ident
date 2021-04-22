@@ -66,6 +66,7 @@ Check types can be written against supported protocols:
  - Snmp
  - Ssh
  - Telnet
+ - Smb
 
 Generally speaking, checks have the following structure. This is a check for HTTP and HTTPS: 
 ```

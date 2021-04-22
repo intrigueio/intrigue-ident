@@ -389,8 +389,8 @@ module Intrigue
           ident_matches = generate_amqp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 139 || port =~ /^\d+139$/
-          ident_matches = generate_smb_request_and_check(ip_address_or_hostname) || {}
+        if port == 139 || port == 445 || port =~ /^\d+(139|445)$/
+          ident_matches = generate_smb_request_and_check(ip_address_or_hostname, port) || {}
         end
 
         if port == 2083 || port =~ /^\d+2083$/
@@ -453,8 +453,6 @@ module Intrigue
           23
         when 'amqp'
           5672
-        when 'smb'
-          139
         else
           raise 'Unkown service'
         end

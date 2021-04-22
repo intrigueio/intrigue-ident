@@ -2,28 +2,27 @@ module Intrigue
   module Ident
     module Smb
       module Matchers
-        require_relative "smb"
+        require_relative 'smb'
         include Intrigue::Ident::Smb
 
-        require_relative "content"
+        require_relative 'content'
         include Intrigue::Ident::Smb::Content
 
         def match_smb_response_hash(check, response_hash)
           # puts check[:matches->:match_content]
-          if check[:type] == "fingerprint"
-            unless check[:matches] #
+          if check[:type] == 'fingerprint'
+            unless check[:matches]
               check[:matches] = [
                 {
                   match_type: check[:match_type],
-                  match_content: check[:match_content],
-                },
+                  match_content: check[:match_content]
+                }
               ]
             end
             match_results = []
 
             # stick it in our array, so we can keep track of each individual match
             check[:matches].each do |m|
-
               ###
               ### Different check types require differnt check methods,
               ### this handles that

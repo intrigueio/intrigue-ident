@@ -5,7 +5,7 @@ module Intrigue
       include Intrigue::Ident::SimpleSocket
 
       # gives us the recog Smb matchers
-      def generate_smb_request_and_check(ip, port = 139, _debug = false)
+      def generate_smb_request_and_check(ip, port = 445, _debug = false)
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
         response_string = grab_response_smb(ip, port)
         details = {
@@ -36,30 +36,31 @@ module Intrigue
         # if socket = connect_tcp(ip, port, timeout)
         sock = TCPSocket.new ip, port
         dispatcher = RubySMB::Dispatcher::Socket.new(sock)
-        # client = RubySMB::Client.new(dispatcher, username: '', password: '')
-        client = RubySMB::Client.new(dispatcher, username: 'msfadmin', password: 'msfadmin')
-        require 'pry'; binding.pry
+        client = RubySMB::Client.new(dispatcher, username: '', password: '')
 
-        client.negotiate
-        client.authenticate
-        # begin
-        #   tree = client.tree_connect('TEST_SHARE')
-        #   puts "Connected to #{path} successfully!"
-        # rescue StandardError => e
-        #   puts "Failed to connect to #{path}: #{e.message}"
-        # end
+        out = []
+        begin
+          out << "Protocol: #{client.negotiate}"
+          client_auth = client.authenticate
+          out << "Description: #{client_auth.description}"
+          out << "Connection Status: #{client_auth.name}"
+        rescue StandardError => e
+          out = "Failed to connect to #{ip}: #{e.message}"
+        end
 
-        # files = tree.list(directory: 'subdir1')
-
-        # files.each do |file|
-        #   create_time = file.create_time.to_datetime.to_s
-        #   access_time = file.last_access.to_datetime.to_s
-        #   change_time = file.last_change.to_datetime.to_s
-        #   file_name   = file.file_name.encode('UTF-8')
-
-        #   puts "FILE: #{file_name}\n\tSIZE(BYTES):#{file.end_of_file}\n\tSIZE_ON_DISK(BYTES):#{file.allocation_size}\n\tCREATED:#{create_time}\n\tACCESSED:#{access_time}\n\tCHANGED:#{change_time}\n\n"
-        # end
-
+        begin
+          out << "Native OS: #{client.peer_native_os}" if client.peer_native_os
+          out << "Native auth: #{client.peer_native_lm}" if client.peer_native_lm
+          out << "Netbios Name: #{client.default_name}" if client.default_name
+          out << "Netbios Domain: #{client.default_domain}" if client.default_domain
+          out << "FQDN of the computer: #{client.dns_host_name}" if client.dns_host_name
+          out << "FQDN of the domain: #{client.dns_domain_name}" if client.dns_domain_name
+          out << "FQDN of the forest: #{client.dns_tree_name}" if client.dns_tree_name
+          out << "Dialect: #{client.dialect}" if client.dialect
+          out << "OS Version: #{client.os_version}" if client.os_version
+        rescue StandardError
+          # prevent failure
+        end
         out.to_s.encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
       end
     end
