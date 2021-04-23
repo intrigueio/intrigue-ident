@@ -17,7 +17,7 @@ def main
     opts = Slop.parse do |o|
       # url input
       o.string '-u', '--uri', 'a uri to check (supported portocols: ' +
-                              '(dns, elasticsearch, ftp, http, https, imap, mongodb, mysql, pop3, redis, smtp, snmp, telnet, amqp, smb) ' +
+                              '(dns, elasticsearch, ftp, http, https, imap, mongodb, mysql, pop3, redis, smb, smtp, snmp, telnet, amqp) ' +
                               'ex: http://intrigue.io'
       o.string '-f', '--file', 'a file of urls, one per line'
 

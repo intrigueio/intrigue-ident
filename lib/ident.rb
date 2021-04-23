@@ -324,7 +324,6 @@ module Intrigue
       #
       def fingerprint_service(ip_address_or_hostname, port, opts = {})
         ident_matches = nil
-
         ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {} if port == 53 || port =~ /^\d+53$/
 
         if port == 9200 || port =~ /^\d?920\d$/
@@ -449,6 +448,8 @@ module Intrigue
           161
         when 'ssh'
           22
+        when 'smb'
+          445
         when 'telnet'
           23
         when 'amqp'
