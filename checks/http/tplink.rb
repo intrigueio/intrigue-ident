@@ -10,7 +10,7 @@ module Intrigue
               tags: %w[Networking COTS Router],
               vendor: 'TP-Link',
               product: 'WR Series',
-              description: 'TP-Link Wireless Router',
+              description: 'Router',
               references: [
                 'https://www.tp-link.com/us/search/?q=tl-wr&t=product'
               ],
