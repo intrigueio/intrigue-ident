@@ -947,97 +947,115 @@ module Intrigue
     def owa_to_exchange_version(owa_version)
 
       # 2007 SP1
-      if owa_version == "8.1.240.6" #.32"
+      if owa_version == "8.1.240.5" || owa_version == "8.1.240.6" 
         out = { version: "2007", update: "SP1" }
-      elsif owa_version == "8.1.263.1" #.32"
+      elsif owa_version == "8.1.263.1" 
         out = { version: "2007", update: "SP1 Update Rollup 1" }
-      elsif owa_version == "8.1.278.2" #.32"
+      elsif owa_version == "8.1.278.2" 
         out = { version: "2007", update: "SP1 Update Rollup 2" }
-      elsif owa_version == "8.1.291.2" #.32"
+      elsif owa_version == "8.1.291.2" 
         out = { version: "2007", update: "SP1 Update Rollup 3" }
-      elsif owa_version == "8.1.311.3" #.32"
+      elsif owa_version == "8.1.311.2" || owa_version == "8.1.311.3" 
         out = { version: "2007", update: "SP1 Update Rollup 4" }
-      elsif owa_version == "8.1.336.1" #.32"
+      elsif owa_version == "8.1.336.1" 
         out = { version: "2007", update: "SP1 Update Rollup 5" }
-      elsif owa_version == "8.1.340.1" #.32"
+      elsif owa_version == "8.1.340.0" || owa_version == "8.1.340.1" 
         out = { version: "2007", update: "SP1 Update Rollup 6" }
-      elsif owa_version == "8.1.359.2" #.32"
+      elsif owa_version == "8.1.359.2" 
         out = { version: "2007", update: "SP1 Update Rollup 7" }
-      elsif owa_version == "8.1.375.2" #.32"
+      elsif owa_version == "8.1.375.2" 
         out = { version: "2007", update: "SP1 Update Rollup 8" }
-      elsif owa_version == "8.1.393.1" #.32"
+      elsif owa_version == "8.1.393.1" 
         out = { version: "2007", update: "SP1 Update Rollup 9" }
-      elsif owa_version == "8.1.436.0" #.32"
+      elsif owa_version == "8.1.436.0" 
         out = { version: "2007", update: "SP1 Update Rollup 10" }
 
       # 2007 SP2
-      elsif owa_version == "8.2.176.2" #.32"
+      elsif owa_version == "8.2.176.2" 
         out = { version: "2007", update: "SP2" }
-      elsif owa_version == "8.2.217.3" #.32"
+      elsif owa_version == "8.2.217.2" || owa_version == "8.2.217.3" 
         out = { version: "2007", update: "SP2 Update Rollup 1" }
-      elsif owa_version == "8.2.234.1" #.32"
+      elsif owa_version == "8.2.234.1" 
         out = { version: "2007", update: "SP2 Update Rollup 2" }
-      elsif owa_version == "8.2.247.2" #.32"
+      elsif owa_version == "8.2.247.2" 
         out = { version: "2007", update: "SP2 Update Rollup 3" }
-      elsif owa_version == "8.2.254.0" #.32"
+      elsif owa_version == "8.2.254.0" || owa_version == "8.2.254.1" 
         out = { version: "2007", update: "SP2 Update Rollup 4" }
-      elsif owa_version == "8.2.305.3" #.32"
+      elsif owa_version == "8.2.301.0" 
+        out = { version: "2007", update: "SP2 Update Rollup 4",
+          note: "additional updates applied: #{owa_version}" }
+      elsif owa_version == "8.2.305.3" 
         out = { version: "2007", update: "SP2 Update Rollup 5" }
 
        # 2007 SP3
-      elsif owa_version == "8.3.083.6" #.32"
+      elsif owa_version == "8.3.083.6" || owa_version == "8.3.83.4" 
         out = { version: "2007", update: "SP3" }
-      elsif owa_version == "8.3.106.2" #.32"
+      elsif owa_version == "8.3.106.2" 
         out = { version: "2007", update: "SP3 Update Rollup 1" }
-      elsif owa_version == "8.3.137.3" #.32"
+      elsif owa_version == "8.3.137.3" 
         out = { version: "2007", update: "SP3 Update Rollup 2" }
-      elsif owa_version == "8.3.159.0" #.32"
+      elsif owa_version == "8.3.159.0" 
         out = { version: "2007", update: "SP3 Update Rollup 3" }
-      elsif owa_version == "8.3.159.2" #.32"
+      elsif owa_version == "8.3.159.2" 
         out = { version: "2007", update: "SP3 Update Rollup 3-v2" }
-      elsif owa_version == "8.3.192.1" #.32"
+      elsif owa_version == "8.3.192.1" 
         out = { version: "2007", update: "SP3 Update Rollup 4" }
-      elsif owa_version == "8.3.213.1" #.32"
+      elsif owa_version == "8.3.213.1" 
         out = { version: "2007", update: "SP3 Update Rollup 5" }
-      elsif owa_version == "8.3.245.2" #.32"
+      elsif owa_version == "8.3.245.1" || owa_version == "8.3.245.2"
         out = { version: "2007", update: "SP3 Update Rollup 6" }
-      elsif owa_version == "8.3.264.0" #.32"
+      elsif owa_version == "8.3.264.0" 
         out = { version: "2007", update: "SP3 Update Rollup 7" }
-      elsif owa_version == "8.3.279.3" #.32"
+      elsif owa_version == "8.3.279.3" 
         out = { version: "2007", update: "SP3 Update Rollup 8" }
-      elsif owa_version == "8.3.279.5" #.32"
+      elsif owa_version == "8.3.279.5" 
         out = { version: "2007", update: "SP3 Update Rollup 8-v2" }
-      elsif owa_version == "8.3.279.6" #.32"
+      elsif owa_version == "8.3.279.6" 
         out = { version: "2007", update: "SP3 Update Rollup 8-v3" }
-      elsif owa_version == "8.3.297.2" #.32
+      elsif owa_version == "8.3.297.1" || owa_version == "8.3.297.2" #.32
         out = { version: "2007", update: "SP3 Update Rollup 9" }
-      elsif owa_version == "8.3.298.3" #.32"
+      elsif owa_version == "8.3.298.1" || owa_version == "8.3.298.3" 
         out = { version: "2007", update: "SP3 Update Rollup 10" }
-      elsif owa_version == "8.3.327.1" #.32"
+      elsif owa_version == "8.3.327.1" 
         out = { version: "2007", update: "SP3 Update Rollup 11" }
-      elsif owa_version == "8.3.342.4" #.32"
+      elsif owa_version == "8.3.342.4" 
         out = { version: "2007", update: "SP3 Update Rollup 12" }
-      elsif owa_version == "8.3.348.1" #.32"
+      elsif owa_version == "8.3.348.1" || owa_version == "8.3.348.2" 
         out = { version: "2007", update: "SP3 Update Rollup 13" }
-      elsif owa_version == "8.3.379.2" #.32"
+      elsif owa_version == "8.3.379.2" 
         out = { version: "2007", update: "SP3 Update Rollup 14" }
-      elsif owa_version == "8.3.389.2" #.32"
+      elsif owa_version == "8.3.389.2" 
         out = { version: "2007", update: "SP3 Update Rollup 15" }
-      elsif owa_version == "8.3.406.0" #.32"
+      elsif owa_version == "8.3.406.0" 
         out = { version: "2007", update: "SP3 Update Rollup 16" }
-      elsif owa_version == "8.3.417.1" #.32"
+      elsif owa_version == "8.3.415.0" 
+        out = { version: "2007", update: "SP3 Update Rollup 16",
+          note: "additional updates applied: #{owa_version}" }
+      elsif owa_version == "8.3.417.1" 
         out = { version: "2007", update: "SP3 Update Rollup 17" }
-      elsif owa_version == "8.3.445.0" #.32"
+      elsif owa_version == "8.3.444.0" 
+        out = { version: "2007", update: "SP3 Update Rollup 17",
+          note: "additional updates applied: #{owa_version}" }
+      elsif owa_version == "8.3.445.0" 
         out = { version: "2007", update: "SP3 Update Rollup 18" }
-      elsif owa_version == "8.3.459.0" #.32"
+      elsif owa_version == "8.3.459.0" 
         out = { version: "2007", update: "SP3 Update Rollup 19" }
-      elsif owa_version == "8.3.468.0" #.32"
+      elsif owa_version == "8.3.465.0" 
+        out = { version: "2007", update: "SP3 Update Rollup 19",
+          note: "additional updates applied: #{owa_version}" }
+      elsif owa_version == "8.3.468.0" 
         out = { version: "2007", update: "SP3 Update Rollup 20" }
-      elsif owa_version == "8.4.485.1" #.32"
+      elsif owa_version == "8.3.485.1" 
         out = { version: "2007", update: "SP3 Update Rollup 21" }
-      elsif owa_version == "8.3.502.0" #.32"
+      elsif owa_version == "8.3.499.0" 
+        out = { version: "2007", update: "SP3 Update Rollup 21",
+          note: "additional updates applied: #{owa_version}" }        
+      elsif owa_version == "8.3.502.0" 
         out = { version: "2007", update: "SP3 Update Rollup 22" }
-      elsif owa_version == "8.3.517.0" #.32"
+      elsif owa_version == "8.3.516.0" 
+        out = { version: "2007", update: "SP3 Update Rollup 22",
+          note: "additional updates applied: #{owa_version}" }
+      elsif owa_version == "8.3.517.0" 
         out = { version: "2007", update: "SP3 Update Rollup 23" }
 
         # 2010
@@ -1210,7 +1228,7 @@ module Intrigue
       elsif owa_version == "14.3.513.0"
         out = { version: "2010", update: "SP3 Rollup 32" }
       # 2013
-      elsif owa_version == "15.0.516" #.32"
+      elsif owa_version == "15.0.516" 
           out = { version: "2013", update: "RTM" }
       elsif owa_version == "15.0.620" #.29"
         out = { version: "2013", update: "Cumulative Update 1" }
@@ -1218,7 +1236,7 @@ module Intrigue
         out = { version: "2013", update: "Cumulative Update 2" }
       elsif owa_version == "15.0.775" #.38"
         out = { version: "2013", update: "Cumulative Update 3" }
-      elsif owa_version == "15.0.847" #.32"
+      elsif owa_version == "15.0.847" 
         out = { version: "2013", update: "Cumulative Update 4" }
       elsif owa_version == "15.0.913" #.22"
         out = { version: "2013", update: "Cumulative Update 5" }
@@ -1270,7 +1288,7 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 2" }
       elsif owa_version == "15.1.466" || owa_version == "15.1.544"
         out = { version: "2016", update: "Cumulative Update 3" }
-      elsif owa_version == "15.1.669" #.32"
+      elsif owa_version == "15.1.669" 
         out = { version: "2016", update: "Cumulative Update 4" }
       elsif owa_version == "15.1.845" #.34"
         out = { version: "2016", update: "Cumulative Update 5" }
@@ -1292,20 +1310,20 @@ module Intrigue
         out = { version: "2016", update: "Cumulative Update 13" }
       elsif owa_version == "15.1.1847" || owa_version == "15.1.1847.3" #.01"
         out = { version: "2016", update: "Cumulative Update 14" }
-      elsif owa_version == "15.1.1913" #.01"
+      elsif owa_version == "15.1.1913" 
         out = { version: "2016", update: "Cumulative Update 15" }
-      elsif owa_version == "15.1.1986" #.01"
+      elsif owa_version == "15.1.1986" 
         out = { version: "2016", update: "Cumulative Update 15",
           note: "additional updates applied: #{owa_version}" }
-      elsif owa_version == "15.1.1979" #.01"
+      elsif owa_version == "15.1.1979" 
         out = { version: "2016", update: "Cumulative Update 16" }
-      elsif owa_version == "15.1.2044" #.01"
+      elsif owa_version == "15.1.2044" 
         out = { version: "2016", update: "Cumulative Update 17" }
-      elsif owa_version == "15.1.2106.2" #.01"
+      elsif owa_version == "15.1.2106" || owa_version == "15.1.2106.2"
         out = { version: "2016", update: "Cumulative Update 18" }
-      elsif owa_version == "15.1.2176" || owa_version == "15.1.2176.2" #.01" ? seen in wild
+      elsif owa_version == "15.1.2176" || owa_version == "15.1.2176.2"
         out = { version: "2016", update: "Cumulative Update 19" }
-      elsif owa_version == "15.1.2242.4"
+      elsif owa_version == "15.1.2242" || owa_version == "15.1.2242.4"
         out = { version: "2016", update: "Cumulative Update 20" }
 
 
@@ -1329,9 +1347,9 @@ module Intrigue
         out = { version: "2019", update: "Cumulative Update 6"}
       elsif owa_version == "15.2.721" ||  owa_version == "15.2.721.2" #
         out = { version: "2019", update: "Cumulative Update 7"}
-      elsif owa_version == "15.2.792.3" ||  owa_version == "15.2.792.3" #
+      elsif owa_version == "15.2.792" ||  owa_version == "15.2.792.3" #
         out = { version: "2019", update: "Cumulative Update 8"}
-      elsif owa_version == "15.2.858.5"
+      elsif owa_version == "15.2.858" || owa_version == "15.2.858.5"
         out = { version: "2019", update: "Cumulative Update 9"}
 
       # office 365
