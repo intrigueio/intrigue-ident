@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
     module Check
-      class SmartXFilter < Intrigue::Ident::Check::Base
+      class IDEATEC < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
