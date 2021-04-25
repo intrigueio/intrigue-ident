@@ -12,6 +12,7 @@ begin
   require 'net/http'
   require 'openssl'
   require 'zlib'
+  require 'ruby_smb'
 
   # integrate recog
   require_relative 'recog_wrapper'
