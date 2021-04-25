@@ -7,14 +7,8 @@ require_relative 'initialize/string'
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
 begin
-  # new http request lib
-  require 'typhoeus'
-  require 'net/http'
-  require 'openssl'
-  require 'zlib'
-  require 'ruby_smb'
-
   # integrate recog
+  require "recog"
   require_relative 'recog_wrapper'
 
   # favicon checksums
@@ -26,6 +20,28 @@ rescue RuntimeError => e
   # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
   puts "Unable to load dependency, functionality may be limited #{e}"
 end
+
+# only necessary for cases of acual checking. if ident is being
+# used as a library, we can skip this
+# 
+# Note that these are separated because they require native code
+# not ideal for the library use case. 
+begin
+  # new http request lib
+  require 'typhoeus'
+  require 'net/http'
+  require 'openssl'
+  require 'zlib'
+  require 'ruby_smb'
+rescue LoadError => e
+  # unable to load dependencies, presumable unavailable
+  puts "Unable to load dependency, functionality may be limited #{e}"
+rescue RuntimeError => e
+  # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
+  puts "Unable to load dependency, functionality may be limited #{e}"
+end
+
+
 
 # load in generic utils
 require_relative 'utils'
