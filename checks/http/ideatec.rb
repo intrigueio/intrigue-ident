@@ -35,7 +35,7 @@ module Intrigue
                 match_type: :content_headers,
                 match_content: %r{^via:.*SmartXFilter.*$}i,
                 dynamic_version: lambda { |x|
-                                   _first_header_capture(x, %r{via:.*SmartXFilter.*$}i)
+                                   _first_header_capture(x, %r{^via:.*SmartXFilter.*$}i)
                                  },
                 paths: [{ path: url.to_s, follow_redirects: true }],
                 inference: true

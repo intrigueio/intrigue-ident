@@ -15,9 +15,9 @@ module Intrigue
                 'https://www.tp-link.com/us/search/?q=tl-wr&t=product'
               ],
               match_type: :content_headers,
-              match_content: /^server: Router Webserver$/i,
+              match_content: %r{^server: Router Webserver$}i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, /^server: Router Webserver$/i)
+                                 _first_header_capture(x, %r{^server: Router Webserver$}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

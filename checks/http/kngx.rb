@@ -1,23 +1,23 @@
 module Intrigue
   module Ident
     module Check
-      class Cente < Intrigue::Ident::Check::Base
+      class KNGX < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Embedded],
-              vendor: 'Cente',
-              product: 'CenteHTTPd',
+              tags: %w[WebServer Embedded China],
+              vendor: 'KNGX',
+              product: 'KNGX',
               description: 'server header',
               references: [
-                'https://www.cente.jp/product/cente-middle/tcpip/app/httpdc/'
+                'https://segmentfault.com/q/1010000038917829'
               ],
               match_type: :content_headers,
-              match_content: %r{^server: CenteHTTPd\/.*$}i,
+              match_content: %r{^server: KNGX-.*$}i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, %r{^server: CenteHTTPd\/(.*)$}i)
+                                 _first_header_capture(x, %r{^server: KNGX-(.*)$}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
