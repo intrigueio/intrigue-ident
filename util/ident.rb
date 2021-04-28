@@ -34,6 +34,10 @@ def main
       o.bool '-d', '--debug', 'enable debug mode'
       o.bool '-l', '--list', 'list all checks'
 
+      o.bool '-n', '--noisy', 'noisy fingerprinting.'
+
+      o.string '-ft', '--filter-by-tags', 'filters by tags. ex -ft "saas,iot"'
+
       o.on '-h', '--help' do
         print o
         exit
@@ -52,8 +56,14 @@ def main
   # convert to a hash
   opts = opts.to_hash
 
+  opts[:filter_by_tags] = opts[:filter_by_tags].to_s.split(',')
+
+  p opts[:filter_by_tags]
   # set json as a variable
   @json = opts[:json] if opts[:json]
+
+  # set noisy as a variable
+  @noisy = opts[:noisy] if opts[:noisy]
 
   # set debug as a variable
   @debug = opts[:debug] if opts[:debug]
@@ -210,9 +220,12 @@ def check_single_uri(opts)
 
   if uri = opts[:uri]
     if uri =~ %r{^https?://.*$}
-      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri)
+      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri, opts)
       if @debug
-        print_debug "Ran #{check_result['initial_checks'].first['count']} initial checks against base URL"
+
+        unless check_result['initial_checks'].empty?
+          print_debug "Ran #{check_result['initial_checks'].first['count']} initial checks against base URL"
+        end
         unless check_result['followon_checks'].empty?
           print_debug 'Also checked the following urls due to initial fingerprint:'
           check_result['followon_checks'].each { |x| print_debug " - #{x['url']}\n" }
