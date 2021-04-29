@@ -212,7 +212,10 @@ module Check
           tags: ["WebServer", "Hosting", "SaaS"],
           vendor: "Google",
           product:"Video Server",
-          description:"Google video server header",
+          description:"server header",
+          references: [
+            'https://stackoverflow.com/questions/3302384/youtubes-hd-video-streaming-server-technology'
+          ],
           version: nil,
           match_type: :content_headers,
           match_content:  %r{^server: gvs .*$}i,

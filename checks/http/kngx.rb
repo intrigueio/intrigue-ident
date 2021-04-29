@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Embedded China],
+              tags: %w[WebServer Embedded],
               vendor: 'KNGX',
               product: 'KNGX',
               description: 'server header',

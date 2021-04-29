@@ -27,6 +27,9 @@ module Intrigue
               tags: ['IoT'],
               vendor: 'HikVision',
               product: 'Camera',
+              references: [
+                'https://www.hikvision.com/en/products/'
+              ],
               version: nil,
               match_type: :content_headers,
               match_content: %r{^server: App-webs\/$}i,
