@@ -1,3 +1,3 @@
 module Ident
-  VERSION = "5.1.1"
+  VERSION = "5.1.5"
 end
