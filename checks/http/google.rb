@@ -206,6 +206,25 @@ module Check
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
         },
+        {
+          type: "fingerprint",
+          category: "application",
+          tags: ["WebServer", "Hosting", "SaaS"],
+          vendor: "Google",
+          product:"Video Server",
+          description:"server header",
+          references: [
+            'https://stackoverflow.com/questions/3302384/youtubes-hd-video-streaming-server-technology'
+          ],
+          version: nil,
+          match_type: :content_headers,
+          match_content:  %r{^server: gvs .*$}i,
+          dynamic_version: lambda { |x|
+            _first_header_capture(x, %r{^server: gvs (.*)$}i)
+          },
+          paths: [ { path: "#{url}", follow_redirects: true } ],
+          inference: false
+        },
         # Currently match_content too loose, also no point in inference if we dont' have a versions
         #{
         #  type: "fingerprint",
