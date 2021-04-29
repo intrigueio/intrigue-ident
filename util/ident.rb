@@ -58,7 +58,6 @@ def main
 
   opts[:filter_by_tags] = opts[:filter_by_tags].to_s.split(',')
 
-  p opts[:filter_by_tags]
   # set json as a variable
   @json = opts[:json] if opts[:json]
 
