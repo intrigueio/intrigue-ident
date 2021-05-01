@@ -172,7 +172,7 @@ def check_uris_from_file(opts)
           print_debug "#{thread_name} checking: #{x}"
 
           # check_result = generate_http_requests_and_check(x, opts)
-          check_result = ident_obj.fingerprint_uri(x)
+          check_result = ident_obj.fingerprint_uri(x,opts)
 
           out = {}
           out['url'] = check_result['url']
@@ -233,7 +233,7 @@ def check_single_uri(opts)
     else # not http
       parsed_uri = URI(uri)
       print_debug "Checking ... #{parsed_uri}"
-      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri)
+      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri, opts)
     end
 
     unless check_result

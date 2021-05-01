@@ -5,7 +5,7 @@ module Intrigue
         include Intrigue::Ident::BannerHelpers
 
         def self.inherited(base)
-          Intrigue::Ident::Smb::CheckFactory.register(base)
+          Intrigue::Ident::CheckFactory::BaseCheckFactory.register(base)
         end
 
         def _protocol_capture(content, regex, filter = [])

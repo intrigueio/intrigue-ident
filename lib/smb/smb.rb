@@ -4,7 +4,7 @@ module Intrigue
       include Intrigue::Ident::SimpleSocket
 
       # gives us the recog Smb matchers
-      def generate_smb_request_and_check(ip, port = 445, _debug = false)
+      def generate_smb_request_and_check(ip, port = 445, opts = {})
         # do the request (store as string and funky format bc of usage in core.. and  json conversions)
         response_hash = grab_response_smb(ip, port)
         details = {
@@ -13,16 +13,20 @@ module Intrigue
         results = []
 
         # generate the checks
-        checks = []
-        unless Intrigue::Ident::Smb::CheckFactory.checks.nil?
-          checks = Intrigue::Ident::Smb::CheckFactory.checks.map do |x|
-            x.new.generate_checks
-          end.compact.flatten
-        end
-        # and run them against our result
+
+        checks = Intrigue::Ident::CheckFactory::BaseCheckFactory.generate_initial_checks(opts)
+
         checks.each do |check|
           results << match_smb_response_hash(check, details)
         end
+
+        extra_checks = Intrigue::Ident::CheckFactory::BaseCheckFactory.build_check_list(results.compact.flatten, opts)
+        # and run them against our result
+
+        extra_checks.each do |check|
+          results << match_smb_response_hash(check, details)
+        end
+
         { 'fingerprint' => results.uniq.compact, 'response' => response_hash, 'content' => [] }
       end
 

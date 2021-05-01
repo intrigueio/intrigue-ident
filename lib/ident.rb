@@ -8,7 +8,7 @@ require_relative 'initialize/string'
 # used as a library, we can skip this
 begin
   # integrate recog
-  require "recog"
+  require 'recog'
   require_relative 'recog_wrapper'
 
   # favicon checksums
@@ -23,9 +23,9 @@ end
 
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
-# 
+#
 # Note that these are separated because they require native code
-# not ideal for the library use case. 
+# not ideal for the library use case.
 begin
   # new http request lib
   require 'typhoeus'
@@ -40,8 +40,6 @@ rescue RuntimeError => e
   # unable to load dependencies, presumable unavailable (Typheous throws a runtime error)
   puts "Unable to load dependency, functionality may be limited #{e}"
 end
-
-
 
 # load in generic utils
 require_relative 'utils'
@@ -86,6 +84,15 @@ require_relative 'simple_socket'
 require_relative 'banner_helpers'
 require_relative 'error_helpers'
 require_relative 'mongodb_connection_helper'
+
+##################################
+# Load in Factory matchers and checks
+###################################
+# require_relative 'http/matchers'
+
+# include Intrigue::Ident::Http::Matchers
+
+require_relative '../lib/base_check_factory'
 
 ##################################
 # Load in dns matchers and checks
@@ -266,6 +273,7 @@ require_relative 'smb/check_factory'
 require_relative '../checks/smb/base'
 
 # smb fingerprints
+
 check_folder = File.expand_path('../checks/smb', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
@@ -406,7 +414,8 @@ module Intrigue
         end
 
         if port == 139 || port == 445 || port =~ /^\d+(139|445)$/
-          ident_matches = generate_smb_request_and_check(ip_address_or_hostname, port) || {}
+
+          ident_matches = generate_smb_request_and_check(ip_address_or_hostname, port, opts) || {}
         end
 
         if port == 2083 || port =~ /^\d+2083$/

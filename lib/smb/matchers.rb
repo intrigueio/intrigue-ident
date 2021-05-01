@@ -4,7 +4,7 @@ module Intrigue
       module Matchers
         require_relative 'smb'
         include Intrigue::Ident::Smb
-
+        
         require_relative 'content'
         include Intrigue::Ident::Smb::Content
 

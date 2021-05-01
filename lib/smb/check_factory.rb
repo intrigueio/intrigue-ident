@@ -5,17 +5,22 @@ module Intrigue
         #
         # Register a new handler
         #
-        def self.register(klass)
-          @checks ||= []
-          @checks << klass if klass
+
+        def self.inherited(base)
+          Intrigue::Ident::Base::CheckFactory.register(base)
         end
 
-        #
-        # Provide the full list of checks
-        #
-        def self.checks
-          @checks || []
-        end
+        # def self.register(klass)
+        #   @checks ||= []
+        #   @checks << klass if klass
+        # end
+
+        # #
+        # # Provide the full list of checks
+        # #
+        # def self.checks
+        #   @checks || []
+        # end
       end
     end
   end
