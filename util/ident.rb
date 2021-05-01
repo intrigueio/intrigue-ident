@@ -36,7 +36,7 @@ def main
 
       o.bool '-n', '--noisy', 'noisy fingerprinting.'
 
-      o.string '-w', '--checks-with-tag', 'filters by tags. ex -ft "saas,iot"'
+      o.string '-w', '--checks-with-tag', 'filters by tags. ex -w "saas,iot"'
 
       o.on '-h', '--help' do
         print o
