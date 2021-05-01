@@ -20,7 +20,7 @@ module Intrigue
                                  _first_header_capture(x, %r{^server: Router Webserver$}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: true
+              inference: false
             }
           ]
         end
