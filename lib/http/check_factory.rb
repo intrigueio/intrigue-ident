@@ -45,7 +45,6 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
           checks_to_return.select do |x|
             x[:require_vendor] == vendor.to_s
           end
@@ -60,7 +59,6 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
           checks_to_return.select do |x|
             x[:require_product] == product.to_s
           end
@@ -75,7 +73,6 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
           checks_to_return.select do |x|
             x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(' ', '_')
           end
