@@ -1,55 +1,55 @@
 module Intrigue
-module Ident
-module Check
-class Lotus < Intrigue::Ident::Check::Base
+  module Ident
+    module Check
+      class Lotus < Intrigue::Ident::Check::Base
+        def generate_checks(url)
+          [
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[COTS Administrative],
+              vendor: 'Lotus',
+              product: 'Domino',
+              website: 'https://www.hcltechsw.com/wps/portal/products/domino',
+              description: 'Lotus Domino',
+              match_type: :content_headers,
+              version: nil,
+              match_content: /server: Lotus-Domino/i,
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[COTS Administrative],
+              vendor: 'Lotus',
+              product: 'Domino',
+              website: 'https://www.hcltechsw.com/wps/portal/products/domino',
+              description: 'Lotus Domino',
+              match_type: :content_body,
+              version: nil,
+              match_content: %r{homepage.nsf/homePage\.gif\?OpenImageResource}i,
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[COTS Administrative],
+              vendor: 'Lotus',
+              product: 'Domino',
+              website: 'https://www.hcltechsw.com/wps/portal/products/domino',
+              description: 'Lotus Domino',
+              match_type: :content_body,
+              version: nil,
+              match_content: /Notes Client/i,
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            }
 
-  def generate_checks(url)
-    [
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["COTS", "Administrative"],
-        vendor: "Lotus",
-        product:"Domino",
-        description:"Lotus Domino",
-        match_type: :content_headers,
-        version: nil,
-        match_content:  /server: Lotus-Domino/i,
-        paths: [ { path: "#{url}", follow_redirects: true } ], 
-        inference: false
-      },
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["COTS", "Administrative"],
-        vendor: "Lotus",
-        product:"Domino",
-        description:"Lotus Domino",
-        match_type: :content_body,
-        version: nil,
-        match_content: /homepage.nsf\/homePage\.gif\?OpenImageResource/i,
-        paths: [ { path: "#{url}", follow_redirects: true } ], 
-        inference: false
-      },
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["COTS", "Administrative"],
-        vendor: "Lotus",
-        product:"Domino",
-        description:"Lotus Domino",
-        match_type: :content_body,
-        version: nil,
-        match_content:  /Notes Client/i,
-        paths: [ { path: "#{url}", follow_redirects: true } ], 
-        inference: false
-      }
-
-      
-    ]
+          ]
+        end
+      end
+    end
   end
-
-end
-end
-end
 end
