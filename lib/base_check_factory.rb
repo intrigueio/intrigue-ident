@@ -106,10 +106,10 @@ module Intrigue
         end
 
         def self.filter_by_tags(checks, opts)
-          unless opts[:filter_by_tags].empty?
+          unless opts[:checks_with_tag].empty?
             checks = checks.reject { |x| x[:tags].nil? }
             checks = checks.reject do |x|
-              (x[:tags].map(&:upcase) & opts[:filter_by_tags].map(&:upcase)).empty?
+              (x[:tags].map(&:upcase) & opts[:checks_with_tag].map(&:upcase)).empty?
             end
           end
           checks
