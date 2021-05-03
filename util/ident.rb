@@ -36,7 +36,7 @@ def main
 
       o.bool '-n', '--noisy', 'noisy fingerprinting.'
 
-      o.string '-ft', '--filter-by-tags', 'filters by tags. ex -ft "saas,iot"'
+      o.string '-w', '--checks-with-tag', 'filters by tags. ex -w "saas,iot"'
 
       o.on '-h', '--help' do
         print o
@@ -56,7 +56,7 @@ def main
   # convert to a hash
   opts = opts.to_hash
 
-  opts[:filter_by_tags] = opts[:filter_by_tags].to_s.split(',')
+  opts[:checks_with_tag] = opts[:checks_with_tag].to_s.split(',')
 
   # set json as a variable
   @json = opts[:json] if opts[:json]

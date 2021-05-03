@@ -1,43 +1,29 @@
 module Intrigue
-module Ident
-module Check
-class LimelightNetworks < Intrigue::Ident::Check::Base
-
-  def generate_checks(url)
-    [
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["WebServer","CDN"],
-        vendor: "Limelight Networks",
-        product:"Edgeprism",
-        description:"server header",
-        version: nil,
-        match_type: :content_headers,
-        match_content:  /server: EdgePrism.*/i,
-        dynamic_version: lambda { |x|
-          _first_header_capture(x,/server: EdgePrism\/(.*)/i,)
-        },
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: true
-      },
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["CDN"],
-        vendor: "Limelight Networks",
-        product:"Limelight Networks",
-        description:"server header",
-        version: nil,
-        match_type: :content_headers,
-        match_content:  /server: EdgePrism.*/i,
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: false
-      }
-    ]
+  module Ident
+    module Check
+      class LimelightNetworks < Intrigue::Ident::Check::Base
+        def generate_checks(url)
+          [
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[WebServer CDN],
+              vendor: 'Limelight Networks',
+              product: 'Edgeprism',
+              website: 'https://www.limelight.com/',
+              description: 'Limelight Networks Edgeprism - Server Header',
+              version: nil,
+              match_type: :content_headers,
+              match_content: /server: EdgePrism.*/i,
+              dynamic_version: lambda { |x|
+                _first_header_capture(x, %r{server: EdgePrism/(.*)}i)
+              },
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: true
+            }
+          ]
+        end
+      end
+    end
   end
-  
-end
-end
-end
 end
