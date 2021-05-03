@@ -1,5 +1,3 @@
-require "recog"
-
 module Intrigue
   module Ident
     module RecogWrapper

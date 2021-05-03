@@ -52,6 +52,30 @@ class Sonicwall < Intrigue::Ident::Check::Base
         match_content:  /server: SonicWALL$/i,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true
+      }, 
+      {
+        type: "fingerprint",
+        category: "application",
+        tags: ["COTS","Networking","Security", "Email"],
+        vendor: "Sonicwall",
+        product: "Email Security Appliance",
+        description: "Content in response body",
+        match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /<div id='loginCustomText'/i
+            },
+            {
+              match_type: :content_body,
+              match_content: /<td class=\"logonTitle\">Email Security Login<\/td>/i
+            }
+          ],
+        paths: [ { path: "#{url}/index.html", follow_redirects: true } ],
+        dynamic_version: lambda { |x|
+          _first_body_capture(x,/<div class=\"lefthand\">(.*)<\/div>/i)
+        },
+        inference: true
       }
 
     ]

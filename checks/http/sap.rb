@@ -136,7 +136,7 @@ module Intrigue
                 "https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/sap/sap_soap_rfc_pfl_check_os_file_existence.rb",
               ],
               match_type: :content_cookies,
-              match_content: /sap-usercontext=sap-language=/i,
+              match_content: /sap-usercontext=/i,
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },

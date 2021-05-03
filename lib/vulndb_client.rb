@@ -10,7 +10,7 @@ class Client
   
     begin
       # api uri
-      uri = "https://app.intrigue.io/api/vulndb/match_cpe/#{cpe_string}?key=#{api_key}"
+      uri = "https://api.intrigue.io/api/vulndb/match_cpe/#{cpe_string}?key=#{api_key}"
 
       # go query the api
       response = ident_http_request :get, uri
