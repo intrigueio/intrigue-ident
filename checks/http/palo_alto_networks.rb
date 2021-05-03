@@ -1,80 +1,80 @@
 require 'time'
 
 module Intrigue
-module Ident
-module Check
-class PaloAltoNetworks < Intrigue::Ident::Check::Base
+  module Ident
+    module Check
+      class PaloAltoNetworks < Intrigue::Ident::Check::Base
+        def generate_checks(uri)
+          [
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[Networking VPN Firewall],
+              vendor: 'PaloAltoNetworks',
+              product: 'GlobalProtect',
+              website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
+              description: 'login page string',
+              version: nil,
+              match_type: :content_body,
+              match_content: %r{global-protect/login.esp}i,
+              paths: [{ path: uri.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: %w[Networking VPN Firewall],
+              vendor: 'PaloAltoNetworks',
+              product: 'GlobalProtect',
+              website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
+              description: 'getting last-modified header',
+              version: nil,
+              match_type: :content_headers,
+              match_content: /Last-Modified/i,
+              require_product: 'GlobalProtect',
+              paths: [
+                { path: "#{uri}/global-protect/login.esp", follow_redirects: false },
+                { path: "#{uri}/global-protect/portal/css/login.css", follow_redirects: true },
+                { path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
+                { path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
+                { path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
+                { path: "#{uri}/js/Pan.js", follow_redirects: true }
+              ],
+              # require_product: "GlobalProtect",
+              dynamic_version: lambda { |x|
+                                 date_string = _first_header_capture(x, /Last-Modified:\ (.*)$/i)
+                                 version, approximate = get_pan_version_from_date(date_string) if date_string
+                                 version
+                               },
+              inference: true
+            }
+          ]
+        end
 
-  def generate_checks(uri)
-    [
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["Networking", "VPN", "Firewall"],
-        vendor: "PaloAltoNetworks",
-        product:"GlobalProtect",
-        description: "login page string",
-        version: nil,
-        match_type: :content_body,
-        match_content:  /global-protect\/login.esp/i,
-        paths: [ { path: "#{uri}", follow_redirects: true } ],
-        inference: false
-      },
-      {
-        type: "fingerprint",
-        category: "application",
-        tags: ["Networking", "VPN", "Firewall"],
-        vendor: "PaloAltoNetworks",
-        product:"GlobalProtect", 
-        description:"getting last-modified header",
-        version: nil,
-        match_type: :content_headers,
-        match_content: /Last-Modified/i,
-        require_product: "GlobalProtect",
-        paths: [
-          { path: "#{uri}/global-protect/login.esp", follow_redirects: false },
-          { path: "#{uri}/global-protect/portal/css/login.css", follow_redirects: true },
-          { path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
-          { path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
-          { path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
-          { path: "#{uri}/js/Pan.js", follow_redirects: true }
-        ],
-        #require_product: "GlobalProtect",
-        dynamic_version: lambda { |x|
-          date_string = _first_header_capture(x,/Last-Modified:\ (.*)$/i)
-          version, approximate = get_pan_version_from_date(date_string) if date_string
-        version },
-        inference: true
-      }
-    ]
-  end
+        def get_pan_version_from_date(date_string)
+          # parse our date string
+          begin
+            our_date = Time.parse(date_string)
+            our_date = Time.new(our_date.year, our_date.month, our_date.day, 0, 0, 0, our_date.zone)
+          rescue ArgumentError => e
+            return ['Unknown-Invalid-Version', true]
+          end
 
-  
-  def get_pan_version_from_date(date_string)
-    
-    # parse our date string
-    begin 
-      our_date = Time.parse(date_string)
-      our_date = Time.new(our_date.year, our_date.month, our_date.day, 0, 0, 0, our_date.zone)
-    rescue ArgumentError => e
-      return ["Unknown-Invalid-Version", true]
-    end    
-    
-    # get the first date that's higher or equiv
-    matching_key = pan_version_table.keys.sort.select{|x| x >= our_date }.first
-    
-    if matching_key 
-      version = pan_version_table[matching_key]
-      approximate = (matching_key > our_date) ? true : false
-    else
-      return ["Unknown-Recent-Version", true]
-    end
+          # get the first date that's higher or equiv
+          matching_key = pan_version_table.keys.sort.select { |x| x >= our_date }.first
 
-  [version, approximate]
-  end
+          if matching_key
+            version = pan_version_table[matching_key]
+            approximate = matching_key > our_date
+          else
+            return ['Unknown-Recent-Version', true]
+          end
 
-  def pan_version_table
-    data = '6.0.0,Dec,23,2013
+          [version, approximate]
+        end
+
+        def pan_version_table
+          data = '6.0.0,Dec,23,2013
     6.0.1,Feb,26,2014
     6.0.2,Apr,18,2014
     6.0.3,May,29,2014
@@ -242,16 +242,15 @@ class PaloAltoNetworks < Intrigue::Ident::Check::Base
     10.0.1,Aug,28,2020
     10.0.2,Oct,27,2020
     10.0.3,Dec,7,2020'
-    out = {} 
-    data.split("\n").each do |item|
-      item = item.split(",")
-      date = Time.parse("#{item[1]},#{item[2]},#{item[3]}")
-      out[date] = item[0].strip
+          out = {}
+          data.split("\n").each do |item|
+            item = item.split(',')
+            date = Time.parse("#{item[1]},#{item[2]},#{item[3]}")
+            out[date] = item[0].strip
+          end
+          out
+        end
+      end
     end
-  out
   end
-
-end
-end
-end
 end

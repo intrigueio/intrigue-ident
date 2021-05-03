@@ -12,6 +12,7 @@ class Dell < Intrigue::Ident::Check::Base
         vendor: "Dell",
         product: "Dell SonicWALL Secure Mobile Access SMA",
         references: ["https://www.sonicwall.com/products/remote-access/remote-access-appliances/"],
+        description: "Dell Dell SonicWALL Secure Mobile Access SMA - Server Header",
         version: nil,
         match_type: :content_headers,
         match_content:  /^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i,

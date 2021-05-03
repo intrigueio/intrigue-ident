@@ -6,61 +6,62 @@ module Intrigue
           def generate_checks(url)
             [
               {
-                type: "fingerprint",
-                category: "application",
-                tags: ["Cloud", "WAF"],
-                vendor: "Zyxel",
-                product: "ZyWALL Business Firewall",
-                website: "https://www.zyxel.com/uk/en/products_services/Business-Firewall-ZyWALL-110-310-1100/",
-                description: "Zyxel ZyWALL Business Firewall - zy_pc_browser Cookie Match",
+                type: 'fingerprint',
+                category: 'application',
+                tags: %w[Cloud WAF],
+                vendor: 'Zyxel',
+                product: 'ZyWALL Business Firewall',
+                website: 'https://www.zyxel.com/uk/en/products_services/Business-Firewall-ZyWALL-110-310-1100/',
+                description: 'Zyxel ZyWALL Business Firewall - zy_pc_browser Cookie Match',
                 version: nil,
                 match_type: :content_cookies,
                 match_content: /zy_pc_browser=/i,
                 hide: false,
-                paths: [{ path: "#{url}", follow_redirects: true }],
-                inference: false,
+                paths: [{ path: url.to_s, follow_redirects: true }],
+                inference: false
               },
               {
-                type: "fingerprint",
-                category: "application",
-                tags: ["Cloud", "Panel"],
-                vendor: "Zyxel",
-                product: "Zyxel",
-                website: "https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s",
-                description: "Zyxel Login Panel Match",
+                type: 'fingerprint',
+                category: 'application',
+                tags: %w[Cloud Panel],
+                vendor: 'Zyxel',
+                product: 'Zyxel',
+                website: 'https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s',
+                description: 'Zyxel Login Panel Match',
                 version: nil,
                 match_type: :content_body,
                 match_content: /fix_cmsg_cont()/,
                 hide: false,
-                paths: [{ path: "#{url}", follow_redirects: true }],
-                inference: false,
+                paths: [{ path: url.to_s, follow_redirects: true }],
+                inference: false
               },
               {
-                type: "fingerprint",
-                category: "application",
-                tags: ["Appliance"],
-                vendor: "Zyxel",
+                type: 'fingerprint',
+                category: 'application',
+                tags: ['Appliance'],
+                vendor: 'Zyxel',
+                product: 'Zyxel',
                 dynamic_product: lambda { |x|
-                  _first_body_capture(x, /<title>(.*)<\/title>/i)
+                  _first_body_capture(x, %r{<title>(.*)</title>}i)
                 },
-                website: "https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s",
-                description: "Zyxel Product Match",
+                website: 'https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s',
+                description: 'Zyxel Product Match',
                 version: nil,
                 match_type: :content_body,
                 match_content: /fix_cmsg_cont()/,
                 hide: false,
-                paths: [{ path: "#{url}", follow_redirects: true }],
+                paths: [{ path: url.to_s, follow_redirects: true }],
                 inference: false,
-                require_vendor: "Zyxel"
+                require_vendor: 'Zyxel'
               },
               {
-                type: "fingerprint",
-                category: "application",
-                tags: ["Appliance"],
-                vendor: "Zyxel",
-                website: "https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s",
-                description: "Zyxel Javascript Product Specification",
-                product: "Zyxel",
+                type: 'fingerprint',
+                category: 'application',
+                tags: ['Appliance'],
+                vendor: 'Zyxel',
+                website: 'https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s',
+                description: 'Zyxel Javascript Product Specification',
+                product: 'Zyxel',
                 dynamic_product: lambda { |x|
                   _first_body_capture(x, /ZLDSYSPARM_PRODUCT_NAME1="(.*)"/i)
                 },
@@ -69,7 +70,7 @@ module Intrigue
                 hide: false,
                 paths: [{ path: "#{url}/ext-js/app/common/zld_product_spec.js", follow_redirects: true }],
                 inference: false,
-                require_vendor: "Zyxel"
+                require_vendor: 'Zyxel'
               }
             ]
           end
