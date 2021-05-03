@@ -1,20 +1,20 @@
 module Intrigue
   module Ident
     module Check
-      class Xtermjs < Intrigue::Ident::Check::Base
+      class Dokuwiki < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Javascript Development],
-              website: 'https://xtermjs.org/',
-              vendor: 'Xtermjs',
-              product: 'Xterm.js',
-              description: 'include string',
+              tags: ['CMS'],
+              vendor: 'Dokuwiki',
+              product: 'Dokuwiki',
+              website: 'https://www.dokuwiki.org/',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{termjs:\ 'components/xterm\.js/xterm}i,
+              match_type: :content_headers,
+              match_content: /DokuWiki=/,
+              description: 'Dokuwiki - DokuWiki cookie',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }
