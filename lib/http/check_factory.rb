@@ -45,14 +45,9 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
-          unless opts[:noisy]
-            checks_to_return = checks_to_return.select do |x|
-              x[:require_vendor] == vendor.to_s
-            end
+          checks_to_return.select do |x|
+            x[:require_vendor] == vendor.to_s
           end
-
-          checks_to_return
         end
 
         #
@@ -64,14 +59,9 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
-          unless opts[:noisy]
-            checks_to_return = checks_to_return.select do |x|
-              x[:require_product] == product.to_s
-            end
+          checks_to_return.select do |x|
+            x[:require_product] == product.to_s
           end
-
-          checks_to_return
         end
 
         #
@@ -83,21 +73,16 @@ module Intrigue
           # if tags were provided, filter by them
           checks_to_return = filter_by_tags(checks_to_return, opts)
 
-          # if we're not in noisy mode, filter checks that have require_* conditions
-          unless opts[:noisy]
-            checks_to_return = checks_to_return.select do |x|
-              x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(' ', '_')
-            end
+          checks_to_return.select do |x|
+            x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(' ', '_')
           end
-
-          checks_to_return
         end
 
         def self.filter_by_tags(checks, opts)
-          unless opts[:filter_by_tags].empty?
+          unless opts[:checks_with_tag].empty?
             checks = checks.reject { |x| x[:tags].nil? }
             checks = checks.reject do |x|
-              (x[:tags].map(&:upcase) & opts[:filter_by_tags].map(&:upcase)).empty?
+              (x[:tags].map(&:upcase) & opts[:checks_with_tag].map(&:upcase)).empty?
             end
           end
           checks

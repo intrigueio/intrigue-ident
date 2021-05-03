@@ -44,7 +44,7 @@ module Intrigue
         begin
           redis = ::Redis.new(host: ip, port: port, timeout: timeout)
           out = redis.info
-        rescue Redis::TimeoutError => e
+        rescue ::Redis::TimeoutError => e
         end
         out
       end

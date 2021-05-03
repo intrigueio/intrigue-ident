@@ -10,8 +10,9 @@ module Intrigue
               tags: ['WebServer'],
               vendor: 'Cherokee-Project',
               product: 'Cherokee',
-              references: ['https://cherokee-project.com/'],
+              website: 'https://cherokee-project.com/',
               version: nil,
+              description: 'Cherokee - Server Header',
               match_type: :content_headers,
               match_content: %r{^server:\ Cherokee/{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$}i,
               dynamic_version: lambda { |x|
