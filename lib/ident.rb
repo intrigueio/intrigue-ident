@@ -403,7 +403,13 @@ module Intrigue
           ident_matches = generate_snmp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {} if port == 22 || port =~ /^\d+22$/
+        if port == 22 || port =~ /^\d+22$/
+          ident_matches = generate_ssh_request_and_check(
+            ip_address_or_hostname,
+            port,
+            opts
+          ) || {}
+        end
 
         if port == 23 || port =~ /^\d+23$/
           ident_matches = generate_telnet_request_and_check(ip_address_or_hostname) || {}
