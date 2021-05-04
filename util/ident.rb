@@ -34,9 +34,9 @@ def main
       o.bool '-d', '--debug', 'enable debug mode'
       o.bool '-l', '--list', 'list all checks'
 
-      o.bool '-n', '--noisy', 'noisy fingerprinting.'
+      o.bool '-n', '--noisy', 'checks all known paths for fingerprints.'
 
-      o.string '-w', '--checks-with-tag', 'filters by tags. ex -w "saas,iot"'
+      o.string '-w', '--checks-with-tag', 'filters by tags. ex -w "saas,iot" (combine with -n to check all known paths)'
 
       o.on '-h', '--help' do
         print o
