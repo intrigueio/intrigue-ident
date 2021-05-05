@@ -32,6 +32,7 @@ module Intrigue
                 'https://www.hikvision.com/en/products/'
               ],
               version: nil,
+              description: 'server header',
               match_type: :content_headers,
               match_content: %r{^server: App-webs\/$}i,
               dynamic_version: lambda { |x|
