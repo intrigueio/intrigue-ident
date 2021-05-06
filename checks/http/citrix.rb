@@ -306,7 +306,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'application',
               vendor: 'Citrix',
-              tags: %w[Networking COTS Fileserver],
+              tags: %w[Networking COTS ApplicationServer],
               product: 'ShareFile',
               website: 'https://www.sharefile.com/',
               description: 'page title',

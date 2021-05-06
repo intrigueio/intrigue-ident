@@ -16,10 +16,10 @@ module Intrigue
               ],
               version: nil,
               match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ABAP \d+}i,
+              match_content: %r{server: SAP NetWeaver ApplicationServer [\d.\s]*/ ABAP \d+}i,
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
-                                                       %r{server: SAP NetWeaver Application Server [\d.\s]*/ ABAP (\d+)}i)
+                                                       %r{server: SAP NetWeaver ApplicationServer [\d.\s]*/ ABAP (\d+)}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -36,10 +36,10 @@ module Intrigue
               ],
               version: nil,
               match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ICM [\d.]+}i,
+              match_content: %r{server: SAP NetWeaver ApplicationServer [\d.\s]*/ ICM [\d.]+}i,
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
-                                                       %r{server: SAP NetWeaver Application Server [\d.\s]*/ ICM ([\d.]+)}i)
+                                                       %r{server: SAP NetWeaver ApplicationServer [\d.\s]*/ ICM ([\d.]+)}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -70,16 +70,16 @@ module Intrigue
               version: nil,
               references: [''],
               match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server/i,
-              # SAP NetWeaver Application Server 7.53
-              dynamic_version: ->(x) { _first_header_capture(x, /SAP NetWeaver Application Server ([\d.]+)/i) },
+              match_content: /SAP NetWeaver ApplicationServer/i,
+              # SAP NetWeaver ApplicationServer 7.53
+              dynamic_version: ->(x) { _first_header_capture(x, /SAP NetWeaver ApplicationServer ([\d.]+)/i) },
               paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
               inference: false
             },
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'saplb cookie',
@@ -93,7 +93,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'portalalias cookie',
@@ -107,7 +107,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'com.sap.engine.security.authentication.original_application_url cookie',
@@ -122,7 +122,7 @@ module Intrigue
               type: 'fingerprint',
               require_product: 'NetWeaver',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'LM Configuration Wizard detection',
@@ -136,7 +136,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'cookie',
@@ -153,7 +153,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'cookie',
@@ -167,21 +167,21 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'title',
               version: nil,
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
               match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server Java/i,
+              match_content: /SAP NetWeaver ApplicationServer Java/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               description: 'title',
@@ -195,16 +195,16 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
               version: nil,
               description: 'server header',
               match_type: :content_headers,
-              match_content: /^server: SAP NetWeaver Application Server/i,
+              match_content: /^server: SAP NetWeaver ApplicationServer/i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, /^server: SAP NetWeaver Application Server (\d+(\.\d+)*)/i)
+                                 _first_header_capture(x, /^server: SAP NetWeaver ApplicationServer (\d+(\.\d+)*)/i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -212,7 +212,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'NetWeaver',
               version: nil,
@@ -228,7 +228,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'XSEngine',
               references: ['https://help.sap.com/viewer/6b94445c94ae495c83a19646e7c3fd56/2.0.04/en-US/e8b56a8a904a4a9d9bfa7fa76aec5674.html'],
@@ -242,7 +242,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'Solution Manager',
               website: 'https://support.sap.com/en/alm/solution-manager.html',
@@ -256,7 +256,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'Solution Manager',
               website: 'https://support.sap.com/en/alm/solution-manager.html',
@@ -270,7 +270,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'Focused Run',
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',
@@ -284,7 +284,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'SAP',
               product: 'Focused Run',
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',

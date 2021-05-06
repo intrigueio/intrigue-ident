@@ -73,7 +73,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'RedHat',
               product: 'JBoss Core Services',
               references: ['https://www.redhat.com/en/resources/jboss-core-services-collection-datasheet'],
@@ -91,7 +91,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'RedHat',
               product: 'JBoss Enterprise Application Platform',
               website: 'https://www.redhat.com/en/technologies/jboss-middleware/application-platform',
@@ -109,7 +109,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'RedHat',
               product: 'JBoss Enterprise Application Platform',
               description: 'powered by header',

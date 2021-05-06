@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'Skrollr',
               product: 'Skrollr',
               website: 'https://github.com/Prinzhorn/skrollr',

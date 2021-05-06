@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Pardot',
               product: 'Pardot',
               website: 'https://www.pardot.com/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Pardot',
               product: 'Pardot',
               website: 'https://www.pardot.com/',

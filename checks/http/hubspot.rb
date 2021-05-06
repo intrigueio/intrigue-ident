@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Hubspot',
               product: 'Analytics',
               website: 'https://www.hubspot.com/products/marketing/analytics',
@@ -67,7 +67,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Hubspot',
               product: 'Template Builder',
               references: [

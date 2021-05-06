@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Google',
               product: 'Analytics',
               website: 'https://analytics.google.com/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Google',
               product: 'Analytics',
               website: 'https://analytics.google.com/',
@@ -35,7 +35,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Frontend Javascript],
+              tags: %w[Frontend JavaScript],
               vendor: 'Google',
               product: 'AngularJS',
               website: 'https://angularjs.org/',
@@ -49,7 +49,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Frontend Javascript],
+              tags: %w[Frontend JavaScript],
               vendor: 'Google',
               product: 'AngularJS',
               website: 'https://angularjs.org/',
@@ -63,7 +63,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Frontend Javascript],
+              tags: %w[Frontend JavaScript],
               vendor: 'Google',
               product: 'AngularJS',
               website: 'https://angularjs.org/',
@@ -77,7 +77,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Frontend Javascript],
+              tags: %w[Frontend JavaScript],
               vendor: 'Google',
               product: 'AngularJS',
               website: 'https://angularjs.org/',
@@ -192,7 +192,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Google',
               product: 'Tag Manager',
               website: 'https://tagmanager.google.com/',

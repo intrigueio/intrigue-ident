@@ -36,7 +36,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Network Security],
+              tags: %w[COTS Security],
               vendor: 'SolarWinds',
               product: 'Orion Platform',
               website: 'https://www.solarwinds.com/solutions/orion',
@@ -49,7 +49,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Network Security],
+              tags: %w[COTS Security],
               vendor: 'SolarWinds',
               product: 'Orion Platform',
               website: 'https://www.solarwinds.com/solutions/orion',
@@ -62,7 +62,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Network Security],
+              tags: %w[COTS Security],
               vendor: 'SolarWinds',
               product: 'Orion Platform',
               website: 'https://www.solarwinds.com/solutions/orion',
@@ -76,7 +76,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Network Security],
+              tags: %w[COTS Security],
               vendor: 'SolarWinds',
               product: 'Orion Platform',
               website: 'https://www.solarwinds.com/solutions/orion',

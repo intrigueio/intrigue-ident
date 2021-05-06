@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'RubyOnRails',
               product: 'Rails',
               website: 'https://rubyonrails.org/',

@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'service',
-              tags: ['Font'],
+              category: 'application',
+              tags: ['Development'],
               vendor: 'FontAwesome',
               product: 'FontAwesome',
               website: 'https://fontawesome.com/',

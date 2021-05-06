@@ -89,7 +89,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['App Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Pivotal Software',
               product: 'tc server',
               description: 'body version string',

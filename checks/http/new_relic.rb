@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[APM Javascript],
+              tags: %w[APM JavaScript],
               vendor: 'NewRelic',
               product: 'NewRelic',
               references: ['https://discuss.newrelic.com/t/relic-solution-what-is-bam-nr-data-net-new-relic-browser-monitoring/42055'],

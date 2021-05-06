@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Language'],
+              tags: %w[ApplicationServer Language],
               vendor: 'Node.js',
               product: 'Node.js',
               website: 'https://nodejs.org/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Language'],
+              tags: %w[ApplicationServer Language],
               vendor: 'Node.js',
               product: 'Node.js',
               website: 'https://nodejs.org/',
@@ -35,7 +35,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Language'],
+              tags: %w[ApplicationServer Language],
               vendor: 'Node.js',
               product: 'Node.js',
               website: 'https://nodejs.org/',
@@ -49,7 +49,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Language'],
+              tags: %w[ApplicationServer Language],
               vendor: 'Node.js',
               product: 'Node.js',
               website: 'https://nodejs.org/',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Access Management',
               description: 'cookie',
@@ -22,9 +22,9 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
-              product: 'Application Server',
+              product: 'ApplicationServer',
               description: 'server header',
               references: [],
               version: nil,
@@ -40,7 +40,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Fusion Middleware',
               description: 'Web Cache Server - server header',
@@ -58,7 +58,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Fusion Middleware',
               description: 'page title & docs link... should give us a version',
@@ -96,7 +96,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Glassfish Server',
               description: 'Oracle / Sun GlassFish Enterprise Server',
@@ -114,7 +114,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Glassfish Server',
               description: 'Oracle / Sun GlassFish Enterprise Server',
@@ -206,10 +206,10 @@ module Intrigue
               description: 'server header',
               references: [],
               match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.]+ / AS Java [\d.]+}i,
+              match_content: %r{server: SAP NetWeaver ApplicationServer [\d.]+ / AS Java [\d.]+}i,
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
-                                                       %r{AP NetWeaver Application Server [\d.]+ / AS Java ([\d.]+)}i)
+                                                       %r{AP NetWeaver ApplicationServer [\d.]+ / AS Java ([\d.]+)}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -291,7 +291,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Weblogic Server',
               description: 'weblogic fault / fail',
@@ -306,7 +306,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'Oracle',
               product: 'Weblogic Server',
               website: 'https://www.oracle.com/uk/java/weblogic/',

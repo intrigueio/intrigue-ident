@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[APM Javascript],
+              tags: %w[APM JavaScript],
               vendor: 'Dynatrace',
               product: 'Dynatrace',
               description: 'x-ruxit-js-agent header',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[APM Javascript],
+              tags: %w[APM JavaScript],
               vendor: 'Dynatrace',
               product: 'Dynatrace',
               description: 'x-dynatrace-js-agent header',

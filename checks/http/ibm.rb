@@ -107,7 +107,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c'],
@@ -120,14 +120,14 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'IBM',
               product: 'WebSphere',
               website: 'https://www.ibm.com/uk-en/cloud/websphere-application-server',
               match_type: :content_headers,
-              match_content: %r{^server: WebSphere Application Server/[\d.]+$}i,
+              match_content: %r{^server: WebSphere ApplicationServer/[\d.]+$}i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, %r{^server: WebSphere Application Server/([\d.]+)}i)
+                                 _first_header_capture(x, %r{^server: WebSphere ApplicationServer/([\d.]+)}i)
                                },
               description: 'websphere header',
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -136,7 +136,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/danamodio/webintel'],
@@ -150,7 +150,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c'],
@@ -164,7 +164,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['ApplicationServer'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c'],

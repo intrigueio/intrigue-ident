@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['WebServer', 'Proxy Server'],
+              tags: %w[WebServer ProxyServer],
               vendor: 'CloudLinux',
               product: 'Imunify360',
               references: ['https://www.imunify360.com/blog/webshield-introduction-for-server-administrators'],
