@@ -32,7 +32,6 @@ begin
   require 'net/http'
   require 'openssl'
   require 'zlib'
-  require 'ruby_smb'
 rescue LoadError => e
   # unable to load dependencies, presumable unavailable
   puts "Unable to load dependency, functionality may be limited #{e}"

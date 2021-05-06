@@ -1,3 +1,4 @@
+require 'ruby_smb'
 module Intrigue
   module Ident
     module Smb
