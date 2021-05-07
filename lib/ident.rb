@@ -23,15 +23,16 @@ end
 
 # only necessary for cases of acual checking. if ident is being
 # used as a library, we can skip this
-# 
+#
 # Note that these are separated because they require native code
-# not ideal for the library use case. 
+# not ideal for the library use case.
 begin
   # new http request lib
   require 'typhoeus'
   require 'net/http'
   require 'openssl'
   require 'zlib'
+  require 'ruby_smb'
 rescue LoadError => e
   # unable to load dependencies, presumable unavailable
   puts "Unable to load dependency, functionality may be limited #{e}"
