@@ -1,4 +1,4 @@
-require_relative '../lib/ident'
+require_relative '../../../lib/ident'
 
 describe 'Intrigue' do
   describe 'Ident' do
@@ -15,7 +15,7 @@ describe 'Intrigue' do
                  end.map { |x| x.new.generate_checks('[uri]') }.flatten
 
     # Array of all approved tags
-    approved_http_tags = JSON.parse(File.read('data/approved_tags.json'))['approved_http_tags']
+    approved_http_tags = JSON.parse(File.read('spec/data/approved_tags.json'))['approved_http_tags']
 
     it 'should load Http checks' do
       checks = Intrigue::Ident::Http::CheckFactory.checks.map { |x| x.new.generate_checks('[uri]') }.flatten
