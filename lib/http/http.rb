@@ -12,7 +12,7 @@ module Intrigue
 
         # gather all fingeprints for each product
         # this will look like an array of checks, each with a uri and a set of checks
-        initial_checks = Intrigue::Ident::Http::CheckFactory.generate_initial_checks(url.to_s)
+        initial_checks = Intrigue::Ident::Http::CheckFactory.generate_initial_checks(url.to_s, opts)
 
         #####
         ##### Sanity check!
@@ -75,20 +75,20 @@ module Intrigue
         followon_checks = []
         detected_products = initial_results['fingerprint'].map { |x| x['product'] }.uniq
         detected_products.each do |prod|
-          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product(url.to_s, prod))
+          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_product(url.to_s, prod, opts))
         end
 
         ### Add checks for vendors
         detected_products = initial_results['fingerprint'].map { |x| x['vendor'] }.uniq
         detected_products.each do |vendor|
-          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor(url.to_s, vendor))
+          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor(url.to_s, vendor, opts))
         end
 
         ### Okay so, now we have a set of detected products, let's figure out our follown checks by vendor_product
         detected_vendor_products = initial_results['fingerprint'].map { |x| [x['vendor'], x['product']] }.uniq
         detected_vendor_products.each do |vendor, product|
-          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor_product(url.to_s, vendor,
-                                                                                                        product))
+          followon_checks.concat(Intrigue::Ident::Http::CheckFactory.generate_checks_for_vendor_product(url.to_s,
+                                                                                                        vendor, product, opts))
         end
 
         # group them up by path (there can be multiple paths)
@@ -174,7 +174,7 @@ module Intrigue
           checks.each do |check|
             # if we have a check that should match the dom, run it
             if check[:match_type] == :content_dom
-            # skip it, no longer supported.
+              # skip it, no longer supported.
             else # otherwise use the normal flow
               results << match_http_response_hash(check, response_hash)
             end
@@ -242,7 +242,7 @@ module Intrigue
           # run the request
           response = request.run
 
-        # catch th
+          # catch th
         rescue Typhoeus::Errors::TyphoeusError => e
           @task_result.logger.log_error "Request Error: #{e}" if @task_result
           puts "Request Error: #{e}" unless @task_result
