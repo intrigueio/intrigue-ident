@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Lighttpd',
               product: 'Lighttpd',
               website: 'https://www.lighttpd.net/',

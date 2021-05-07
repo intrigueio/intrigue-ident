@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'STIBO Systems',
               product: 'STEP',
               description: 'page title ',

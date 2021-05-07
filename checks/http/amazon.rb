@@ -296,7 +296,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[WebServer Hosting IaaS],
+              tags: ['Web Server', 'Hosting', 'IaaS'],
               vendor: 'Amazon',
               product: 'S3',
               website: 'https://aws.amazon.com/s3/',
@@ -311,7 +311,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[WebServer Hosting IaaS],
+              tags: ['Web Server', 'Hosting', 'IaaS'],
               vendor: 'Amazon',
               product: 'S3',
               website: 'https://aws.amazon.com/s3/',

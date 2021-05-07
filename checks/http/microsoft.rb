@@ -345,7 +345,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS MailServer Email],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               references: ['https://support.microsoft.com/en-us/help/4036163/you-can-t-access-owa-or-ecp-after-you-install-exchange-server-2016-cu6'],
@@ -359,7 +359,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS MailServer Email],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
@@ -373,7 +373,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'COTS', 'Mail Server'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
@@ -395,7 +395,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS MailServer Email],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               references: ['https://bit.ly/2k4Yoot'],
@@ -423,7 +423,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS MailServer Email],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               references: ['https://bit.ly/2k4Yoot'],
@@ -493,7 +493,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Library ApplicationServer],
+              tags: ['Library', 'Application Server'],
               vendor: 'Microsoft',
               product: 'Frontpage',
               references: ['https://en.wikipedia.org/wiki/Microsoft_FrontPage'],
@@ -510,7 +510,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -523,7 +523,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -540,7 +540,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -554,7 +554,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -568,7 +568,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -582,7 +582,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -600,7 +600,7 @@ module Intrigue
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
               description: 'Microsoft IIS Unauthorized (403)',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               version: nil,
               match_type: :content_body,
               hide: true,
@@ -611,7 +611,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -626,7 +626,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -641,7 +641,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -656,7 +656,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Kestrel',
               references: ['https://stackify.com/what-is-kestrel-web-server/'],
@@ -727,7 +727,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'Mail Server', 'COTS'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
@@ -741,7 +741,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'Mail Server', 'COTS'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
@@ -758,7 +758,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'Mail Server', 'COTS'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
@@ -775,7 +775,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'Mail Server', 'COTS'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
@@ -789,7 +789,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity MailServer COTS],
+              tags: ['Productivity', 'Mail Server', 'COTS'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',

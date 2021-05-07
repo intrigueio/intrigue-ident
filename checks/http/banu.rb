@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer ProxyServer],
+              tags: ['Web Server', 'Proxy Server'],
               vendor: 'Banu',
               product: 'Tinyproxy',
               website: 'https://github.com/banu/tinyproxy',

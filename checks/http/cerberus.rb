@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS FTPServer],
+              tags: ['COTS', 'FTP Server'],
               vendor: 'Cerberus',
               product: 'Ftp Server',
               website: 'https://www.cerberusftp.com/',

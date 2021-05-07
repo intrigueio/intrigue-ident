@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Unix4lyfe',
               product: 'DarkHTTPd',
               website: 'https://unix4lyfe.org/darkhttpd/',

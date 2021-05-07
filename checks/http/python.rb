@@ -41,7 +41,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Python',
               product: 'SimpleHTTP',
               website: 'https://docs.python.org/2/library/simplehttpserver.html',

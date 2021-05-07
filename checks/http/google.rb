@@ -206,7 +206,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Hosting SaaS],
+              tags: ['Web Server', 'Hosting', 'SaaS'],
               vendor: 'Google',
               product: 'Google Web Server',
               website: 'https://www.google.com/',

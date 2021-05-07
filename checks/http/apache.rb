@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Administrative WebServer Database],
+              tags: ['Administrative', 'Web Server', 'Database'],
               vendor: 'Apache',
               product: 'Ambari',
               website: 'https://ambari.apache.org/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Coyote',
               website: 'https://tomcat.apache.org/tomcat-4.1-doc/config/coyote.html',
@@ -38,7 +38,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[ApplicationServer Administrative Database],
+              tags: ['Application Server', 'Administrative', 'Database'],
               vendor: 'Apache',
               product: 'Druid',
               website: 'https://druid.apache.org/',
@@ -52,7 +52,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Groovy',
               website: 'https://groovy-lang.org/',
@@ -68,7 +68,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -85,7 +85,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -99,7 +99,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -113,7 +113,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -143,7 +143,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -157,7 +157,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -171,7 +171,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -288,7 +288,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'Pivotal Web Server',
               references: ['https://webserver.docs.pivotal.io/doc/60/topics/overview.html'],
@@ -302,7 +302,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Sling',
               references: ['https://sling.apache.org/'],
@@ -316,7 +316,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -330,7 +330,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -344,7 +344,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -358,7 +358,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -372,7 +372,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -393,7 +393,7 @@ module Intrigue
               type: 'fingerprint',
               require_product: 'NetWeaver',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
@@ -410,7 +410,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Traffic Server',
               website: 'https://trafficserver.apache.org/',
@@ -424,7 +424,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'Traffic Server',
               website: 'https://trafficserver.apache.org/',
@@ -438,7 +438,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'NiFi',
               website: 'https://nifi.apache.org/',
@@ -452,7 +452,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'Apache',
               product: 'NiFi',
               website: 'https://nifi.apache.org/',

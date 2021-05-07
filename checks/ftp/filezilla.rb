@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['FTPServer'],
+              tags: ['FTP Server'],
               vendor: 'Filezilla',
               product: 'Server',
               website: 'https://filezilla-project.org/download.php?type=server',

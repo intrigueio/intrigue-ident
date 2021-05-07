@@ -11,7 +11,7 @@ end
 
 def tag_description(tag_name)
   descriptions = {
-    'ApplicationServer' => 'Identified as ApplicationServer software (ex: Tomcat - note that this is different than "Web Server").',
+    'Application Server' => 'Identified as Application Server software (ex: Tomcat - note that this is different than "Web Server").',
     'COTS' => 'Identified as Commercial Off the Shelf Software installed by the user.',
     'CDN' => 'Identified a Content Delivery Network (ex: Cloudflare, Akamai, LimeLight Networks)',
     'CMS' => 'Identified as Content Mangement System Software (ex: Wordpress)',

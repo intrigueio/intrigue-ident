@@ -34,7 +34,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Proxy],
+              tags: ['Web Server', 'Proxy'],
               vendor: 'Ruby-Lang',
               product: 'Webrick',
               website: 'https://github.com/ruby/webrick',

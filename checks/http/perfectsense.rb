@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ApplicationServer'],
+              tags: ['Application Server'],
               vendor: 'PerfectSense',
               product: 'Brightspot',
               description: 'server header',

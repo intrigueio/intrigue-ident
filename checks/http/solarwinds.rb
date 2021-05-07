@@ -22,7 +22,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'SolarWinds',
               product: 'Nginx',
               references: ['https://documentation.solarwinds.com/en/success_center/appoptics/content/kb/host_infrastructure/integrations/nginx.htm'],

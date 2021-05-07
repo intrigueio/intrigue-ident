@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[IoT Firmware WebServer],
+              tags: ['IoT', 'Firmware', 'Web Server'],
               vendor: 'HikVision',
               product: 'DNVRS',
               references: ['https://www.hikvision.com/en/products/Turbo-HD-Products/Turbo-HD-Cameras/IOT-Series/'],

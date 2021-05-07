@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['ProxyServer'],
+              tags: ['Proxy Server'],
               vendor: 'OCLC',
               product: 'EZproxy',
               website: 'https://www.oclc.org/en/ezproxy.html',
