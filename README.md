@@ -62,6 +62,7 @@ Check types can be written against supported protocols:
  - Mysql
  - Pop3
  - Redis
+ - Smb
  - Smtp
  - Snmp
  - Ssh

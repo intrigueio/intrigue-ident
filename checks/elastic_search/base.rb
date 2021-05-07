@@ -7,6 +7,7 @@ module Intrigue
         def self.inherited(base)
           Intrigue::Ident::ElasticSearch::CheckFactory.register(base)
         end
+
       end
     end
   end
