@@ -15,7 +15,7 @@ module Intrigue
               version: nil,
               match_type: :checksum_body_mmh3,
               match_content: -1_104_297_575,
-              paths: [{ path: "#{url}/favicon.ico", follow_redirects: true }],
+              paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false
             }
           ]

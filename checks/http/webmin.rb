@@ -40,7 +40,6 @@ module Intrigue
               inference: false,
               issue: 'exposed_admin_panel_unauthenticated'
             }
-
           ]
         end
       end
