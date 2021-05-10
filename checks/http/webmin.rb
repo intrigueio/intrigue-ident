@@ -15,6 +15,7 @@ class Webmin < Intrigue::Ident::Check::Base
         match_type: :content_body,
         match_content: /<title>Login to Webmin/,
         version: nil,
+        website: "https://www.webmin.com/",
         dynamic_version: lambda { |x|
           _first_header_capture(x,/server: MiniServ\/(.*)/i)
         },
@@ -32,6 +33,7 @@ class Webmin < Intrigue::Ident::Check::Base
         match_type: :content_body,
         match_content: /<title>Login to Usermin/,
         version: nil,
+        website: "https://www.webmin.com/usermin.html",
         dynamic_version: lambda { |x|
           _first_header_capture(x,/server: MiniServ\/(.*)/i)
         },
