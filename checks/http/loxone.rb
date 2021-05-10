@@ -16,7 +16,7 @@ class Loxone < Intrigue::Ident::Check::Base
         references: ["https://www.reddit.com/r/ShodanNinja/comments/96oh0f/shodan_search_httpfaviconhash679065580_loxone/"],
         version: nil,
         match_content: 679065580,
-        paths: [ { path: "#{url}/favicon.ico", follow_redirects: true } ], 
+        paths: [ { path: "#{url}", follow_redirects: true } ], 
         inference: false
       }      
     ]
