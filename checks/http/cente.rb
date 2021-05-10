@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Embedded],
+              tags: ['Web Server', 'Embedded'],
               vendor: 'Cente',
               product: 'CenteHTTPd',
               description: 'server header',
@@ -15,9 +15,9 @@ module Intrigue
                 'https://www.cente.jp/product/cente-middle/tcpip/app/httpdc/'
               ],
               match_type: :content_headers,
-              match_content: %r{^server: CenteHTTPd\/.*$}i,
+              match_content: %r{^server: CenteHTTPd/.*$}i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, %r{^server: CenteHTTPd\/(.*)$}i)
+                                 _first_header_capture(x, %r{^server: CenteHTTPd/(.*)$}i)
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
