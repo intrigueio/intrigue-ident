@@ -30,10 +30,10 @@ module Intrigue
               version: nil,
               description: 'OpenText OpenText FirstClass - Server Header',
               match_type: :content_headers,
-              match_content: /^Server:\ OpenText\ FC\ (Sync\ Services|Web Server\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i,
+              match_content: /^Server:\ OpenText\ FC\ (Sync\ Services|WebServer\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i,
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
-                                                       /^Server:\ OpenText\ FC\ (Sync\ Services|Web Server\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i)
+                                                       /^Server:\ OpenText\ FC\ (Sync\ Services|WebServer\ ((\d{1,3}\.){1,9}\d{1,3})\ .{2,30})$/i)
                                },
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
