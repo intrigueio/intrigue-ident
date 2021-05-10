@@ -79,7 +79,7 @@ module Intrigue
         end
 
         def self.filter_by_tags(checks, opts)
-          unless opts[:checks_with_tag].empty?
+          if opts[:checks_with_tag] && !opts[:checks_with_tag].empty?
             checks = checks.reject { |x| x[:tags].nil? }
             checks = checks.reject do |x|
               (x[:tags].map(&:upcase) & opts[:checks_with_tag].map(&:upcase)).empty?
