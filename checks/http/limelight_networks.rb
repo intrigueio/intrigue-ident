@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer CDN],
+              tags: ['Web Server', 'CDN'],
               vendor: 'Limelight Networks',
               product: 'Edgeprism',
               website: 'https://www.limelight.com/',

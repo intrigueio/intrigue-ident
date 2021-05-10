@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Wildfly',
               product: 'Wildfly',
               references: ['https://wildfly.org/about/'],

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'none',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'SIP',
               product: 'SIP',
               references: ['https://www.frozenmountain.com/developers/blog/archive/how-can-i-use-sip-with-webrtc/'],

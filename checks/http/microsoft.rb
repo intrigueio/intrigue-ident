@@ -373,7 +373,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Productivity', 'Mail Server', 'COTS'],
+              tags: ['Productivity', 'COTS', 'Mail Server'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
@@ -510,7 +510,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -523,7 +523,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -540,7 +540,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -554,7 +554,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -568,7 +568,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -582,7 +582,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -600,7 +600,7 @@ module Intrigue
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
               description: 'Microsoft IIS Unauthorized (403)',
-              tags: ['error_page'],
+              tags: ['Web Server'],
               version: nil,
               match_type: :content_body,
               hide: true,
@@ -611,7 +611,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -626,7 +626,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -641,7 +641,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
@@ -656,7 +656,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Kestrel',
               references: ['https://stackify.com/what-is-kestrel-web-server/'],

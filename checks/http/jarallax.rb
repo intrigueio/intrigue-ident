@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'Jarallax',
               product: 'Jarallax',
               website: 'https://github.com/nk-o/jarallax',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Cherokee-Project',
               product: 'Cherokee',
               website: 'https://cherokee-project.com/',

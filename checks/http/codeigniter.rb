@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer', 'Embedded', 'Web Framework'],
+              tags: ['Web Server', 'Embedded', 'Web Framework'],
               vendor: 'CodeIgniter',
               product: 'CodeIgniter',
               website: 'https://codeigniter.com/',

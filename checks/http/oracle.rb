@@ -132,7 +132,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Oracle',
               product: 'HTTP Server',
               description: 'server header',
@@ -150,7 +150,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Embedded],
+              tags: ['Web Server', 'Embedded'],
               vendor: 'Oracle',
               product: 'GoAhead Web Server',
               description: 'server header',
@@ -165,7 +165,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Oracle',
               product: 'iPlanet Web Server',
               description: 'server header',
@@ -273,7 +273,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Oracle',
               product: 'iPlanet Web Server',
               description: 'server header',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'AOL',
               product: 'AOLserver',
               references: ['https://aolserver.github.io/'],

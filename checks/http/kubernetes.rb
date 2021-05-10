@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orchestration Networking],
+              tags: %w[Cloud CI/CD Development],
               vendor: 'Kubernetes',
               product: 'Kubernetes',
               website: 'https://kubernetes.io/',
@@ -34,7 +34,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orchestration Networking],
+              tags: %w[Cloud CI/CD Development],
               vendor: 'Kubernetes',
               product: 'Kubernetes',
               website: 'https://kubernetes.io/',
@@ -48,7 +48,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orchestration Networking],
+              tags: %w[Cloud CI/CD Development],
               vendor: 'Kubernetes',
               product: 'Kubernetes',
               website: 'https://kubernetes.io/',
@@ -62,7 +62,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orchestration Networking],
+              tags: %w[Cloud CI/CD Development],
               vendor: 'Kubernetes',
               product: 'Kubernetes',
               website: 'https://kubernetes.io/',
@@ -76,7 +76,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orchestration Networking],
+              tags: %w[Cloud CI/CD Development],
               vendor: 'Kubernetes',
               product: 'Kubernetes',
               website: 'https://kubernetes.io/',

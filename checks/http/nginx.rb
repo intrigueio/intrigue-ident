@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',
@@ -35,7 +35,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',
@@ -52,7 +52,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',
@@ -69,7 +69,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',

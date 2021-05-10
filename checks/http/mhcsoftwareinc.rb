@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS WebServer],
+              tags: ['COTS', 'Web Server'],
               vendor: 'MHCSoftwareInc',
               product: 'Document Self-Service',
               references: ['https://www.mhcsoftwareinc.com/platform/application-suites/document-self-service/'],

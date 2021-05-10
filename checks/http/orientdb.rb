@@ -1,15 +1,15 @@
 module Intrigue
   module Ident
     module Check
-      class Orientdb < Intrigue::Ident::Check::Base
+      class OrientDB < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Orientdb DatabaseService],
-              vendor: 'Orientdb',
-              product: 'Orientdb',
+              tags: %w[Database],
+              vendor: 'OrientDB',
+              product: 'OrientDB',
               website: 'https://www.orientdb.org/',
               description: 'response header',
               version: nil,

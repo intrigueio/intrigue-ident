@@ -8,7 +8,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['FTPServer'],
+              tags: ['FTP Server'],
               vendor: 'Generic',
               product: 'FTP',
               references: [],

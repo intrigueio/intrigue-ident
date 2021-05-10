@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['EBook Server', 'COTS'],
+              tags: ['Ebook Server', 'COTS'],
               vendor: 'Calibre-Ebook',
               product: 'Calibre',
               description: 'server header',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'blueimp',
               product: 'jQuery-File-Upload',
               website: 'https://github.com/blueimp/jQuery-File-Upload',

@@ -23,7 +23,7 @@ module Intrigue
               {
                 type: 'fingerprint',
                 category: 'application',
-                tags: %w[Cloud Panel],
+                tags: ['Login Panel'],
                 vendor: 'Zyxel',
                 product: 'Zyxel',
                 website: 'https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s',
@@ -60,7 +60,7 @@ module Intrigue
                 tags: ['Appliance'],
                 vendor: 'Zyxel',
                 website: 'https://www.zyxel.com/uk/en/products_services/smb.shtml?t=s',
-                description: 'Zyxel Javascript Product Specification',
+                description: 'Zyxel JavaScript Product Specification',
                 product: 'Zyxel',
                 dynamic_product: lambda { |x|
                   _first_body_capture(x, /ZLDSYSPARM_PRODUCT_NAME1="(.*)"/i)

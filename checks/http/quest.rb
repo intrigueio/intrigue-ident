@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management',
               description: 'cookie',
@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'hardware',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management Appliance',
               website: 'https://www.quest.com/kace/',
@@ -41,7 +41,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management Appliance Firmware',
               website: 'https://www.quest.com/kace/',
@@ -59,7 +59,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management',
               website: 'https://www.quest.com/kace/',
@@ -74,7 +74,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management',
               website: 'https://www.quest.com/kace/',
@@ -92,7 +92,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management',
               website: 'https://www.quest.com/kace/',
@@ -109,7 +109,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[AdminPanel Security],
+              tags: ['Admin Panel'],
               vendor: 'Quest',
               product: 'Kace Systems Management',
               website: 'https://www.quest.com/kace/',
