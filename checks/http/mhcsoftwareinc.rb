@@ -14,9 +14,9 @@ module Intrigue
               version: nil,
               description: 'MHCSoftwareInc Document Self-Service - Server Header',
               match_type: :content_headers,
-              match_content: %r{^server:\ DSS Web Server/(\d\.\d)$}i,
+              match_content: %r{^server:\ DSS WebServer/(\d\.\d)$}i,
               dynamic_version: lambda { |x|
-                                 _first_header_capture(x, %r{^server:\ DSS Web Server/(\d\.\d)$}i)
+                                 _first_header_capture(x, %r{^server:\ DSS WebServer/(\d\.\d)$}i)
                                },
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
