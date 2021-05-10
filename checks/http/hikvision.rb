@@ -21,6 +21,26 @@ module Intrigue
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['IoT'],
+              vendor: 'HikVision',
+              product: 'Camera',
+              references: [
+                'https://www.hikvision.com/en/products/'
+              ],
+              version: nil,
+              description: 'server header',
+              match_type: :content_headers,
+              match_content: %r{^server: App-webs\/$}i,
+              dynamic_version: lambda { |x|
+                                 _first_header_capture(x, %r{^server: App-webs\/$}i)
+                               },
+              hide: false,
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
             }
           ]
         end

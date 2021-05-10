@@ -9,33 +9,39 @@ class Webmin < Intrigue::Ident::Check::Base
         type: "fingerprint",
         category: "application",
         tags: ["Administrative"],
-        vendor:"Webmin",
-        product:"Webmin",
-        description: "miniserv server",
-        match_type: :content_headers,
-        references: [],
-        match_content: /server: MiniServ/i,
+        vendor: "Webmin",
+        product: "Webmin",
+        description: "page title",
+        match_type: :content_body,
+        match_content: /<title>Login to Webmin/,
         version: nil,
-        dynamic_version: lambda { |x| 
-          _first_header_capture(x,/server: MiniServ\/(.*)/i)},
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: true
+        website: "https://www.webmin.com/",
+        dynamic_version: lambda { |x|
+          _first_header_capture(x,/server: MiniServ\/(.*)/i)
+        },
+        paths: [{ path: "#{url}", follow_redirects: true }],
+        inference: false,
+        issue: "exposed_admin_panel_unauthenticated"
       },
       {
         type: "fingerprint",
         category: "application",
         tags: ["Administrative"],
-        vendor:"Webmin",
-        product:"Webmin",
+        vendor: "Usermin",
+        product: "Usermin",
         description: "page title",
         match_type: :content_body,
-        references: [],
-        match_content: /<title>Login to Webmin/,
+        match_content: /<title>Login to Usermin/,
         version: nil,
-        paths: [ { path: "#{url}", follow_redirects: true } ],
+        website: "https://www.webmin.com/usermin.html",
+        dynamic_version: lambda { |x|
+          _first_header_capture(x,/server: MiniServ\/(.*)/i)
+        },
+        paths: [{ path: "#{url}", follow_redirects: true }],
         inference: false,
         issue: "exposed_admin_panel_unauthenticated"
-      }
+      },
+
     ]
   end
 
