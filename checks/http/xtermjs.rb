@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Javascript Development],
+              tags: %w[JavaScript Development],
               website: 'https://xtermjs.org/',
               vendor: 'Xtermjs',
               product: 'Xterm.js',

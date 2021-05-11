@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Rack Project',
               product: 'Rack',
               website: 'https://github.com/rack/rack',
@@ -20,7 +20,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Rack Project',
               product: 'Rack',
               website: 'https://github.com/rack/rack',
@@ -33,7 +33,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Rack Project',
               references: [
                 'https://stackoverflow.com/questions/984633/how-to-remove-x-runtime-header-from-nginx-passenger',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'LiteSpeedTech',
               product: 'LiteSpeed Web Server',
               references: ['https://www.litespeedtech.com/products/litespeed-web-server'],

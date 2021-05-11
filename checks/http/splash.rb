@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Marketing Javascript SaaS],
+              tags: %w[Marketing JavaScript SaaS],
               vendor: 'Splash',
               product: 'Splash',
               website: 'https://splashthat.com/',

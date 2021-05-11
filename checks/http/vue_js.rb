@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'Vue.js',
               product: 'Vue.js',
               website: 'https://vuejs.org/',

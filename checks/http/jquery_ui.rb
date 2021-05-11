@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'JQuery',
               product: 'JQuery UI',
               website: 'https://jqueryui.com/',
@@ -20,7 +20,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'JQuery',
               product: 'JQuery UI',
               website: 'https://jqueryui.com/',

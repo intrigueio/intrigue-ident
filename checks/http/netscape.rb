@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Netscape',
               product: 'Enterprise Server',
               website: 'http://isp.netscape.com/',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Security],
+              tags: ['Web Server', 'Security'],
               vendor: 'IDEATEC',
               product: 'SmartXFilter',
               description: 'server header',
@@ -25,7 +25,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Security],
+              tags: ['Web Server', 'Security'],
               vendor: 'IDEATEC',
               product: 'SmartXFilter',
               description: 'server header',

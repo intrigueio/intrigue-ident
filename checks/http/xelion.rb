@@ -8,7 +8,7 @@ class Xelion < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["COTS","Telephony"],
+        tags: ["COTS","VoIP"],
         vendor:"Xelion",
         product:"Phone System",
         references: ["https://www.xelion.com/en/"],

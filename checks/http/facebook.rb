@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Marketing Javascript],
+              tags: %w[Marketing JavaScript],
               vendor: 'Facebook',
               product: 'JS SDK',
               website: 'https://developers.facebook.com/docs/javascript/',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'Facebook',
               product: 'React',
               website: 'https://reactjs.org/',

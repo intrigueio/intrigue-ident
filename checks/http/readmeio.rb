@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Javascript SaaS Support],
+              tags: %w[JavaScript SaaS Support],
               vendor: 'Readme.io',
               product: 'Readme.io',
               website: 'https://readme.com/',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               website: 'https://jquery.com/',
               vendor: 'JQuery',
               product: 'JQuery',
@@ -24,7 +24,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               website: 'https://jquery.com/',
               vendor: 'JQuery',
               product: 'JQuery',
@@ -38,7 +38,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               website: 'https://jquery.com/',
               vendor: 'JQuery',
               product: 'Datatables',
@@ -52,7 +52,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               website: 'https://jquery.com/',
               vendor: 'JQuery',
               product: 'JQuery',

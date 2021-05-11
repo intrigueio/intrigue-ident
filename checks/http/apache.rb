@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Administrative WebServer Database],
+              tags: ['Administrative', 'Web Server', 'Database'],
               vendor: 'Apache',
               product: 'Ambari',
               website: 'https://ambari.apache.org/',
@@ -38,7 +38,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Administrative', 'DatabaseService'],
+              tags: ['Application Server', 'Administrative', 'Database'],
               vendor: 'Apache',
               product: 'Druid',
               website: 'https://druid.apache.org/',
@@ -68,7 +68,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -85,7 +85,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -99,7 +99,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -113,7 +113,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -143,7 +143,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -157,7 +157,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -171,7 +171,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -288,7 +288,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Apache',
               product: 'Pivotal Web Server',
               references: ['https://webserver.docs.pivotal.io/doc/60/topics/overview.html'],

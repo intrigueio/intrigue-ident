@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[WebServer Embedded],
+              tags: ['Web Server', 'Embedded'],
               vendor: 'Allegro',
               product: 'RomPager',
               website: 'https://www.allegrosoft.com/product/embedded-internet-toolkits/rompager-web-server/',

@@ -124,7 +124,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'RedHat',
               product: 'JBoss Web Server',
               description: 'powered by header',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript'],
+              tags: ['JavaScript'],
               vendor: 'Rollbar',
               product: 'Rollbarjs',
               website: 'https://rollbar.com/',

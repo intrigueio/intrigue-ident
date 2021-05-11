@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Taobao',
               product: 'Tengine',
               references: ['https://tengine.taobao.org/'],

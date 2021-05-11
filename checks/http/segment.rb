@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Javascript SaaS APM],
+              tags: %w[JavaScript SaaS APM],
               vendor: 'Segment',
               product: 'Segment',
               website: 'https://segment.com/',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Javascript', 'Package Manager'],
+              tags: ['JavaScript', 'Package Manager'],
               vendor: 'Bower',
               product: 'Bower',
               website: 'https://github.com/bower/bower',

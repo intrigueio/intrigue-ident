@@ -11,7 +11,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Eclipse',
               product: 'Jetty',
               website: 'https://www.eclipse.org/jetty/',
@@ -35,7 +35,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['WebServer'],
+              tags: ['Web Server'],
               vendor: 'Eclipse',
               product: 'Jetty',
               website: 'https://www.eclipse.org/jetty/',
