@@ -7,7 +7,7 @@ module Intrigue
       [
         {
           type: "fingerprint",
-          category: "application",
+          category: "service",
           tags: ["CMS"],
           vendor: "Bynder",
           product: "Bynder",

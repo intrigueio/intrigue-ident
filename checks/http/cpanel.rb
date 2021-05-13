@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: %w[COTS Hosting Administrative],
               vendor: 'cPanel',
               product: 'cPanel',
@@ -20,7 +20,7 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: %w[COTS Hosting Administrative],
               vendor: 'cPanel',
               product: 'cPanel Hosted - Missing Page',
@@ -35,7 +35,7 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: %w[COTS Administrative],
               vendor: 'cPanel',
               product: 'cPanel - Not configured',

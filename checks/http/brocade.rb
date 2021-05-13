@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'hardware',
-              tags: %w[Appliance Networking],
+              category: 'service',
+              tags: ['Appliance', 'Networking'],
               vendor: 'Brocade',
               product: 'ICX7250-24',
               website: 'https://www.broadcom.com/',

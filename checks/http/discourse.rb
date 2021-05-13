@@ -7,7 +7,7 @@ class DiscourseCMS < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Discourse",
         product: "Discourse",

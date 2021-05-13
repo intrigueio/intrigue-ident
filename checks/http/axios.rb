@@ -10,7 +10,7 @@ module Intrigue
               tags: ['JavaScript'],
               vendor: 'Axios',
               product: 'Axios',
-              references: [],
+              website: 'https://github.com/axios/axios',
               version: nil,
               match_type: :content_body,
               match_content: /axios\.min\.js["|']>/i,

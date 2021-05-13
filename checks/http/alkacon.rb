@@ -7,7 +7,7 @@ class Alkacon < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Alkacon",
         product: "OpenCMS",

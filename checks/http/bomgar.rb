@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['COTS'],
+              tags: ['COTS', 'Web Server'],
               vendor: 'Bomgar',
               product: 'Remote Support',
               website: 'https://www.beyondtrust.com/remote-support',

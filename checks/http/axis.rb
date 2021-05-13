@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Embedded OS],
+              tags: ['Embedded', 'OS'],
               vendor: 'Axis',
               product: 'Network Camera Firmware',
               website: 'https://www.axis.com/en-gb/products/network-cameras',
@@ -21,7 +21,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Embedded OS],
+              tags: ['Embedded', 'OS'],
               vendor: 'Axis',
               product: 'Network Camera Firmware',
               website: 'https://www.axis.com/en-gb/products/network-cameras',

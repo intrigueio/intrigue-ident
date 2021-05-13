@@ -37,7 +37,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'service',
               vendor: 'Akamai',
-              tags: %w[CDN WAF],
+              tags: ['CDN', 'WAF'],
               product: 'Akamai',
               website: 'https://www.akamai.com/',
               version: nil,
@@ -52,7 +52,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'service',
               vendor: 'Akamai',
-              tags: %w[CDN WAF],
+              tags: ['CDN', 'WAF'],
               references: [
                 'https://learn.akamai.com/en-us/webhelp/ion/web-performance-getting-started-for-http-properties/GUID-3ABC638E-14E9-4858-BD4F-BF345BC254F3.html'
               ],
@@ -69,7 +69,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'service',
               vendor: 'Akamai',
-              tags: %w[CDN WAF],
+              tags: ['CDN', 'WAF'],
               references: [
                 'https://learn.akamai.com/en-us/webhelp/ion/web-performance-getting-started-for-http-properties/GUID-3ABC638E-14E9-4858-BD4F-BF345BC254F3.html'
               ],

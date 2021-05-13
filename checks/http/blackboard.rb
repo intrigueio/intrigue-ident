@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: %w[COTS CMS],
               vendor: 'Blackboard',
               product: 'Blackboard',

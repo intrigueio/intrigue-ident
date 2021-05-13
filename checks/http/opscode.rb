@@ -23,8 +23,8 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: %w[COTS Development],
+              category: 'service',
+              tags: ['COTS', 'Development'],
               vendor: 'Opscode',
               product: 'Chef',
               website: 'https://www.chef.io/',
