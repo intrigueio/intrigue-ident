@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
+              category: 'service',
+              tags: ['CMS'],
               vendor: 'Sitecore',
               product: 'CMS',
               website: 'https://www.sitecore.com/',

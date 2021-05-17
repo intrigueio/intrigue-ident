@@ -7,7 +7,7 @@ class BurningBoard < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "WoltLab GmbH",
         product: "WoltLab Burning Board",

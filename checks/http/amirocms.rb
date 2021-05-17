@@ -7,7 +7,7 @@ class AmiroCMS < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Amiro.CMS",
         product: "Amiro.CMS",

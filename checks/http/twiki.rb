@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['COTS'],
               vendor: 'Twiki',
               product: 'Twiki',

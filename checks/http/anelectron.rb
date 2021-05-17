@@ -7,10 +7,10 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Web Server'],
+              tags: ['Forum'],
               vendor: 'Anelectron',
               product: 'Advanced Electron Forum',
-              references: [],
+              website: 'https://www.anelectron.com/',
               version: nil,
               match_type: :content_body,
               match_content: /Powered By AEF/i,

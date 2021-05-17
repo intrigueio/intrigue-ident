@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Search SaaS],
+              tags: ['Search', 'Website'],
               vendor: 'Baidu',
               product: 'Baidu',
               website: 'https://www.baidu.com/',
@@ -15,7 +15,7 @@ module Intrigue
               version: nil,
               match_type: :checksum_body_mmh3,
               match_content: -1_104_297_575,
-              paths: [{ path: "#{url}", follow_redirects: true }],
+              paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }
           ]

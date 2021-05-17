@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['CMS'],
               vendor: 'Craft',
               product: 'CMS',
@@ -21,7 +21,7 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['CMS'],
               vendor: 'Craft',
               product: 'CMS',
