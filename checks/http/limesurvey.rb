@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['COTS'],
+              category: 'service',
+              tags: ['COTS', 'Website'],
               vendor: 'LimeSurvey',
               product: 'LimeSurvey',
               website: 'https://www.limesurvey.org/',

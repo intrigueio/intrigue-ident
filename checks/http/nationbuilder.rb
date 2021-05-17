@@ -9,7 +9,7 @@ class NationBuilder < Intrigue::Ident::Check::Base
         type: "fingerprint",
         category: "service",
         tags: ["CMS"],
-        website: "",
+        website: "https://nationbuilder.com/",
         vendor: "NationBuilder",
         product: "NationBuilder",
         references: [],

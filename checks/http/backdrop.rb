@@ -7,11 +7,11 @@ class Basekit < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Basekit",
         product: "Basekit",
-        references: ["https://www.basekit.com/"],
+        website: "https://www.basekit.com/",
         version: nil,
         match_type: :content_body,
         match_content: /BaseKit/i,

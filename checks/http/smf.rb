@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['Forum'],
               vendor: 'Simple Machine Forum',
               product: 'SMF',

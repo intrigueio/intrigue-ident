@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: "fingerprint",
-              category: "application",
+              category: "service",
               tags: ["CMS"],
               vendor: "ShopFactory",
               product: "ShopFactoryCMS",

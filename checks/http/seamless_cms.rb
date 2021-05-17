@@ -7,7 +7,7 @@ class SeamlessCMS < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "SeamlessCMS",
         product: "SeamlessCMS",

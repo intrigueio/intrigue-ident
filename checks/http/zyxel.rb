@@ -7,8 +7,8 @@ module Intrigue
             [
               {
                 type: 'fingerprint',
-                category: 'application',
-                tags: %w[Cloud WAF],
+                category: 'service',
+                tags: ['Cloud', 'WAF'],
                 vendor: 'Zyxel',
                 product: 'ZyWALL Business Firewall',
                 website: 'https://www.zyxel.com/uk/en/products_services/Business-Firewall-ZyWALL-110-310-1100/',

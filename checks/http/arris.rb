@@ -7,8 +7,8 @@ class Arris < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
-        tags: ["Embedded","Networking"],
+        category: "service",
+        tags: ["Embedded", "Networking"],
         website: "http://www.arrisi.com/",
         vendor: "Arris",
         product: "2307 Modem",

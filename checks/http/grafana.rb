@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: %w[COTS Development Cloud Analytics],
+              category: 'service',
+              tags: ['COTS', 'Development', 'Cloud', 'Analytics'],
               vendor: 'Grafana',
               product: 'Grafana',
               website: 'https://grafana.com/',
