@@ -38,6 +38,11 @@ module Intrigue
       private
 
       def send_hex_request(ip, port, data, timeout = 3)
+        # TODO: do we need to do anything different to send in hex vs plain?
+        send_plain_request(ip, port, data, timeout)
+      end
+
+      def send_plain_request(ip, port, data, timeout = 3)
         if socket = connect_tcp(ip, port, timeout)
           # first try to read something in case something comes back
           #puts "Attempting to read data first."

@@ -18,7 +18,8 @@ class CiscoSmartInstall < Intrigue::Ident::TcpCheck::Base
         match_content: /^\x00{3}\x04\x00{7}\x03\x00{3}\x08\x00{3}\x01\x00{4}$/i,
         description: "match via protocol hex string",
         hide: false,
-        inference: false
+        inference: false,
+        issue: 'cisco_smartinstall_cve_2018_0151'
       }
     ]
   end
