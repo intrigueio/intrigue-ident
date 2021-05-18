@@ -41,7 +41,7 @@ module Intrigue
 
         # now we have them organized by a single path, group them up so we only
         # have to make a single request per unique path
-        grouped_initial_checks = initial_checks_by_path.group_by { |x| [x[:unique_path], x[:follow_redirects]] }
+        grouped_initial_checks = initial_checks_by_path.group_by { |x| [x[:unique_path]] }
 
         # allow us to only select the base path (speeds things up)
         grouped_initial_checks = grouped_initial_checks.select { |x, _y| x == url } if only_base
@@ -99,10 +99,14 @@ module Intrigue
         end.flatten
 
         # group'm as needed to run the checks
-        grouped_followon_checks = followon_checks_by_path.group_by { |x| [x[:unique_path], x[:follow_redirects]] }
+        grouped_followon_checks = followon_checks_by_path.group_by { |x| [x[:unique_path]] }
 
         # allow us to only select the base path (speeds things up)
         grouped_followon_checks = grouped_followon_checks.select { |x, _y| x == url } if only_base
+
+        grouped_followon_checks.map do |x, _t|
+          p x
+        end
 
         ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
         followon_results = if grouped_followon_checks
@@ -155,30 +159,33 @@ module Intrigue
 
           # get the response using a normal http request
           puts "Getting #{target_url}" if debug
-          response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects
+          response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects, debug
 
-          if response_hash[:timeout]
-            puts "ERROR timed out on #{target_url}" if debug
-            timeout_count += 1
+          response_hash.each do |x|
+            next unless x
+
+            if x[:timeout]
+              puts "ERROR timed out on #{x[:final_url]}" if debug
+              timeout_count += 1
+            end
+            responses << x
+
+            checks.each do |check|
+              # if we have a check that should match the dom, run it
+              if check[:match_type] == :content_dom
+                # skip it, no longer supported.
+              else # otherwise use the normal flow
+                results << match_http_response_hash(check, x)
+              end
+            end
           end
 
-          responses << response_hash
-
           # Go ahead and match it up if we got a response!
-          next unless response_hash
 
           # call each check, collecting the product if it's a match
           ###
           ### APPLY THE IDENT!
           ###
-          checks.each do |check|
-            # if we have a check that should match the dom, run it
-            if check[:match_type] == :content_dom
-              # skip it, no longer supported.
-            else # otherwise use the normal flow
-              results << match_http_response_hash(check, response_hash)
-            end
-          end
         end
 
         # Return all matches, minus the nils (non-matches), and grouped by check type
@@ -209,7 +216,7 @@ module Intrigue
         string.force_encoding('ISO-8859-1').encode('UTF-8').gsub("\u0000", '')
       end
 
-      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, follow_redirects = true, _attempts_limit = 3, timeout = 10)
+      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, _follow_redirects = true, _attempts_limit = 3, timeout = 10, debug)
         # set user agent unless one was provided
         unless headers['User-Agent']
           headers['User-Agent'] =
@@ -225,7 +232,8 @@ module Intrigue
           options[:ssl_verifypeer] = false
 
           # follow redirects if we're told
-          options[:followlocation] = true if follow_redirects
+          # options[:followlocation] = true if follow_redirects
+          options[:followlocation] = false
 
           # if we're a post, set our body
           options[:body] = data if method == :post
@@ -240,9 +248,10 @@ module Intrigue
           }.merge!(options))
 
           # run the request
-          response = request.run
+          # response = request.run
 
           # catch th
+          response = get_data_from_url(request, debug).flatten.compact
         rescue Typhoeus::Errors::TyphoeusError => e
           @task_result.logger.log_error "Request Error: #{e}" if @task_result
           puts "Request Error: #{e}" unless @task_result
@@ -261,43 +270,86 @@ module Intrigue
         # scheme = "#{response.port}" =~ /443/ ? "https" : "http"
 
         # generate our output
-        out = {
-          options: options,
-          start_url: uri_string,
-          final_url: response.effective_url,
-          redirect_count: response.redirect_count,
-          request_type: :ruby,
-          request_method: method,
-          #:request_credentials => credentials,
-          request_headers: headers,
-          request_data: data,
-          #:request_attempts_limit => limit,
-          #:request_attempts_used => attempts,
-          request_user_agent: headers['User-Agent'],
-          #:request_proxy => proxy_config,
-          #:response_urls => response_urls,
-          response_object: response
-        }
+        out = []
+
+        response.each do |x|
+          out.append({
+                       options: options,
+                       start_url: uri_string,
+                       final_url: x[:effective_url],
+                       redirect_count: x[:redirect_count],
+                       request_type: :ruby,
+                       request_method: method,
+                       #:request_credentials => credentials,
+                       request_headers: headers,
+                       request_data: data,
+                       #:request_attempts_limit => limit,
+                       #:request_attempts_used => attempts,
+                       request_user_agent: headers['User-Agent'],
+                       #:request_proxy => proxy_config,
+                       #:response_urls => response_urls,
+                       response_object: x
+                     })
+        end
 
         # verify we have a response before adding these
         if response
-          out[:response_headers] = response.headers.map do |x, y|
-            if y.is_a?(Array)
-              y.map do |v|
-                ident_encode("#{x}: #{v}")
+          out.each do |z|
+            z[:response_headers] = z[:response_object].map do |x, y|
+              if y.is_a?(Array)
+                y.map do |v|
+                  ident_encode("#{x}: #{v}")
+                end
+              else
+                ident_encode("#{x}: #{y}")
               end
-            else
-              ident_encode("#{x}: #{y}")
             end
+            z[:response_body_binary_base64] = Base64.strict_encode64(z[:response_object][:response_body])
+            z[:response_body] = ident_encode(z[:response_object][:response_body])
+            z[:response_code] = z[:response_object][:response_code]
+            # z[:response_certificate] = certificate_hash //where does this come from?
           end
-          out[:response_body_binary_base64] = Base64.strict_encode64(response.body)
-          out[:response_body] = ident_encode(response.body)
-          out[:response_code] = response.code
-
-          # out[:response_certificate] = certificate_hash
         end
 
         out
+      end
+
+      def get_data_from_url(request, debug)
+        hydra = Typhoeus::Hydra.hydra
+        content = []
+        counter = 0
+        content = build_request(hydra, request, content, debug, counter)
+
+        hydra.run # this is a blocking call that returns once all requests are complete
+
+        content
+      end
+
+      def build_request(hydra, request, content, debug, counter)
+        hydra.queue request
+        counter += 1
+        request.on_complete do |response|
+          content.append(response.options)
+
+          if response.options[:response_code].between?(299, 400) && counter < 10
+
+            new_url = get_redirect_location_from_header(response.options[:response_headers])
+
+            if !new_url.nil? && !new_url.empty? && new_url != request.base_url
+
+              new_request = Typhoeus::Request.new(new_url, request.original_options)
+
+              puts "-- #{counter} bounce - Redirected to: #{new_url}" if debug
+
+              build_request(hydra, new_request, content, debug, counter)
+            end
+          end
+        end
+        content
+      end
+
+      def get_redirect_location_from_header(header)
+        header[%r{Location:\s(https?://.*)\r}i, 1]
       end
     end
   end
