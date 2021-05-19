@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.blackboard.com/teaching-learning/learning-management',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-blackboard-product: Blackboard Learn &#8482;.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-blackboard-product: Blackboard Learn &#8482;.*$/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        /^x-blackboard-product: Blackboard Learn &#8482; ([\w\d.\-+]*)$/i)
@@ -30,8 +35,13 @@ module Intrigue
               product: 'Blackboard',
               website: 'https://www.blackboard.com/teaching-learning/learning-management',
               description: 'x-blackboard-appserver header (hosted)',
-              match_type: :content_headers,
-              match_content: /^X-Blackboard-appserver:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Blackboard-appserver:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

@@ -14,8 +14,13 @@ module Intrigue
                 website: "https://getcockpit.com/",
                 description: "Agentejo Cockpit CMS",
                 version: nil,
-                match_type: :content_title,
-                match_content: /^Authenticate Please!$/i,
+                match_logic: :all,
+                matches: [
+                  {
+                    match_type: :content_title,
+                    match_content: /^Authenticate Please!$/i,
+                  }
+                ],
                 paths: [{ path: "#{url}", follow_redirects: true }],
                 inference: false,
               }

@@ -13,8 +13,13 @@ module Intrigue
               description: 'server header',
               version: nil,
               references: [],
-              match_type: :content_headers,
-              match_content: /x-powered-by: Brightspot/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by: Brightspot/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

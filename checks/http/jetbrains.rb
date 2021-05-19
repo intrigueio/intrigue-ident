@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.jetbrains.com/teamcity/',
               description: 'JetBrains TeamCity - TeamCity Black SVG Page Reference',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{icons/teamcity.black.svg}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{icons/teamcity.black.svg}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.netlify.com/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: Netlify/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Netlify/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.netlify.com/',
               description: 'x-nf-request-id header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-nf-request-id:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-nf-request-id:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

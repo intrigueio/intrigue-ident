@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://kubernetes.io/',
               description: 'default backend - 404',
               version: nil,
-              match_type: :content_body,
-              match_content: /^default backend - 404$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /^default backend - 404$/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -40,8 +45,13 @@ module Intrigue
               website: 'https://kubernetes.io/',
               description: 'Audit-id header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Audit-Id: [a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Audit-Id: [a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -54,8 +64,13 @@ module Intrigue
               website: 'https://kubernetes.io/',
               description: "json (auth'd) response",
               version: nil,
-              match_type: :content_body,
-              match_content: %r{groupVersion":"apiregistration.k8s.io/v1beta1},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{groupVersion":"apiregistration.k8s.io/v1beta1},
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -68,8 +83,13 @@ module Intrigue
               website: 'https://kubernetes.io/',
               description: "json (unauth'd) response",
               version: nil,
-              match_type: :content_body,
-              match_content: /forbidden: User \\"system:anonymous\\" cannot get path/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /forbidden: User \\"system:anonymous\\" cannot get path/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -82,8 +102,13 @@ module Intrigue
               website: 'https://kubernetes.io/',
               description: 'api page string',
               version: nil,
-              match_type: :content_body,
-              match_content: /serverAddressByClientCIDRs/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /serverAddressByClientCIDRs/,
+                }
+              ],
               paths: [{ path: "#{url}/api", follow_redirects: true }],
               inference: false
             }

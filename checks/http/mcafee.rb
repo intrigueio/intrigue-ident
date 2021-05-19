@@ -12,9 +12,14 @@ module Intrigue
               product: 'EPolicy Orchestrator',
               website: 'https://www.mcafee.com/enterprise/en-gb/products/epolicy-orchestrator.html',
               description: 'McAfee EPolicy Orchestrator',
-              match_type: :content_body,
               version: nil,
-              match_content: /McAfee Agent Activity Log/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /McAfee Agent Activity Log/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

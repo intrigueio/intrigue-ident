@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.verizondigitalmedia.com/media-platform/delivery/network/',
               description: 'unique header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /ECD \(.*?\)/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /ECD \(.*?\)/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

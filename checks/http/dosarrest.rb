@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.dosarrest.com/'],
               version: nil,
               description: 'DOSarrest - Server Header',
-              match_type: :content_headers,
-              match_content: /^server:.*DOSarrest/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*DOSarrest/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

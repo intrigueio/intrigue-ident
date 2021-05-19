@@ -14,8 +14,13 @@ class Pantheon < Intrigue::Ident::Check::Base
         website: "https://pantheon.io/",
         description: "x-pantheon-site header",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /x-pantheon-site/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /x-pantheon-site/,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       },
@@ -28,8 +33,13 @@ class Pantheon < Intrigue::Ident::Check::Base
         website: "https://pantheon.io/",
         description:"styx hostname header",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /^x-pantheon-styx-hostname:/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /^x-pantheon-styx-hostname:/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       },
@@ -42,8 +52,13 @@ class Pantheon < Intrigue::Ident::Check::Base
         website: "https://pantheon.io/",
         description:"styx header",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /^x-styx-req-id:/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /^x-styx-req-id:/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

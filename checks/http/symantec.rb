@@ -12,8 +12,13 @@ module Intrigue
               product: 'Norton Secured Seal',
               references: ['https://www.websecurity.symantec.com/install-norton-secured-seal'],
               description: 'security seal',
-              match_type: :content_body,
-              match_content: %r{seal\.verisign\.com/getseal\?host_name=}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{seal\.verisign\.com/getseal\?host_name=}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

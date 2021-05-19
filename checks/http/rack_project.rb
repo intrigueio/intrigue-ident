@@ -12,8 +12,13 @@ module Intrigue
               product: 'Rack',
               website: 'https://github.com/rack/rack',
               description: 'x-rack-cache header',
-              match_type: :content_headers,
-              match_content: /^x-rack-cache:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-rack-cache:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -25,8 +30,13 @@ module Intrigue
               product: 'Rack',
               website: 'https://github.com/rack/rack',
               description: 'x-cascade header',
-              match_type: :content_headers,
-              match_content: /^x-cascade:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-cascade:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               ],
               product: 'Rack',
               description: 'x-runtime header',
-              match_type: :content_headers,
-              match_content: /^x-runtime:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-runtime:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

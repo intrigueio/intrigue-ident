@@ -14,8 +14,13 @@ module Intrigue
           website: "https://www.crazydomains.com.au/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /Domain name is registered and secured with CrazyDomains.com.au/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /Domain name is registered and secured with CrazyDomains.com.au/i,
+            }
+          ],
           description: "unique body string",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

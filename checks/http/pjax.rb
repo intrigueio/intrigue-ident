@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://github.com/MoOx/pjax',
               description: 'header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-pjax:.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-pjax:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://github.com/MoOx/pjax',
               description: 'vary header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^vary:.*x-pjax.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^vary:.*x-pjax.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

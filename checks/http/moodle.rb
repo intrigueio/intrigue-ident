@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://moodle.org/',
               description: 'Moodle - MoodleSession cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /MoodleSession(prod)?=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /MoodleSession(prod)?=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://moodle.org/',
               description: 'Version detection via /lib/upgrade.txt',
               version: nil,
-              match_type: :content_body,
-              match_content: /This files describes API changes in core libraries and APIs/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /This files describes API changes in core libraries and APIs/i,
+                }
+              ],
               paths: [{ path: "#{url}/lib/upgrade.txt", follow_redirects: true }],
               inference: true,
               require_product: 'Moodle',

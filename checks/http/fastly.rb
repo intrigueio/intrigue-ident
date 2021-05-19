@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.fastly.com/',
               description: 'Fastly - x-fastly-backend-reqs header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-fastly-backend-reqs:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-fastly-backend-reqs:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.fastly.com/',
               description: 'Fastly - x-fastly-service header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-fastly-service:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-fastly-service:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://www.fastly.com/',
               description: 'Fastly - x-fastly-request-id header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-fastly-request-id:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-fastly-request-id:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -56,8 +71,13 @@ module Intrigue
               description: 'error content in page',
               version: nil,
               hide: true,
-              match_type: :content_title,
-              match_content: /Fastly error: unknown domain/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Fastly error: unknown domain/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

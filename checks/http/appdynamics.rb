@@ -12,9 +12,14 @@ module Intrigue
               vendor: 'AppDynamics',
               product: 'AppDynamics',
               version: nil,
-              match_type: :content_cookies,
-              description: '',
-              match_content: /ADRUM_BTa=/,
+              description: 'AppDynamics - ADRUM_BTa Cookie Match',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /ADRUM_BTa=/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -27,9 +32,14 @@ module Intrigue
               vendor: 'AppDynamics',
               product: 'AppDynamics',
               version: nil,
-              match_type: :content_cookies,
-              description: '',
-              match_content: /ADRUM_BT1=/,
+              description: 'AppDynamics - ADRUM_BT1 Cookie Match',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /ADRUM_BT1=/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

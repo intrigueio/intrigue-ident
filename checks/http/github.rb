@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://github.com/',
               description: 'github specific header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-github-request-id:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-github-request-id:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://github.com/',
               description: 'github server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: GitHub.com$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: GitHub.com$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

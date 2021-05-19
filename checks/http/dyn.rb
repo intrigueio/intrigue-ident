@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://account.dyn.com/',
               description: 'dynect.net cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /Domain=.dynect.net/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /Domain=.dynect.net/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://account.dyn.com/',
               description: 'default login page',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Login | Dyn Portal$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Login | Dyn Portal$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               hide: true

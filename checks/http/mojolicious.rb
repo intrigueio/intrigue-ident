@@ -13,13 +13,18 @@ module Intrigue
           product:"Mojolicious",
           website: "http://mojolicio.us/",
           description:"server header",
-          match_type: :content_headers,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_headers,
+              match_content: /^server: Mojolicious \(Perl\)/i,
+            }
+          ],
           version: nil,
           references: [],
           dynamic_version: lambda { |x|
             _first_header_capture(x,/^server: Mojolicious \(Perl\)/i)
           },
-          match_content: /^server: Mojolicious \(Perl\)/i,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
         }

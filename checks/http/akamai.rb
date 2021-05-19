@@ -12,8 +12,13 @@ module Intrigue
               product: 'Akamai',
               website: 'https://www.akamai.com/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: AkamaiGHost$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: AkamaiGHost$/i,
+                }
+              ],
               description: 'ghost server header',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -26,8 +31,13 @@ module Intrigue
               product: 'Akamai',
               website: 'https://www.akamai.com/',
               version: nil,
-              match_type: :content_body,
-              match_content: /The requested URL "&#91;no&#32;URL&#93;", is invalid.<p>/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /The requested URL "&#91;no&#32;URL&#93;", is invalid.<p>/,
+                }
+              ],
               description: 'Akamai Missing Uri',
               hide: true,
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -41,8 +51,13 @@ module Intrigue
               product: 'Akamai',
               website: 'https://www.akamai.com/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-akamai-transformed:.*/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-akamai-transformed:.*/,
+                }
+              ],
               description: 'Akamai transformed header',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -58,8 +73,13 @@ module Intrigue
               ],
               product: 'Akamai (Staging Network)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /X-Akamai-Staging: ESSL/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /X-Akamai-Staging: ESSL/,
+                }
+              ],
               description: 'Akamai transformed header',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -75,8 +95,13 @@ module Intrigue
               ],
               product: 'Akamai (Staging Network)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /X-Akamai-Staging: EdgeSuite/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /X-Akamai-Staging: EdgeSuite/,
+                }
+              ],
               description: 'Akamai transformed header',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

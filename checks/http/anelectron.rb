@@ -12,8 +12,13 @@ module Intrigue
               product: 'Advanced Electron Forum',
               website: 'https://www.anelectron.com/',
               version: nil,
-              match_type: :content_body,
-              match_content: /Powered By AEF/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Powered By AEF/i,
+                }
+              ],
               description: 'powered by message',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

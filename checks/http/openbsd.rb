@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.libressl.org/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*LibreSSL/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*LibreSSL/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*LibreSSL/([\w\d.\-]*)\s.*$}i)
               },

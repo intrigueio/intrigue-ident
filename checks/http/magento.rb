@@ -12,9 +12,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'cookie',
-              match_type: :content_body,
               version: nil,
-              match_content: /Mage.Cookies.path/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Mage.Cookies.path/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -26,9 +31,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'cache header',
-              match_type: :content_headers,
               version: nil,
-              match_content: /^x-magento-cache-debug:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-magento-cache-debug:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -40,9 +50,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'cacheing header',
-              match_type: :content_headers,
               version: nil,
-              match_content: /^x-magento-cache-control:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-magento-cache-control:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -54,9 +69,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'tags header',
-              match_type: :content_headers,
               version: nil,
-              match_content: /^x-magento-tags:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-magento-tags:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -68,9 +88,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'cookies js file',
-              match_type: :content_body,
               version: nil,
-              match_content: /old school cookie functions grabbed off the web/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /old school cookie functions grabbed off the web/i,
+                }
+              ],
               paths: [{ path: "#{url}/js/mage/cookies.js", follow_redirects: true }],
               require_product: 'Magento',
               inference: false
@@ -83,9 +108,14 @@ module Intrigue
               product: 'Magento',
               website: 'https://magento.com/',
               description: 'release notes file',
-              match_type: :content_body,
               version: nil,
-              match_content: /==== [\d.]+ ====/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /==== [\d.]+ ====/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, /==== ([\d.]+) ====/i) },
               paths: [{ path: "#{url}/RELEASE_NOTES.txt", follow_redirects: true }],
               require_product: 'Magento',

@@ -17,8 +17,13 @@ class Binarysec < Intrigue::Ident::Check::Base
         product:"Web Application Firewall",
         description:"cookie",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /server: BinarySec/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /server: BinarySec/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }, 
@@ -34,8 +39,13 @@ class Binarysec < Intrigue::Ident::Check::Base
         product:"Web Application Firewall",
         description:"cookie",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /x-binarysec/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /x-binarysec/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

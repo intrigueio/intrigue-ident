@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://rubyonrails.org/',
               version: nil,
               description: 'in-page authenticity token (csrf-param)',
-              match_type: :content_body,
-              match_content: /meta content="authenticity_token" name="csrf-param/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /meta content="authenticity_token" name="csrf-param/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

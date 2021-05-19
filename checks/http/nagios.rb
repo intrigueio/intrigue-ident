@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.nagios.org/',
               description: 'Nagios',
               version: nil,
-              match_type: :content_headers,
-              match_content: /nagios/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /nagios/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

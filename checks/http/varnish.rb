@@ -13,8 +13,13 @@ module Intrigue
               website: 'http://www.varnish-cache.org/',
               description: 'Varnish Proxy',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Varnish$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Varnish$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'http://www.varnish-cache.org/',
               description: 'Varnish Proxy',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-varnish:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-varnish:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'http://www.varnish-cache.org/',
               description: 'Varnish Proxy',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^via: (\d+(\.\d+)* )?varnish$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^via: (\d+(\.\d+)* )?varnish$/i,
+                }
+              ],
               # dynamic_version: lambda { |x|
               #  _first_header_capture(x, /^via: (\d+(\.\d+)*) varnish$/i)
               # },
@@ -59,8 +74,13 @@ module Intrigue
               website: 'http://www.varnish-cache.org/',
               description: 'Varnish Proxy',
               version: 4,
-              match_type: :content_headers,
-              match_content: /^via: [0-9.]+ varnish-v4,.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^via: [0-9.]+ varnish-v4,.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

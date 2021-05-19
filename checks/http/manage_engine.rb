@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.manageengine.com/products/service-desk/',
               description: 'cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /SDPSESSIONID=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /SDPSESSIONID=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

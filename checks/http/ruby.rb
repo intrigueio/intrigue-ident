@@ -12,8 +12,13 @@ module Intrigue
               product: 'Ruby',
               website: 'https://www.ruby-lang.org/',
               description: 'Ruby - x-rack-cache Header',
-              match_type: :content_headers,
-              match_content: /^x-rack-cache:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-rack-cache:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -25,9 +30,14 @@ module Intrigue
               product: 'Ruby',
               website: 'https://www.ruby-lang.org/',
               description: 'Ruby - Server Header',
-              match_type: :content_headers,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server:.*\(Ruby/[\d.]+/[\d\-]+\)}i,
+                }
+              ],
               dynamic_version: ->(d) { _first_header_capture(d, %r{\(Ruby/([\d.]+)/[\d\-]+\)}) },
-              match_content: %r{server:.*\(Ruby/[\d.]+/[\d\-]+\)}i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -39,9 +49,14 @@ module Intrigue
               product: 'Webrick',
               website: 'https://github.com/ruby/webrick',
               description: 'Ruby Webrick - Server Header',
-              match_type: :content_headers,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server:.*WEBrick/[\d.]+}i,
+                }
+              ],
               dynamic_version: ->(d) { _first_header_capture(d, %r{WEBrick/([\d.]+)}) },
-              match_content: %r{server:.*WEBrick/[\d.]+}i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             }

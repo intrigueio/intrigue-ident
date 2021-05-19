@@ -12,11 +12,16 @@ module Intrigue
               product: 'RomPager',
               website: 'https://www.allegrosoft.com/product/embedded-internet-toolkits/rompager-web-server/',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server:\ Allegro-Software-RomPager/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{Allegro-Software-RomPager/(.*)$}i)
                                },
-              match_type: :content_headers,
-              match_content: /server:\ Allegro-Software-RomPager/,
               description: 'Allegro RomPager - Server Header',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

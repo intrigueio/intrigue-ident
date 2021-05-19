@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.php.net/',
               description: 'x-powered-by header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-powered-by: PHP/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by: PHP/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{x-powered-by: PHP/(.*)}i)
                                },
@@ -30,8 +35,13 @@ module Intrigue
               website: 'https://www.php.net/',
               description: 'apache server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^server:.*PHP/[\d.]+.*}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:.*PHP/[\d.]+.*}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 # check for backported OS type
                 backported = false
@@ -60,8 +70,13 @@ module Intrigue
               website: 'https://www.php.net/',
               description: 'PHPSESSID cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /PHPSESSID=.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /PHPSESSID=.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

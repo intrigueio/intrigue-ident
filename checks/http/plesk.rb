@@ -13,8 +13,13 @@ module Intrigue
               references: [],
               description: "x-powered-by-plesk... plesklin",
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by: PleskLin/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by: PleskLin/i,
+                }
+              ],
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },
@@ -27,8 +32,13 @@ module Intrigue
               references: [],
               description: "pleskwin in the header",
               version: nil,
-              match_type: :content_headers,
-              match_content: /^PleskWin/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^PleskWin/i,
+                }
+              ],
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },
@@ -41,8 +51,13 @@ module Intrigue
               references: [],
               description: "x-powered-by-plesk",
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by-plesk:.*/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by-plesk:.*/,
+                }
+              ],
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://modwsgi.readthedocs.io/en/master/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_wsgi/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_wsgi/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_wsgi/([\w\d.\-]*)\s.*$}i)
               },

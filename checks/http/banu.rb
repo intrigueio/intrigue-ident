@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://github.com/banu/tinyproxy',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: tinyproxy/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: tinyproxy/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: tinyproxy/(.*)}i)
               },

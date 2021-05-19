@@ -16,8 +16,13 @@ class Sailpoint < Intrigue::Ident::Check::Base
         ],
         description: "Main page of a sailpoint identityq instance",
         version: nil,
-        match_type: :content_title,
-        match_content:  /SailPoint IdentityIQ/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content:  /SailPoint IdentityIQ/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

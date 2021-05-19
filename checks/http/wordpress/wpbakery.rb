@@ -13,8 +13,13 @@ class WordpressBakery < Intrigue::Ident::Check::Base
         product:"WPBakery",
         references: ["https://wpbakery.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Powered by WPBakery Page Builder/i ,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Powered by WPBakery Page Builder/i ,
+          }
+        ],
         description:"header match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

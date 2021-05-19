@@ -13,8 +13,13 @@ module Intrigue
           product:"Wordfence",
           description:"plugin",
           references: [],
-          match_type: :content_body,
-          match_content:  /wordfence_lh=/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content:  /wordfence_lh=/i,
+            }
+          ],
           paths: [ { path: "#{url}", follow_redirects: true } ],
           require_product: "Wordpress",
           inference: false
@@ -27,8 +32,13 @@ module Intrigue
           product:"Wordfence",
           description:"plugin",
           references: [],
-          match_type: :content_body,
-          match_content:  /wordfence_syncAttackData[\?\"\=]/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content:  /wordfence_syncAttackData[\?\"\=]/i,
+            }
+          ],
           paths: [ { path: "#{url}", follow_redirects: true } ],
           require_product: "Wordpress",
           inference: false

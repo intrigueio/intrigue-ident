@@ -13,8 +13,13 @@ module Intrigue
               references: ["http://koken.me/"],
               description: "NetObjects Koken - generator tag page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="Koken (\d+(\.\d+)*)/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="Koken (\d+(\.\d+)*)/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="Koken (\d+(\.\d+)*)/i)
               },

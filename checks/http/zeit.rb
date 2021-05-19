@@ -12,8 +12,13 @@ module Intrigue
               product: 'Next.js',
               description: 'x-powered-by header',
               references: ['https://zeit.co/blog/next'],
-              match_type: :content_headers,
-              match_content: /x-powered-by: Next.js/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by: Next.js/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /x-powered-by: Next.js\ (.*)/i)
               },

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://bitbucket.org/product',
               description: 'Atlassian BitBucket',
               version: nil,
-              match_type: :content_body,
-              match_content: /com.atlassian.bitbucket.server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /com.atlassian.bitbucket.server/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.atlassian.com/software/confluence',
               description: 'Atlassian Confluence',
               version: nil,
-              match_type: :content_headers,
-              match_content: /X-Confluence-Request-Time/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /X-Confluence-Request-Time/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://www.atlassian.com/software/crucible',
               description: 'Atlassian Crucible',
               version: nil,
-              match_type: :content_body,
-              match_content: /FishEye and Crucible/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /FishEye and Crucible/,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /Log in to FishEye and Crucible (.*)</)
               },
@@ -59,8 +74,13 @@ module Intrigue
               references: ['https://en.wikipedia.org/wiki/HipChat'],
               description: 'Atlassian Hipchat',
               version: nil,
-              match_type: :content_body,
-              match_content: /\$\(document\).trigger\('hipchat.load'\);/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /\$\(document\).trigger\('hipchat.load'\);/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -86,8 +106,13 @@ module Intrigue
               website: 'https://www.atlassian.com/software/jira',
               description: 'Atlassian Jira',
               version: nil,
-              match_type: :content_body,
-              match_content: /jira.webresources/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /jira.webresources/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -100,8 +125,13 @@ module Intrigue
               website: 'https://www.atlassian.com/software/jira',
               description: 'Atlassian Jira',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /atlassian.xsrf.token=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /atlassian.xsrf.token=/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, /<meta name="ajs-version-number" content="(.*)">/)
                                },
@@ -117,8 +147,13 @@ module Intrigue
               references: ['https://community.atlassian.com/t5/Jira-questions/REST-API-not-returning-any-data-with-API-token/qaq-p/1292806'],
               description: 'proxy server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^server: AtlassianProxy/[\d.]+$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: AtlassianProxy/[\d.]+$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server: AtlassianProxy/([\d.]+)$}i)
                                },
@@ -134,8 +169,13 @@ module Intrigue
               website: 'https://www.atlassian.com/',
               description: 'statuspage icon',
               version: nil,
-              match_type: :content_body,
-              match_content: /logos-statuspage-logo-gradient-neutral.svg/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /logos-statuspage-logo-gradient-neutral.svg/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -148,8 +188,13 @@ module Intrigue
               website: 'https://www.atlassian.com/',
               description: 'statuspage header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-statuspage-skip-logging:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-statuspage-skip-logging:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -162,8 +207,13 @@ module Intrigue
               website: 'https://www.atlassian.com/',
               description: 'statuspage header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-statuspage-version:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-statuspage-version:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -176,8 +226,13 @@ module Intrigue
               website: 'https://www.atlassian.com/software/crowd',
               description: 'body content',
               version: nil,
-              match_type: :content_body,
-              match_content: /Atlassian Crowd - Login/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Atlassian Crowd - Login/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false, # Version:&nbsp;3.5.0
               dynamic_version: lambda { |x|

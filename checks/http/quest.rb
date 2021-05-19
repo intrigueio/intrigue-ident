@@ -17,8 +17,13 @@ module Intrigue
                 'https://www.rapid7.com/db/modules/exploit/unix/http/dell_kace_k1000_upload/'
               ],
               version: nil,
-              match_type: :content_cookies,
-              match_content: /kboxid=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /kboxid=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -32,8 +37,13 @@ module Intrigue
               website: 'https://www.quest.com/kace/',
               description: 'header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-KACE-Appliance:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-KACE-Appliance:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -50,8 +60,13 @@ module Intrigue
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /kace-theme-light\.css\?build=([\d.]+)"/i)
               },
-              match_type: :content_headers,
-              match_content: /^X-KACE-Appliance:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-KACE-Appliance:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -65,8 +80,13 @@ module Intrigue
               website: 'https://www.quest.com/kace/',
               description: 'cookie',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-KACE-Appliance:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-KACE-Appliance:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -80,8 +100,13 @@ module Intrigue
               website: 'https://www.quest.com/kace/',
               description: 'header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-KACE-Appliance:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-KACE-Appliance:.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /kace-theme-light\.css\?build=([\d.]+)"/i)
               },
@@ -98,8 +123,13 @@ module Intrigue
               website: 'https://www.quest.com/kace/',
               description: 'header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-KACE-Appliance:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-KACE-Appliance:.*$/i,
+                }
+              ],
               dynamic_product: lambda { |x|
                                  "Kace Systems Management #{_first_header_capture(x, /^X-KACE-Appliance:(.*)$/i)}"
                                },
@@ -114,8 +144,13 @@ module Intrigue
               product: 'Kace Systems Management',
               website: 'https://www.quest.com/kace/',
               description: 'title',
-              match_type: :content_title,
-              match_content: /^KACE Systems Management Appliance Service Center$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^KACE Systems Management Appliance Service Center$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

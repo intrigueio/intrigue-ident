@@ -36,9 +36,14 @@ module Intrigue
               website: 'https://spring.io/',
               description: 'spring cache header',
               references: ['https://github.com/atramos/springy-aws'],
-              match_type: :content_body,
               version: nil,
-              match_content: /^x-springy-cache-disabled:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /^x-springy-cache-disabled:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               examples: ['x-springy-cache-disabled: 0'],
               inference: false
@@ -52,9 +57,14 @@ module Intrigue
               website: 'https://spring.io/',
               description: 'spring cache header',
               references: ['https://stackoverflow.com/questions/40379550/what-is-x-application-context-header'],
-              match_type: :content_headers,
               version: nil,
-              match_content: /^X-Application-Context.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Application-Context.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -66,9 +76,14 @@ module Intrigue
               product: 'RabbitMQ',
               description: 'RabbitMQ',
               website: 'https://www.rabbitmq.com/',
-              match_type: :content_body,
               version: nil,
-              match_content: /RabbitMQ Management/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /RabbitMQ Management/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -80,9 +95,14 @@ module Intrigue
               product: 'RabbitMQ',
               website: 'https://www.rabbitmq.com/',
               description: 'RabbitMQ API',
-              match_type: :content_body,
               version: nil,
-              match_content: /RabbitMQ Management HTTP API/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /RabbitMQ Management HTTP API/,
+                }
+              ],
               paths: [{ path: "#{url}/api", follow_redirects: true }],
               inference: false
             },
@@ -94,9 +114,14 @@ module Intrigue
               product: 'tc server',
               description: 'body version string',
               references: ['https://www.vmware.com/products/pivotal-tcserver.html'],
-              match_type: :content_body,
               version: nil,
-              match_content: /Pivotal tc Server Standard Edition [\d.]+\.RELEASE/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Pivotal tc Server Standard Edition [\d.]+\.RELEASE/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, /Pivotal tc Server Standard Edition\ ([\d.]+)\.RELEASE/i)
                                },

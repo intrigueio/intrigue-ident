@@ -15,8 +15,13 @@ module Intrigue
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
               description: 'login page string',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{global-protect/login.esp}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{global-protect/login.esp}i,
+                }
+              ],
               paths: [{ path: uri.to_s, follow_redirects: true }],
               inference: false
             },
@@ -29,8 +34,13 @@ module Intrigue
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
               description: 'getting last-modified header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Last-Modified/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Last-Modified/i,
+                }
+              ],
               require_product: 'GlobalProtect',
               paths: [
                 { path: "#{uri}/global-protect/login.esp", follow_redirects: false },

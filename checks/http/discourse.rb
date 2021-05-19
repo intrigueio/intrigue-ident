@@ -14,8 +14,13 @@ class DiscourseCMS < Intrigue::Ident::Check::Base
         references: ["https://www.discourse.org/"],
         description: "Discourse - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="Discourse/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="Discourse/i,
+          }
+        ],
         dynamic_version: lambda { |x| 
           _first_body_capture(x, /<meta name="generator" content="Discourse (\d+(\.\d+)*)/i)
         },

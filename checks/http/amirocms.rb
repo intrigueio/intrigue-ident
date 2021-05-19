@@ -13,8 +13,13 @@ class AmiroCMS < Intrigue::Ident::Check::Base
         product: "Amiro.CMS",
         references: ["https://www.amiro.ru/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Amiro.CMS/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Amiro.CMS/i,
+          }
+        ],
         dynamic_version: nil,
         description: "header match",
         hide: false,

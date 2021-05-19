@@ -14,8 +14,13 @@ module Intrigue
               references: ['https://www.leadpages.net/'],
               version: nil,
               description: 'Leadpages - Server Header',
-              match_type: :content_headers,
-              match_content: /^server:\ Leadpages$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ Leadpages$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server:\ Leadpages$/i)
                                },

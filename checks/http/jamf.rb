@@ -12,15 +12,20 @@ module Intrigue
               product: 'Pro',
               website: 'https://www.jamf.com/products/jamf-pro/',
               description: 'Jamf Pro - Login Title Page Reference',
-              match_type: :content_body,
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Jamf Pro Login - Jamf Pro v/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, /<title>Jamf Pro Login - Jamf Pro v([\d.]*)-.*</)
                                },
               dynamic_update: lambda { |x|
                                 _first_body_capture(x, /<title>Jamf Pro Login - Jamf Pro v[\d.]*-(.*)</)
                               },
-              match_content: /<title>Jamf Pro Login - Jamf Pro v/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             }

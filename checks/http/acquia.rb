@@ -13,8 +13,13 @@ class Acquia < Intrigue::Ident::Check::Base
         product: "Acquia",
         references: ["https://docs.acquia.com/acquia-cloud/performance/varnish/headers/"],
         version: nil,
-        match_type: :content_headers,
-        match_content: /X-AH-Environment:/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /X-AH-Environment:/i,
+          }
+        ],
         description: "Header contains Acquia environment",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

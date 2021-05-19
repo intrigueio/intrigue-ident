@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.python.org/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*Python.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*Python.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^server:.*Python/([\d.]*).*$}i)
               },
@@ -30,8 +35,13 @@ module Intrigue
               website: 'https://www.python.org/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*CPython.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*CPython.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^server:.*CPython/([\d.]*).*$}i)
               },
@@ -47,8 +57,13 @@ module Intrigue
               website: 'https://docs.python.org/2/library/simplehttpserver.html',
               references: [''],
               version: nil,
-              match_type: :content_headers,
-              match_content: /Server: SimpleHTTP.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Server: SimpleHTTP.*/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{Server: SimpleHTTP/([\d.]+)}i) },
               description: 'server header',
               hide: false,

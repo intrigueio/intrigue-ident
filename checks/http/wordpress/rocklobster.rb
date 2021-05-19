@@ -12,8 +12,13 @@ module Intrigue
               product: 'Contact Form 7',
               website: 'https://contactform7.com/',
               description: 'string in wp-json',
-              match_type: :content_body,
-              match_content: /contact-form-7/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /contact-form-7/i,
+                }
+              ],
               version: nil,
               paths: [{ path: "#{url}/wp-json", follow_redirects: true }],
               require_product: 'Wordpress',
@@ -27,8 +32,13 @@ module Intrigue
               product: 'Contact Form 7',
               description: 'plugin',
               website: 'https://contactform7.com/',
-              match_type: :content_body,
-              match_content: /wpcf7-form/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /wpcf7-form/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               require_product: 'Wordpress',
               inference: false

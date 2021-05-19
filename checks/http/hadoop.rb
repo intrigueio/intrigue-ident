@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html',
               description: 'unique body string',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{user">Logged in as: dr\.who</div>}im,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{user">Logged in as: dr\.who</div>}im,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html',
               description: 'Hadoop YARN - root.users.dr_dr_who Page Reference',
               version: nil,
-              match_type: :content_body,
-              match_content: /root.users.dr_dot_who/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /root.users.dr_dot_who/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

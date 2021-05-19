@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.vmware.com/uk/products/esxi-and-esx.html',
               description: 'unique page string',
               version: nil,
-              match_type: :content_body,
-              match_content: /document.write\("<title>"\ \+\ ID_EESX_Welcome/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /document.write\("<title>"\ \+\ ID_EESX_Welcome/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               issue: 'exposed_admin_panel_unauthenticated'
@@ -28,8 +33,13 @@ module Intrigue
               website: 'https://www.vmware.com/uk/products/esxi-and-esx.html',
               description: 'unique page string',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{client/VMware-viclient\.exe}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{client/VMware-viclient\.exe}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -42,8 +52,13 @@ module Intrigue
               website: 'https://my.vmware.com/en/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_horizon_clients/horizon_8',
               description: 'page title',
               version: nil,
-              match_type: :content_body,
-              match_content: /<title>VMware Horizon/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>VMware Horizon/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -56,8 +71,13 @@ module Intrigue
               website: 'https://www.vmware.com/uk/products/vsphere.html',
               description: 'page title',
               version: nil,
-              match_type: :content_body,
-              match_content: /document.write\("<title>"\ \+\ ID_VC_Welcome/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /document.write\("<title>"\ \+\ ID_VC_Welcome/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -71,8 +91,13 @@ module Intrigue
               description: 'page title',
               references: [],
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<title>vRealize Operations Manager</title>},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>vRealize Operations Manager</title>},
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -86,8 +111,13 @@ module Intrigue
               description: 'page title',
               references: ['https://blogs.vmware.com/cloudprovider/2020/10/vrealize-operations-tenant-app-2-5.html'],
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<title>vRealize Operations Tenant App</title>},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>vRealize Operations Tenant App</title>},
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

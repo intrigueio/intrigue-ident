@@ -13,8 +13,13 @@ module Intrigue
               description: 'x-ruxit-js-agent header',
               references: ['http://ruxit.com'],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-ruxit-js-agent:.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-ruxit-js-agent:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               description: 'x-dynatrace-js-agent header',
               references: ['http://ruxit.com'],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-ruxit-js-agent:.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-ruxit-js-agent:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

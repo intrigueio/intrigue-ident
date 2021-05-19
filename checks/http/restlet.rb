@@ -12,8 +12,13 @@ module Intrigue
               product: 'Restlet',
               description: 'server header for Restlet',
               references: ['http://restlet.com/company/blog/2016/02/03/api-testing-testing-web-apis-using-dhc-by-restlet/'],
-              match_type: :content_headers,
-              match_content: /server: Restlet-Framework/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Restlet-Framework/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: Restlet-Framework/(.*)}i)
               },

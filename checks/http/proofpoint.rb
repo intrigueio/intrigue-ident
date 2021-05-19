@@ -13,8 +13,13 @@ module Intrigue
           product: "Protection Server",
           references: ["https://www.proofpoint.com/us/resources/data-sheets/protection-server-technical-brief"],
           version: nil,
-          match_type: :content_title,
-          match_content: /^Proofpoint Protection Server$/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /^Proofpoint Protection Server$/i,
+            }
+          ],
           description: "title",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
