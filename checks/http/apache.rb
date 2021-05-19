@@ -189,8 +189,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - Server Header - no version',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:\ Apache$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ Apache$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },

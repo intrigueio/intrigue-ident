@@ -55,6 +55,7 @@ module Intrigue
               website: 'https://aws.amazon.com/cloudfront/',
               version: nil,
               description: 'cloudfront equest could not be satisfied',
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_code,
@@ -82,8 +83,13 @@ module Intrigue
               website: 'https://aws.amazon.com/cloudfront/',
               version: nil,
               description: 'cloudfront cache header',
-              match_type: :content_headers,
-              match_content: /x-cache:.*cloudfront/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-cache:.*cloudfront/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
