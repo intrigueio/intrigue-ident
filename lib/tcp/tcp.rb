@@ -4,7 +4,7 @@ module Intrigue
       include Intrigue::Ident::SimpleSocket
 
       def generate_tcp_requests_and_check(ip, port, debug = false)
-
+        @debug = debug
         results = []
         checks = []
         if Intrigue::Ident::Tcp::CheckFactory.checks != nil
@@ -26,7 +26,6 @@ module Intrigue
           end
 
           # match the response
-          res = res.unpack("U*").map{|c|c.chr}.join
           if res =~ check[:match_content]
             # wee, we found something
             results << _construct_match_response(check, res)
@@ -37,18 +36,37 @@ module Intrigue
 
       private
 
-      def send_hex_request(ip, port, data, timeout = 3)
-        # TODO: do we need to do anything different to send in hex vs plain?
-        send_plain_request(ip, port, data, timeout)
+      def send_hex_request(ip, port, data)
+        # pack data in hex
+        if data.is_a?(Array)
+          data = data.pack("H*")
+        else
+          data = [].append(data).pack("H*")
+        end
+
+        # if data is not an array, try sending it anyway . 
+        res = send_request(ip, port, data)
+
+        # unpack response and send pack
+        return res.unpack("H*").join()
+
       end
 
-      def send_plain_request(ip, port, data, timeout = 3)
+      def send_plain_request(ip, port, data)
+        res = send_request(ip, port, data)
+        res.encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
+      end
+
+      def send_request(ip, port, data, timeout = 3)
         if socket = connect_tcp(ip, port, timeout)
           # first try to read something in case something comes back
-          #puts "Attempting to read data first."
+          _logg "Attempting to read data first."
           out = "" 
           begin
-            out =+ socket.readpartial(24576, timeout: timeout)
+            sout = socket.readpartial(24576, timeout: timeout)
+            if sout.is_a?(String)
+              out += sout
+            end
           rescue Errno::EHOSTUNREACH => e
             _logg "Error while reading! Host Unreachable."
             return
@@ -65,7 +83,10 @@ module Intrigue
           #and read the response
           _logg "Reading response."
           begin
-            out =+ socket.readpartial(24576, timeout: timeout)
+            sout =  socket.readpartial(24576, timeout: timeout)
+            if sout.is_a?(String)
+              out += sout
+            end
           rescue Errno::EHOSTUNREACH => e
             _logg "Error while reading! Host Unreachable."
             return
@@ -78,12 +99,12 @@ module Intrigue
           out = nil
         end
 
-        "#{out}".encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
+        out
       end
 
 
-      def _logg(msg, debug = false)
-        if debug
+      def _logg(msg)
+        if @debug
           puts "DEBUG: #{msg}"
         end
       end
