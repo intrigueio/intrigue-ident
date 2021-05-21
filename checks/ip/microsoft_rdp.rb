@@ -1,7 +1,7 @@
 module Intrigue
     module Ident
-    module TcpCheck
-    class RDPTesting < Intrigue::Ident::TcpCheck::Base
+    module IpCheck
+    class MicrosoftRDP < Intrigue::Ident::IpCheck::Base
       def generate_checks
         [
           {
@@ -12,6 +12,7 @@ module Intrigue
             product: "Remote desktop",
             references: [],
             version: nil,
+            protocol: :tcp,
             request_type: :hex,
             request_content: "0300002a25e00000000000436f6f6b69653a206d737473686173683d746573740d0a010008000b000000",
             #match_type: :content_banner, we don't have a match_type because we can only match whatever we get in the response
@@ -26,4 +27,4 @@ module Intrigue
     end
     end
     end
-    end
+end

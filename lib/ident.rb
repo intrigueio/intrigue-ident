@@ -271,15 +271,15 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
-# Load in custom tcp checks 
+# Load in custom ip checks 
 ##################################
-require_relative 'tcp/tcp'
-require_relative 'tcp/check_factory'
-require_relative '../checks/tcp/base'
-include Intrigue::Ident::Tcp
+require_relative 'ip/ip'
+require_relative 'ip/check_factory'
+require_relative '../checks/ip/base'
+include Intrigue::Ident::Ip
 
 # tcp fingerprints
-check_folder = File.expand_path('../checks/tcp', File.dirname(__FILE__)) # get absolute directory
+check_folder = File.expand_path('../checks/ip', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 ###
@@ -433,7 +433,7 @@ module Intrigue
 
         # if you want a custom tcp protocol to be scanned, enter them here
         if port == 4786 || port == 3389
-          ident_matches = generate_tcp_requests_and_check(ip_address_or_hostname, port) || {}
+          ident_matches = generate_ip_requests_and_check(ip_address_or_hostname, port) || {}
         end
 
 
