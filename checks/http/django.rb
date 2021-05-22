@@ -7,15 +7,18 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Login Panel'],
               vendor: 'Django',
               product: 'Django',
               website: 'https://www.djangoproject.com/',
               version: nil,
               description: 'Django Admin Page',
               match_type: :content_body,
-              match_content: /Django site admin/,
-              paths: [{ path: "#{url}/admin", follow_redirects: true }],
+              match_content: /Django - Login panel page reference/,
+              paths: [
+                { path: "#{url}/admin", follow_redirects: true },
+                { path: "#{url}/admin/login/?next=/admin/", follow_redirects: true }
+              ],
               inference: false
             }
           ]

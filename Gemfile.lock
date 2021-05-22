@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    intrigue-ident (5.1.5)
+    intrigue-ident (5.2.2)
       dnsruby
       mongo
       murmurhash3

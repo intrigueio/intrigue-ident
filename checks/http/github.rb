@@ -31,6 +31,34 @@ module Intrigue
               match_content: /^server: GitHub.com$/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Login Panel'],
+              vendor: 'Github',
+              product: 'Enterprise',
+              website: 'https://github.com/',
+              description: 'Github Enterprise - Login panel page reference',
+              version: nil,
+              require_vendor: 'Github',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /GitHub Enterprise<\/title>/i
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /password/i
+                }
+              ],
+              paths: [
+                { path: "#{url}/login", follow_redirects: true },
+                { path: "#{url}/setup/unlock", follow_redirects: true }
+              ],
+              inference: false,
+              test_target: ['https://1.221.184.114:8443/']
             }
           ]
         end
