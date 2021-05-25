@@ -1,12 +1,12 @@
 module Intrigue
   module Ident
-  module TcpCheck
+  module IpCheck
   class Base
   
     include Intrigue::Ident::BannerHelpers
   
     def self.inherited(base)
-      Intrigue::Ident::Tcp::CheckFactory.register(base)
+      Intrigue::Ident::Ip::CheckFactory.register(base)
     end
   
   end
