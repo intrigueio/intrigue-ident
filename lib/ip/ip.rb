@@ -24,11 +24,15 @@ module Intrigue
           else
             raise "Unknown request type"
           end
-
+          details = {
+            "details" => {
+              "banner" => res,
+            },
+          }
           # match the response
           if res =~ check[:match_content]
             # wee, we found something
-            results << _construct_match_response(check, res)
+            results << _construct_match_response(check, details)
           end
         end
         { "fingerprint" => results.uniq.compact, "banner" => "", "content" => [] }
