@@ -14,7 +14,7 @@ module Intrigue
             x.new.generate_checks
           }.compact.flatten
         end
-        
+
         checks.each do |check|
           # mak the request according to the type
           if check[:request_type] == :hex
@@ -44,7 +44,7 @@ module Intrigue
           data = [].append(data).pack("H*")
         end
 
-        # if data is not an array, try sending it anyway . 
+        # if data is not an array, try sending it anyway .
         res = send_request(ip, port, protocol, data)
 
         # unpack response and send pack

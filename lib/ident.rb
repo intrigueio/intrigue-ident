@@ -271,7 +271,7 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
-# Load in custom ip checks 
+# Load in custom ip checks
 ##################################
 require_relative 'ip/ip'
 require_relative 'ip/check_factory'
@@ -332,7 +332,7 @@ module Intrigue
         ).concat(
           Intrigue::Ident::Smb::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).concat(
-          Intrigue::Ident::Tcp::CheckFactory.checks.map { |x| x.new.generate_checks }
+          Intrigue::Ident::Ip::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).flatten
       end
 
