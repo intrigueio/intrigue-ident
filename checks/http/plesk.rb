@@ -11,48 +11,18 @@ module Intrigue
               vendor: "Plesk",
               product: "Plesk",
               references: [],
-              description: "x-powered-by-plesk... plesklin",
+              description: "Plesk - Headers Match",
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-powered-by: PleskLin/i,
-                }
-              ],
-              paths: [{ path: "#{url}", follow_redirects: true }],
-              inference: false,
-            },
-            {
-              type: "fingerprint",
-              category: "service",
-              tags: ["COTS"],
-              vendor: "Plesk",
-              product: "Plesk",
-              references: [],
-              description: "pleskwin in the header",
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^PleskWin/i,
-                }
-              ],
-              paths: [{ path: "#{url}", follow_redirects: true }],
-              inference: false,
-            },
-            {
-              type: "fingerprint",
-              category: "service",
-              tags: ["COTS"],
-              vendor: "Plesk",
-              product: "Plesk",
-              references: [],
-              description: "x-powered-by-plesk",
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-powered-by-plesk:.*/,
@@ -61,7 +31,6 @@ module Intrigue
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },
-
           ]
         end
       end

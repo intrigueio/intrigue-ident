@@ -11,29 +11,14 @@ module Intrigue
               vendor: 'Google',
               product: 'Analytics',
               website: 'https://analytics.google.com/',
-              description: 'UA string',
+              description: 'Google Analytics - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: /getTracker\(["|']UA-/im,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Marketing JavaScript],
-              vendor: 'Google',
-              product: 'Analytics',
-              website: 'https://analytics.google.com/',
-              description: 'load string',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: %r{www.google-analytics.com/analytics.js','ga'}im,
@@ -49,67 +34,18 @@ module Intrigue
               vendor: 'Google',
               product: 'AngularJS',
               website: 'https://angularjs.org/',
-              description: 'body ng-app string',
+              description: 'Google AngularJS - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
-                  match_content: /ng-app="/im,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Frontend JavaScript],
-              vendor: 'Google',
-              product: 'AngularJS',
-              website: 'https://angularjs.org/',
-              description: 'body ng-app string',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: /<ng-app/im,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Frontend JavaScript],
-              vendor: 'Google',
-              product: 'AngularJS',
-              website: 'https://angularjs.org/',
-              description: 'body ng-app string',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                  match_content: /ng-app=/im,
+                },
                 {
                   match_type: :content_body,
                   match_content: /\*ngIf=/im,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Frontend JavaScript],
-              vendor: 'Google',
-              product: 'AngularJS',
-              website: 'https://angularjs.org/',
-              description: 'body ng-app string',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: /ng-controller=/im,
@@ -146,70 +82,29 @@ module Intrigue
               vendor: 'Google',
               product: 'Google',
               references: ['https://cloud.google.com/storage/docs/xml-api/reference-headers'],
-              description: 'unique header',
+              description: 'Google - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-goog-stored-content-encoding:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['IaaS'],
-              vendor: 'Google',
-              product: 'Google',
-              references: ['https://cloud.google.com/storage/docs/xml-api/reference-headers'],
-              description: 'unique header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-goog-generation:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['SaaS'],
-              vendor: 'Google',
-              product: 'Google',
-              website: 'https://www.google.com/',
-              description: 'server header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^server: ghs$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['SaaS'],
-              vendor: 'Google',
-              product: 'Google',
-              website: 'https://www.google.com/',
-              description: 'server header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^server: GSE$/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: gws$/i,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -268,25 +163,6 @@ module Intrigue
                 {
                   match_type: :content_body,
                   match_content: /<!-- End Google Tag Manager -->/im,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server', 'Hosting', 'SaaS'],
-              vendor: 'Google',
-              product: 'Google Web Server',
-              website: 'https://www.google.com/',
-              description: 'Google web server header',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_headers,
-                  match_content: /^server: gws$/i,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],

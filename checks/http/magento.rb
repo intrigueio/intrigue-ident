@@ -30,48 +30,18 @@ module Intrigue
               vendor: 'Magento',
               product: 'Magento',
               website: 'https://magento.com/',
-              description: 'cache header',
+              description: 'Magento - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-magento-cache-debug:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[COTS Payments],
-              vendor: 'Magento',
-              product: 'Magento',
-              website: 'https://magento.com/',
-              description: 'cacheing header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-magento-cache-control:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[COTS Payments],
-              vendor: 'Magento',
-              product: 'Magento',
-              website: 'https://magento.com/',
-              description: 'tags header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-magento-tags:.*$/i,

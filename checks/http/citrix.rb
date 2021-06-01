@@ -136,73 +136,29 @@ module Intrigue
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_TMAC cookie',
+              description: 'Citrix NetScaler Gateway - Cookie Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
                   match_content: /NSC_TMAC=/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_TEMP cookie',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /NSC_TEMP=/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_.*_NGB cookie',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /NSC_\w+_NGB=/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_PERS cookie',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /NSC_PERS=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /citrix_ns_id=/i,
                 }
               ],
               hide: false,
@@ -243,26 +199,6 @@ module Intrigue
                 {
                   match_type: :content_headers,
                   match_content: /^cteonnt-length:.*$/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              description: 'cookie',
-              references: ['https://support.citrix.com/article/CTX131488'],
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_cookies,
-                  match_content: /citrix_ns_id=/i,
                 }
               ],
               hide: false,

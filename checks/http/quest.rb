@@ -37,12 +37,13 @@ module Intrigue
               website: 'https://www.quest.com/kace/',
               description: 'header',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^X-KACE-Appliance:.*$/i,
-                }
+                },
+
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

@@ -57,10 +57,7 @@ module Intrigue
               version: nil,
               match_logic: :all,
               matches: [
-                {
-                  match_type: :content_body,
-                  match_content: %r{<title>TIBCO Jaspersoft: Login</title>}i,
-                }
+              
               ],
               paths: [{ path: "#{url}/jasperserver-pro/login.html", follow_redirects: true }],
               require_product: 'HTTP Server', # require apache
@@ -85,26 +82,6 @@ module Intrigue
               ],
               paths: [{ path: "#{url}/jasperserver-pro/login.html", follow_redirects: true }],
               require_product: 'Nginx', # require nginx
-              inference: false,
-              issues: ['exposed_jaspersoft_panel']
-            },
-            { # check for jaasperreports when root path auto-redirects to login page
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[Development Panel],
-              vendor: 'TIBCO',
-              product: 'JasperReports Server',
-              website: 'https://www.jaspersoft.com/',
-              description: 'login page title',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: %r{<title>TIBCO Jaspersoft: Login</title>}i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               issues: ['exposed_jaspersoft_panel']
             },
@@ -135,14 +112,18 @@ module Intrigue
               vendor: 'TIBCO',
               product: 'JasperReports Server',
               website: 'https://www.jaspersoft.com/',
-              description: 'linked javacript',
+              description: 'TIBCO JasperReports Server - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: %r{src="/jasperserver/scripts/jasperserver\.js}i,
-                }
+                },
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>TIBCO Jaspersoft: Login</title>}i,
+                },
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
@@ -175,29 +156,14 @@ module Intrigue
               vendor: 'TIBCO',
               product: 'Mashery',
               website: 'https://www.tibco.com/products/api-management',
-              description: 'server header',
+              description: 'TIBCO Mashery - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^server: Mashery Proxy$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['API'],
-              vendor: 'TIBCO',
-              product: 'Mashery',
-              website: 'https://www.tibco.com/products/api-management',
-              description: 'unique header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-mashery-error-code:.*$/i,

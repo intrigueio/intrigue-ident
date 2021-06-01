@@ -31,50 +31,18 @@ module Intrigue
               vendor: 'Hubspot',
               product: 'Hubspot',
               website: 'https://www.hubspot.com/',
-              description: 'x-powered-by header',
+              description: 'Hubspot - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /x-powered-by: HubSpot/,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Marketing SaaS],
-              vendor: 'Hubspot',
-              product: 'Hubspot',
-              website: 'https://www.hubspot.com/',
-              description: 'x-hs-content-group-id header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-hs-content-group-id:.*$/,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Marketing SaaS],
-              vendor: 'Hubspot',
-              product: 'Hubspot',
-              website: 'https://www.hubspot.com/',
-              description: 'x-hs-content-group-id header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-hs-cache-config:.*$/,

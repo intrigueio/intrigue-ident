@@ -11,48 +11,18 @@ module Intrigue
               vendor: 'Fastly',
               product: 'Fastly',
               website: 'https://www.fastly.com/',
-              description: 'Fastly - x-fastly-backend-reqs header',
+              description: 'Fastly - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-fastly-backend-reqs:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Hosting CDN WAF],
-              vendor: 'Fastly',
-              product: 'Fastly',
-              website: 'https://www.fastly.com/',
-              description: 'Fastly - x-fastly-service header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-fastly-service:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Hosting CDN WAF],
-              vendor: 'Fastly',
-              product: 'Fastly',
-              website: 'https://www.fastly.com/',
-              description: 'Fastly - x-fastly-request-id header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-fastly-request-id:.*$/i,

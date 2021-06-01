@@ -30,29 +30,14 @@ module Intrigue
               vendor: 'Node.js',
               product: 'Node.js',
               website: 'https://nodejs.org/',
-              description: 'Node.js - X-Powered-By Header',
+              description: 'Node.js - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-powered-by: nodejs$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server', 'Language'],
-              vendor: 'Node.js',
-              product: 'Node.js',
-              website: 'https://nodejs.org/',
-              description: 'Node.js - Server Header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^server: nodejs$/i,
@@ -69,25 +54,6 @@ module Intrigue
               product: 'Node.js',
               website: 'https://nodejs.org/',
               description: 'Node.js - Unique Error Page (sails)',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_cookies,
-                  match_content: /sails.sid=/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Sails.js',
-              product: 'Sails',
-              website: 'https://sailsjs.com/',
-              description: 'Sails.js - Unique Error Page',
               version: nil,
               match_logic: :all,
               matches: [

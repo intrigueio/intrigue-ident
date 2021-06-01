@@ -14,39 +14,22 @@ module Intrigue
           website: "http://www.parkingcrew.net/",
           references: [],
           version: nil,
-          match_logic: :all,
+          match_logic: :any,
           matches: [
             {
               match_type: :content_body,
               match_content: /inquire\ about\ this\ domain/i,
-            }
-          ],
-          description: "inquire\ about\ this\ domain",
-          hide: false,
-          paths: [ { path: "#{url}", follow_redirects: true } ],
-          inference: false
-        },
-        {
-          type: "fingerprint",
-          category: "service",
-          tags: ["Parked"],
-          vendor: "ParkingCrew",
-          product: "ParkingCrew",
-          website: "http://www.parkingcrew.net/",
-          references: [],
-          version: nil,
-          match_logic: :all,
-          matches: [
+            },
             {
               match_type: :content_body,
               match_content: /The\ Sponsored\ Listings\ displayed\ above\ are\ served\ automatically\ by\ a\ third\ party/i,
             }
           ],
-          description: "The\ Sponsored\ Listings\ displayed\ above\ are\ served\ automatically\ by\ a\ third\ party",
+          description: "ParkingCrew - Body Match",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
-        }
+        },
       ]
     end
   

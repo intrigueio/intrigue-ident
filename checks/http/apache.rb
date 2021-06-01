@@ -472,25 +472,6 @@ module Intrigue
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
-              description: 'Apache Tomcat - Default Tomcat Home Page Reference',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: /this is the default Tomcat home page/,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'Apache',
-              product: 'Tomcat',
-              website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Title',
               version: nil,
               match_logic: :all,
@@ -539,29 +520,14 @@ module Intrigue
               vendor: 'Apache',
               product: 'Traffic Server',
               website: 'https://trafficserver.apache.org/',
-              description: 'Apache Traffic Server - Server Header',
+              description: 'Apache Traffic Server - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^server: ATS$/,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'Apache',
-              product: 'Traffic Server',
-              website: 'https://trafficserver.apache.org/',
-              description: 'Apache Traffic Server - Via Header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^via:.*ApacheTrafficServer.*$/,

@@ -11,37 +11,22 @@ module Intrigue
               vendor: 'VMware',
               product: 'ESXi',
               website: 'https://www.vmware.com/uk/products/esxi-and-esx.html',
-              description: 'unique page string',
+              description: 'VMware ESXi - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: /document.write\("<title>"\ \+\ ID_EESX_Welcome/,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false,
-              issue: 'exposed_admin_panel_unauthenticated'
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Hypervisor'],
-              vendor: 'VMware',
-              product: 'ESXi',
-              website: 'https://www.vmware.com/uk/products/esxi-and-esx.html',
-              description: 'unique page string',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: %r{client/VMware-viclient\.exe}i,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
+              issue: 'exposed_admin_panel_unauthenticated'
             },
             {
               type: 'fingerprint',

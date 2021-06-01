@@ -9,7 +9,7 @@ module Intrigue
               category: 'application',
               tags: ['Web Framework'],
               vendor: 'Pivotal Software',
-              product: 'Spring Framework',
+              product: 'Spring',
               website: 'https://spring.io/',
               description: 'Standard Spring MVC error page',
               version: nil,
@@ -32,40 +32,24 @@ module Intrigue
               category: 'application',
               tags: ['Web Framework'],
               vendor: 'Pivotal Software',
-              product: 'Spring Framework',
+              product: 'Spring',
               website: 'https://spring.io/',
-              description: 'spring cache header',
+              description: 'Pivotal Software Spring - Headers Match',
               references: ['https://github.com/atramos/springy-aws'],
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: /^x-springy-cache-disabled:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              examples: ['x-springy-cache-disabled: 0'],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Pivotal Software',
-              product: 'Spring Boot',
-              website: 'https://spring.io/',
-              description: 'spring cache header',
-              references: ['https://stackoverflow.com/questions/40379550/what-is-x-application-context-header'],
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^X-Application-Context.*$/i,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
+              examples: ['x-springy-cache-disabled: 0'],
               inference: false
             },
             {

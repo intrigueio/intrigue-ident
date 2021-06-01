@@ -12,29 +12,14 @@ class Incapsula < Intrigue::Ident::Check::Base
         vendor:"Imperva",
         product:"FlexProtect (Incapsula)",
         website: "https://www.imperva.com/incapsula-moved/",
-        description:"incapsula header",
+        description:"Imperva FlexProtect - Headers Match",
         version: nil,
-        match_logic: :all,
+        match_logic: :any,
         matches: [
           {
             match_type: :content_headers,
             match_content:  /^x-iinfo:\ .*$/i,
-          }
-        ],
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: false
-      },
-      {
-        type: "fingerprint",
-        category: "service",
-        tags: ["CDN","WAF"],
-        vendor:"Imperva",
-        product:"FlexProtect (Incapsula)",
-        website: "https://www.imperva.com/incapsula-moved/",
-        description:"incapsula header",
-        version: nil,
-        match_logic: :all,
-        matches: [
+          },
           {
             match_type: :content_headers,
             match_content:  /^x-cdn: Incapsula$/i,
@@ -42,7 +27,7 @@ class Incapsula < Intrigue::Ident::Check::Base
         ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
-      }, 
+      },
       {
         type: "fingerprint",
         category: "service",

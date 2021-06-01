@@ -45,21 +45,6 @@ module Intrigue
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }
-            # Currently match_content too loose
-            # {
-            #  type: "fingerprint",
-            #  category: "application",
-            #  tags: ["COTS", "CMS"],
-            #  vendor: "Blackboard",
-            #  product: "Blackboard",
-            #  description:"server header",
-            #  version: nil,
-            #  match_type: :content_body,
-            #  match_content:  /Blackboard CMS/i,
-            #  dynamic_version: nil ,
-            #  paths: [ { path: "#{url}", follow_redirects: true } ],
-            #  inference: true
-            # }
           ]
         end
       end

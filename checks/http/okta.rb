@@ -11,29 +11,14 @@ module Intrigue
               vendor: 'Okta',
               product: 'Okta',
               website: 'https://www.okta.com/',
-              description: 'okta header',
+              description: 'Okta - Headers Match',
               version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /x-okta-backend/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[IAM SaaS Security],
-              vendor: 'Okta',
-              product: 'Okta',
-              website: 'https://www.okta.com/',
-              description: 'okta header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /x-okta-request-id/i,

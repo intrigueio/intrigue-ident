@@ -11,33 +11,18 @@ module Intrigue
               vendor: 'Nginx',
               product: 'Nginx',
               website: 'https://www.nginx.com/',
-              description: 'Nginx default page',
+              description: 'Nginx - Title Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_title,
                   match_content: /^Welcome to nginx!?$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Nginx',
-              product: 'Nginx',
-              website: 'https://www.nginx.com/',
-              description: 'Nginx test page',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_title,
                   match_content: /^Test Page for the Nginx HTTP Server/i,
-                }
+                },
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

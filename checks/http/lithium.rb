@@ -13,29 +13,14 @@ module Intrigue
               references: [
                 'https://community.khoros.com/t5/Khoros-Community-Discussions/On-Premise-Hosting/td-p/213256'
               ],
-              description: 'Lithium Community Management',
+              description: 'Lithium Community Management - Cookies Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
                   match_content: /LithiumVisitor/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[SaaS CMS],
-              vendor: 'Lithium',
-              product: 'Lithium',
-              website: 'https://khoros.com/',
-              description: 'Lithium Community Management',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /LiSESSIONID/i,
@@ -43,7 +28,7 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
-            }
+            },
           ]
         end
       end

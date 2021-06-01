@@ -34,26 +34,6 @@ module Intrigue
               product: 'CloudFront',
               website: 'https://aws.amazon.com/cloudfront/',
               version: nil,
-              description: 'cloudfront cache header',
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_headers,
-                  match_content: /via:.*.cloudfront.net \(CloudFront\)/,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[CDN Hosting WAF IaaS],
-              vendor: 'Amazon',
-              product: 'CloudFront',
-              website: 'https://aws.amazon.com/cloudfront/',
-              version: nil,
               description: 'cloudfront equest could not be satisfied',
               match_logic: :any,
               matches: [
@@ -71,26 +51,6 @@ module Intrigue
                 }
               ],
               hide: true,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[CDN Hosting WAF IaaS],
-              vendor: 'Amazon',
-              product: 'CloudFront',
-              website: 'https://aws.amazon.com/cloudfront/',
-              version: nil,
-              description: 'cloudfront cache header',
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_headers,
-                  match_content: /x-cache:.*cloudfront/i,
-                }
-              ],
-              hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -193,30 +153,22 @@ module Intrigue
               vendor: 'Amazon',
               product: 'CloudFront',
               website: 'https://aws.amazon.com/cloudfront/',
-              description: 'x-amz-cf-pop header',
+              description: 'Amazon CloudFront - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
+                  match_content: /via:.*.cloudfront.net \(CloudFront\)/,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /x-cache:.*cloudfront/i,
+                },
+                {
+                  match_type: :content_headers,
                   match_content: /^x-amz-cf-pop:.*/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[CDN Hosting WAF IaaS],
-              vendor: 'Amazon',
-              product: 'CloudFront',
-              website: 'https://aws.amazon.com/cloudfront/',
-              description: 'x-amz-cf-id header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-amz-cf-id:.*/i,
@@ -303,34 +255,18 @@ module Intrigue
               website: 'https://aws.amazon.com/elasticloadbalancing/',
               vendor: 'Amazon',
               product: 'Elastic Load Balancer',
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
                   match_content: /AWSELB=/,
-                }
-              ],
-              description: 'amazon elastic cookie (AWSELB)',
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['Load Balancer', 'Hosting', 'IaaS'],
-              website: 'https://aws.amazon.com/elasticloadbalancing/',
-              vendor: 'Amazon',
-              references: ['https://stackoverflow.com/questions/49197688/is-the-most-recent-awsalb-cookie-required-aws-elb-application-load-balancer'],
-              product: 'Elastic Load Balancer',
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /AWSALBTG=/,
                 }
               ],
-              description: 'Amazon elastic cookie (AWSALBTG)',
+              description: 'Amazon Elastic Load Balancer - Cookies Match',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -343,28 +279,12 @@ module Intrigue
               product: 'Linux',
               website: 'https://aws.amazon.com/ec2',
               description: 'nginx test page',
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_title,
                   match_content: /^Test Page for the Nginx HTTP Server on the Amazon Linux AMI$/,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[OS IaaS],
-              vendor: 'Amazon',
-              product: 'Linux',
-              website: 'https://aws.amazon.com/ec2',
-              description: 'nginx test page',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_title,
                   match_content: /^Test Page for the Nginx HTTP Server on Amazon Linux$/,
@@ -381,30 +301,14 @@ module Intrigue
               vendor: 'Amazon',
               product: 'S3',
               website: 'https://aws.amazon.com/s3/',
-              description: 'server header',
+              description: 'Amazon S3 - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /server: AmazonS3/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['Web Server', 'Hosting', 'IaaS'],
-              vendor: 'Amazon',
-              product: 'S3',
-              website: 'https://aws.amazon.com/s3/',
-              description: 'replication status header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-amz-replication-status: .*$/i,
@@ -413,7 +317,7 @@ module Intrigue
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
-            }
+            },
           ]
         end
       end

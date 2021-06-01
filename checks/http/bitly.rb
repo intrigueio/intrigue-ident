@@ -30,31 +30,15 @@ module Intrigue
               vendor: 'Bitly',
               product: 'Bitly',
               website: 'https://bitly.com/',
-              description: 'bitly title - branded short domain',
+              description: 'Bitly - Title Match',
               version: nil,
               hide: true, # dynamic hide only on ip access?
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_title,
                   match_content: /Branded Short Domain Powered by Bitly/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[Marketing Hosting],
-              vendor: 'Bitly',
-              product: 'Bitly',
-              website: 'https://bitly.com/',
-              description: 'bitly title - custom domain',
-              version: nil,
-              hide: true, # dynamic hide only on ip access?
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_title,
                   match_content: /Custom Domain by Bitly/i,
@@ -62,7 +46,7 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
-            }
+            },
           ]
         end
       end

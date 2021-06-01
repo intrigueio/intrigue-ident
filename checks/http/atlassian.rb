@@ -186,29 +186,14 @@ module Intrigue
               vendor: 'Atlassian',
               product: 'Statuspage',
               website: 'https://www.atlassian.com/',
-              description: 'statuspage header',
+              description: 'Atlassian Statuspage - Header Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^x-statuspage-skip-logging:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[SaaS Development SaaS],
-              vendor: 'Atlassian',
-              product: 'Statuspage',
-              website: 'https://www.atlassian.com/',
-              description: 'statuspage header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^x-statuspage-version:.*$/i,

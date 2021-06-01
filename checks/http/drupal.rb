@@ -75,36 +75,20 @@ module Intrigue
               product: 'Drupal',
               website: 'https://www.drupal.org/',
               description: 'generator tag',
-              version: 7,
+              version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_generator,
-                  match_content: %r{Drupal 7 \(http://drupal.org\)},
+                  match_content: %r{Drupal},
                 }
               ],
+              dynamic_version: lambda {|x|
+                _first_generator_capture(x, %r{Drupal \d+ \(http://drupal.org\)})
+              },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false # Not specific enough?
             },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Drupal',
-              product: 'Drupal',
-              website: 'https://www.drupal.org/',
-              description: 'generator tag',
-              version: 8,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_generator,
-                  match_content: %r{Drupal 8 \(http://drupal.org\)},
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false # Not specific enough?
-            }
           ]
         end
       end

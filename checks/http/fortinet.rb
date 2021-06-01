@@ -51,29 +51,14 @@ module Intrigue
               vendor: 'Fortinet',
               product: 'FortiGate SSL VPN',
               references: [],
-              description: 'unique string',
+              description: 'Fortinet FortiGate SSL VPN - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: %r{top\.location=window\.location;top\.location="/remote/login"}i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[VPN Networking],
-              vendor: 'Fortinet',
-              product: 'FortiGate SSL VPN',
-              references: [],
-              description: 'clock drift detected string',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: /FortiToken clock drift detected/i,

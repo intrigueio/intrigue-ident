@@ -69,9 +69,9 @@ module Intrigue
               vendor: 'Qualys',
               product: 'Qualys Mobility',
               references: ['https://qualysguard.qualys.com/am/help/sensors/sem.htm'],
-              description: 'custom server header',
+              description: 'Qualys Mobility - Cookies Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,

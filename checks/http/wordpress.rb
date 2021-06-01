@@ -11,53 +11,37 @@ module Intrigue
               vendor: 'Wordpress',
               product: 'Wordpress',
               website: 'https://wordpress.org/',
-              description: 'wordpress wp-includes script load',
+              description: 'Wordpress - Body Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: %r{src="/wp-includes/js}i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
-              description: 'wordpress wp-themes load',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: %r{src="/wp-content/themes}i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
-              description: 'theme-panel load',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_body,
                   match_content: /class="close-theme-panel/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /an error occurred while processing this directive\]/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /class="login login-action-login wp-core-ui/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: %r{src='/wp-includes/js/jquery/jquery-new\.js'>},
+                },
+                {
+                  match_type: :content_body,
+                  match_content: %r{<link rel='https://api.w.org/'},
                 }
               ],
               hide: false,
@@ -91,26 +75,6 @@ module Intrigue
               vendor: 'Wordpress',
               product: 'Wordpress',
               website: 'https://wordpress.org/',
-              description: 'error string',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: /an error occurred while processing this directive\]/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
               description: 'wordpress test cookie',
               version: nil,
               match_logic: :all,
@@ -118,26 +82,6 @@ module Intrigue
                 {
                   match_type: :content_cookies,
                   match_content: /wordpress_test_cookie=/i,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
-              description: 'wordpress login page',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: /class="login login-action-login wp-core-ui/i,
                 }
               ],
               hide: false,
@@ -211,44 +155,6 @@ module Intrigue
               require_product: 'Wordpress',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
-              description: 'common link',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: %r{src='/wp-includes/js/jquery/jquery-new\.js'>},
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['CMS'],
-              vendor: 'Wordpress',
-              product: 'Wordpress',
-              website: 'https://wordpress.org/',
-              description: 'common link',
-              version: nil,
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_body,
-                  match_content: %r{<link rel='https://api.w.org/'},
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
             },
             {
               type: 'fingerprint',

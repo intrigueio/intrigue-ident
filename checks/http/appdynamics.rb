@@ -12,29 +12,13 @@ module Intrigue
               vendor: 'AppDynamics',
               product: 'AppDynamics',
               version: nil,
-              description: 'AppDynamics - ADRUM_BTa Cookie Match',
-              match_logic: :all,
+              description: 'AppDynamics - Cookies Match',
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
                   match_content: /ADRUM_BTa=/,
-                }
-              ],
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[APM JavaScript],
-              website: 'https://www.appdynamics.com/',
-              vendor: 'AppDynamics',
-              product: 'AppDynamics',
-              version: nil,
-              description: 'AppDynamics - ADRUM_BT1 Cookie Match',
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /ADRUM_BT1=/,
@@ -43,7 +27,7 @@ module Intrigue
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
-            }
+            },
           ]
         end
       end

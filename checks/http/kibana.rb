@@ -11,29 +11,14 @@ module Intrigue
               vendor: 'Elasticsearch',
               product: 'Kibana',
               website: 'https://www.elastic.co/kibana',
-              description: 'kbn-* header',
+              description: 'Elasticsearch Kibana - Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /^kbn-name:.*$/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[Database Administrative],
-              vendor: 'Elasticsearch',
-              product: 'Kibana',
-              website: 'https://www.elastic.co/kibana',
-              description: 'kbn-* header',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_headers,
                   match_content: /^kbn-xpack-sig:.*$/i,

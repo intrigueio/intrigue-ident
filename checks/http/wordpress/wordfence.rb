@@ -11,29 +11,14 @@ module Intrigue
           tags: ["Wordpress Plugin", "Security"],
           vendor:"Wordfence",
           product:"Wordfence",
-          description:"plugin",
+          description:"Wordfence - Plugin Match",
           references: [],
-          match_logic: :all,
+          match_logic: :any,
           matches: [
             {
               match_type: :content_body,
               match_content:  /wordfence_lh=/i,
-            }
-          ],
-          paths: [ { path: "#{url}", follow_redirects: true } ],
-          require_product: "Wordpress",
-          inference: false
-        },
-        {
-          type: "fingerprint",
-          category: "application",
-          tags: ["Wordpress Plugin", "Security"],
-          vendor:"Wordfence",
-          product:"Wordfence",
-          description:"plugin",
-          references: [],
-          match_logic: :all,
-          matches: [
+            },
             {
               match_type: :content_body,
               match_content:  /wordfence_syncAttackData[\?\"\=]/i,
@@ -42,7 +27,7 @@ module Intrigue
           paths: [ { path: "#{url}", follow_redirects: true } ],
           require_product: "Wordpress",
           inference: false
-        }
+        },
       ]
     end
   
