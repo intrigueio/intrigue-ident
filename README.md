@@ -1,13 +1,13 @@
-Ident is an application and service fingerprinting library used within Intrigue Core. 
+Ident is an application and service fingerprinting library used within Intrigue Core.
 
-The Ident project has a few stated goals: 
+The Ident project has a few stated goals:
  - To deeply identify network service and app software while remaining extremely fast - limiting unnecessary requests
  - To have the most complete set of identification checks for modern application and server software
  - To integrate well as a library, for easy use in other projects such as Intrigue Core
- - To maintain a robust command line interface for use as a standalone tool 
+ - To maintain a robust command line interface for use as a standalone tool
  - To be commercially viable through use of the BSD license
 
- Ident is written in Ruby and uses the lightning fast libcurl-backed Typhoeus and the powerful Socketry libraries to make requests. 
+ Ident is written in Ruby and uses the lightning fast libcurl-backed Typhoeus and the powerful Socketry libraries to make requests.
 
  Below, find instruction on how to get stated:
 
@@ -38,7 +38,7 @@ Content Checks:
  - Authentication - HTTP: false
  - Authentication - Session Identifier: true
  - Google Analytics Account Detected: false
- - Location Header: 
+ - Location Header:
  - Directory Listing Detected: false
  - Form Detected: false
  - File Upload Form Detected: false
@@ -49,26 +49,30 @@ Content Checks:
  - X-XSS-Protection Header: false
 ```
 
-For Check Writers: 
+For Check Writers:
 ===================
 
-Check types can be written against supported protocols: 
- - Amqp 
- - Dns
+Check types can be written against supported protocols:
+ - AMQP
+ - Cisco Smart Install
+ - DNS
  - Elasticsearch
- - Ftp
- - Http/Https
- - Mongodb 
+ - FTP
+ - HTTP / HTTPS
+ - Mongodb
  - Mysql
+ - Oracle T3 (Raw)
  - Pop3
+ - RDP (Raw)
  - Redis
- - Smb
- - Smtp
- - Snmp
- - Ssh
+ - SMB
+ - SMTP
+ - SNMP
+ - SSH
  - Telnet
 
-Generally speaking, checks have the following structure. This is a check for HTTP and HTTPS: 
+
+Generally speaking, checks have the following structure. This is a check for HTTP and HTTPS:
 ```
  [
         {
@@ -86,19 +90,19 @@ Generally speaking, checks have the following structure. This is a check for HTT
             {
               match_type: :content_body,
               match_content: /any body string/i
-            }, 
+            },
             {
               match_type: :content_code,
               match_content: 200
-            }  
+            }
           ],
           description: "just an example check",
           paths: [ { path: "#{url}", follow_redirects: true } ]
         }
       ]
 ```
- 
-There are many types of matchers, which tell the check what part of the target's response to check.  
+
+There are many types of matchers, which tell the check what part of the target's response to check.
 ```
  - content_body: checks should be run against body
  - content_code: checks should be run against code returned in the response as an integer (note that this is generally only useful for follow-on checks)
@@ -110,17 +114,18 @@ There are many types of matchers, which tell the check what part of the target's
 
 Multiple matches per check are supported, see: https://github.com/intrigueio/intrigue-ident/pull/87
 
-For more details, have a look at the checks in the 'checks' directory, or jump into our slack channel for help. 
- 
+For more details, have a look at the checks in the 'checks' directory, or jump into our slack channel for help.
+
 Contributors:
 =============
 
 A special thanks to the following contributors who help make ident awesome!
- - @duartemateus: Protocol support and fingerprints
- - @chowdud: Fingerprints++ ** 
+ - @adambakalar: Protocol support and Fingerprints
+ - @duartemateus: Bugfixes, Architecture, Protocol support and Fingerprints
+ - @chowdud: Fingerprints++ **
  - @jen140: Fingerprints
  - @shpendk: Fingerprints, Architecture
- - @m-q-t: Fingerprints, Architecture 
+ - @m-q-t: Fingerprints, Architecture
  - @bensalah_anas: Fingerprints
  - @bcoles: Fingerprints, Bugfixes, JSON output
  - @bmcdevitt: Fingerprints
