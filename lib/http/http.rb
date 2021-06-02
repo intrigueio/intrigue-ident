@@ -234,6 +234,12 @@ module Intrigue
           options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}" if credentials
 
           # create a request
+
+          # this block should be moved to a sanitise uri function
+          # if the user adds too many // to the url
+          uri_string = URI.parse(uri_string)
+          uri_string.path.squeeze!('/')
+          #
           request = Typhoeus::Request.new(uri_string, {
             method: method,
             headers: headers
