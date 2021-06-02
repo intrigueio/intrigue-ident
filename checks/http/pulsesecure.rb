@@ -35,17 +35,31 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking VPN],
+              tags: ['Networking', 'VPN', 'Login Panel'],
               vendor: 'PulseSecure',
               product: 'Pulse Connect Secure',
-              description: 'unique image link',
+              website: 'https://www.pulsesecure.net/',
+              description: 'PulseSecure Pulse Connect Secure - Login panel page reference.',
               references: [
                 'https://kb.pulsesecure.net/articles/Pulse_Secure_Article/KB40250',
                 'https://github.com/carnal0wnage/Metasploit-Code/blob/master/modules/auxiliary/scanner/juniper_scan.rb',
                 'http://carnal0wnage.attackresearch.com/2013/05/funky-juniper-urls.html' # <^ TODO ... task?
               ],
-              match_type: :content_body,
-              match_content: %r{<td background="/dana-na/imgs/footerbg.gif">},
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Pulse Connect Secure/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /dana-na\/css/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: %r{<td background="/dana-na/imgs/footerbg.gif">},
+                }
+              ],
               version: nil,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

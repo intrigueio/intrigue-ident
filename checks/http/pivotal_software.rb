@@ -61,14 +61,23 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Development Database],
+              tags: ['Development', 'Database', 'Login Panel'],
               vendor: 'Pivotal Software',
               product: 'RabbitMQ',
-              description: 'RabbitMQ',
+              description: 'RabbitMQ - Login panel page reference.',
               website: 'https://www.rabbitmq.com/',
-              match_type: :content_body,
               version: nil,
-              match_content: /RabbitMQ Management/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /form action="#\/login"/i
+                },
+                {
+                  match_type: :content_title,
+                  match_content: /RabbitMQ Management/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },

@@ -44,36 +44,35 @@ module Intrigue
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
-            { ### TODO... can we get a version out of this?
+            { ### TODO... can we get a version out of this? # SAP Netweaver default creds - SAP*/06071992 or TMSADM/$1Pawd2&
               type: 'fingerprint',
               require_product: 'NetWeaver',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Login Panel'],
               vendor: 'SAP',
               product: 'NetWeaver',
-              description: 'netweaver title in irj/portal',
-              version: nil,
+              website: 'https://www.sap.com/products/netweaver-platform.html',
               references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
-              match_type: :content_title,
-              match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
-              paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
-              inference: false
-            },
-            { ### TODO... can we get a version out of this?
-              type: 'fingerprint',
-              require_product: 'NetWeaver',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'SAP',
-              product: 'NetWeaver',
-              description: 'netweaver version in irj/portal',
+              description: 'SAP NetWeaver - Login panel page reference.',
               version: nil,
-              references: [''],
-              match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server/i,
-              # SAP NetWeaver Application Server 7.53
-              dynamic_version: ->(x) { _first_header_capture(x, /SAP NetWeaver Application Server ([\d.]+)/i) },
-              paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+                },
+                {
+                  match_type: :content_title,
+                  match_content: /SAP NetWeaver Application Server/i,
+                }
+              ],
+              dynamic_version: ->(x) { 
+                _first_header_capture(x, /SAP NetWeaver Application Server (\d+(\.\d+)*)/i) 
+              },
+              paths: [
+                { path: url.to_s, follow_redirects: true },
+                { path: "#{url}/irj/portal", follow_redirects: true }
+              ],
               inference: false
             },
             {
@@ -161,34 +160,6 @@ module Intrigue
               references: [],
               match_type: :content_cookies,
               match_content: /com.sap.engine.security.authentication.original_application_url/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'SAP',
-              product: 'NetWeaver',
-              description: 'title',
-              version: nil,
-              website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server Java/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'SAP',
-              product: 'NetWeaver',
-              description: 'title',
-              version: nil,
-              website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_title,
-              match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
