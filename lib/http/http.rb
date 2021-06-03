@@ -153,6 +153,12 @@ module Intrigue
             next
           end
 
+          
+          # this block should be moved to a sanitise uri function
+          # if the user adds too many // to the url this will remove them
+          target_url = URI.parse(target_url)
+          target_url.path.squeeze!('/')
+          #
           # get the response using a normal http request
           puts "Getting #{target_url}" if debug
           response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects
@@ -234,12 +240,6 @@ module Intrigue
           options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}" if credentials
 
           # create a request
-
-          # this block should be moved to a sanitise uri function
-          # if the user adds too many // to the url
-          uri_string = URI.parse(uri_string)
-          uri_string.path.squeeze!('/')
-          #
           request = Typhoeus::Request.new(uri_string, {
             method: method,
             headers: headers
