@@ -247,6 +247,7 @@ module Intrigue
               product: 'Focused Run',
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',
               references: 'https://www.exploit-db.com/ghdb/6793',
+              description: 'SAP Foccused run - Login Panel page reference.',
               version: nil,
               match_type: :content_body,
               match_content: %r{<form.*name="loginForm".*action="/sap/bc/ui2/flp".*}i,
