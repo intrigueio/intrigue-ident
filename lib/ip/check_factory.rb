@@ -1,6 +1,6 @@
 module Intrigue
 module Ident
-module Tcp
+module Ip
 class CheckFactory
 
   #
