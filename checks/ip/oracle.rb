@@ -14,7 +14,6 @@ module Intrigue
               references: [
                 'https://www.oracle.com/middleware/technologies/weblogic.html'
               ],
-              version: nil,
               request_type: :plain,
               protocol: :tcp,
               request_content: "t3 12.2.1\nAS:255\nHL:19\nMS:10000000\nPU:t3://us-l-breens:7001\n\n",
@@ -22,10 +21,7 @@ module Intrigue
               match_content: /^HELO:.*$/i,
               dynamic_version: lambda { |x|
                 _first_banner_capture(x, /^HELO:(.*)\.false.*$/i)
-              },
-              hide: false,
-              inference: false,
-              issue: 'oracle_weblogicserver_cve_2021_2109'
+            }
             }
           ]
         end
