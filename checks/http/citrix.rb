@@ -72,7 +72,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['Networking', 'COTS VPN', 'Login Panel'],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
