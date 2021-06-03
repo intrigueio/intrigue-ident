@@ -1,6 +1,6 @@
 module Intrigue
   module Ident
-    module TcpCheck
+    module IpCheck
       class Oracle < Intrigue::Ident::IpCheck::Base
         def generate_checks
           [
@@ -20,8 +20,8 @@ module Intrigue
               # match_type: :content_banner, we don't have a match_type because we can only match whatever we get in the response
               match_content: /^HELO:.*$/i,
               dynamic_version: lambda { |x|
-                _first_banner_capture(x, /^HELO:(.*)\.false.*$/i)
-            }
+                                 _first_banner_capture(x, /^HELO:(.*)\.false.*$/i)
+                               }
             }
           ]
         end
