@@ -14,8 +14,13 @@ class RoadizCMS < Intrigue::Ident::Check::Base
         references: ["https://www.roadiz.io/"],
         description: "Roadiz - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="Roadiz/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="Roadiz/i,
+          }
+        ],
         dynamic_version: lambda { |x| 
           _first_body_capture(x, /<meta name="generator" content="Roadiz (?:beta|master|develop)\s*(\d+(\.\d+)*)/i)
         },

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://symfony.com/',
               description: 'symfony cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /symfony=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /symfony=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

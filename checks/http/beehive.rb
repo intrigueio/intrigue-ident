@@ -12,8 +12,13 @@ module Intrigue
               product: 'Beehive Forum',
               references: ['https://www.beehiveforum.co.uk/'],
               version: nil,
-              match_type: :content_body,
-              match_content: /Beehive Forum (.*\d)/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Beehive Forum (.*\d)/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, /Beehive Forum (.*\d)/i) },
               description: 'header match',
               hide: false,

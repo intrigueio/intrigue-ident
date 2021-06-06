@@ -12,11 +12,16 @@ class WebpagetestProject < Intrigue::Ident::Check::Base
         vendor:"Webpagetest Project",
         product:"Webpagetest",
         description: "title",
-        match_type: :content_title,
         references: [
           "https://blog.assetnote.io/bug-bounty/2019/03/19/rce-on-mozilla-zero-day-webpagetest/"
         ],
-        match_content: /WebPageTest - Website Performance and Optimization Test/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content: /WebPageTest - Website Performance and Optimization Test/i,
+          }
+        ],
         version: nil,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false

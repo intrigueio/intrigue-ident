@@ -12,8 +12,13 @@ module Intrigue
               product: 'Dokuwiki',
               website: 'https://www.dokuwiki.org/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /DokuWiki=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /DokuWiki=/,
+                }
+              ],
               description: 'Dokuwiki - DokuWiki cookie',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

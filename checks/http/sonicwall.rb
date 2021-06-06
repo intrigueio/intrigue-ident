@@ -15,8 +15,13 @@ module Intrigue
                 'https://www.sonicwall.com/en-us/support/technical-documentation/secure-mobile-access-12-0-workplace-user-guide/using-sma-workplace'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: SMA/.*}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SMA/.*}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: SMA/([\d.]+)}i)
               },
@@ -35,8 +40,13 @@ module Intrigue
                 'https://www.sonicwall.com/en-us/support/technical-documentation/secure-mobile-access-12-0-workplace-user-guide/using-sma-workplace'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: SMA/.*}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SMA/.*}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: SMA/([\d.]+)}i)
               },
@@ -53,8 +63,13 @@ module Intrigue
               website: 'https://www.sonicwall.com/products/firewalls/mid-range/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: SonicWALL$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: SonicWALL$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },

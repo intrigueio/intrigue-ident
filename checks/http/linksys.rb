@@ -15,9 +15,14 @@ class Linksys < Intrigue::Ident::Check::Base
         vendor: "Linksys",
         product:"Linksys Smart Wi-Fi Service",
         description:"title",
-        match_type: :content_body,
-        match_content:  /Linksys Smart Wi-Fi/i,
         version: nil,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /Linksys Smart Wi-Fi/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_body_capture(x,/window.location.replace\(newDomain\ \+\ \'\/ui\/(.*)\/dynamic\/login/i) 
         },

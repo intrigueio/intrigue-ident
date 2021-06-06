@@ -14,8 +14,13 @@ class Tableau < Intrigue::Ident::Check::Base
         description: "server Header",
         version: nil,
         references: [],
-        match_type: :content_headers,
-        match_content:  /server: Tableau/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /server: Tableau/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       },
@@ -28,8 +33,13 @@ class Tableau < Intrigue::Ident::Check::Base
         description: "Tableau Server - unique string",
         version: nil,
         references: ["https://community.tableau.com/thread/165653"],
-        match_type: :content_body,
-        match_content:  /<meta name="vizportal-config" data-buildId=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /<meta name="vizportal-config" data-buildId=/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

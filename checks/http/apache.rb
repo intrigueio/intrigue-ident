@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://ambari.apache.org/',
               description: 'Apache Ambari - page title',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<title>Ambari</title>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>Ambari</title>}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://tomcat.apache.org/tomcat-4.1-doc/config/coyote.html',
               description: 'Apache Coyote - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server:\ Apache[-\s]Coyote/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server:\ Apache[-\s]Coyote/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: Apache[-\s]Coyote/(.*)}i)
               },
@@ -43,9 +53,14 @@ module Intrigue
               product: 'Druid',
               website: 'https://druid.apache.org/',
               description: 'Apache Druid - HTML Title',
-              match_type: :content_body,
               version: nil,
-              match_content: %r{<title>Apache Druid</title>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>Apache Druid</title>}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -57,9 +72,14 @@ module Intrigue
               product: 'Groovy',
               website: 'https://groovy-lang.org/',
               description: 'Apache Groovy - Groovy error page',
-              match_type: :content_body,
               version: nil,
-              match_content: /Error processing GroovyPageView:/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Error processing GroovyPageView:/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -74,8 +94,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - test page title',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<address>Apache/([\d.]+).*Server at.*</address>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<address>Apache/([\d.]+).*Server at.*</address>}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, %r{<address>Apache/([\d.]+).*Server at.*</address>}i)
               },
@@ -91,8 +116,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - test page title',
               version: nil,
-              match_type: :content_title,
-              match_content: /Apache HTTP Server Test Page/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Apache HTTP Server Test Page/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -105,8 +135,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - server header w/o version',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Apache$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Apache$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -119,8 +154,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - server header - with versions',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^server:.*Apache/([\d.]*)}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:.*Apache/([\d.]*)}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 # check for backported OS type
                 backported = false
@@ -149,8 +189,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - Server Header - no version',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:\ Apache$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ Apache$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -163,8 +208,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - Apache generic error',
               version: nil,
-              match_type: :content_body,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
               match_content: /The server encountered an internal error or misconfiguration and was unable to complete your request./i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -177,8 +227,13 @@ module Intrigue
               website: 'https://httpd.apache.org/',
               description: 'Apache HTTP Server - Apache default page (Ubuntu)',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Apache2 Ubuntu Default Page: It works$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Apache2 Ubuntu Default Page: It works$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               issues: ['default_web_server_page_exposed']
@@ -192,8 +247,13 @@ module Intrigue
               website: 'https://sourceforge.net/projects/modauthkerb/',
               description: 'Apache mod_auth_kerb - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_auth_kerb/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_auth_kerb/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_auth_kerb/([\w\d.\-]*)\s.*$}i)
               },
@@ -209,8 +269,13 @@ module Intrigue
               references: ['https://en.wikipedia.org/wiki/List_of_Apache_modules'],
               description: 'Apache mod_bwlimited - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_bwlimited/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_bwlimited/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_bwlimited/([\w\d.\-]*)\s.*$}i)
               },
@@ -226,8 +291,13 @@ module Intrigue
               website: 'https://httpd.apache.org/mod_fcgid/',
               description: 'Apache mod_fcgid - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_fcgid/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_fcgid/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_fcgid/([\w\d.\-]*)\s.*$}i)
               },
@@ -243,8 +313,13 @@ module Intrigue
               website: 'https://tomcat.apache.org/security-jk.html',
               description: 'Apache tomcat_jk_connector - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_jk/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_jk/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_jk/([\w\d.\-]*)\s.*$}i)
               },
@@ -260,8 +335,13 @@ module Intrigue
               website: 'https://perl.apache.org/',
               description: 'Apache mod_perl - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_perl/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_perl/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_perl/([\w\d.\-]*)\s.*$}i)
               },
@@ -277,8 +357,13 @@ module Intrigue
               website: 'https://httpd.apache.org/docs/current/mod/mod_ssl.html',
               description: 'Apache mod_ssl - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*mod_ssl/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*mod_ssl/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*mod_ssl/([\w\d.\-]*)\s.*$}i)
               },
@@ -294,8 +379,13 @@ module Intrigue
               references: ['https://webserver.docs.pivotal.io/doc/60/topics/overview.html'],
               description: 'Apache Pivotal Web Server - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Apache PivotalWebServer$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Apache PivotalWebServer$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -308,8 +398,13 @@ module Intrigue
               references: ['https://sling.apache.org/'],
               description: 'Apache Sling™ is a framework for RESTful web-applications based on an extensible content tree. also note that this may be related to apache experience manager',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<address>Apache Sling</address>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<address>Apache Sling</address>}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -321,9 +416,14 @@ module Intrigue
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Welcome Page Title',
-              match_type: :content_title,
               version: 6,
-              match_content: /Tomcat 6 Welcome Page/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Tomcat 6 Welcome Page/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -335,9 +435,14 @@ module Intrigue
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Default Tomcat Home Page Reference',
-              match_type: :content_body,
               version: nil,
-              match_content: /this is the default Tomcat home page/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /this is the default Tomcat home page/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -349,23 +454,14 @@ module Intrigue
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Successfully installed Tomcat Page Reference',
-              match_type: :content_body,
               version: nil,
-              match_content: /If you're seeing this, you've successfully installed Tomcat. Congratulations/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'Apache',
-              product: 'Tomcat',
-              website: 'https://tomcat.apache.org/',
-              description: 'Apache Tomcat - Default Tomcat Home Page Reference',
-              match_type: :content_body,
-              version: nil,
-              match_content: /this is the default Tomcat home page/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /If you're seeing this, you've successfully installed Tomcat. Congratulations/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -377,9 +473,14 @@ module Intrigue
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Title',
-              match_type: :content_title,
               version: nil,
-              match_content: /Apache Tomcat/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Apache Tomcat/,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, %r{<title>(.*)</title>}, ['Apache Tomcat/', ' - Error report'])
               },
@@ -398,9 +499,14 @@ module Intrigue
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
               description: 'Apache Tomcat - Netweaver Tomcat Error Page',
-              match_type: :content_body,
               version: nil,
-              match_content: %r{Apache Tomcat/},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{Apache Tomcat/},
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, %r{Apache Tomcat/([\d.]+)})
               },
@@ -414,24 +520,19 @@ module Intrigue
               vendor: 'Apache',
               product: 'Traffic Server',
               website: 'https://trafficserver.apache.org/',
-              description: 'Apache Traffic Server - Server Header',
-              match_type: :content_headers,
+              description: 'Apache Traffic Server - Headers Match',
               version: nil,
-              match_content: /^server: ATS$/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'Apache',
-              product: 'Traffic Server',
-              website: 'https://trafficserver.apache.org/',
-              description: 'Apache Traffic Server - Via Header',
-              match_type: :content_headers,
-              version: nil,
-              match_content: /^via:.*ApacheTrafficServer.*$/,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: ATS$/,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^via:.*ApacheTrafficServer.*$/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -443,9 +544,14 @@ module Intrigue
               product: 'NiFi',
               website: 'https://nifi.apache.org/',
               description: 'Apache Nifi - Shortcut Icon in Content Body',
-              match_type: :content_body,
               version: nil,
-              match_content: %r{<link rel="shortcut icon" href="images/nifi16.ico"/>},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<link rel="shortcut icon" href="images/nifi16.ico"/>},
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -458,12 +564,17 @@ module Intrigue
               website: 'https://nifi.apache.org/',
               description: 'Apache Nifi - About Title Version Page Reference',
               version: nil,
-              match_type: :content_body,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /{"about":{"title":"NiFi"/,
+                }
+              ],
               require_product: 'NiFi',
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /"version":"([\d.]+)"/i)
               },
-              match_content: /{"about":{"title":"NiFi"/,
               paths: [{ path: "#{url}/../nifi-api/flow/about", follow_redirects: true }],
               inference: false
             },

@@ -11,27 +11,22 @@ module Intrigue
               vendor: 'pjax',
               product: 'pjax',
               website: 'https://github.com/MoOx/pjax',
-              description: 'header',
+              description: 'pjax - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-pjax:.*/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-pjax:.*/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^vary:.*x-pjax.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['JavaScript'],
-              vendor: 'pjax',
-              product: 'pjax',
-              website: 'https://github.com/MoOx/pjax',
-              description: 'vary header',
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^vary:.*x-pjax.*/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            }
           ]
         end
       end

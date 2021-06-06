@@ -13,8 +13,13 @@ module Intrigue
               description: 'cookie',
               references: ['https://docs.oracle.com/cd/E52734_01/oam/AIAAG/GUID-5FD1A6DD-5EE7-4D22-9336-915C62B46C8F.htm#AIAAG297'],
               version: nil,
-              match_type: :content_cookies,
-              match_content: /ObSSOCookie=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /ObSSOCookie=/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               hide: false,
               inference: false
@@ -28,8 +33,13 @@ module Intrigue
               description: 'server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /Oracle-Application-Server/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Oracle-Application-Server/,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{Oracle-Application-Server-[0-9]+[a-z]?/(.*?)\ })
@@ -46,8 +56,13 @@ module Intrigue
               description: 'Web Cache Server - server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /Oracle-Web-Cache/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Oracle-Web-Cache/,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{Oracle-Web-Cache-[0-9]+[a-z]?/(.*?)\ })
@@ -83,12 +98,17 @@ module Intrigue
                               end
                 fmw_version
               },
-              match_type: :content_body,
               references: [
                 'https://en.wikipedia.org/wiki/Oracle_Fusion_Middleware',
                 'https://docs.oracle.com/cd/E21764_01/index.htm'
               ],
-              match_content: /<title>Welcome to Oracle Fusion Middleware/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Welcome to Oracle Fusion Middleware/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -102,8 +122,13 @@ module Intrigue
               description: 'Oracle / Sun GlassFish Enterprise Server',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /Sun GlassFish Enterprise Server/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Sun GlassFish Enterprise Server/,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /Sun GlassFish Enterprise Server\sv([\d.]+)/)
@@ -120,8 +145,13 @@ module Intrigue
               description: 'Oracle / Sun GlassFish Enterprise Server',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /GlassFish Server Open Source Edition/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /GlassFish Server Open Source Edition/,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /GlassFish Server Open Source Edition\s+([\d.]+)$/)
@@ -138,8 +168,13 @@ module Intrigue
               description: 'server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /Oracle-HTTP-Server/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Oracle-HTTP-Server/,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{Oracle-HTTP-Server/(.*?)\ })
@@ -156,8 +191,13 @@ module Intrigue
               description: 'server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: GoAhead-Webs/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: GoAhead-Webs/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -171,8 +211,13 @@ module Intrigue
               description: 'server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /server:\ Oracle-iPlanet-Web-Server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server:\ Oracle-iPlanet-Web-Server/i,
+                }
+              ],
               hide: false,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server:\ Oracle-iPlanet-Web-Server/(.*)}i)
@@ -191,8 +236,13 @@ module Intrigue
                 'https://javarevisited.blogspot.com/2012/08/what-is-jsessionid-in-j2ee-web.html'
               ],
               version: nil,
-              match_type: :content_cookies,
-              match_content: /JSESSIONID=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /JSESSIONID=/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -205,8 +255,13 @@ module Intrigue
               product: 'Java',
               description: 'server header',
               references: [],
-              match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.]+ / AS Java [\d.]+}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SAP NetWeaver Application Server [\d.]+ / AS Java [\d.]+}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{AP NetWeaver Application Server [\d.]+ / AS Java ([\d.]+)}i)
@@ -228,8 +283,13 @@ module Intrigue
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^x-powered-by: Servlet/(.*)JSP.*$})
               },
-              match_type: :content_headers,
-              match_content: /x-powered-by: Servlet/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by: Servlet/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -243,9 +303,14 @@ module Intrigue
               description: 'x-header',
               references: ['http://www.ntu.edu.sg/home/ehchua/programming/java/javaservlets.html'],
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{x-powered-by: Servlet/.*JSP.*},
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{^x-powered-by: Servlet/.*JSP/(.*)$}) },
-              match_type: :content_headers,
-              match_content: %r{x-powered-by: Servlet/.*JSP.*},
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -264,8 +329,13 @@ module Intrigue
                 'https://www.alphabot.com/security/blog/2017/java/Misconfigured-JSF-ViewStates-can-lead-to-severe-RCE-vulnerabilities.html'
               ],
               version: nil,
-              match_type: :content_body,
-              match_content: /javax.faces.ViewState/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /javax.faces.ViewState/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -279,8 +349,13 @@ module Intrigue
               description: 'server header',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: Sun-ONE-Web-Server.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Sun-ONE-Web-Server.*/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{Server: Sun-ONE-Web-Server/([\d.]*).*}i)
               },
@@ -297,8 +372,13 @@ module Intrigue
               description: 'weblogic fault / fail',
               references: ['https://coderanch.com/t/603067/application-servers/Calling-weblogic-webservice-error'],
               version: nil,
-              match_type: :content_body,
-              match_content: /<faultcode>env:WebServiceFault/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<faultcode>env:WebServiceFault/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -312,8 +392,13 @@ module Intrigue
               website: 'https://www.oracle.com/uk/java/weblogic/',
               description: 'generator tag',
               version: nil,
-              match_type: :content_generator,
-              match_content: /^WebLogic Server$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_generator,
+                  match_content: /^WebLogic Server$/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -331,8 +416,13 @@ module Intrigue
                 'https://www.qualogy.com/techblog/oracle/how-to-harden-weblogic-and-fusion-middleware-against-worm-attacks'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-oracle-dms-ecid:/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-oracle-dms-ecid:/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.imunify360.com/blog/webshield-introduction-for-server-administrators'],
               version: nil,
               description: 'CloudLinux Imunify360 - Server Header',
-              match_type: :content_headers,
-              match_content: /^server:\ imunify360-webshield/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ imunify360-webshield/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^server:\ imunify360-webshield/(\d+(\.\d+)*)}i)
               },

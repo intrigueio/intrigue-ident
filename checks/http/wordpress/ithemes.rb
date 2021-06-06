@@ -13,8 +13,13 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
         product:"Security",
         references: ["https://ithemes.com/security/"],
         description: "js load string",
-        match_type: :content_body,
-        match_content:  /blankshield\/blankshield\.min\.js\?ver=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /blankshield\/blankshield\.min\.js\?ver=/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_body_capture(x,/blankshield\/blankshield\.min\.js\?ver=(\d+)/i)
         },
@@ -31,8 +36,13 @@ class WordpressIthemes < Intrigue::Ident::Check::Base
         product:"Security",
         references: ["https://ithemes.com/security/"],
         description: "js load string",
-        match_type: :content_body,
-        match_content:  /block-tabnapping\.min\.js\?ver=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /block-tabnapping\.min\.js\?ver=/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_body_capture(x,/block-tabnapping\.min\.js\?ver=(\d+)/i)
         },

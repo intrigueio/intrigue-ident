@@ -12,8 +12,13 @@ module Intrigue
               product: 'Aruba OS',
               website: 'https://www.arubanetworks.com/',
               version: nil,
-              match_type: :content_body,
-              match_content: /arubalp=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /arubalp=/,
+                }
+              ],
               description: 'Matches an aruba link, generic identifier',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

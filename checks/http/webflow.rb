@@ -13,8 +13,13 @@ class Webflow < Intrigue::Ident::Check::Base
         product:"Webflow",
         description:"body string",
         references: ["https://webflow.com"],
-        match_type: :content_body,
-        match_content:  /data-wf-page=\"/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /data-wf-page=\"/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       },
@@ -26,8 +31,13 @@ class Webflow < Intrigue::Ident::Check::Base
         product:"Webflow",
         description:"missing page body string",
         references: ["https://webflow.com"],
-        match_type: :content_body,
-        match_content:  /w-section content-wrapper.*The page you are looking for doesn't exist or has been moved./mi,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /w-section content-wrapper.*The page you are looking for doesn't exist or has been moved./mi,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         hide: true,
         inference: false

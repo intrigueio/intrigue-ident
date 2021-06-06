@@ -14,8 +14,13 @@ module Intrigue
               references: [
                 'https://segmentfault.com/q/1010000038917829'
               ],
-              match_type: :content_headers,
-              match_content: %r{^server: KNGX-.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: KNGX-.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server: KNGX-(.*)$}i)
                                },

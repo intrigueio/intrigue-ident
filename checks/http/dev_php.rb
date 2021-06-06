@@ -13,8 +13,13 @@ module Intrigue
               website: 'http://devphp.sourceforge.net/',
               description: 'generator',
               version: nil,
-              match_type: :content_generator,
-              match_content: /^Dev-PHP .*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_generator,
+                  match_content: /^Dev-PHP .*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_generator_capture(x, /^Dev-PHP (.*)$/i)
               },

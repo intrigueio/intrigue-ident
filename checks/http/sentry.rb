@@ -13,8 +13,13 @@ module Intrigue
               website: 'http://sentry.io/',
               description: 'sentry init js',
               version: nil,
-              match_type: :content_body,
-              match_content: /Sentry.init\({dsn:/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Sentry.init\({dsn:/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

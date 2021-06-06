@@ -14,8 +14,13 @@ module Intrigue
               website: 'https://southrivertech.com/products/cornerstone/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: SouthRiver/1.0}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SouthRiver/1.0}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -29,8 +34,13 @@ module Intrigue
               website: 'https://southrivertech.com/products/cornerstone/',
               description: 'unique body string',
               version: nil,
-              match_type: :content_body,
-              match_content: /title="Cornerstone MFT" target="_blank"/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /title="Cornerstone MFT" target="_blank"/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

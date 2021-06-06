@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.uniteddomains.com/',
               version: nil,
               description: 'United Domains - Domain Registered Page Reference',
-              match_type: :content_body,
-              match_content: /^Diese neue Domain wurde im Kundenauftrag registriert\.$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /^Diese neue Domain wurde im Kundenauftrag registriert\.$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

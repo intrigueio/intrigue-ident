@@ -14,8 +14,13 @@ class UndergroundWorks < Intrigue::Ident::Check::Base
         product: "Clockwork",
         references: ["https://github.com/itsgoingd/clockwork"],
         version: nil,
-        match_type: :content_headers,
-        match_content: /X-Clockwork-Id:.*$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /X-Clockwork-Id:.*$/i,
+          }
+        ],
         description: "unique header match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

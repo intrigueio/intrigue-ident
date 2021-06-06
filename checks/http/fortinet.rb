@@ -15,8 +15,13 @@ module Intrigue
               ],
               description: 'FortiGate SSL VPN',
               version: nil,
-              match_type: :content_body,
-              match_content: /FortiToken clock drift detected/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /FortiToken clock drift detected/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -29,8 +34,13 @@ module Intrigue
               references: [],
               description: 'FortiGate SSL VPN',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{top\.location=window\.location;top\.location="/remote/login"}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{top\.location=window\.location;top\.location="/remote/login"}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,24 +51,19 @@ module Intrigue
               vendor: 'Fortinet',
               product: 'FortiGate SSL VPN',
               references: [],
-              description: 'unique string',
+              description: 'Fortinet FortiGate SSL VPN - Body Match',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{top\.location=window\.location;top\.location="/remote/login"}i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[VPN Networking],
-              vendor: 'Fortinet',
-              product: 'FortiGate SSL VPN',
-              references: [],
-              description: 'clock drift detected string',
-              version: nil,
-              match_type: :content_body,
-              match_content: /FortiToken clock drift detected/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{top\.location=window\.location;top\.location="/remote/login"}i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /FortiToken clock drift detected/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -71,8 +76,13 @@ module Intrigue
               references: [],
               description: 'response header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: fortiweb-.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: fortiweb-.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server: fortiweb-(\d\.\d\.\d)$/i)
               },

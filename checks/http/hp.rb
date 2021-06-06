@@ -12,8 +12,13 @@ module Intrigue
               product: 'HP-ChaiSOE',
               website: 'https://www.hp.com/',
               version: '1.0',
-              match_type: :content_headers,
-              match_content: %r{server: HP-ChaiSOE/1.0}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: HP-ChaiSOE/1.0}i,
+                }
+              ],
               description: 'Generic HP Printer match',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

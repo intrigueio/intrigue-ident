@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.litespeedtech.com/products/litespeed-web-server'],
               description: 'LiteSpeedTech Web Server - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:\ LiteSpeed$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ LiteSpeed$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server:\ LiteSpeed$/i)
               },

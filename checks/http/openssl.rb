@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.openssl.org/',
               description: 'OpenSSL - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*OpenSSL/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*OpenSSL/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 # check for backported OS type
                 backported = false

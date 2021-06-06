@@ -12,8 +12,13 @@ module Intrigue
               product: 'DarkHTTPd',
               website: 'https://unix4lyfe.org/darkhttpd/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Server: darkhttpd.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Server: darkhttpd.*/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{Server: darkhttpd/([\d.]+)}i) },
               description: 'server header',
               hide: false,

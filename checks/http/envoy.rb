@@ -12,8 +12,13 @@ module Intrigue
               product: 'Envoy',
               website: 'https://www.envoyproxy.io/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: envoy$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: envoy$/,
+                }
+              ],
               description: 'server header',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

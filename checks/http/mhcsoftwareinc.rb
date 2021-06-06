@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.mhcsoftwareinc.com/platform/application-suites/document-self-service/'],
               version: nil,
               description: 'MHCSoftwareInc Document Self-Service - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ DSS WebServer/(\d\.\d)$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ DSS WebServer/(\d\.\d)$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server:\ DSS WebServer/(\d\.\d)$}i)
                                },

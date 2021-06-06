@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.heroku.com/',
               description: 'Heroku (error page)',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{src="//www.herokucdn.com/error-pages/no-such-app.html},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{src="//www.herokucdn.com/error-pages/no-such-app.html},
+                }
+              ],
               dynamic_hide: lambda { |x|
                 return true if _uri_match(x, /heroku.com/)       ||
                                _uri_match(x, /herokussl.com/)    ||
@@ -33,25 +38,19 @@ module Intrigue
               vendor: 'Heroku',
               product: 'Heroku',
               website: 'https://www.heroku.com/',
-              description: 'Heroku vegur server header',
+              description: 'Heroku - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^via: [\d.]+ vegur/i,
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['PaaS'],
-              vendor: 'Heroku',
-              product: 'Heroku',
-              website: 'https://www.heroku.com/',
-              description: 'Heroku header',
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Cowboy$/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^via: [\d.]+ vegur/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Cowboy$/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -65,8 +64,13 @@ module Intrigue
               website: 'https://www.heroku.com/',
               description: 'heroku offline iframe',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{www\.herokucdn\.com/error-pages/maintenance-mode\.html"></iframe>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{www\.herokucdn\.com/error-pages/maintenance-mode\.html"></iframe>}i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

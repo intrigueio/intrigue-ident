@@ -13,8 +13,13 @@ class ProgressCMS < Intrigue::Ident::Check::Base
         product: "Sitefinity",
         references: ["https://www.progress.com/sitefinity-cms"],
         version: nil,
-        match_type: :content_body,
-        match_content: /sitefinity (.\d*.\d*.\d*.\d*)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /sitefinity (.\d*.\d*.\d*.\d*)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /sitefinity (.\d*.\d*.\d*.\d*)/i)},
         description: "header match",
         hide: false,

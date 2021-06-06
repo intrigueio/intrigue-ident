@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://segment.com/',
               description: 'segment js',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{cdn.segment.com/analytics.js}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{cdn.segment.com/analytics.js}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

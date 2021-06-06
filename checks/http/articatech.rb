@@ -14,8 +14,13 @@ module Intrigue
           references: ["http://artica-proxy.com/"],
           version: nil,
           description: "login redirect",
-          match_type: :content_headers,
-          match_content:  /^location: fw.login.php$/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_headers,
+              match_content:  /^location: fw.login.php$/i,
+            }
+          ],
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false
@@ -28,9 +33,14 @@ module Intrigue
           product: "Artica Proxy",
           references: ["http://artica-proxy.com/"],
           version: nil,
-          match_type: :content_body,
           description: "login page",
-          match_content:  /<p>Welcome to the Artica Web Administration Interface/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content:  /<p>Welcome to the Artica Web Administration Interface/i,
+            }
+          ],
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           dynamic_version: lambda { |x|

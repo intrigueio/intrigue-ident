@@ -13,8 +13,13 @@ module Intrigue
               product: 'Kentico CMS',
               references: ['https://docs.kentico.com/k11/configuring-kentico/adding-cookie-law-consent-to-web-pages/reference-kentico-cookies'],
               version: nil,
-              match_type: :content_cookies,
-              match_content: /CMSPreferredCulture=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /CMSPreferredCulture=/i,
+                }
+              ],
               description: 'cookie match',
               inference: false,
               paths: [{ path: url.to_s, follow_redirects: true }]

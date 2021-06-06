@@ -13,8 +13,13 @@ class Xerox < Intrigue::Ident::Check::Base
         product: "WorkCentre Printer",
         references: [],
         description:"title",
-        match_type: :content_title,
-        match_content: /^CentreWare Internet Services$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content: /^CentreWare Internet Services$/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false, 
         issue: "exposed_printer_control_panel"

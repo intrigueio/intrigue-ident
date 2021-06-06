@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.perl.org/',
               description: 'Perl - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*Perl/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*Perl/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*Perl/v([\d.]*)\s.*$}i)
               },
@@ -30,8 +35,13 @@ module Intrigue
               references: ['https://metacpan.org/pod/Dancer2'],
               version: nil,
               description: 'Perl Dancer 2 - Server Header',
-              match_type: :content_headers,
-              match_content: /server: Perl Dancer2/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Perl Dancer2/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /server:.*Perl Dancer2.*([\d.]*).*/i)
                                },
@@ -48,8 +58,13 @@ module Intrigue
               references: ['https://metacpan.org/pod/HTTP::Server::PSGI'],
               version: nil,
               description: 'Perl HTTP::Server::PSGI - Server Header',
-              match_type: :content_headers,
-              match_content: /server: HTTP::Server::PSGI/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: HTTP::Server::PSGI/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /server:.*HTTP::Server::PSGI/i)
                                },

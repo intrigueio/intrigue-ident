@@ -13,8 +13,13 @@ class OpenSolutionCMS < Intrigue::Ident::Check::Base
         product: "Quick.Cart",
         references: ["https://opensolution.org/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Quick.Cart(.*?)v([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Quick.Cart(.*?)v([\d\.]+)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /ext v([\d\.]+)/i)},
         description: "header match",
         hide: false,
@@ -29,8 +34,13 @@ class OpenSolutionCMS < Intrigue::Ident::Check::Base
         product: "Quick.Cms",
         references: ["https://opensolution.org/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /quick.cms v([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /quick.cms v([\d\.]+)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /quick.cms v([\d\.]+)/i)},
         description: "header match",
         hide: false,

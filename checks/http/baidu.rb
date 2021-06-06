@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.baidu.com/',
               description: 'Baidu - Favicon Hash',
               version: nil,
-              match_type: :checksum_body_mmh3,
-              match_content: -1_104_297_575,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :checksum_body_mmh3,
+                  match_content: -1_104_297_575,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

@@ -13,8 +13,13 @@ class Xelion < Intrigue::Ident::Check::Base
         product:"Phone System",
         references: ["https://www.xelion.com/en/"],
         description:"title",
-        match_type: :content_title,
-        match_content:  /Xelion Phone System/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content:  /Xelion Phone System/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

@@ -9,7 +9,7 @@ module Intrigue
               category: 'application',
               tags: ['Web Framework'],
               vendor: 'Pivotal Software',
-              product: 'Spring Framework',
+              product: 'Spring',
               website: 'https://spring.io/',
               description: 'Standard Spring MVC error page',
               version: nil,
@@ -32,30 +32,24 @@ module Intrigue
               category: 'application',
               tags: ['Web Framework'],
               vendor: 'Pivotal Software',
-              product: 'Spring Framework',
+              product: 'Spring',
               website: 'https://spring.io/',
-              description: 'spring cache header',
+              description: 'Pivotal Software Spring - Headers Match',
               references: ['https://github.com/atramos/springy-aws'],
-              match_type: :content_body,
               version: nil,
-              match_content: /^x-springy-cache-disabled:.*$/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /^x-springy-cache-disabled:.*$/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Application-Context.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               examples: ['x-springy-cache-disabled: 0'],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Pivotal Software',
-              product: 'Spring Boot',
-              website: 'https://spring.io/',
-              description: 'spring cache header',
-              references: ['https://stackoverflow.com/questions/40379550/what-is-x-application-context-header'],
-              match_type: :content_headers,
-              version: nil,
-              match_content: /^X-Application-Context.*$/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
             {
@@ -66,9 +60,14 @@ module Intrigue
               product: 'RabbitMQ',
               description: 'RabbitMQ',
               website: 'https://www.rabbitmq.com/',
-              match_type: :content_body,
               version: nil,
-              match_content: /RabbitMQ Management/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /RabbitMQ Management/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -80,9 +79,14 @@ module Intrigue
               product: 'RabbitMQ',
               website: 'https://www.rabbitmq.com/',
               description: 'RabbitMQ API',
-              match_type: :content_body,
               version: nil,
-              match_content: /RabbitMQ Management HTTP API/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /RabbitMQ Management HTTP API/,
+                }
+              ],
               paths: [{ path: "#{url}/api", follow_redirects: true }],
               inference: false
             },
@@ -94,9 +98,14 @@ module Intrigue
               product: 'tc server',
               description: 'body version string',
               references: ['https://www.vmware.com/products/pivotal-tcserver.html'],
-              match_type: :content_body,
               version: nil,
-              match_content: /Pivotal tc Server Standard Edition [\d.]+\.RELEASE/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Pivotal tc Server Standard Edition [\d.]+\.RELEASE/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, /Pivotal tc Server Standard Edition\ ([\d.]+)\.RELEASE/i)
                                },

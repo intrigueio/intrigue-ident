@@ -12,8 +12,13 @@ module Intrigue
               product: "AfriHost",
               website: "https://www.afrihost.com/",
               version: nil,
-              match_type: :content_title,
-              match_content: /^Domain Parked$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Domain Parked$/i,
+                }
+              ],
               description: "Domain Parked",
               hide: false,
               paths: [{ path: "#{url}", follow_redirects: true }],

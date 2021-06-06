@@ -15,8 +15,13 @@ module Intrigue
                 'https://en.wikipedia.org/wiki/ABAP'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ABAP \d+}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ABAP \d+}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{server: SAP NetWeaver Application Server [\d.\s]*/ ABAP (\d+)}i)
@@ -35,8 +40,13 @@ module Intrigue
                 'https://help.sap.com/doc/saphelp_nw73ehp1/7.31.19/en-US/48/039d48c0070c84e10000000a42189c/frameset.htm'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ICM [\d.]+}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: SAP NetWeaver Application Server [\d.\s]*/ ICM [\d.]+}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{server: SAP NetWeaver Application Server [\d.\s]*/ ICM ([\d.]+)}i)
@@ -54,8 +64,13 @@ module Intrigue
               description: 'netweaver title in irj/portal',
               version: nil,
               references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
-              match_type: :content_title,
-              match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+                }
+              ],
               paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
               inference: false
             },
@@ -69,8 +84,13 @@ module Intrigue
               description: 'netweaver version in irj/portal',
               version: nil,
               references: [''],
-              match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP NetWeaver Application Server/i,
+                }
+              ],
               # SAP NetWeaver Application Server 7.53
               dynamic_version: ->(x) { _first_header_capture(x, /SAP NetWeaver Application Server ([\d.]+)/i) },
               paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
@@ -85,8 +105,13 @@ module Intrigue
               description: 'saplb cookie',
               version: nil,
               references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
-              match_type: :content_cookies,
-              match_content: /saplb_\*=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /saplb_\*=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -99,8 +124,13 @@ module Intrigue
               description: 'portalalias cookie',
               version: nil,
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_cookies,
-              match_content: /PortalAlias=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /PortalAlias=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -113,8 +143,13 @@ module Intrigue
               description: 'com.sap.engine.security.authentication.original_application_url cookie',
               version: nil,
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_cookies,
-              match_content: /com.sap.engine.security.authentication.original_application_url=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /com.sap.engine.security.authentication.original_application_url=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -128,8 +163,13 @@ module Intrigue
               description: 'LM Configuration Wizard detection',
               version: nil,
               references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
-              match_type: :content_body,
-              match_content: /urn:CTCWebServiceSi/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /urn:CTCWebServiceSi/i,
+                }
+              ],
               paths: [{ path: "#{url}/CTCWebService/CTCWebServiceBean?wsdl", follow_redirects: true }],
               inference: false
             },
@@ -145,8 +185,13 @@ module Intrigue
                 'https://apps.support.sap.com/sap/support/knowledge/preview/en/2082323',
                 'https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/sap/sap_soap_rfc_pfl_check_os_file_existence.rb'
               ],
-              match_type: :content_cookies,
-              match_content: /sap-usercontext=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /sap-usercontext=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -159,8 +204,13 @@ module Intrigue
               description: 'cookie',
               version: nil,
               references: [],
-              match_type: :content_cookies,
-              match_content: /com.sap.engine.security.authentication.original_application_url/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /com.sap.engine.security.authentication.original_application_url/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -173,8 +223,13 @@ module Intrigue
               description: 'title',
               version: nil,
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_title,
-              match_content: /SAP NetWeaver Application Server Java/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP NetWeaver Application Server Java/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -187,8 +242,13 @@ module Intrigue
               description: 'title',
               version: nil,
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_type: :content_title,
-              match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -201,8 +261,13 @@ module Intrigue
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
               version: nil,
               description: 'server header',
-              match_type: :content_headers,
-              match_content: /^server: SAP NetWeaver Application Server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: SAP NetWeaver Application Server/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server: SAP NetWeaver Application Server (\d+(\.\d+)*)/i)
                                },
@@ -220,8 +285,13 @@ module Intrigue
               references: [
                 'https://blogs.sap.com/2016/05/19/hp-loadrunner-scripts-for-webui/'
               ],
-              match_type: :content_headers,
-              match_content: /bD1lbiZjPTEwMCZkPW1pbg==/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /bD1lbiZjPTEwMCZkPW1pbg==/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -234,8 +304,13 @@ module Intrigue
               references: ['https://help.sap.com/viewer/6b94445c94ae495c83a19646e7c3fd56/2.0.04/en-US/e8b56a8a904a4a9d9bfa7fa76aec5674.html'],
               version: nil,
               description: 'title',
-              match_type: :content_title,
-              match_content: /SAP XSEngine/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP XSEngine/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -248,8 +323,13 @@ module Intrigue
               website: 'https://support.sap.com/en/alm/solution-manager.html',
               version: nil,
               description: 'login details in response body',
-              match_type: :content_body,
-              match_content: /<form.*name="loginForm".*action=".*FioriLaunchpad\.html.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<form.*name="loginForm".*action=".*FioriLaunchpad\.html.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -262,8 +342,13 @@ module Intrigue
               website: 'https://support.sap.com/en/alm/solution-manager.html',
               version: nil,
               description: 'redirect to login',
-              match_type: :content_headers,
-              match_content: /location:.*FioriLaunchpad\.html/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /location:.*FioriLaunchpad\.html/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: false }],
               inference: false
             },
@@ -276,8 +361,13 @@ module Intrigue
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',
               version: nil,
               description: 'login details in response body',
-              match_type: :content_body,
-              match_content: %r{<form.*name="loginForm".*action="/sap/bc/ui2/flp".*}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<form.*name="loginForm".*action="/sap/bc/ui2/flp".*}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -290,8 +380,13 @@ module Intrigue
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',
               version: nil,
               description: 'redirect to login',
-              match_type: :content_headers,
-              match_content: %r{location:.*/sap/bc/ui2/flp}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{location:.*/sap/bc/ui2/flp}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: false }],
               inference: false
             }

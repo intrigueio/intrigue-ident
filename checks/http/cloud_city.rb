@@ -13,8 +13,13 @@ module Intrigue
           product: "Cloud City",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /This domain name is registered and parked<br>with Cloud City/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /This domain name is registered and parked<br>with Cloud City/i,
+            }
+          ],
           description: "unique body string",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://roundcube.net/',
               description: 'Roundcube title',
               version: nil,
-              match_type: :content_title,
-              match_content: /:: Welcome to Roundcube Webmail$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /:: Welcome to Roundcube Webmail$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://roundcube.net/',
               description: 'Roundcube session cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /roundcube_sessid=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /roundcube_sessid=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

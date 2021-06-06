@@ -12,8 +12,13 @@ module Intrigue
               product: 'CharityEngine',
               website: 'https://www.charityengine.com/',
               version: nil,
-              match_type: :content_body,
-              match_content: /title="Powered By CharityEngine">/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /title="Powered By CharityEngine">/i,
+                }
+              ],
               description: 'unique body string',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

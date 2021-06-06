@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://cherokee-project.com/',
               version: nil,
               description: 'Cherokee - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ Cherokee/{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ Cherokee/{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{^server:\ Cherokee/{0,1}(\d+\.\d+\.\d+\ \([a-zA-Z]{1,10}\)){0,1}$}i)

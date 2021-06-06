@@ -13,9 +13,14 @@ module Intrigue
               website: 'https://www.cisco.com/c/en/us/products/security/adaptive-security-device-manager/index.html',
               description: 'page title',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Cisco ASDM/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, %r{<title>Cisco ASDM (.*?)</title>}) },
-              match_type: :content_body,
-              match_content: /<title>Cisco ASDM/i,
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -29,11 +34,16 @@ module Intrigue
               website: 'https://www.cisco.com/c/en_uk/products/security/email-security/index.html',
               description: 'page title',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /Email Security Appliance   (.*?) \(/i)
               },
-              match_type: :content_body,
-              match_content: /<title>[\s\t]+Cisco[\s\t]+Email Security Appliance/,
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -50,8 +60,13 @@ module Intrigue
               ],
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: CE_E$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: CE_E$/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -65,8 +80,13 @@ module Intrigue
               website: 'https://meraki.cisco.com/en-uk/',
               description: 'Meraki logo on an on-prem box',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<img id="header_logo" src="images/meraki-logo.png"}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<img id="header_logo" src="images/meraki-logo.png"}i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -80,8 +100,13 @@ module Intrigue
               website: 'https://www.cisco.com/c/en_uk/products/security/adaptive-security-appliance-asa-software/index.html',
               description: 'Cisco SSL VPN',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /webvpn/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /webvpn/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -95,8 +120,13 @@ module Intrigue
               website: 'https://www.cisco.com/c/en_uk/products/security/adaptive-security-appliance-asa-software/index.html',
               description: 'Cisco SSL VPN',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<script>document\.location\.replace\('/\+CSCOE\+/logon\.html}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<script>document\.location\.replace\('/\+CSCOE\+/logon\.html}i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -110,8 +140,13 @@ module Intrigue
               website: 'https://www.cisco.com/c/en/us/products/ios-nx-os-software/ios-software-releases-listing.html',
               description: 'Cisco Router',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: cisco-IOS/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: cisco-IOS/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -125,8 +160,13 @@ module Intrigue
               website: 'https://www.cisco.com/c/en_uk/solutions/enterprise-networks/sd-wan/index.html',
               description: 'page title',
               version: nil,
-              match_type: :content_body,
-              match_content: /<title>Cisco vManage/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Cisco vManage/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,

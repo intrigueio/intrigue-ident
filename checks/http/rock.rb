@@ -13,8 +13,13 @@ class Rock < Intrigue::Ident::Check::Base
         product: "RockCMS",
         references: ["https://www.roadiz.io/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /rock v([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /rock v([\d\.]+)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /rock v([\d\.]+)/i)},
         description: "header match",
         hide: false,

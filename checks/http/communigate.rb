@@ -14,11 +14,16 @@ class Communigate < Intrigue::Ident::Check::Base
         website: "http://www.stalker.com/CommuniGatepro/",
         description:"server header",
         version: nil,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /server: CommuniGatePro/,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_header_capture(x,/server: CommuniGatePro\/(.*)/i,)
         },
-        match_type: :content_headers,
-        match_content: /server: CommuniGatePro/,
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ], 
         inference: true

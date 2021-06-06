@@ -13,9 +13,14 @@ class Jive < Intrigue::Ident::Check::Base
         product:"Platform",
         website: "http://www.jivesoftware.com/",
         description:"jive login page",
-        match_type: :content_cookies,
         version: nil,
-        match_content:  /jive.login.ts=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_cookies,
+            match_content:  /jive.login.ts=/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

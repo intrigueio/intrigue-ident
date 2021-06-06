@@ -12,8 +12,13 @@ module Intrigue
               product: 'Centos',
               references: [],
               version: nil,
-              match_type: :content_title,
-              match_content: /^Apache HTTP Server Test Page powered by CentOS$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Apache HTTP Server Test Page powered by CentOS$/i,
+                }
+              ],
               description: 'apache server default page',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -28,8 +33,13 @@ module Intrigue
               references: [],
               version: nil,
               website: 'http://centos-webpanel.com/',
-              match_type: :content_headers,
-              match_content: /^Server: cwpsrv$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Server: cwpsrv$/i,
+                }
+              ],
               description: 'centos web panel server header',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

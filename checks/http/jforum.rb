@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://jforum.net/',
               description: 'cookie',
               version: '2.x',
-              match_type: :content_cookies,
-              match_content: /jforum-secure-sso=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /jforum-secure-sso=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

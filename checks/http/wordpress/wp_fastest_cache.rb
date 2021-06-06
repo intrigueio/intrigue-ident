@@ -14,8 +14,13 @@ class WordpressWpFastestCache < Intrigue::Ident::Check::Base
         product:"WP Fastest Cache",
         references: ["https://seclists.org/fulldisclosure/2019/Mar/17"],
         description:"string in body",
-        match_type: :content_body,
-        match_content:  /<!-- WP Fastest Cache file was created in/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /<!-- WP Fastest Cache file was created in/i,
+          }
+        ],
         version: nil,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         require_product: "Wordpress",
