@@ -59,13 +59,13 @@ describe 'Intrigue' do
         expect(check).to have_key(:description).or have_key(:match_details)
         expect(check).to have_key(:match_logic)
         expect(check).to have_key(:matches)
-        expect(check).to have_key(:inference)
         expect(check).to have_key(:paths)
 
         # Not Key Attributes???
         # expect(check).to have_key(:dynamic_version)
         # expect(check).to have_key(:dynamic_update)
         # expect(check).to have_key(:version)
+        #expect(check).to have_key(:inference)
         # expect(check).to have_key(:hide)
         # expect(check).to have_key(:test_target)
       end
