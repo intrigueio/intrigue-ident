@@ -8,7 +8,7 @@ class Ivanti < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["COTS", "Appliance", "Administrative"],
+        tags: ['COTS', 'Appliance', 'Administrative', 'Admin Panel'],
         vendor: "Ivanti",
         product:"LANDESK Appliance",
         description:"matched title",
@@ -26,7 +26,7 @@ class Ivanti < Intrigue::Ident::Check::Base
       }
     ]
   end
-  
+
 end
 end
 end

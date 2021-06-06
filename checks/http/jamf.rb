@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Appliance Administrative],
+              tags: ['Administrative', 'Admin Panel', 'COTS'],
               vendor: 'Jamf',
               product: 'Pro',
               website: 'https://www.jamf.com/products/jamf-pro/',

@@ -8,7 +8,7 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor"],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "page title",
@@ -21,7 +21,7 @@ class Parallels < Intrigue::Ident::Check::Base
           }
         ],
         version: nil,
-        dynamic_version: lambda { |x| 
+        dynamic_version: lambda { |x|
           _first_title_capture(x,/Plesk (.*?)/) },
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true
@@ -29,7 +29,7 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor"],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "server header",
