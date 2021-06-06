@@ -44,7 +44,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['OS'],
+              tags: ['OS', "DefaultPage"],
               vendor: 'RedHat',
               product: 'Fedora Linux',
               website: 'https://getfedora.org/',

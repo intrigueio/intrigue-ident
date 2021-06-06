@@ -7,7 +7,7 @@ module Intrigue
             { ## Infer from apache title...
               type: 'fingerprint',
               category: 'application',
-              tags: ['Web Server'],
+              tags: ['Web Server', 'DefaultPage'],
               vendor: 'Centos',
               product: 'Centos',
               references: [],
@@ -27,7 +27,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative'],
+              tags: ['Administrative', 'Admin Panel'],
               vendor: 'Centos',
               product: 'CentOS Web Panel',
               references: [],

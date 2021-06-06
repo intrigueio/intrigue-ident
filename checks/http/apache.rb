@@ -221,7 +221,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Web Server'],
+              tags: ['Web Server', 'DefaultPage'],
               vendor: 'Apache',
               product: 'HTTP Server',
               website: 'https://httpd.apache.org/',
@@ -235,8 +235,7 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false,
-              issues: ['default_web_server_page_exposed']
+              inference: false
             },
             {
               type: 'fingerprint',
@@ -430,7 +429,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'DefaultPage'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',

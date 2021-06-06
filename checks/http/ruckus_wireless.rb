@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS Administrative],
+              tags: ["Networking", "COTS", "Admin Panel"],
               vendor: 'Ruckus Wireless',
               product: 'Admin',
               website: 'https://www.commscope.com/ruckus/',

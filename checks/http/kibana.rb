@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Database Administrative],
+              tags: ["Development", "Database", "Admin Panel"],
               vendor: 'Elasticsearch',
               product: 'Kibana',
               website: 'https://www.elastic.co/kibana',
@@ -30,7 +30,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Database Administrative],
+              tags: ["Development", "Database", "Admin Panel"],
               vendor: 'Elasticsearch',
               product: 'Kibana',
               website: 'https://www.elastic.co/kibana',

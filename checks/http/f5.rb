@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Networking', 'Load Balancer'],
+              tags: ['Networking', 'Load Balancer', 'Admin Panel'],
               vendor: 'F5',
               product: 'BIG-IP Access Policy Manager',
               website: 'https://www.f5.com/products/security/access-policy-manager',
@@ -27,7 +27,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Networking', 'Load Balancer'],
+              tags: ['Networking', 'Load Balancer', 'Admin Panel'],
               vendor: 'F5',
               product: 'BIG-IP Access Policy Manager',
               description: 'F5 BIG-IP APM default logo',

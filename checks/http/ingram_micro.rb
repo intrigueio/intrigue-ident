@@ -2,13 +2,13 @@ module Intrigue
   module Ident
   module Check
   class IngramMicro < Intrigue::Ident::Check::Base
-  
+
     def generate_checks(url)
       [
         {
           type: "fingerprint",
           category: "application",
-          tags: ["Administrative", "Hypervisor"],
+          tags: ['Administrative', 'Hypervisor', 'Admin Panel'],
           vendor:"Parallels",
           product:"Odin Service Automation",
           description: "default page title",
@@ -30,4 +30,3 @@ module Intrigue
   end
   end
   end
-  
