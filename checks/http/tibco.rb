@@ -57,7 +57,10 @@ module Intrigue
               version: nil,
               match_logic: :all,
               matches: [
-              
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>TIBCO Jaspersoft: Login</title>}i,
+                }
               ],
               paths: [{ path: "#{url}/jasperserver-pro/login.html", follow_redirects: true }],
               require_product: 'HTTP Server', # require apache
