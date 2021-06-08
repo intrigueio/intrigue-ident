@@ -59,11 +59,16 @@ module Intrigue
               vendor: 'Pivotal Software',
               product: 'Spring Boot',
               website: 'https://spring.io/',
-              description: 'spring cache header',
               references: ['https://stackoverflow.com/questions/40379550/what-is-x-application-context-header'],
-              match_type: :content_headers,
+              description: 'Pivotal Software Spring Boot - X-Application-Context header.',
               version: nil,
-              match_content: /^X-Application-Context.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Application-Context.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },

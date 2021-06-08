@@ -333,7 +333,6 @@ module Intrigue
               references: 'https://www.exploit-db.com/ghdb/6793',
               description: 'SAP Foccused run - Login Panel page reference.',
               version: nil,
-              description: 'login details in response body',
               match_logic: :all,
               matches: [
                 {

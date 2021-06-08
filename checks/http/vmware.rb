@@ -35,10 +35,15 @@ module Intrigue
               vendor: 'VMware',
               product: 'ESXi',
               website: 'https://www.vmware.com/uk/products/esxi-and-esx.html',
-              description: 'unique page string',
+              description: 'VMware ESXi - Page reference.',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{client/VMware-viclient\.exe}i,
+                },
+              ],
               version: nil,
-              match_type: :content_body,
-              match_content: %r{client/VMware-viclient\.exe}i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
