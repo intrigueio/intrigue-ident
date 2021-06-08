@@ -36,14 +36,20 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Hypervisor'],
+              tags: ['Hypervisor', 'Login Panel'],
               vendor: 'VMware',
               product: 'Horizon View',
               website: 'https://my.vmware.com/en/web/vmware/downloads/info/slug/desktop_end_user_computing/vmware_horizon_clients/horizon_8',
-              description: 'page title',
+              references: ['https://www.exploit-db.com/ghdb/6496'],
+              description: 'VMware Horizon View - Login panel page reference.',
               version: nil,
-              match_type: :content_body,
-              match_content: /<title>VMware Horizon/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /VMware Horizon/,
+                },
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },

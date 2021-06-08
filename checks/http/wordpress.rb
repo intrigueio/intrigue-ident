@@ -353,6 +353,25 @@ module Intrigue
               paths: [{ path: "#{url}/wp-includes/js/tinymce/tiny_mce.js", follow_redirects: true }],
               require_product: 'Wordpress',
               inference: true
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Login Panel'],
+              vendor: 'Wordpress',
+              product: 'Wordpress',
+              website: 'https://wordpress.com/',
+              description: 'Wordpress - Login panel page reference.',
+              match_logic: :all,
+              require_product: 'Wordpress',
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /\/wp-login\.php\?action=lostpassword">Lost your password\?/i
+                }
+              ],
+              paths: [{ path: "#{url}/wp-login.php", follow_redirects: false }],
+              inference: true
             }
           ]
         end
