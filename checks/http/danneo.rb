@@ -14,8 +14,13 @@ class DanneoCMS < Intrigue::Ident::Check::Base
         references: ["http://danneo.ru/"],
         description: "Danneo - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="CMS Danneo/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="CMS Danneo/i,
+          }
+        ],
         dynamic_version: lambda { 
           |x| _first_body_capture(x, /<meta name="generator" content="CMS Danneo (\d+(\.\d+)*)/i)
         },

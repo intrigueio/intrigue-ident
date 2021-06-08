@@ -13,8 +13,13 @@ module Intrigue
               description: 'product name in body',
               references: [],
               version: nil,
-              match_type: :content_title,
-              match_content: /Nexus Repository Manager/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Nexus Repository Manager/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               description: 'version in body - specific to oss?',
               references: [],
               version: nil,
-              match_type: :content_body,
-              match_content: /app\.js\?_v=[\d.\-]+&_e=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /app\.js\?_v=[\d.\-]+&_e=/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /app\.js\?_v=([\d.\-]+)&_e=/i)
               },

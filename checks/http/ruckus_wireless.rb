@@ -7,13 +7,18 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS Administrative],
+              tags: ["Networking", "COTS", "Admin Panel"],
               vendor: 'Ruckus Wireless',
               product: 'Admin',
               website: 'https://www.commscope.com/ruckus/',
               description: 'login page for ruckus wireless device',
-              match_type: :content_title,
-              match_content: /Ruckus Wireless Admin/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Ruckus Wireless Admin/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

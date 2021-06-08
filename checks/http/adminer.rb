@@ -12,8 +12,13 @@ module Intrigue
               vendor: 'Adminer',
               product: 'Adminer',
               version: nil,
-              match_type: :content_body,
-              match_content: /Login - Adminer/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Login - Adminer/,
+                }
+              ],
               description: 'body content match',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

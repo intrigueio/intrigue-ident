@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.imperva.com/products/advanced-bot-protection-management/',
               description: 'unique header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-distil-cs/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-distil-cs/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

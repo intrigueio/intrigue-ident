@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.debian.org/',
               description: 'nginx test page',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Welcome to nginx on Debian!$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Welcome to nginx on Debian!$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

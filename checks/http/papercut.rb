@@ -14,8 +14,13 @@ class PapercutMF < Intrigue::Ident::Check::Base
         product: "Papercut MF",
         description: "meta description",
         version: nil,
-        match_type: :content_body,
-        match_content:  /<meta name="description" content="PaperCut MF is a print management system./i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /<meta name="description" content="PaperCut MF is a print management system./i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         examples: ['<meta name="description" content="PaperCut MF'],
         inference: false

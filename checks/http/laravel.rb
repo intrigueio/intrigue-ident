@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://laravel.com/',
               description: 'cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /laravel_session=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /laravel_session=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

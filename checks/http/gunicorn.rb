@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://gunicorn.org/',
               description: 'server',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: gunicorn/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: gunicorn/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: gunicorn/(.*)})
               },

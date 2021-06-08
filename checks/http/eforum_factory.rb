@@ -13,8 +13,13 @@ class EforumFactory < Intrigue::Ident::Check::Base
         product: "eForum Factory",
         website: "https://www.eforumfactory.be/",
         version: nil,
-        match_type: :content_body,
-        match_content: /title="The eForum Factory".*\>/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /title="The eForum Factory".*\>/i,
+          }
+        ],
         dynamic_version: nil,
         description: "unique body string",
         hide: false,

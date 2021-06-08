@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://developers.facebook.com/docs/javascript/',
               version: nil,
               description: 'Facebook JS SDK - Load String',
-              match_type: :content_body,
-              match_content: /(document, 'script', 'facebook-jssdk')/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /(document, 'script', 'facebook-jssdk')/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://reactjs.org/',
               description: 'Facebook React - Version in JS File',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{^/\*\* @license React v\d+\.\d+.\d+}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{^/\*\* @license React v\d+\.\d+.\d+}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, %r{^/\*\* @license React v(\d+\.\d+.\d+)}i)
                                },

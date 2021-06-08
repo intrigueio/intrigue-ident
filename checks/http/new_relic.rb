@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://discuss.newrelic.com/t/relic-solution-what-is-bam-nr-data-net-new-relic-browser-monitoring/42055'],
               description: 'NewRelic tracking code',
               version: nil,
-              match_type: :content_body,
-              match_content: /bam.nr-data.net/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /bam.nr-data.net/i
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

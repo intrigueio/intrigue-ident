@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://docs.microfocus.com/SM/9.60/Codeless/Content/integrations/business_service_management/concepts/hp_business_service_management.htm'],
               version: nil,
               description: 'MicroFocus BSM - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ DPS/[\d.]{1,}$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ DPS/[\d.]{1,}$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server:\ DPS/[\d.]{1,}$}i)
                                },

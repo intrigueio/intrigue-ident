@@ -16,8 +16,13 @@ class Ergon < Intrigue::Ident::Check::Base
           "https://github.com/EnableSecurity/wafw00f"
         ],
         version: nil,
-        match_type: :content_cookies,
-        match_content: /AL[_-]?(SESS|LB)=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_cookies,
+            match_content: /AL[_-]?(SESS|LB)=/i,
+          }
+        ],
         description: "cookie match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

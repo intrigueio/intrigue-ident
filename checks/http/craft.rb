@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://craftcms.com/',
               description: 'csrf protection cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /CRAFT_CSRF_TOKEN/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /CRAFT_CSRF_TOKEN/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -28,8 +33,13 @@ module Intrigue
               website: 'https://craftcms.com/',
               description: 'x-powered-by header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by: Craft CMS/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by: Craft CMS/,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

@@ -14,8 +14,13 @@ module Intrigue
           website: "https://www.epik.com/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /Why\ purchase\ this\ domain\ with\ Epik/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /Why\ purchase\ this\ domain\ with\ Epik/i,
+            }
+          ],
           description: "Why\ purchase\ this\ domain\ with\ Epik",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

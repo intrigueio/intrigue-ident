@@ -11,10 +11,19 @@ module Intrigue
               vendor: 'Github',
               product: 'Github',
               website: 'https://github.com/',
-              description: 'github specific header',
+              description: 'Github - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-github-request-id:.*$/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-github-request-id:.*$/i
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: GitHub.com$/i
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -46,7 +55,7 @@ module Intrigue
               matches: [
                 {
                   match_type: :content_body,
-                  match_content: /GitHub Enterprise<\/title>/i
+                  match_content: %r{GitHub Enterprise</title>}i
                 },
                 {
                   match_type: :content_body,

@@ -13,8 +13,13 @@ module Intrigue
           product:"Powerkit",
           references: ["https://wordpress.org/plugins/powerkit/"],
           version: nil,
-          match_type: :content_body,
-          match_content: /powerkit\.css\?ver=/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /powerkit\.css\?ver=/i,
+            }
+          ],
           dynamic_version: lambda { |x| 
             _first_body_capture(x, /powerkit\.css\?ver=([\d\.]+)/i)},
           description:"header match",

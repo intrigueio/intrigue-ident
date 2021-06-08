@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.qualys.com/qualysguard/',
               description: 'custom server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Qualys$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Qualys$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.qualys.com/qualysguard/',
               description: 'custom server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^server: qweb/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: qweb/.*$}i,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{^server: qweb/(.*)$}i) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -42,8 +52,13 @@ module Intrigue
               references: ['https://qualysguard.qualys.com/am/help/sensors/sem.htm'],
               description: 'custom server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: QMProprietary$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: QMProprietary$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -54,10 +69,15 @@ module Intrigue
               vendor: 'Qualys',
               product: 'Qualys Mobility',
               references: ['https://qualysguard.qualys.com/am/help/sensors/sem.htm'],
-              description: 'custom server header',
+              description: 'Qualys Mobility - Cookies Match',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /QualysSession=/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /QualysSession=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

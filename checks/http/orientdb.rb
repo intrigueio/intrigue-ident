@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.orientdb.org/',
               description: 'response header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: OrientDB Server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: OrientDB Server/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /server: OrientDB Server v.(\d+\.\d+\.\d+)/i)
                                },

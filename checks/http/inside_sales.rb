@@ -12,9 +12,14 @@ module Intrigue
               product: 'InsideSales.com',
               website: 'https://uk.insidesales.com/',
               description: 'server header',
-              match_type: :content_headers,
               version: nil,
-              match_content: /^server: Insidesales.com$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Insidesales.com$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

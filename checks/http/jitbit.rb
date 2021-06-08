@@ -12,8 +12,13 @@ module Intrigue
               product: 'AspNetForum',
               references: ['https://www.jitbit.com/asp-net-forum/'],
               version: nil,
-              match_type: :content_body,
-              match_content: %r{AspNetForum v.(\d.*?)</}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{AspNetForum v.(\d.*?)</}i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, %r{AspNetForum v.(\d.*?)</}i) },
               description: 'header match',
               hide: false,

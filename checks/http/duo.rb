@@ -13,8 +13,13 @@ module Intrigue
           product: "Access Gateway",
           references: ["https://duo.com/docs/dag"],
           version: nil,
-          match_type: :content_cookies,
-          match_content: /DUO_ACCESS_GATEWAY_AFFINITY/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_cookies,
+              match_content: /DUO_ACCESS_GATEWAY_AFFINITY/i,
+            }
+          ],
           description: "affinity cookie",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -28,8 +33,13 @@ module Intrigue
           product: "Access Gateway",
           references: ["https://duo.com/docs/dag"],
           version: nil,
-          match_type: :content_title,
-          match_content: /^Duo Access Gateway$/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /^Duo Access Gateway$/i,
+            }
+          ],
           description: "title",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

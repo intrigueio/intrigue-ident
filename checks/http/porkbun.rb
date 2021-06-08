@@ -14,8 +14,13 @@ module Intrigue
           website: "ttps://porkbun.com/h",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /but the owner has not put up a site yet. Visit again soon to see what amazing website they decide to build./i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /but the owner has not put up a site yet. Visit again soon to see what amazing website they decide to build./i,
+            }
+          ],
           description: "unique body string",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

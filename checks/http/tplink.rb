@@ -14,8 +14,13 @@ module Intrigue
               references: [
                 'https://www.tp-link.com/us/search/?q=tl-wr&t=product'
               ],
-              match_type: :content_headers,
-              match_content: %r{^server: Router Webserver$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: Router Webserver$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server: Router Webserver$}i)
                                },

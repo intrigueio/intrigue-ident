@@ -14,8 +14,13 @@ class RiteCMS < Intrigue::Ident::Check::Base
         references: ["http://ritecms.com/"],
         description: "RiteCMS - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="RiteCMS/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="RiteCMS/i,
+          }
+        ],
         dynamic_version: lambda { |x| 
           _first_body_capture(x, /<meta name="generator" content="RiteCMS (\d+(\.\d+)*)/i)
         },

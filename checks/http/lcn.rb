@@ -12,9 +12,14 @@ module Intrigue
               product: 'LCN',
               website: 'https://www.lcn.com/',
               description: 'body error message',
-              match_type: :content_body,
               version: nil,
-              match_content: /This website is temporarily offline - LCN.com/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /This website is temporarily offline - LCN.com/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

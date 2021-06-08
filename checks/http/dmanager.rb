@@ -13,8 +13,13 @@ module Intrigue
               references: ['http://www.dmanager.org/DManager-en.html'],
               version: nil,
               description: 'DManager - Server Header',
-              match_type: :content_headers,
-              match_content: /^server:\ DManager$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ DManager$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server:\ DManager$/i)
                                },

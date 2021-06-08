@@ -13,8 +13,13 @@ class SeamlessCMS < Intrigue::Ident::Check::Base
         product: "SeamlessCMS",
         references: ["https://www.seamlesscms.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Published by Seamless.CMS.WebUI, ([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Published by Seamless.CMS.WebUI, ([\d\.]+)/i,
+          }
+        ], 
         dynamic_version: lambda { |x| _first_body_capture(x, /Published by Seamless.CMS.WebUI, ([\d\.]+)/i)},
         description: "Header match",
         hide: false,

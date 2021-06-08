@@ -14,8 +14,13 @@ class StackPath < Intrigue::Ident::Check::Base
         references: ["https://www.stackpath.com/products/cdn/"],
         description:"NetDNA - server header",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /^server:\ NetDNA-cache/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /^server:\ NetDNA-cache/,
+          }
+        ],
         dynamic_version: lambda { |x| 
           _first_header_capture(x,/^server:\ NetDNA-cache\/(\d+(\.\d+)*)$/i) },
         hide: false,

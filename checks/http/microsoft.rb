@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://dotnet.microsoft.com/apps/aspnet',
               description: 'unique string',
               version: nil,
-              match_type: :content_title,
-              match_content: /Home Page - My ASP.NET Application/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Home Page - My ASP.NET Application/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -26,25 +31,16 @@ module Intrigue
               product: 'ASP.NET',
               website: 'https://dotnet.microsoft.com/apps/aspnet',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /AspNetCore.Antiforgery/i,
-              description: 'ASP.Net Antiforgery cookie',
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Microsoft',
-              product: 'ASP.NET',
-              website: 'https://dotnet.microsoft.com/apps/aspnet',
-              version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /^.*ASP.NET is configured*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_body_capture(x, /ASP.NET Version:\ ([\d.]*)/i)
                                },
-              match_type: :content_body,
-              match_content: /^.*ASP.NET is configured*$/i,
               description: 'ASP.Net Error Message',
               paths: [
                 { path: url.to_s, follow_redirects: true },
@@ -60,11 +56,16 @@ module Intrigue
               product: 'ASP.NET',
               website: 'https://dotnet.microsoft.com/apps/aspnet',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-aspnet-version:.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^x-aspnet-version:\ ([\d.]*)/i)
                                },
-              match_type: :content_headers,
-              match_content: /^x-aspnet-version:.*$/i,
               description: 'X-AspNet Header',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -76,41 +77,27 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'ASP.NET',
               website: 'https://dotnet.microsoft.com/apps/aspnet',
-              description: 'Asp.Net Cookie',
+              description: 'Microsoft ASP.NET - Cookies Match',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /ASPSESSIONID.*$/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Microsoft',
-              product: 'ASP.NET',
-              website: 'https://dotnet.microsoft.com/apps/aspnet',
-              description: 'Asp.Net Default Cookie',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /ASP.NET_SessionId.*$/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Microsoft',
-              product: 'ASP.NET',
-              website: 'https://dotnet.microsoft.com/apps/aspnet',
-              description: 'ASPXAUTH cookie',
-              version: nil,
-              references: [
-                'https://www.sitefinity.com/developer-network/forums/developing-with-sitefinity-/claims-auth---aspxauth-cookie-remains'
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /ASPSESSIONID.*$/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /AspNetCore.Antiforgery/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /ASP.NET_SessionId.*$/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /ASPXAUTH=/i,
+                }
               ],
-              match_type: :content_cookies,
-              match_content: /ASPXAUTH=/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -123,11 +110,16 @@ module Intrigue
               website: 'https://dotnet.microsoft.com/apps/aspnet/mvc',
               description: 'ASP.Net MVC Header',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                match_type: :content_headers,
+                match_content: /x-aspnetmvc-version/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^x-aspnetmvc-version:\s([\d.]+)/i)
                                },
-              match_type: :content_headers,
-              match_content: /x-aspnetmvc-version/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -154,24 +146,19 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'ASP.NET',
               website: 'https://dotnet.microsoft.com/apps/aspnet',
-              description: 'WebResource.axd link in the page',
+              description: 'Microsoft ASP.NET - Body Match',
               version: nil,
-              match_type: :content_body,
-              match_content: /WebResource.axd?d=/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
-              vendor: 'Microsoft',
-              product: 'ASP.NET',
-              website: 'https://dotnet.microsoft.com/apps/aspnet',
-              description: 'unique viewstate string',
-              version: nil,
-              match_type: :content_body,
-              match_content: /__VIEWSTATEGENERATOR/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /WebResource.axd?d=/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /__VIEWSTATEGENERATOR/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -183,12 +170,17 @@ module Intrigue
               product: '.NET Framework',
               website: 'https://dotnet.microsoft.com/',
               description: 'trace.axd version',
-              version: nil,
+              version: nil, 
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Microsoft \.NET Framework Version/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /ASP.NET Version:([\d.]*)/)
               },
-              match_type: :content_body,
-              match_content: /Microsoft \.NET Framework Version/i,
               paths: [{ path: "#{url}/Trace.axd", follow_redirects: true }],
               require_product: 'ASP.NET',
               inference: true
@@ -202,8 +194,13 @@ module Intrigue
               website: 'https://azure.microsoft.com/',
               description: 'standard 404',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Microsoft Azure Web App - Error 404$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Microsoft Azure Web App - Error 404$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               hide: true,
               inference: false
@@ -215,10 +212,23 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
-              description: 'Proxy service header (x-msedge-ref)',
+              description: 'Microsoft Azure - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-msedge-ref:.*/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-msedge-ref:.*/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-ms-ref:.*/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-ms-request-id:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -230,8 +240,13 @@ module Intrigue
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
               description: 'proxy default error',
-              match_type: :content_body,
-              match_content: %r{<h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               hide: true,
               inference: false
@@ -243,52 +258,19 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
-              description: 'Proxy header (x-ms-ref)',
+              description: 'Microsoft Azure - Cookies Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-ms-ref:.*/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
-              vendor: 'Microsoft',
-              product: 'Azure',
-              website: 'https://azure.microsoft.com/',
-              description: 'Storage service header',
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^x-ms-request-id:.*/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
-              vendor: 'Microsoft',
-              product: 'Azure',
-              website: 'https://azure.microsoft.com/',
-              description: 'cookie: ApplicationGatewayAffinity',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /ApplicationGatewayAffinity=/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
-              vendor: 'Microsoft',
-              product: 'Azure',
-              website: 'https://azure.microsoft.com/',
-              description: 'cookie: ApplicationGatewayAffinityCORS',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /ApplicationGatewayAffinityCORS=/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /ApplicationGatewayAffinity=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /ApplicationGatewayAffinityCORS=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -304,8 +286,13 @@ module Intrigue
               ],
               version: nil,
               description: 'Microsoft Verizon Azure CDN - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}/[a-zA-Z0-9]{4}\)$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}/[a-zA-Z0-9]{4}\)$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{^server:\ (ECAcc|ECD|EOS|ECS)\ \([a-zA-Z]{3}/[a-zA-Z0-9]{4}\)$}i)
@@ -323,8 +310,13 @@ module Intrigue
               website: 'https://dotnet.microsoft.com/apps/aspnet',
               description: 'powered by header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-Powered-By: ASP.NET$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Powered-By: ASP.NET$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -337,8 +329,13 @@ module Intrigue
               website: 'https://www.sitecore.com/products/sitecore-commerce',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /commerce-server-software: Microsoft Commerce Server.*/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /commerce-server-software: Microsoft Commerce Server.*/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -349,24 +346,19 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Exchange Server',
               references: ['https://support.microsoft.com/en-us/help/4036163/you-can-t-access-owa-or-ecp-after-you-install-exchange-server-2016-cu6'],
-              description: 'x-feserver header',
+              description: 'Microsoft Exchange Server - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-feserver:.*$/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
-              vendor: 'Microsoft',
-              product: 'Exchange Server',
-              website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
-              description: '/owa/ redirect',
-              version: nil,
-              match_type: :content_headers,
-              match_content: %r{^location:.*/owa/$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-feserver:.*$/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^location:.*/owa/$}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -379,8 +371,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
               description: 'OWA Header -> Exchange server inference',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-owa-version:/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-owa-version:/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 version_string = _first_header_capture(x, /^x-owa-version:(.*)$/i)
                 owa_to_exchange_version(version_string)[:version]
@@ -401,8 +398,13 @@ module Intrigue
               references: ['https://bit.ly/2k4Yoot'],
               description: 'OWA version -> Exchange server inference (body)',
               version: nil,
-              match_type: :content_body,
-              match_content: /OwaPage\ =\ ASP.auth_logon_aspx/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /OwaPage\ =\ ASP.auth_logon_aspx/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 version_string = _first_body_capture(x, %r{href="/owa/auth/([\d.]+)/themes/resources/favicon.ico})
                 version_string ||= _first_body_capture(x,
@@ -429,8 +431,13 @@ module Intrigue
               references: ['https://bit.ly/2k4Yoot'],
               description: 'OWA version -> Exchange server inference (headers)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-owa-version/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-owa-version/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 version_string = _first_body_capture(x, %r{href="/owa/auth/([\d.]+)/themes/resources/favicon.ico})
                 version_string ||= _first_body_capture(x,
@@ -457,8 +464,13 @@ module Intrigue
               website: 'http://www.microsoft.com/tmg',
               description: 'Microsoft Forefront Threat Management Gateway',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /<title>Microsoft Forefront TMG/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /<title>Microsoft Forefront TMG/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -471,8 +483,13 @@ module Intrigue
               website: 'http://www.microsoft.com/tmg',
               description: 'Microsoft Forefront Threat Management Gateway',
               version: nil,
-              match_type: :content_headers,
-              match_content: /via:\ 1.1\ TMGSRVR/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /via:\ 1.1\ TMGSRVR/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -484,8 +501,13 @@ module Intrigue
               product: 'ISA Server',
               website: 'http://www.microsoft.com/tmg',
               version: '2006',
-              match_type: :content_title,
-              match_content: /^Microsoft ISA Server 2006$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Microsoft ISA Server 2006$/i,
+                }
+              ],
               description: 'standard title',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -499,8 +521,13 @@ module Intrigue
               references: ['https://en.wikipedia.org/wiki/Microsoft_FrontPage'],
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^.*FrontPage/.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^.*FrontPage/.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^.*FrontPage/([\d.]*).*$}i)
               },
@@ -515,25 +542,17 @@ module Intrigue
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
               description: 'server header',
-              match_type: :content_headers,
-              match_content: /server: Microsoft-IIS/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false # not specific enough
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Microsoft',
-              product: 'Internet Information Services',
-              website: 'https://www.iis.net/',
-              description: 'server header',
               version: nil,
               dynamic_version: lambda { |x|
                 _first_header_capture x, %r{server: Microsoft-IIS/(.*)}
               },
-              match_type: :content_headers,
-              match_content: %r{server: Microsoft-IIS/},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: Microsoft-IIS/},
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false # not specific enough
             },
@@ -546,8 +565,13 @@ module Intrigue
               website: 'https://www.iis.net/',
               description: 'body error messages',
               version: nil,
-              match_type: :content_body,
-              match_content: /401.2 - Unauthorized: Access is denied due to server configuration.<br>Internet Information Services \(IIS\)/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /401.2 - Unauthorized: Access is denied due to server configuration.<br>Internet Information Services \(IIS\)/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false # not specific enough
             },
@@ -560,8 +584,13 @@ module Intrigue
               website: 'https://www.iis.net/',
               description: 'Internet Information Services',
               version: '8.0',
-              match_type: :content_body,
-              match_content: /<img src="iis-8.png"/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<img src="iis-8.png"/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false # not specific enough
             },
@@ -574,8 +603,13 @@ module Intrigue
               website: 'https://www.iis.net/',
               description: 'Microsoft IIS 8.5',
               version: '8.5',
-              match_type: :content_body,
-              match_content: /<img src="iis-85.png"/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<img src="iis-85.png"/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false # not specific enough
             },
@@ -588,8 +622,13 @@ module Intrigue
               website: 'https://www.iis.net/',
               description: 'Microsoft-HTTPAPI/2.0 (IIS not configured)',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: Microsoft-HTTPAPI/2.0}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: Microsoft-HTTPAPI/2.0}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -599,57 +638,29 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Internet Information Services',
               website: 'https://www.iis.net/',
-              description: 'Microsoft IIS Unauthorized (403)',
+              description: 'Microsoft IIS - Error Matches',
               tags: ['Web Server'],
               version: nil,
-              match_type: :content_body,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Error Code: 403 Forbidden. The server denied the specified Uniform Resource Locator \(URL\)/,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /HTTP Error 404. The requested resource is not found./,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /403 Forbidden. The server denied the specified Uniform Resource Locator (URL)/,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /HTTP Error 503. The service is unavailable./,
+                }
+              ],
               hide: true,
-              match_content: /Error Code: 403 Forbidden. The server denied the specified Uniform Resource Locator \(URL\)/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Microsoft',
-              product: 'Internet Information Services',
-              website: 'https://www.iis.net/',
-              description: 'Microsoft IIS Missing Resource (404)',
-              version: nil,
-              match_type: :content_body,
-              hide: true,
-              match_content: /HTTP Error 404. The requested resource is not found./,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Microsoft',
-              product: 'Internet Information Services',
-              website: 'https://www.iis.net/',
-              description: 'Microsoft IIS Generic Error - 403',
-              version: nil,
-              match_type: :content_body,
-              hide: true,
-              match_content: /403 Forbidden. The server denied the specified Uniform Resource Locator (URL)/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Microsoft',
-              product: 'Internet Information Services',
-              website: 'https://www.iis.net/',
-              description: 'Microsoft Generic Error - 503',
-              version: nil,
-              match_type: :content_body,
-              hide: true,
-              match_content: /HTTP Error 503. The service is unavailable./,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -662,8 +673,13 @@ module Intrigue
               references: ['https://stackify.com/what-is-kestrel-web-server/'],
               description: 'kestrel in server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: Kestrel/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Kestrel/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -676,8 +692,13 @@ module Intrigue
               website: 'https://www.office.com/',
               description: 'office 365 api unique header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-ms-server-fqdn/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-ms-server-fqdn/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -690,8 +711,13 @@ module Intrigue
               website: 'https://www.office.com/',
               description: 'office 365 api auth cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /x-ms-gateway-slice/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /x-ms-gateway-slice/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -704,8 +730,13 @@ module Intrigue
               website: 'https://www.office.com/',
               description: 'office 365 fronted by okta',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{ok3static.oktacdn.com/assets/img/logos/office365}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{ok3static.oktacdn.com/assets/img/logos/office365}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -719,8 +750,13 @@ module Intrigue
               website: 'https://www.office.com/',
               description: 'office 365 outlook signin',
               version: nil,
-              match_type: :content_title,
-              match_content: /Sign in to Outlook/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Sign in to Outlook/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -731,10 +767,19 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
-              description: 'Microsoft Outlook Web Access',
+              description: 'Microsoft Outlook Web Access - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{location: /owa},
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{location: /owa},
+                },
+                {
+                  match_type: :conent_headers,
+                  match_content: %r{^Location: https://.*/owa/$},
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -747,8 +792,13 @@ module Intrigue
               website: 'https://outlook.live.com/',
               description: 'Microsoft Outlook Web Access (header)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-owa-version/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-owa-version/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /x-owa-version:(.*)/)
                                },
@@ -790,22 +840,13 @@ module Intrigue
               website: 'https://outlook.live.com/',
               description: 'title',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Outlook Web App$/,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Productivity', 'Mail Server', 'COTS'],
-              vendor: 'Microsoft',
-              product: 'Outlook Web Access',
-              website: 'https://outlook.live.com/',
-              description: 'title',
-              version: nil,
-              match_type: :conent_headers,
-              match_content: %r{^Location: https://.*/owa/$},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Outlook Web App$/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -818,8 +859,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'Inferred from services version',
               version: nil,
-              match_type: :content_headers,
-              match_content: /microsoftsharepointteamservices/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /microsoftsharepointteamservices/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  sharepoint_server_version_from_team_services(_first_header_capture(x,
                                                                                                     /^microsoftsharepointteamservices:(.*)/i))[:version]
@@ -840,8 +886,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'error page',
               version: nil,
-              match_type: :content_body,
-              match_content: /Troubleshoot issues with Microsoft SharePoint Foundation. - Opens in new window/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Troubleshoot issues with Microsoft SharePoint Foundation. - Opens in new window/,
+                }
+              ],
               paths: [{ path: "#{url}/WebResource.asmx", follow_redirects: true }],
               require_product: 'ASP.NET',
               inference: false
@@ -855,11 +906,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'Sharepoint cookie',
               version: nil,
-              match_type: :content_headers,
-              match_content: /sprequestguid/,
-              dynamic_version: lambda { |x|
-                                 _first_header_capture(x, /^microsoftsharepointteamservices:(.*)/i)
-                               },
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /sprequestguid/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -872,8 +925,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'Sharepoint cookie',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^microsoftsharepointteamservices:.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^microsoftsharepointteamservices:.*$/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^microsoftsharepointteamservices:(.*)/i)
                                },
@@ -889,8 +947,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'Sharepoint cookie',
               version: nil,
-              match_type: :content_generator,
-              match_content: /^Microsoft SharePoint$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_generator,
+                  match_content: /^Microsoft SharePoint$/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -903,8 +966,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /microsoftofficewebserver:.*/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /microsoftofficewebserver:.*/,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, /^microsoftofficewebserver:(.*)/i) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -918,8 +986,13 @@ module Intrigue
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
               description: 'header',
               version: '3.0',
-              match_type: :content_headers,
-              match_content: /microsoftofficewebserver: 5.0_Pub/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /microsoftofficewebserver: 5.0_Pub/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

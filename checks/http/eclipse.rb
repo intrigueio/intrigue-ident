@@ -17,8 +17,13 @@ module Intrigue
               website: 'https://www.eclipse.org/jetty/',
               description: 'Eclipse Jetty - Server Header with Update',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*Jetty\(.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*Jetty\(.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server:.*Jetty\(([\w\d.]*)\.v[\w\d.\-]*\).*$/i)
               },
@@ -41,8 +46,13 @@ module Intrigue
               website: 'https://www.eclipse.org/jetty/',
               description: 'Eclipse Jetty - Powered By Header with Update',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by:.*Jetty\(.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by:.*Jetty\(.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-powered-by:.*Jetty\(([\d.]*)\.v[\w\d.\-]*\).*$/i)
               },

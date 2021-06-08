@@ -12,8 +12,13 @@ module Intrigue
               product: 'Yaws',
               description: 'server header',
               references: ['https://en.wikipedia.org/wiki/Yaws_(web_server)'],
-              match_type: :content_headers,
-              match_content: /server: Yaws/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Yaws/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /server: Yaws (.*)/i)
               },

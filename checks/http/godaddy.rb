@@ -14,8 +14,13 @@ module Intrigue
           website: "https://www.godaddy.com",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /This Web page is parked for FREE, courtesy of.*GoDaddy.com/im,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /This Web page is parked for FREE, courtesy of.*GoDaddy.com/im,
+            }
+          ],
           description: "parking string in body",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

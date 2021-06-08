@@ -12,10 +12,15 @@ class Loxone < Intrigue::Ident::Check::Base
         vendor: "Loxone",
         product:"Smart Home Web Interface",
         description: "favicon hash",
-        match_type: :checksum_body_mmh3,
         references: ["https://www.reddit.com/r/ShodanNinja/comments/96oh0f/shodan_search_httpfaviconhash679065580_loxone/"],
         version: nil,
-        match_content: 679065580,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :checksum_body_mmh3,
+            match_content: 679065580,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ], 
         inference: false
       }      

@@ -14,8 +14,13 @@ module Intrigue
           website: "https://www.ucoz.com/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /title\=\"Hosted by uCoz\"/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /title\=\"Hosted by uCoz\"/i,
+            }
+          ],
           description: "title\=\"Hosted by uCoz\"",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

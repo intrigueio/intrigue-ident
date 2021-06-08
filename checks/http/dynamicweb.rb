@@ -13,8 +13,13 @@ class DynamicWeb < Intrigue::Ident::Check::Base
         product: "Dynamicweb",
         references: ["https://www.dynamicweb.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="Dynamicweb.*" \/>/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="Dynamicweb.*" \/>/i,
+          }
+        ],
         dynamic_version: lambda { |x| 
             version = _first_body_capture(x, /<meta name="generator" content="Dynamicweb (\d+(\.\d+)*)" \/>/i)
         },

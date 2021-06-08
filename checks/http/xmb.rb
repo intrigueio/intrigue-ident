@@ -13,8 +13,13 @@ class XmbCMS < Intrigue::Ident::Check::Base
         product: "XMB",
         references: ["https://forums.xmbforum2.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Powered by XMB (\d.*.\d)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Powered by XMB (\d.*.\d)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /Powered by XMB (\d.*.\d)/i)},
         description: "Header match",
         hide: false,

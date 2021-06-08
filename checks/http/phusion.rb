@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.phusionpassenger.com/',
               description: 'Phusion Passenger - X-Powered-By Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by: Phusion Passenger.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by: Phusion Passenger.*$/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /x-powered-by: Phusion Passenger (.*)/i)
                                },
@@ -30,8 +35,13 @@ module Intrigue
               website: 'https://www.phusionpassenger.com/',
               description: 'Phusion Passenger - Server Header (w/o underscore)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*Phusion Passenger.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*Phusion Passenger.*$/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server:.*Phusion Passenger\ ([\d.]*).*/i)
                                },
@@ -47,8 +57,13 @@ module Intrigue
               website: 'https://www.phusionpassenger.com/',
               description: 'Phusion Passenger - Server Header (w underscore)',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*Phusion_Passenger.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*Phusion_Passenger.*$/,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server:.*Phusion_Passenger/([\w\d.\-]*)\s.*$}i)
                                },

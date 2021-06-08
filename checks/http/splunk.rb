@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.splunk.com/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Splunkd$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Splunkd$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

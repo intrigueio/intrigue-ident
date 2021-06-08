@@ -12,9 +12,14 @@ module Intrigue
               product: 'Docker',
               website: 'https://www.docker.com/',
               match_details: 'body content',
-              match_type: :content_body,
               version: nil,
-              match_content: /"ApiVersion".*"KernelVersion"/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /"ApiVersion".*"KernelVersion"/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               dynamic_version: lambda { |x|
@@ -29,9 +34,14 @@ module Intrigue
               product: 'Docker',
               website: 'https://www.docker.com/',
               match_details: 'header match',
-              match_type: :content_headers,
               version: nil,
-              match_content: %r{Server: Docker/.*},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{Server: Docker/.*},
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true,
               dynamic_version: lambda { |x|

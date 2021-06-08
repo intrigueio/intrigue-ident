@@ -13,8 +13,13 @@ module Intrigue
               product: 'Linux',
               website: 'https://www.redhat.com/',
               description: 'apache error page',
-              match_type: :content_body,
-              match_content: /Apache.* \(Red Hat\) Server.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Apache.* \(Red Hat\) Server.*/i,
+                }
+              ],
               paths: [{ path: "#{url}/doesntexist-123", follow_redirects: true }],
               inference: false
             },
@@ -26,21 +31,31 @@ module Intrigue
               product: 'Enterprise Linux',
               website: 'https://www.redhat.com/',
               description: 'nginx test page',
-              match_type: :content_headers,
-              match_content: /^Apache.* \(Red Hat Enterprise Linux\).*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Apache.* \(Red Hat Enterprise Linux\).*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['OS'],
+              tags: ['OS', "DefaultPage"],
               vendor: 'RedHat',
               product: 'Fedora Linux',
               website: 'https://getfedora.org/',
               description: 'nginx test page',
-              match_type: :content_title,
-              match_content: /^Test Page for the Nginx HTTP Server on Fedora$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Test Page for the Nginx HTTP Server on Fedora$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -52,8 +67,13 @@ module Intrigue
               product: 'OpenShift Container Platform',
               description: 'error message in html',
               references: ['https://bugzilla.redhat.com/show_bug.cgi?id=1414657'],
-              match_type: :content_body,
-              match_content: /Route and path matches, but all pods are down./i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Route and path matches, but all pods are down./i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -65,8 +85,13 @@ module Intrigue
               product: 'OpenShift Container Platform',
               description: 'title',
               website: 'https://www.openshift.com/products/container-platform',
-              match_type: :content_title,
-              match_content: /Login - OpenShift Origin/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Login - OpenShift Origin/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -79,8 +104,13 @@ module Intrigue
               references: ['https://www.redhat.com/en/resources/jboss-core-services-collection-datasheet'],
               version: nil,
               description: 'RedHat JBoss Core Services - Server Header',
-              match_type: :content_headers,
-              match_content: /^Server:\ JBCS\ httpd/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Server:\ JBCS\ httpd/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^Server:\ JBCS\ httpd/(\d+(\.\d+)*)}i)
               },
@@ -96,9 +126,14 @@ module Intrigue
               product: 'JBoss Enterprise Application Platform',
               website: 'https://www.redhat.com/en/technologies/jboss-middleware/application-platform',
               version: nil,
-              match_type: :content_headers,
               description: 'powered by header',
-              match_content: /^x-powered-by:.*JBoss/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by:.*JBoss/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-powered-by:.*JBoss-(\d+(.\d+)*)/i)
               },
@@ -115,8 +150,13 @@ module Intrigue
               description: 'powered by header',
               references: ['https://bugzilla.redhat.com/show_bug.cgi?id=1049103'],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^X-Powered-By: JSP/2.}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^X-Powered-By: JSP/2.}i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -130,8 +170,13 @@ module Intrigue
               description: 'powered by header',
               references: ['https://www.redhat.com/en/technologies/jboss-middleware/web-server'],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by:.*JBossWeb-[\d.]+$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by:.*JBossWeb-[\d.]+$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-powered-by:.*JBossWeb-([\d.]+)$/i)
               },

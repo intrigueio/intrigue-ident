@@ -13,8 +13,13 @@ class Umbraco < Intrigue::Ident::Check::Base
         product: "Umbraco",
         references: ["https://umbraco.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /umbraco/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /umbraco/,
+          }
+        ],
         description: "body match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

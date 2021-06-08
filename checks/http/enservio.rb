@@ -14,8 +14,13 @@ class Enservio < Intrigue::Ident::Check::Base
         product: "Enservio",
         references: [],
         version: nil,
-        match_type: :content_cookies,
-        match_content: /_enservio_session=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_cookies,
+            match_content: /_enservio_session=/i,
+          }
+        ],
         description: "cookie match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

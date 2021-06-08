@@ -12,8 +12,13 @@ module Intrigue
               product: 'SMF',
               references: ['https://www.simplemachines.org/'],
               version: nil,
-              match_type: :content_body,
-              match_content: /SMF ([\d.]+s)/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /SMF ([\d.]+s)/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, /SMF ([\d.]+)/i) },
               description: 'body match',
               hide: false,

@@ -14,8 +14,13 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         website: "https://werkzeug.palletsprojects.com/",
         description: "Werkzeug WSGI web application library header",
         version: nil,
-        match_type: :content_headers,
-        match_content: /^server: Werkzeug\/(\d+\.\d+\.\d+)\ Python\/(\d+\.\d+\.\d+)$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /^server: Werkzeug\/(\d+\.\d+\.\d+)\ Python\/(\d+\.\d+\.\d+)$/i
+          }
+        ],
         dynamic_version: lambda {|x| 
           version = _first_header_capture(x,/^server: Werkzeug\/(\d+\.\d+\.\d+)\ Python\/(\d+\.\d+\.\d+)$/i)
         },
@@ -32,8 +37,13 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         website: "https://werkzeug.palletsprojects.com/",
         references: [],
         version: nil,
-        match_type: :content_title,
-        match_content: /^Console \/\/ Werkzeug Debugger$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content: /^Console \/\/ Werkzeug Debugger$/i,
+          }
+        ],
         description: "title",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -49,8 +59,13 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         website: "https://werkzeug.palletsprojects.com/",
         references: [],
         version: nil,
-        match_type: :content_title,
-        match_content: /^Console \/\/ Werkzeug Debugger$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content: /^Console \/\/ Werkzeug Debugger$/i,
+          }
+        ],
         description: "title, at /console",
         hide: false,
         paths: [{ path: "#{url}/console", follow_redirects: true } ],
@@ -67,8 +82,13 @@ class PalletsProjects < Intrigue::Ident::Check::Base
         website: "https://werkzeug.palletsprojects.com/",
         references: [],
         version: nil,
-        match_type: :content_body,
-        match_content: /In this console you can execute Python expressions in the context/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /In this console you can execute Python expressions in the context/i,
+          }
+        ],
         description: "unique body string",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

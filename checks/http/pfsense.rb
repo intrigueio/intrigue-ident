@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.pfsense.org/',
               description: 'unique body content',
               version: nil,
-              match_type: :content_body,
-              match_content: /Login to pfSense/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Login to pfSense/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }
