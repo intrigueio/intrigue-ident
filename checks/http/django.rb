@@ -13,6 +13,7 @@ module Intrigue
               website: 'https://www.djangoproject.com/',
               version: nil,
               description: 'Django Admin Page',
+              require_product: 'Django',
               match_logic: :all,
               matches: [
                 {
