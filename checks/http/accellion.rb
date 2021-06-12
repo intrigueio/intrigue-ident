@@ -13,8 +13,13 @@ module Intrigue
             product: "Secure File Transfer",
             references: [ "https://www.accellion.com/platform/simple/secure-file-sharing/" ],
             version: nil,
-            match_type: :content_body,
-            match_content: /<div title="Secured by Accellion" id="securedlogo">/,
+            match_logic: :all,
+            matches: [
+              {
+                match_type: :content_body,
+                match_content: /<div title="Secured by Accellion" id="securedlogo">/,
+              }
+            ],
             description: "Logo in content body",
             hide: false,
             paths: [ { path: "#{url}", follow_redirects: true } ],

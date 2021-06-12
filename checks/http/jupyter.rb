@@ -12,10 +12,15 @@ module Intrigue
               product: 'Notebook',
               website: 'https://jupyter.org/',
               description: 'matched jupyterhub header',
-              match_type: :content_headers,
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-jupyterhub-version:/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, /^x-jupyterhub-version: (.*)$/) },
-              match_content: /x-jupyterhub-version:/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
@@ -27,9 +32,14 @@ module Intrigue
               product: 'Notebook',
               website: 'https://jupyter.org/',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /data-notebook-path:/i,
+                }
+              ],
               description: 'unique body string: data-notebook-path',
-              match_type: :content_body,
-              match_content: /data-notebook-path:/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,9 +51,14 @@ module Intrigue
               product: 'Notebook',
               website: 'https://jupyter.org/',
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Home Page - Select or create a notebook/i,
+                }
+              ],
               description: 'unique title',
-              match_type: :content_title,
-              match_content: /Home Page - Select or create a notebook/i,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

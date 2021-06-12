@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.centreon.com/',
               description: 'body content',
               version: nil,
-              match_type: :content_body,
-              match_content: /mailto:contact@centreon.com/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /mailto:contact@centreon.com/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, /v. (\d{0,3}\.\d{0,3}\.\d{0,3})/) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

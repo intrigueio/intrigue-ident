@@ -7,14 +7,19 @@ class Almubda < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Almubda",
         product: "Almubda CMS",
         references: [],
         version: nil,
-        match_type: :content_body,
-        match_content: /Powered by Al Mubda version (\d.*?)<\/a>/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Powered by Al Mubda version (\d.*?)<\/a>/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /Powered by Al Mubda version (\d.*?)<\/a>/i)},
         description: "footer match",
         hide: false,

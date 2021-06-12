@@ -15,8 +15,13 @@ module Intrigue
                 'https://networktoolbox.de/aldi-medion-rolley-camera-findings/',
                 'https://maginon.de/'
               ],
-              match_type: :content_headers,
-              match_content: %r{^server: mcdhttpd/?.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: mcdhttpd/?.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server: mcdhttpd/?(.*)?$}i)
                                },

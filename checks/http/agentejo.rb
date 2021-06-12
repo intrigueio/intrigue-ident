@@ -7,15 +7,20 @@ module Intrigue
             [
               {
                 type: "fingerprint",
-                category: "application",
+                category: "service",
                 tags: ["CMS"],
                 vendor: "Agentejo",
                 product: "Cockpit",
                 website: "https://getcockpit.com/",
                 description: "Agentejo Cockpit CMS",
                 version: nil,
-                match_type: :content_title,
-                match_content: /^Authenticate Please!$/i,
+                match_logic: :all,
+                matches: [
+                  {
+                    match_type: :content_title,
+                    match_content: /^Authenticate Please!$/i,
+                  }
+                ],
                 paths: [{ path: "#{url}", follow_redirects: true }],
                 inference: false,
               }

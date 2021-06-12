@@ -13,8 +13,13 @@ class WordpressBakery < Intrigue::Ident::Check::Base
         product:"Minimo",
         references: ["https://themeforest.net/item/minimo-a-minimal-one-page-portfolio-theme/49798"],
         version: nil,
-        match_type: :content_body,
-        match_content: /miniBB (\d.*?)/i ,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /miniBB (\d.*?)/i ,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /miniBB (\d.*?)/i)},
         description:"header match",
         hide: false,

@@ -14,8 +14,13 @@ module Intrigue
           website: "https://sedo.com/us/park-domains/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /sedoParkingUrl:dto.sedoParkingUrl/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /sedoParkingUrl:dto.sedoParkingUrl/i,
+            }
+          ],
           description: "parking string in body",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -30,8 +35,13 @@ module Intrigue
           website: "https://sedo.com/us/park-domains/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /because\ this\ domain\ has\ been\ parked\ at\ your\ registrar/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /because\ this\ domain\ has\ been\ parked\ at\ your\ registrar/i,
+            }
+          ],
           description: "because this domain has been parked at your registrar",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -46,8 +56,13 @@ module Intrigue
           website: "https://sedo.com/us/park-domains/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /FOOTER_DOMAIN_PARKING/,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /FOOTER_DOMAIN_PARKING/,
+            }
+          ],
           description: "FOOTER_DOMAIN_PARKING",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

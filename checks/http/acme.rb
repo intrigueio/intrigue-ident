@@ -12,8 +12,13 @@ module Intrigue
               product: 'Micro Httpd',
               references: ['https://acme.com/software/micro_httpd/'],
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: micro_httpd/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: micro_httpd/i,
+                }
+              ],
               description: 'server header',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

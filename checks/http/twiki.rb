@@ -6,15 +6,20 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['COTS'],
               vendor: 'Twiki',
               product: 'Twiki',
               website: 'https://twiki.org/',
               description: 'Twiki - TWIKISID Cookie Match',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /TWIKISID/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /TWIKISID/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             }

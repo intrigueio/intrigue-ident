@@ -7,15 +7,20 @@ class DiscourseCMS < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "Discourse",
         product: "Discourse",
         references: ["https://www.discourse.org/"],
         description: "Discourse - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content: /<meta name="generator" content="Discourse/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<meta name="generator" content="Discourse/i,
+          }
+        ],
         dynamic_version: lambda { |x| 
           _first_body_capture(x, /<meta name="generator" content="Discourse (\d+(\.\d+)*)/i)
         },

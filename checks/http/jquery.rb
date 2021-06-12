@@ -13,8 +13,13 @@ module Intrigue
               product: 'JQuery',
               description: 'version in js file',
               version: nil,
-              match_type: :content_body,
-              match_content: /jQuery v(\d+(\.\d+)*) \| \(c\) JS Foundation and other contributors/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /jQuery v(\d+(\.\d+)*) \| \(c\) JS Foundation and other contributors/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /jQuery v(\d+(\.\d+)*) \| \(c\) JS Foundation and other contributors/i)
               },
@@ -29,9 +34,14 @@ module Intrigue
               vendor: 'JQuery',
               product: 'JQuery',
               description: 'script page referece',
-              match_type: :content_body,
               version: nil,
-              match_content: %r{script\ src=["|']https://code\.jquery\.com/jquery-}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{script\ src=["|']https://code\.jquery\.com/jquery-}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -43,9 +53,14 @@ module Intrigue
               vendor: 'JQuery',
               product: 'Datatables',
               description: 'script page referece',
-              match_type: :content_body,
               version: nil,
-              match_content: /jquery\.dataTables\.min\.js["|']>/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /jquery\.dataTables\.min\.js["|']>/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -57,9 +72,14 @@ module Intrigue
               vendor: 'JQuery',
               product: 'JQuery',
               description: 'script page referece',
-              match_type: :content_body,
               version: nil,
-              match_content: %r{src=.*?/jquery-(\d+(\.\d+)*)(?:\.min)?.js}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{src=.*?/jquery-(\d+(\.\d+)*)(?:\.min)?.js}i,
+                }
+              ],
               dynamic_version: ->(x) { _first_body_capture(x, %r{src=.*?/jquery-(\d+(\.\d+)*)(?:\.min)?.js}i) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

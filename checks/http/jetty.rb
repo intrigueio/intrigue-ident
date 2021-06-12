@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://jettyapp.com/',
               description: 'unique body string',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{title="Jetty">Proudly powered by Jetty</a>}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{title="Jetty">Proudly powered by Jetty</a>}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

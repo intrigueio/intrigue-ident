@@ -13,8 +13,13 @@ module Intrigue
               description: 'missing account string',
               references: [],
               version: nil,
-              match_type: :content_body,
-              match_content: /The requested URL was not found on this server./i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /The requested URL was not found on this server./i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               hide: true

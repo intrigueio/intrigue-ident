@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://hackage.haskell.org/package/snap',
               description: 'Haskell Snap - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server: Snap/[\d.]+$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server: Snap/[\d.]+$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: Snap/([\d.]+)$}i)
               },

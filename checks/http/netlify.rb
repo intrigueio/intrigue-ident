@@ -11,27 +11,22 @@ module Intrigue
               vendor: 'Netlify',
               product: 'Netlify',
               website: 'https://www.netlify.com/',
-              description: 'server header',
+              description: 'Netlify - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: Netlify/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Netlify/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-nf-request-id:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[PaaS CDN],
-              vendor: 'Netlify',
-              product: 'Netlify',
-              website: 'https://www.netlify.com/',
-              description: 'x-nf-request-id header',
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^x-nf-request-id:.*$/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            }
           ]
         end
       end

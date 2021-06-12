@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.globalscape.com/solutions/sftp-servers',
               description: 'lost password link',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{/EFTClient/Account/LostPassword.htm}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{/EFTClient/Account/LostPassword.htm}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

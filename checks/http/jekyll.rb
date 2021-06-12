@@ -13,8 +13,13 @@ module Intrigue
               references: ["https://jekyllrb.com/"],
               description: "jekyllrb - generator tag page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="Jekyll/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="Jekyll/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="Jekyll v(\d+(\.\d+)*)/i)
               },

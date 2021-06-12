@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://openresty.org/',
               description: 'OpenResty - server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: (?:ch-)?openresty/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: (?:ch-)?openresty/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{^server: (?:ch-)?openresty/(\d+(\.\d+)*)}i)
               },

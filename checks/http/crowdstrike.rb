@@ -13,8 +13,13 @@ class Crowdstrike < Intrigue::Ident::Check::Base
         product: "Falcon",
         references: [""],
         version: nil,
-        match_type: :content_cookies,
-        match_content: /domain\=\.falcon-sandbox\.com/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_cookies,
+            match_content: /domain\=\.falcon-sandbox\.com/i,
+          }
+        ],
         description: "Falcon Sandbox cookie",
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false

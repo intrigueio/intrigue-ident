@@ -16,10 +16,15 @@ class Axway < Intrigue::Ident::Check::Base
           "https://www-356.ibm.com/partnerworld/gsd/solutiondetails.do?&solution=47052"
         ],
         version: nil,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /server: SecureTransport/i,
+          }
+        ],
         dynamic_version: lambda {|x| _first_header_capture(x,/SecureTransport (.*) build:.*/)},
         dynamic_update: lambda {|x| _first_header_capture(x,/SecureTransport\ .*\ build:(.*)$/)},
-        match_type: :content_headers,
-        match_content:  /server: SecureTransport/i,
         description:"server header - build is avail too",
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true

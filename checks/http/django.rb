@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.djangoproject.com/',
               version: nil,
               description: 'Django Admin Page',
-              match_type: :content_body,
-              match_content: /Django site admin/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Django site admin/,
+                }
+              ],
               paths: [{ path: "#{url}/admin", follow_redirects: true }],
               inference: false
             }

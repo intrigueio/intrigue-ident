@@ -15,8 +15,13 @@ module Intrigue
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
               description: 'login page string',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{global-protect/login.esp}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{global-protect/login.esp}i,
+                }
+              ],
               paths: [{ path: uri.to_s, follow_redirects: true }],
               inference: false
             },
@@ -29,16 +34,25 @@ module Intrigue
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
               description: 'getting last-modified header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Last-Modified/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Last-Modified/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /loginscreen_logo/i,
+                }
+              ],
               require_product: 'GlobalProtect',
               paths: [
-                { path: "#{uri}/global-protect/login.esp", follow_redirects: false },
+                #{ path: "#{uri}/global-protect/login.esp", follow_redirects: false },
                 { path: "#{uri}/global-protect/portal/css/login.css", follow_redirects: true },
-                { path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
-                { path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
-                { path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
-                { path: "#{uri}/js/Pan.js", follow_redirects: true }
+                #{ path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
+                #{ path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
+                #{ path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
+                #{ path: "#{uri}/js/Pan.js", follow_redirects: true }
               ],
               # require_product: "GlobalProtect",
               dynamic_version: lambda { |x|

@@ -15,8 +15,13 @@ class Nec < Intrigue::Ident::Check::Base
           "https://www.necam.com/Docs/?id=3fa1a888-aa74-4acb-bae0-f80f02622855"],
         description:"title",
         version: nil,
-        match_type: :content_title,
-        match_content:  /^EXPRESSSCOPE Engine \d+$/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content:  /^EXPRESSSCOPE Engine \d+$/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_title_capture(x,/^EXPRESSSCOPE Engine (\d+)$/i)
         },

@@ -6,14 +6,19 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
+              category: 'service',
               tags: ['Web Server', 'Embedded', 'Web Framework'],
               vendor: 'CodeIgniter',
               product: 'CodeIgniter',
               website: 'https://codeigniter.com/',
               version: nil,
-              match_type: :content_title,
-              match_content: /Welcome to CodeIgniter/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Welcome to CodeIgniter/,
+                }
+              ],
               description: 'page title',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

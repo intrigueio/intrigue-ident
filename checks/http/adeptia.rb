@@ -7,14 +7,19 @@ class Adeptia < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
-        tags: ["COTS"],
+        category: "service",
+        tags: ["COTS", "Web Server"],
         vendor: "Adeptia",
         product: "Connect",
-        references: ["https://adeptia.com/products/Adeptia-Connect-enterprise-integration"],
+        website: "https://adeptia.com/products/Adeptia-Connect-enterprise-integration",
         version: nil,
-        match_type: :content_headers,
-        match_content: /server: Adeptia/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /server: Adeptia/i,
+          }
+        ],
         description: "header match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

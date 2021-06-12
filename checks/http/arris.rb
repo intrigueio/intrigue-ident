@@ -7,14 +7,19 @@ class Arris < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
-        tags: ["Embedded","Networking"],
+        category: "service",
+        tags: ["Embedded", "Networking"],
         website: "http://www.arrisi.com/",
         vendor: "Arris",
         product: "2307 Modem",
         version: nil,
-        match_type: :content_body,
-        match_content:  /<meta name="description" content="ARRIS 2307">/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /<meta name="description" content="ARRIS 2307">/,
+          }
+        ],
         description:"unique string, admin page?",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

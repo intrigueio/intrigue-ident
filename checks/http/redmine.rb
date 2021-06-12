@@ -12,8 +12,13 @@ module Intrigue
               product: 'Redmine',
               website: 'https://www.redmine.org/',
               description: 'redmine cookie',
-              match_type: :content_cookies,
-              match_content: /_redmine_session=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /_redmine_session=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -25,8 +30,13 @@ module Intrigue
               product: 'Redmine',
               website: 'https://www.redmine.org/',
               description: 'redmine title',
-              match_type: :content_title,
-              match_content: /^Redmine$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Redmine$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

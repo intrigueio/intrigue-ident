@@ -10,10 +10,15 @@ module Intrigue
               tags: ['JavaScript'],
               vendor: 'Axios',
               product: 'Axios',
-              references: [],
+              website: 'https://github.com/axios/axios',
               version: nil,
-              match_type: :content_body,
-              match_content: /axios\.min\.js["|']>/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /axios\.min\.js["|']>/i,
+                }
+              ],
               description: 'filename',
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],

@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.docverify.com/'],
               version: nil,
               description: 'Docverify - Server Header',
-              match_type: :content_headers,
-              match_content: /^server:\ DocVerify, Inc\.$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ DocVerify, Inc\.$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server:\ DocVerify, Inc\.$/i)
                                },

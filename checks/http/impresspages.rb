@@ -14,8 +14,13 @@ class ImpressPages < Intrigue::Ident::Check::Base
         website: "http://www.impresspages.org/",
         description:"ImpressPages - generator page reference",
         version: nil,
-        match_type: :content_body,
-        match_content:  /<meta name="generator" content="ImpressPages/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /<meta name="generator" content="ImpressPages/i,
+          }
+        ],
         dynamic_version: lambda {|x| 
             version = _first_body_capture(x,/<meta name="generator" content="ImpressPages (?:CMS\s)?(\d+(\.\d+)*)/i)
         },

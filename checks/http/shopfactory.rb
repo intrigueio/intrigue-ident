@@ -6,15 +6,20 @@ module Intrigue
           [
             {
               type: "fingerprint",
-              category: "application",
+              category: "service",
               tags: ["CMS"],
               vendor: "ShopFactory",
               product: "ShopFactoryCMS",
               website: "https://shopfa.com/",
               description: "Shopfa - generator tag page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="Shopfa/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="Shopfa/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="Shopfa (\d+(\.\d+)*)/i)
               },
@@ -31,8 +36,13 @@ module Intrigue
               website: "https://shopfa.com/",
               description: "Shopfa - powered by page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<!--\s*Cooked by ShopFA/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<!--\s*Cooked by ShopFA/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<!--\s*Cooked by ShopFA v(\d+(\.\d+)*)/i)
               },
@@ -49,8 +59,13 @@ module Intrigue
               website: "https://shopfa.com/",
               description: "Shopfa - x-powered-by header",
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by: ShopFA/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by: ShopFA/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-powered-by: ShopFA (\d+(\.\d+)*)/i)
               },

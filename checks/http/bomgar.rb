@@ -7,14 +7,19 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['COTS'],
+              tags: ['COTS', 'Web Server'],
               vendor: 'Bomgar',
               product: 'Remote Support',
               website: 'https://www.beyondtrust.com/remote-support',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: Bomgar$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: Bomgar$/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

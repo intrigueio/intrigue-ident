@@ -12,9 +12,14 @@ module Intrigue
               product: "Wing FTP Server",
               website: "https://www.wftpserver.com/",
               description: "server header",
-              match_type: :content_headers,
               references: [],
-              match_content: /server: Wing Ftp Server/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Wing Ftp Server/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server: Wing Ftp Server\/(\d+(\.\d+)*)/i)
               },

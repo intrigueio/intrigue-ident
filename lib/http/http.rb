@@ -104,8 +104,16 @@ module Intrigue
         # allow us to only select the base path (speeds things up)
         grouped_followon_checks = grouped_followon_checks.select { |x, _y| x == url } if only_base
 
-        grouped_followon_checks.map do |x, _t|
-          p x
+        # filter by tag if tags are set.
+        if opts[:checks_with_tag] && !opts[:checks_with_tag].empty?
+          initial_results['fingerprint'] =
+            Intrigue::Ident::Http::CheckFactory.filter_by_tags_post_run_initial_results(
+              initial_results['fingerprint'], opts
+            )
+
+          grouped_followon_checks.each do |x, fingerprint|
+            grouped_followon_checks[x] = Intrigue::Ident::Http::CheckFactory.filter_by_tags_post_run(fingerprint, opts)
+          end
         end
 
         ### OKAY NOW WE HAVE a set of output that we can run product-specific checks on, run'm
@@ -157,6 +165,11 @@ module Intrigue
             next
           end
 
+          # this block should be moved to a sanitise uri function
+          # if the user adds too many // to the url this will remove them
+          target_url = URI.parse(target_url)
+          target_url.path.squeeze!('/')
+          #
           # get the response using a normal http request
           puts "Getting #{target_url}" if debug
           response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects, debug

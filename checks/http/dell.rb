@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.sonicwall.com/products/remote-access/remote-access-appliances/'],
               description: 'Dell Dell SonicWALL Secure Mobile Access SMA - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^Server:\ SonicWALL\ SSL-VPN\ Web\ Server$/i)
                                },

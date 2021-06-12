@@ -16,8 +16,13 @@ class OrionTechnology < Intrigue::Ident::Check::Base
         product:"IPIMS",
         description:"unique header",
         version: nil,
-        match_type: :content_headers,
-        match_content:  /x-ipims-enabled:.*/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /x-ipims-enabled:.*/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       }

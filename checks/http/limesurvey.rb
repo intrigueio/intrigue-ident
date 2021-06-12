@@ -6,15 +6,20 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['COTS'],
+              category: 'service',
+              tags: ['COTS', 'Website'],
               vendor: 'LimeSurvey',
               product: 'LimeSurvey',
               website: 'https://www.limesurvey.org/',
               description: 'LimeSurvey',
-              match_type: :content_body,
               version: nil,
-              match_content: /Donate to LimeSurvey/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Donate to LimeSurvey/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

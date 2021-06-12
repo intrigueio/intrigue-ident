@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://expressjs.com/',
               version: nil,
               description: 'x-powered-by header',
-              match_type: :content_headers,
-              match_content: /x-powered-by: Express/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by: Express/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

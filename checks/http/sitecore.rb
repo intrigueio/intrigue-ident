@@ -6,15 +6,20 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Framework'],
+              category: 'service',
+              tags: ['CMS'],
               vendor: 'Sitecore',
               product: 'CMS',
               website: 'https://www.sitecore.com/',
               description: 'Sitecore Analytics Cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /SC_ANALYTICS_GLOBAL_COOKIE=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /SC_ANALYTICS_GLOBAL_COOKIE=/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.sitecore.com/',
               description: 'powered by header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-powered-by:.*Sitecore CMS/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-powered-by:.*Sitecore CMS/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://www.sitecore.com/',
               description: 'powered by header',
               version: nil,
-              match_type: :content_body,
-              match_content: /<major>/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<major>/,
+                }
+              ],
               paths: [{ path: "#{url}/sitecore/shell/sitecore.version.xml", follow_redirects: true }],
               dynamic_version: lambda { |x|
                 majorx = _body(x).scan(%r{<major>(\d+)</major>}).first

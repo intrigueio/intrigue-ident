@@ -269,6 +269,19 @@ require_relative '../checks/smb/base'
 check_folder = File.expand_path('../checks/smb', File.dirname(__FILE__)) # get absolute directory
 Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
+
+##################################
+# Load in custom ip checks
+##################################
+require_relative 'ip/ip'
+require_relative 'ip/check_factory'
+require_relative '../checks/ip/base'
+include Intrigue::Ident::Ip
+
+# tcp fingerprints
+check_folder = File.expand_path('../checks/ip', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
 ###
 ### End protocol requires
 ###
@@ -318,6 +331,8 @@ module Intrigue
           Intrigue::Ident::Amqp::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).concat(
           Intrigue::Ident::Smb::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Ip::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).flatten
       end
 
@@ -415,6 +430,13 @@ module Intrigue
         if port == 2083 || port =~ /^\d+2083$/
           ident_matches = generate_http_requests_and_check(ip_address_or_hostname, opts) || {}
         end
+
+        # if you want a custom tcp protocol to be scanned, enter them here
+        if port == 4786 || port == 3389 || port == 7001
+          ident_matches = generate_ip_requests_and_check(ip_address_or_hostname, port) || {}
+        end
+
+
         ###
         ### But default to HTTP through each known port
         ###

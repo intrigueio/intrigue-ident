@@ -12,9 +12,14 @@ module Intrigue
               product: 'Zendesk',
               description: 'unique header',
               references: [],
-              match_type: :content_headers,
               version: nil,
-              match_content: /^x-zendesk-origin-server:.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-zendesk-origin-server:.*$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,9 +32,14 @@ module Intrigue
               description: 'zendesk access by IP / invalid hostname',
               references: [],
               hide: true,
-              match_type: :content_body,
               version: nil,
-              match_content: /<title>Help Center Closed \| Zendesk/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Help Center Closed \| Zendesk/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

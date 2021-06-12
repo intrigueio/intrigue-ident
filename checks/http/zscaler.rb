@@ -13,8 +13,13 @@ class Zscaler < Intrigue::Ident::Check::Base
         product:"Zscaler",
         description:"server header for Zscaler",
         references: ["https://help.zscaler.com/zia/about-private-zens"],
-        match_type: :content_headers,
-        match_content:  /server: Zscaler/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content:  /server: Zscaler/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_header_capture(x,/server: Zscaler\/(.*)/i)
         },

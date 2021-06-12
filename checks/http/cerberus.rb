@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.cerberusftp.com/',
               description: 'Cerberus Ftp Server - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:.*Cerberus.*$/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:.*Cerberus.*$/,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{^server:.*Cerberus/([\d.]*)\s.*$}i) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

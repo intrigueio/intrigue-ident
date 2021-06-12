@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://sucuri.net/website-firewall/',
               description: 'Sucuri Cloudproxy - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{Server: Sucuri/Cloudproxy}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{Server: Sucuri/Cloudproxy}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://sucuri.net/website-firewall/',
               description: 'Sucuri Cloudproxy - X-Sucuri-ID Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-Sucuri-ID:.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Sucuri-ID:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://sucuri.net/website-firewall/',
               description: 'Sucuri Cloudproxy - X-Sucuri-Cache Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^X-Sucuri-Cache:.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Sucuri-Cache:.*/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

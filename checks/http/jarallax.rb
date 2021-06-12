@@ -11,8 +11,13 @@ module Intrigue
               vendor: 'Jarallax',
               product: 'Jarallax',
               website: 'https://github.com/nk-o/jarallax',
-              match_type: :content_body,
-              match_content: /data-jarallax-video'/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /data-jarallax-video'/i,
+                }
+              ],
               description: 'javascript class load',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

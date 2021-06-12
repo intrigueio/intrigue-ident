@@ -7,14 +7,19 @@ class BurningBoard < Intrigue::Ident::Check::Base
     [
       {
         type: "fingerprint",
-        category: "application",
+        category: "service",
         tags: ["CMS"],
         vendor: "WoltLab GmbH",
         product: "WoltLab Burning Board",
         references: ["https://www.woltlab.com/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /<strong>Burning Board&reg;(.*?)<\/strong>/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /<strong>Burning Board&reg;(.*?)<\/strong>/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /<strong>Burning Board&reg;(.*?)<\/strong>/i)},
         description: "footer match",
         hide: false,

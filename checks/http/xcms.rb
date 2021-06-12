@@ -13,8 +13,13 @@ class XCms < Intrigue::Ident::Check::Base
         product: "X-CMS",
         references: ["https://xcmsonline.scripps.edu//"],
         version: nil,
-        match_type: :content_body,
-        match_content: /X-CMS-Version: ([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /X-CMS-Version: ([\d\.]+)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /X-CMS-Version: ([\d\.]+)/i) },
         description: "header match",
         hide: false,

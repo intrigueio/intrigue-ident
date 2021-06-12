@@ -14,8 +14,13 @@ module Intrigue
           website: "https://domainparking.ru/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /Domain is parked by service DomainParking.ru/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /Domain is parked by service DomainParking.ru/i,
+            }
+          ],
           description: "unique string in body",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

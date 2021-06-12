@@ -11,9 +11,14 @@ module Intrigue
               vendor: 'Publicfile',
               product: 'Publicfile',
               description: 'server header',
-              match_type: :content_headers,
               website: 'https://cr.yp.to/publicfile.html',
-              match_content: /^server: publicfile$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: publicfile$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

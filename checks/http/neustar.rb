@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.home.neustar/application-security'],
               version: nil,
               description: 'Neustar UltraDNS - Server Header',
-              match_type: :content_headers,
-              match_content: /^Server:\ UltraDNS\ Client\ Redirection\ Server$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Server:\ UltraDNS\ Client\ Redirection\ Server$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^Server:\ UltraDNS\ Client\ Redirection\ Server$/i)
                                },

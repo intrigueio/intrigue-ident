@@ -6,15 +6,20 @@ module Intrigue
           [
             {
               type: "fingerprint",
-              category: "application",
+              category: "service",
               tags: ["CMS"],
               vendor: "BrowserMedia",
               product: "BrowserCMS",
               website: "http://browsercms.org/",
               description: "BrowserCMS - generator page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="BrowserCMS/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="BrowserCMS/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="BrowserCMS (\d+(\.\d+)*)/i)
               },

@@ -15,9 +15,14 @@ class Link1 < Intrigue::Ident::Check::Base
         vendor: "Link1",
         product:"Wireless N300",
         description:"title",
-        match_type: :content_title,
         version: nil,
-        match_content:  /Wireless N300 Home Router/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content:  /Wireless N300 Home Router/i,
+          }
+        ],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         credentials: [{user: "admin", password: ""}],
         inference: false
