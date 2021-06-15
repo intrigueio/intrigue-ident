@@ -10,7 +10,10 @@ module Intrigue
               tags: ['Development'],
               vendor: 'LinuxFoundation',
               product: 'Argo Continuous Delivery',
-              references: ['https://acme.com/software/micro_httpd/'],
+              references: [
+                'https://argoproj.github.io/argo-cd/',
+                'https://www.soluble.ai/blog/argo-cves-2020'
+              ],
               match_logic: :any,
               matches: [
                 {
