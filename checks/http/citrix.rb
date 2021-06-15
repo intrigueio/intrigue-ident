@@ -92,21 +92,53 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'logonpoint',
+              description: 'Citrix - Login panel page reference',
               version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_body,
                   match_content: /_ctxstxt_CitrixCopyright/i,
-                }
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /Citrix Gateway/i
+                },
               ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'operating_system',
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
+              vendor: 'Citrix',
+              product: 'NetScaler Gateway',
+              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
+              description: 'Citrix - Login panel page reference',
+              require_vendor: 'Citrix',
+              require_product: 'NetScaler Gateway',
+              version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /_ctxstxt_CitrixCopyright/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /Citrix Gateway/i
+                },
+              ],
+              hide: false,
+              paths: [
+                { path: "#{url}/logon/LogonPoint/index.html", follow_redirects: true },
+                { path: "#{url}/logon/LogonPoint/custom.html", follow_redirects: true }],
               inference: false
             },
             {

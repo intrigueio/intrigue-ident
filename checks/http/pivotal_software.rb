@@ -55,16 +55,40 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Development Database],
+              tags: ['Web Framework'],
+              vendor: 'Pivotal Software',
+              product: 'Spring Boot',
+              website: 'https://spring.io/',
+              references: ['https://stackoverflow.com/questions/40379550/what-is-x-application-context-header'],
+              description: 'Pivotal Software Spring Boot - X-Application-Context header.',
+              version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^X-Application-Context.*$/i,
+                }
+              ],
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Development', 'Database', 'Login Panel'],
               vendor: 'Pivotal Software',
               product: 'RabbitMQ',
-              description: 'RabbitMQ',
+              description: 'RabbitMQ - Login panel page reference.',
               website: 'https://www.rabbitmq.com/',
               version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_body,
+                  match_content: /form action="#\/login"/i
+                },
+                {
+                  match_type: :content_title,
                   match_content: /RabbitMQ Management/,
                 }
               ],

@@ -1,6 +1,5 @@
 {
     "approved_http_tags": [
-        "2FA",
         "Accounting",
         "ADC",
         "Admin Panel",
@@ -89,6 +88,7 @@
         "Marketing",
         "MDM",
         "Media Server",
+        "MFA",
         "Monitoring",
         "NAS",
         "Network",

@@ -808,17 +808,21 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Productivity', 'Mail Server', 'COTS'],
+              tags: ['Productivity', 'Mail Server', 'COTS', 'Login Panel'],
               vendor: 'Microsoft',
               product: 'Outlook Web Access',
               website: 'https://outlook.live.com/',
-              description: 'Microsoft Outlook Web Access (body)',
+              description: 'Microsoft Outlook Web Access - Login panel page reference.',
               version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_body,
-                  match_content: /OwaPage\ =\ ASP.auth_logon_aspx/,
+                  match_content: /OwaPage\ =\ ASP.auth_logon_aspx/i
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /logonContainer/i
                 }
               ],
               dynamic_version: lambda { |x|

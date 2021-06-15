@@ -467,7 +467,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Admin Panel'],
               vendor: 'Apache',
               product: 'Tomcat',
               website: 'https://tomcat.apache.org/',
