@@ -1,7 +1,7 @@
 module Intrigue
   module Ident
     module Check
-      class Argo < Intrigue::Ident::Check::Base
+      class LinuxFoundation < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
