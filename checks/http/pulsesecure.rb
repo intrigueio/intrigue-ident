@@ -30,10 +30,11 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking VPN],
+              tags: ['Networking', 'VPN', 'Login Panel'],
               vendor: 'PulseSecure',
               product: 'Pulse Connect Secure',
-              description: 'PulseSecure Pulse Connect Secure - Body Match',
+              website: 'https://www.pulsesecure.net/',
+              description: 'PulseSecure Pulse Connect Secure - Login panel page reference.',
               references: [
                 'https://kb.pulsesecure.net/articles/Pulse_Secure_Article/KB40250',
                 'https://github.com/carnal0wnage/Metasploit-Code/blob/master/modules/auxiliary/scanner/juniper_scan.rb',

@@ -54,45 +54,59 @@ module Intrigue
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
             },
-            { ### TODO... can we get a version out of this?
+            { ### TODO... can we get a version out of this? # SAP Netweaver default creds - SAP*/06071992 or TMSADM/$1Pawd2&
               type: 'fingerprint',
-              require_product: 'NetWeaver',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Login Panel'],
               vendor: 'SAP',
               product: 'NetWeaver',
-              description: 'netweaver title in irj/portal',
-              version: nil,
+              website: 'https://www.sap.com/products/netweaver-platform.html',
               references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
-              match_logic: :all,
+              description: 'SAP NetWeaver - Login panel page reference.',
+              version: nil,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_title,
                   match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
-                }
-              ],
-              paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
-              inference: false
-            },
-            { ### TODO... can we get a version out of this?
-              type: 'fingerprint',
-              require_product: 'NetWeaver',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'SAP',
-              product: 'NetWeaver',
-              description: 'netweaver version in irj/portal',
-              version: nil,
-              references: [''],
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_title,
                   match_content: /SAP NetWeaver Application Server/i,
                 }
               ],
-              # SAP NetWeaver Application Server 7.53
-              dynamic_version: ->(x) { _first_header_capture(x, /SAP NetWeaver Application Server ([\d.]+)/i) },
+              dynamic_version: ->(x) { 
+                _first_header_capture(x, /SAP NetWeaver Application Server (\d+(\.\d+)*)/i) 
+              },
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            { ###  # SAP Netweaver default creds - SAP*/06071992 or TMSADM/$1Pawd2&
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Application Server', 'Login Panel'],
+              vendor: 'SAP',
+              product: 'NetWeaver',
+              website: 'https://www.sap.com/products/netweaver-platform.html',
+              references: ['https://apps.support.sap.com/sap/support/knowledge/en/1749574'],
+              description: 'SAP NetWeaver - Login panel page reference.',
+              version: nil,
+              require_vendor: 'SAP',
+              require_product: 'NetWeaver',
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
+                },
+                {
+                  match_type: :content_title,
+                  match_content: /SAP NetWeaver Application Server/i,
+                }
+              ],
+              dynamic_version: ->(x) { 
+                _first_header_capture(x, /SAP NetWeaver Application Server (\d+(\.\d+)*)/i) 
+              },
               paths: [{ path: "#{url}/irj/portal", follow_redirects: true }],
               inference: false
             },
@@ -239,25 +253,6 @@ module Intrigue
               tags: ['Application Server'],
               vendor: 'SAP',
               product: 'NetWeaver',
-              description: 'title',
-              version: nil,
-              website: 'https://www.sap.com/uk/products/netweaver-platform.html',
-              match_logic: :all,
-              matches: [
-                {
-                  match_type: :content_title,
-                  match_content: /SAP&#x20;NetWeaver&#x20;Portal/i,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Application Server'],
-              vendor: 'SAP',
-              product: 'NetWeaver',
               website: 'https://www.sap.com/uk/products/netweaver-platform.html',
               version: nil,
               description: 'server header',
@@ -317,10 +312,11 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Login Panel'],
               vendor: 'SAP',
               product: 'Solution Manager',
               website: 'https://support.sap.com/en/alm/solution-manager.html',
+              references: 'https://www.exploit-db.com/ghdb/6793',
               version: nil,
               description: 'login details in response body',
               match_logic: :all,
@@ -355,12 +351,13 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Application Server', 'Login Panel'],
               vendor: 'SAP',
               product: 'Focused Run',
               website: 'https://support.sap.com/en/alm/sap-focused-run.html',
+              references: 'https://www.exploit-db.com/ghdb/6793',
+              description: 'SAP Foccused run - Login Panel page reference.',
               version: nil,
-              description: 'login details in response body',
               match_logic: :all,
               matches: [
                 {
