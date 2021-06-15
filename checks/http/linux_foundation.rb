@@ -1,0 +1,30 @@
+module Intrigue
+  module Ident
+    module Check
+      class Argo < Intrigue::Ident::Check::Base
+        def generate_checks(url)
+          [
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Development'],
+              vendor: 'LinuxFoundation',
+              product: 'Argo Continuous Delivery',
+              references: ['https://acme.com/software/micro_httpd/'],
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Argo CD$/i,
+                }
+              ],
+              description: 'page title',
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            }
+          ]
+        end
+      end
+    end
+  end
+end
