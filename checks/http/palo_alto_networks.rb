@@ -9,15 +9,52 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking VPN Firewall],
+              tags: ['Networking', 'VPN', 'Firewall', 'Login Panel'],
               vendor: 'PaloAltoNetworks',
               product: 'GlobalProtect',
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
-              description: 'login page string',
+              description: 'PaloAltoNetworks GlobalProtect - Login panel page reference',
               version: nil,
-              match_type: :content_body,
-              match_content: %r{global-protect/login.esp}i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{global-protect/login.esp}i
+                },
+                {
+                  match_type: :content_title,
+                  match_content: /GlobalProtect Portal/i
+                }
+              ],
               paths: [{ path: uri.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Networking', 'VPN', 'Firewall', 'Login Panel'],
+              vendor: 'PaloAltoNetworks',
+              product: 'GlobalProtect',
+              website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
+              description: 'PaloAltoNetworks GlobalProtect - Login panel page reference',
+              version: nil,
+              match_logic: :any,
+              require_product: 'PaloAltoNetworks',
+              require_vendor: 'GlobalProtect',
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{global-protect/login.esp}i
+                },
+                {
+                  match_type: :content_title,
+                  match_content: /GlobalProtect Portal/i
+                }
+              ],
+              paths: [
+                { path: "#{uri}/global-protect/login.esp", follow_redirects: true },
+                { path: "#{uri}/sslmgr", follow_redirects: true }
+              ],
               inference: false
             },
             {
@@ -29,18 +66,26 @@ module Intrigue
               website: 'https://www.paloaltonetworks.co.uk/products/globalprotect',
               description: 'getting last-modified header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Last-Modified/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Last-Modified/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /loginscreen_logo/i,
+                }
+              ],
               require_product: 'GlobalProtect',
               paths: [
-                { path: "#{uri}/global-protect/login.esp", follow_redirects: false },
+                #{ path: "#{uri}/global-protect/login.esp", follow_redirects: false },
                 { path: "#{uri}/global-protect/portal/css/login.css", follow_redirects: true },
-                { path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
-                { path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
-                { path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
-                { path: "#{uri}/js/Pan.js", follow_redirects: true }
+                #{ path: "#{uri}/global-protect/portal/images/favicon.ico", follow_redirects: true },
+                #{ path: "#{uri}/global-protect/portal/images/logo-pan-48525a.svg", follow_redirects: true },
+                #{ path: "#{uri}/login/images/favicon.ico", follow_redirects: true },
+                #{ path: "#{uri}/js/Pan.js", follow_redirects: true }
               ],
-              # require_product: "GlobalProtect",
               dynamic_version: lambda { |x|
                                  date_string = _first_header_capture(x, /Last-Modified:\ (.*)$/i)
                                  version, approximate = get_pan_version_from_date(date_string) if date_string

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.vbulletin.com/',
               description: 'vBulletin - bblastactivity cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /bb_?lastactivity=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /bb_?lastactivity=/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.vbulletin.com/',
               description: 'vBulletin - bblastvisit cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /bb_?lastvisit=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /bb_?lastvisit=/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://www.vbulletin.com/',
               description: 'vBulletin - bbsessionhash cookie',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /bb_?sessionhash=/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /bb_?sessionhash=/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -55,8 +70,13 @@ module Intrigue
               website: 'https://www.vbulletin.com/',
               description: "vBulletin - 'powered by' page referece",
               version: nil,
-              match_type: :content_body,
-              match_content: /Powered by vBulletin®?/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /Powered by vBulletin®?/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

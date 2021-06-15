@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.manageengine.com/',
               description: 'title',
               references: [],
-              match_type: :content_title,
-              match_content: /ManageEngine Desktop Central/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /ManageEngine Desktop Central/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.manageengine.com/products/service-desk/',
               description: 'title',
               references: [],
-              match_type: :content_title,
-              match_content: /ManageEngine ServiceDesk/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /ManageEngine ServiceDesk/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +51,13 @@ module Intrigue
               website: 'https://www.manageengine.com/products/asset-explorer/',
               description: 'title',
               references: [],
-              match_type: :content_title,
-              match_content: /ManageEngine AssetExplorer/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /ManageEngine AssetExplorer/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -55,8 +70,13 @@ module Intrigue
               description: 'Zoho',
               website: 'https://www.zoho.com/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server:\ ZGS$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server:\ ZGS$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, /^server:\ ZGS$/i)
                                },

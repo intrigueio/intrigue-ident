@@ -12,8 +12,13 @@ module Intrigue
               product: 'W3 Total Cache',
               website: 'https://wordpress.org/plugins/w3-total-cache/',
               description: 'powered by header',
-              match_type: :content_headers,
-              match_content: %r{x-powered-by: W3 Total Cache/.*}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{x-powered-by: W3 Total Cache/.*}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{x-powered-by: W3 Total Cache/(.*)}i)
               },

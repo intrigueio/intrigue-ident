@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://projects.eclipse.org/projects/technology.hudson',
               description: 'Hudson',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-hudson/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-hudson/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-hudson:(.*)$/)
               },
@@ -30,8 +35,13 @@ module Intrigue
               website: 'https://www.jenkins.io/',
               description: 'Jenkins',
               version: nil,
-              match_type: :content_headers,
-              match_content: /X-Jenkins-Session/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /X-Jenkins-Session/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -44,8 +54,13 @@ module Intrigue
               website: 'https://www.jenkins.io/',
               description: 'Jenkins',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-jenkins/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-jenkins/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^x-jenkins:(.*)$/)
               },

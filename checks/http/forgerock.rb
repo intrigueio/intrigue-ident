@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://github.com/OpenIdentityPlatform/OpenAM/',
               description: 'title',
               version: nil,
-              match_type: :content_title,
-              match_content: /OpenAM \(Login\)/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /OpenAM \(Login\)/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://github.com/OpenIdentityPlatform/OpenAM/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{server:.*OpenAM Web Agent/[\d.]+$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{server:.*OpenAM Web Agent/[\d.]+$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server:.*OpenAM Web Agent/([\d.]+)$}i)
               },

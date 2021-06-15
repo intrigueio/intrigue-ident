@@ -14,8 +14,13 @@ class Wix < Intrigue::Ident::Check::Base
             website: "https://www.wix.com/",
             description: "Wix hosting request id header",
             version: nil,
-            match_type: :content_headers,
-            match_content:  /^x-wix-request-id:/i,
+            match_logic: :all,
+            matches: [
+                {
+                    match_type: :content_headers,
+                    match_content:  /^x-wix-request-id:/i,
+                }
+            ],
             paths: [ { path: "#{url}", follow_redirects: true } ],
             inference: false
         }

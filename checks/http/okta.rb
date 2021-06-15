@@ -11,24 +11,19 @@ module Intrigue
               vendor: 'Okta',
               product: 'Okta',
               website: 'https://www.okta.com/',
-              description: 'okta header',
+              description: 'Okta - Headers Match',
               version: nil,
-              match_type: :content_headers,
-              match_content: /x-okta-backend/i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'service',
-              tags: %w[IAM SaaS Security],
-              vendor: 'Okta',
-              product: 'Okta',
-              website: 'https://www.okta.com/',
-              description: 'okta header',
-              version: nil,
-              match_type: :content_headers,
-              match_content: /x-okta-request-id/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /x-okta-backend/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /x-okta-request-id/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -41,8 +36,13 @@ module Intrigue
               website: 'https://www.okta.com/',
               description: 'okta container div',
               version: nil,
-              match_type: :content_body,
-              match_content: /class="auth okta-container">/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /class="auth okta-container">/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

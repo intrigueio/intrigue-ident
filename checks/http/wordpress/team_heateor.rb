@@ -13,8 +13,13 @@ class WordpressTeamHeateor < Intrigue::Ident::Check::Base
         product:"Sassy-Social-Share",
         description:"plugin",
         references: [],
-        match_type: :content_body,
-        match_content:  /wp-content\/plugins\/sassy-social-share\/public\/js\/sassy-social-share-public\.js\?ver=/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content:  /wp-content\/plugins\/sassy-social-share\/public\/js\/sassy-social-share-public\.js\?ver=/i,
+          }
+        ],
         dynamic_version: lambda { |x|
           _first_body_capture(x,/wp-content\/plugins\/sassy-social-share\/public\/js\/sassy-social-share-public.js?ver=([\d\.]+)/ii)
         },

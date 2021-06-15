@@ -13,8 +13,13 @@ class Basekit < Intrigue::Ident::Check::Base
         product: "Basekit",
         website: "https://www.basekit.com/",
         version: nil,
-        match_type: :content_body,
-        match_content: /BaseKit/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /BaseKit/i,
+          }
+        ],
         dynamic_version: nil,
         description: "header match",
         hide: false,

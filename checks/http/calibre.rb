@@ -16,8 +16,13 @@ module Intrigue
                 'https://en.wikipedia.org/wiki/Calibre_(software)'
               ],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: calibre.*$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: calibre.*$/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /^server: calibre (.*)$/i)
               },

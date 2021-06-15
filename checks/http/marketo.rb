@@ -12,8 +12,13 @@ module Intrigue
               product: 'Marketo',
               website: 'https://marketo.com/',
               description: 'Marketo - Login Title Page Reference',
-              match_type: :content_title,
-              match_content: /^Login \| Marketo$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Login \| Marketo$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -25,8 +30,13 @@ module Intrigue
               product: 'Marketo',
               website: 'https://marketo.com/',
               description: 'Marketo - Location Header',
-              match_type: :content_headers,
-              match_content: %r{^Location:.*\.marketo\.com/index\.php$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^Location:.*\.marketo\.com/index\.php$}i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: false }],
               inference: false
             }

@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.sophos.com/',
               description: 'server header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /^server: xxxx$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^server: xxxx$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -27,8 +32,13 @@ module Intrigue
               website: 'https://www.sophos.com/en-us/products/unified-threat-management.aspx',
               description: 'devuce configuration - unique string',
               version: nil,
-              match_type: :content_body,
-              match_content: /The device and all user certificates will be regenerated with the new signing CA. This may break current Site-to-Site VPN and Roadwarrior connections/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /The device and all user certificates will be regenerated with the new signing CA. This may break current Site-to-Site VPN and Roadwarrior connections/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

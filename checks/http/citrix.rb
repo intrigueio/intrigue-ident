@@ -12,10 +12,15 @@ module Intrigue
               product: 'Access Gateway',
               description: 'login page',
               version: nil,
-              match_type: :content_title,
               website: 'https://www.citrix.com/downloads/citrix-gateway/access-gateway.html',
               references: ['https://www.citrix.com/content/dam/citrix/en_us/documents/downloads/netscaler-access-gateway/Citrix_Access_Gateway_Spec_Sheet.pdf'],
-              match_content: /^Citrix Access Gateway$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Citrix Access Gateway$/i,
+                }
+              ],
               hide: false,
               require_product: 'NetScaler Gateway',
               paths: [{ path: "#{url}/vpn/tmindex.html", follow_redirects: true }],
@@ -31,8 +36,13 @@ module Intrigue
               website: 'https://www.citrix.com/',
               description: 'adc management interface',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Application Delivery Management$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Application Delivery Management$/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
@@ -47,8 +57,13 @@ module Intrigue
               description: 'title',
               website: 'https://www.citrix.com/',
               version: nil,
-              match_type: :content_title,
-              match_content: /Citrix Gateway/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Citrix Gateway/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -63,8 +78,13 @@ module Intrigue
               website: 'https://www.citrix.com/',
               references: ['https://support.citrix.com/article/CTX124630'],
               version: nil,
-              match_type: :content_cookies,
-              match_content: /NSC_[\w\d]+_[\w\d]+=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /NSC_[\w\d]+_[\w\d]+=/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -72,16 +92,53 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'logonpoint',
+              description: 'Citrix - Login panel page reference',
               version: nil,
-              match_type: :content_body,
-              match_content: /_ctxstxt_CitrixCopyright/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /_ctxstxt_CitrixCopyright/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /Citrix Gateway/i
+                },
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'operating_system',
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
+              vendor: 'Citrix',
+              product: 'NetScaler Gateway',
+              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
+              description: 'Citrix - Login panel page reference',
+              require_vendor: 'Citrix',
+              require_product: 'NetScaler Gateway',
+              version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /_ctxstxt_CitrixCopyright/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /Citrix Gateway/i
+                },
+              ],
+              hide: false,
+              paths: [
+                { path: "#{url}/logon/LogonPoint/index.html", follow_redirects: true },
+                { path: "#{url}/logon/LogonPoint/custom.html", follow_redirects: true }],
               inference: false
             },
             {
@@ -93,8 +150,13 @@ module Intrigue
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
               description: 'title',
               version: nil,
-              match_type: :content_title,
-              match_content: /NetScaler Gateway/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /NetScaler Gateway/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -106,55 +168,31 @@ module Intrigue
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_TMAC cookie',
+              description: 'Citrix NetScaler Gateway - Cookie Match',
               version: nil,
-              match_type: :content_cookies,
-              match_content: /NSC_TMAC=/i,
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_TEMP cookie',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /NSC_TEMP=/i,
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_.*_NGB cookie',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /NSC_\w+_NGB=/i,
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
-              description: 'NSC_PERS cookie',
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /NSC_PERS=/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /NSC_TMAC=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /NSC_TEMP=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /NSC_\w+_NGB=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /NSC_PERS=/i,
+                },
+                {
+                  match_type: :content_cookies,
+                  match_content: /citrix_ns_id=/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -168,8 +206,13 @@ module Intrigue
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
               description: '(often) customized logon page - netscaler gateway',
               version: nil,
-              match_type: :content_body,
-              match_content: /CTXMSAM_LogonFont/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /CTXMSAM_LogonFont/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -183,23 +226,13 @@ module Intrigue
               description: 'misspelled content-length header',
               references: ['https://support.citrix.com/article/CTX211605'],
               version: nil,
-              match_type: :content_headers,
-              match_content: /^cteonnt-length:.*$/i,
-              hide: false,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'operating_system',
-              tags: %w[Networking COTS VPN],
-              vendor: 'Citrix',
-              product: 'NetScaler Gateway',
-              description: 'cookie',
-              references: ['https://support.citrix.com/article/CTX131488'],
-              version: nil,
-              match_type: :content_cookies,
-              match_content: /citrix_ns_id=/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^cteonnt-length:.*$/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -212,8 +245,13 @@ module Intrigue
               product: 'NetScaler Gateway',
               description: 'redirect',
               references: ['https://support.citrix.com/article/CTX131488'],
-              match_type: :content_headers,
-              match_content: %r{^location: /vpn/index\.html$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^location: /vpn/index\.html$}i,
+                }
+              ],
               hide: false,
               paths: [{ path: "#{url}/doesntexist-123", follow_redirects: true }],
               inference: false
@@ -226,8 +264,13 @@ module Intrigue
               product: 'NetScaler Gateway',
               description: 'cookie',
               references: ['https://www.citrix.com/content/dam/citrix/en_us/documents/products-solutions/citrix-xenmobile-technology-overview.pdf'],
-              match_type: :content_cookies,
-              match_content: %r{NSC_TASS=/doesntexist-123/vpn/index\.html}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: %r{NSC_TASS=/doesntexist-123/vpn/index\.html}i,
+                }
+              ],
               hide: false,
               paths: [{ path: "#{url}/doesntexist-123", follow_redirects: true }],
               inference: false
@@ -242,8 +285,13 @@ module Intrigue
               description: 'redirect',
               references: [],
               version: nil,
-              match_type: :content_headers,
-              match_content: %r{^location: /zdm/login_xdm_uc.jsp$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^location: /zdm/login_xdm_uc.jsp$}i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -258,8 +306,13 @@ module Intrigue
               description: 'redirect',
               references: [],
               version: nil,
-              match_type: :content_title,
-              match_content: /^XenMobile - Console - Logon$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^XenMobile - Console - Logon$/i,
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -274,11 +327,16 @@ module Intrigue
               description: 'page title',
               references: [],
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>XenServer/,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, %r{<title>XenServer (.*?)</title>})
               },
-              match_type: :content_body,
-              match_content: /<title>XenServer/,
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -293,11 +351,16 @@ module Intrigue
               description: 'page title',
               references: [],
               version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Welcome to Citrix XenServer/,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, %r{<title>Welcome to Citrix XenServer (.*?)</title>})
               },
-              match_type: :content_body,
-              match_content: /<title>Welcome to Citrix XenServer/,
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true
@@ -312,8 +375,13 @@ module Intrigue
               description: 'page title',
               references: [],
               version: nil,
-              match_type: :content_body,
-              match_content: %r{<title>ShareFile Storage Server</title>},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{<title>ShareFile Storage Server</title>},
+                }
+              ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

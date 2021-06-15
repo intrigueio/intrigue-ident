@@ -12,9 +12,14 @@ module Intrigue
               product: 'MediaTemple',
               website: 'https://mediatemple.net/',
               description: 'default string in title',
-              match_type: :content_title,
               version: nil,
-              match_content: /Business-Class Web Hosting by \(mt\) Media Temple/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Business-Class Web Hosting by \(mt\) Media Temple/,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

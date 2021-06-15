@@ -16,8 +16,13 @@ class Anquanbao < Intrigue::Ident::Check::Base
           "https://github.com/EnableSecurity/wafw00f"
         ],
         version: nil,
-        match_type: :content_headers,
-        match_content: /^X-Powered-By-Anquanbao/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /^X-Powered-By-Anquanbao/i,
+          }
+        ],
         description: "header match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],

@@ -13,8 +13,13 @@ module Intrigue
           product: "World4You",
           website: "https://www.world4you.com",
           version: nil,
-          match_type: :content_body,
-          match_content: /This is a newly created customer website\<\/h1\>/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /This is a newly created customer website\<\/h1\>/i,
+            }
+          ],
           description: "unique body string",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -28,8 +33,13 @@ module Intrigue
           product: "World4You",
           website: "https://www.world4you.com",
           version: nil,
-          match_type: :content_title,
-          match_content: /Hier entsteht eine neue Kunden-Website \| World4You\</i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /Hier entsteht eine neue Kunden-Website \| World4You\</i,
+            }
+          ],
           description: "unique body string",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

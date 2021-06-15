@@ -8,15 +8,20 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor"],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "page title",
-        match_type: :content_title,
         references: ["https://en.wikipedia.org/wiki/Plesk"],
-        match_content: /Plesk.*?/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_title,
+            match_content: /Plesk.*?/,
+          }
+        ],
         version: nil,
-        dynamic_version: lambda { |x| 
+        dynamic_version: lambda { |x|
           _first_title_capture(x,/Plesk (.*?)/) },
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true
@@ -24,13 +29,18 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor"],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "server header",
-        match_type: :content_headers,
         references: ["https://en.wikipedia.org/wiki/Plesk"],
-        match_content: /server: sw-cp-server/,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_headers,
+            match_content: /server: sw-cp-server/,
+          }
+        ],
         version: nil,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false

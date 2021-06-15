@@ -1,22 +1,24 @@
 module Intrigue
   module Ident
     module Check
-      class CodeIgniter < Intrigue::Ident::Check::Base
+      class LinuxFoundation < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
               type: 'fingerprint',
-              category: 'service',
-              tags: ['Web Server', 'Embedded', 'Web Framework'],
-              vendor: 'CodeIgniter',
-              product: 'CodeIgniter',
-              website: 'https://codeigniter.com/',
-              version: nil,
-              match_logic: :all,
+              category: 'application',
+              tags: ['Development'],
+              vendor: 'LinuxFoundation',
+              product: 'Argo Continuous Delivery',
+              references: [
+                'https://argoproj.github.io/argo-cd/',
+                'https://www.soluble.ai/blog/argo-cves-2020'
+              ],
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_title,
-                  match_content: /Welcome to CodeIgniter/,
+                  match_content: /^Argo CD$/i,
                 }
               ],
               description: 'page title',

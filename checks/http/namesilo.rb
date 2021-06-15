@@ -14,8 +14,13 @@ module Intrigue
           website: "https://www.namesilo.com/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /This domain is parked free of charge with NameSilo.com/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /This domain is parked free of charge with NameSilo.com/i,
+            }
+          ],
           description: "string in body",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

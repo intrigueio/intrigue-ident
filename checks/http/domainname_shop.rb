@@ -14,8 +14,13 @@ module Intrigue
           website: "https://domainname.shop/",
           references: [],
           version: nil,
-          match_type: :content_body,
-          match_content: /is\ registered,\ but\ the\ owner\ currently\ does\ not\ have\ an\ active\ website\ here\./i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /is\ registered,\ but\ the\ owner\ currently\ does\ not\ have\ an\ active\ website\ here\./i,
+            }
+          ],
           description: "is\ registered,\ but\ the\ owner\ currently\ does\ not\ have\ an\ active\ website\ here\.",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

@@ -13,28 +13,22 @@ class Auth0 < Intrigue::Ident::Check::Base
         product: "Auth0",
         references: [],
         version: nil,
-        match_type: :content_body,
-        match_content: /window.auth0AnalyticsOptions/i,
-        description: "Auth0 analytics",
+        match_logic: :any,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /window.auth0AnalyticsOptions/i,
+          },
+          {
+            match_type: :content_body,
+            match_content: /\/auth0/i,
+          }
+        ],
+        description: "Auth0 - Body Match",
         hide: false,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false
       },
-      {
-        type: "fingerprint",
-        category: "service",
-        tags: ["IAM", "SaaS", "Security"],
-        vendor: "Auth0",
-        product: "Auth0",
-        references: [],
-        version: nil,
-        match_type: :content_body,
-        match_content: /\/auth0/i,
-        description: "Auth0 link",
-        hide: false,
-        paths: [ { path: "#{url}", follow_redirects: true } ],
-        inference: false
-      }
     ]
   end
   

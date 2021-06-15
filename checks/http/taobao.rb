@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://tengine.taobao.org/'],
               version: nil,
               description: 'Taobao Tengine - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ Tengine/{0,1}(\d{1,}\.\d{1,}\.\d{1,}){0,1}|Aserver$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ Tengine/{0,1}(\d{1,}\.\d{1,}\.\d{1,}){0,1}|Aserver$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x,
                                                        %r{^server:\ Tengine/{0,1}(\d{1,}\.\d{1,}\.\d{1,}){0,1}|Aserver$}i)

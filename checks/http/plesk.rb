@@ -11,42 +11,26 @@ module Intrigue
               vendor: "Plesk",
               product: "Plesk",
               references: [],
-              description: "x-powered-by-plesk... plesklin",
+              description: "Plesk - Headers Match",
               version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by: PleskLin/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by: PleskLin/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^PleskWin/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /^x-powered-by-plesk:.*/,
+                }
+              ],
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
             },
-            {
-              type: "fingerprint",
-              category: "service",
-              tags: ["COTS"],
-              vendor: "Plesk",
-              product: "Plesk",
-              references: [],
-              description: "pleskwin in the header",
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^PleskWin/i,
-              paths: [{ path: "#{url}", follow_redirects: true }],
-              inference: false,
-            },
-            {
-              type: "fingerprint",
-              category: "service",
-              tags: ["COTS"],
-              vendor: "Plesk",
-              product: "Plesk",
-              references: [],
-              description: "x-powered-by-plesk",
-              version: nil,
-              match_type: :content_headers,
-              match_content: /^x-powered-by-plesk:.*/,
-              paths: [{ path: "#{url}", follow_redirects: true }],
-              inference: false,
-            },
-
           ]
         end
       end

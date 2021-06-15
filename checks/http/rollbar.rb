@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://rollbar.com/',
               description: 'unique javascript string ',
               version: nil,
-              match_type: :content_body,
-              match_content: /_rollbarConfig/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /_rollbarConfig/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

@@ -12,13 +12,18 @@ module Intrigue
           vendor: "Kong",
           product:"Kong",
           description:"server header",
-          match_type: :content_headers,
           version: nil,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_headers,
+              match_content: /^server: kong\/[\d\.]+/i,
+            }
+          ],
           references: [],
           dynamic_version: lambda { |x|
             _first_header_capture(x,/^server: kong\/([\d\.]+)/i)
           },
-          match_content: /^server: kong\/[\d\.]+/i,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: true
         },
@@ -30,10 +35,15 @@ module Intrigue
           vendor: "Kong",
           product:"Kong",
           description:"no match body",
-          match_type: :content_body,
           version: nil,
           references: [],
-          match_content: /^\{\"message\"\:\"no Route matched with those values\"\}/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /^\{\"message\"\:\"no Route matched with those values\"\}/i,
+            }
+          ],
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: true
         },

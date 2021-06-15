@@ -12,8 +12,13 @@ module Intrigue
               product: 'WSGIsserver',
               website: 'https://pypi.org/project/WSGIserver/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /Server: WSGIServer.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /Server: WSGIServer.*/i,
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{Server: WSGIServer/([\d.]+)}i) },
               description: 'server header',
               hide: false,

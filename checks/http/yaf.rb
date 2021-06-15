@@ -13,8 +13,13 @@ class YafNetCMS < Intrigue::Ident::Check::Base
         product: "YAF",
         references: ["https://www.yetanotherforum.net/"],
         version: nil,
-        match_type: :content_body,
-        match_content: /Powered by YAF.NET ([\d\.]+)/i,
+        match_logic: :all,
+        matches: [
+          {
+            match_type: :content_body,
+            match_content: /Powered by YAF.NET ([\d\.]+)/i,
+          }
+        ],
         dynamic_version: lambda { |x| _first_body_capture(x, /Powered by YAF.NET ([\d\.]+)/i)},
         description: "Header match",
         hide: false,

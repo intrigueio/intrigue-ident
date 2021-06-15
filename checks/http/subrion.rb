@@ -13,8 +13,13 @@ module Intrigue
               website: "https://subrion.org/",
               description: "Subrion - generator tag page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="Subrion CMS/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="Subrion CMS/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="Subrion CMS (\d+(\.\d+)*)/i)
               },

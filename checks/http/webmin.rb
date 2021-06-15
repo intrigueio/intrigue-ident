@@ -12,8 +12,13 @@ module Intrigue
               product: 'Webmin',
               website: 'https://www.webmin.com/',
               description: 'page title',
-              match_type: :content_body,
-              match_content: /<title>Login to Webmin/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Login to Webmin/,
+                }
+              ],
               version: nil,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: MiniServ/(.*)}i)
@@ -30,8 +35,13 @@ module Intrigue
               product: 'Usermin',
               website: 'https://www.webmin.com/usermin.html',
               description: 'page title',
-              match_type: :content_body,
-              match_content: /<title>Login to Usermin/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<title>Login to Usermin/,
+                }
+              ],
               version: nil,
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: MiniServ/(.*)}i)

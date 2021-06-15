@@ -12,9 +12,14 @@ module Intrigue
               product: 'Domino',
               website: 'https://www.hcltechsw.com/wps/portal/products/domino',
               description: 'Lotus Domino',
-              match_type: :content_headers,
               version: nil,
-              match_content: /server: Lotus-Domino/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Lotus-Domino/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             },
@@ -25,28 +30,22 @@ module Intrigue
               vendor: 'Lotus',
               product: 'Domino',
               website: 'https://www.hcltechsw.com/wps/portal/products/domino',
-              description: 'Lotus Domino',
-              match_type: :content_body,
+              description: 'Lotus Domino - Cookies Match',
               version: nil,
-              match_content: %r{homepage.nsf/homePage\.gif\?OpenImageResource}i,
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: %w[COTS Administrative],
-              vendor: 'Lotus',
-              product: 'Domino',
-              website: 'https://www.hcltechsw.com/wps/portal/products/domino',
-              description: 'Lotus Domino',
-              match_type: :content_body,
-              version: nil,
-              match_content: /Notes Client/i,
+              match_logic: :any,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{homepage.nsf/homePage\.gif\?OpenImageResource}i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /Notes Client/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }
-
           ]
         end
       end

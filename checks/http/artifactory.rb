@@ -12,11 +12,16 @@ module Intrigue
               vendor: "Jfrog",
               product: "Artifactory",
               version: nil,
-              match_content: /server: Artifactory/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: Artifactory/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, /server: Artifactory\/(.*)$/i)
               },
-              match_type: :content_headers,
               description: "server header",
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: true,
@@ -29,8 +34,13 @@ module Intrigue
               vendor: "Jfrog",
               product: "Artifactory",
               version: nil,
-              match_type: :content_body,
-              match_content: /\;URL\=\/artifactory/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /\;URL\=\/artifactory/,
+                }
+              ],
               description: "redirect in the body",
               paths: [{ path: "#{url}", follow_redirects: true }],
               inference: false,
@@ -43,8 +53,13 @@ module Intrigue
               vendor: "Jfrog",
               product: "Artifactory",
               version: nil,
-              match_type: :content_body,
-              match_content: /span class=\"version\">Artifactory/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /span class=\"version\">Artifactory/,
+                }
+              ],
               description: "version in a span",
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /span class=\"version\">Artifactory ([\d\.]+)/i)

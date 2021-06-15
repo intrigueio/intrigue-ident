@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://markmonitor.com/',
               description: 'MarkMonitor - Protected By Title Page Reference',
               version: nil,
-              match_type: :content_title,
-              match_content: /^Registered &amp; Protected by MarkMonitor$/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /^Registered &amp; Protected by MarkMonitor$/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

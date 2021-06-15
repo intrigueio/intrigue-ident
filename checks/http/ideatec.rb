@@ -14,8 +14,13 @@ module Intrigue
               references: [
                 'https://ideatec.co.kr/SmartXFilter_index'
               ],
-              match_type: :content_headers,
-              match_content: %r{^server: SmartXFilter$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: SmartXFilter$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server: SmartXFilter$}i)
                                },
@@ -32,8 +37,13 @@ module Intrigue
               references: [
                 'https://ideatec.co.kr/SmartXFilter_index'
               ],
-              match_type: :content_headers,
-              match_content: %r{^via:.*SmartXFilter.*$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^via:.*SmartXFilter.*$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^via:.*SmartXFilter.*$}i)
                                },

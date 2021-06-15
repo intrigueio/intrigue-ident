@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.zimbra.com/',
               version: nil,
               description: 'login page for zimbra',
-              match_type: :content_title,
-              match_content: /Zimbra Web Client Sign In/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Zimbra Web Client Sign In/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

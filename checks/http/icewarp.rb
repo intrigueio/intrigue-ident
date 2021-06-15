@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://www.icewarp.com/'],
               version: nil,
               description: 'IceWarp - Server Header',
-              match_type: :content_headers,
-              match_content: %r{^server:\ IceWarp/(\d{1,}\.\d{1,}\.\d{1,})$}i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server:\ IceWarp/(\d{1,}\.\d{1,}\.\d{1,})$}i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^server:\ IceWarp/(\d{1,}\.\d{1,}\.\d{1,})$}i)
                                },

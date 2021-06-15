@@ -13,8 +13,13 @@ module Intrigue
               references: ["https://snewscms.com/"],
               description: "sNews - generator page reference",
               version: nil,
-              match_type: :content_body,
-              match_content: /<meta name="generator" content="sNews/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: /<meta name="generator" content="sNews/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_body_capture(x, /<meta name="generator" content="sNews (\d+(\.\d+)*)/i)
               },

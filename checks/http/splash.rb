@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://splashthat.com/',
               description: 'title for default landing page',
               version: nil,
-              match_type: :content_title,
-              match_content: /Event Marketing Software - Splash/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: /Event Marketing Software - Splash/i,
+                }
+              ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
             }

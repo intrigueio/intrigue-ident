@@ -13,8 +13,13 @@ module Intrigue
               website: 'https://www.limelight.com/',
               description: 'Limelight Networks Edgeprism - Server Header',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: EdgePrism.*/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: EdgePrism.*/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                 _first_header_capture(x, %r{server: EdgePrism/(.*)}i)
               },

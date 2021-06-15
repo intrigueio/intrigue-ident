@@ -13,8 +13,13 @@
           product: "Nexicom",
           website: "https://nexicom.net/",
           version: nil,
-          match_type: :content_body,
-          match_content: /\<STRONG\>What\ is\ Domain\ Parking\?\<\/STRONG\>/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_body,
+              match_content: /\<STRONG\>What\ is\ Domain\ Parking\?\<\/STRONG\>/i,
+            }
+          ],
           description: "<STRONG>What is Domain Parking?</STRONG>",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -28,8 +33,13 @@
           product: "Nexicom",
           website: "https://nexicom.net/",
           version: nil,
-          match_type: :content_title,
-          match_content: /Park\ your\ Domain\ \@\ Nexicom/i,
+          match_logic: :all,
+          matches: [
+            {
+              match_type: :content_title,
+              match_content: /Park\ your\ Domain\ \@\ Nexicom/i,
+            }
+          ],
           description: "Park\ your\ Domain\ \@\ Nexicom",
           hide: false,
           paths: [ { path: "#{url}", follow_redirects: true } ],

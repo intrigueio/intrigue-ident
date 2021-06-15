@@ -13,8 +13,13 @@ module Intrigue
               references: ['https://aolserver.github.io/'],
               version: nil,
               description: 'AOL Server - Server Header',
-              match_type: :content_headers,
-              match_content: /^Server:\ AOLserver/i,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /^Server:\ AOLserver/i,
+                }
+              ],
               dynamic_version: lambda { |x|
                                  _first_header_capture(x, %r{^Server:\ AOLserver/(\d+(\.\d+)*)$}i)
                                },

@@ -12,8 +12,13 @@ module Intrigue
               product: 'III 100',
               website: 'https://www.iii.com/',
               version: nil,
-              match_type: :content_headers,
-              match_content: /server: III 100/,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: /server: III 100/,
+                }
+              ],
               description: 'server header',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

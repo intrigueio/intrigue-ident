@@ -14,8 +14,13 @@ module Intrigue
               description: 'RTC server header, generic fp (skype, lync, etc)',
               version: nil,
               hide: false,
-              match_type: :content_headers,
-              match_content: %r{^server: RTC/[\d.]+},
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_headers,
+                  match_content: %r{^server: RTC/[\d.]+},
+                }
+              ],
               dynamic_version: ->(x) { _first_header_capture(x, %r{^server: RTC/([\d.]+)}) },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
