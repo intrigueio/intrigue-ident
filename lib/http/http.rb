@@ -254,17 +254,8 @@ module Intrigue
           # merge in credentials, must be in format :user => 'username', :password => 'password'
           options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}" if credentials
 
-          # create a request
-          request = Typhoeus::Request.new(uri_string, {
-            method: method,
-            headers: headers
-          }.merge!(options))
-
           # run the request
-          # response = request.run
-
-          # catch th
-          response = get_data_from_url(request, debug).flatten.compact
+          response = grab_data_from_url(uri_string, method, headers, options, debug).flatten.compact
         rescue Typhoeus::Errors::TyphoeusError => e
           @task_result.logger.log_error "Request Error: #{e}" if @task_result
           puts "Request Error: #{e}" unless @task_result
@@ -289,8 +280,8 @@ module Intrigue
           out.append({
                        options: options,
                        start_url: uri_string,
-                       final_url: x[:effective_url],
-                       redirect_count: x[:redirect_count],
+                       final_url: x.options[:effective_url],
+                       redirect_count: x.options[:redirect_count],
                        request_type: :ruby,
                        request_method: method,
                        #:request_credentials => credentials,
@@ -308,7 +299,7 @@ module Intrigue
         # verify we have a response before adding these
         if response
           out.each do |z|
-            z[:response_headers] = z[:response_object].map do |x, y|
+            z[:response_headers] = z[:response_object].headers.map do |x, y|
               if y.is_a?(Array)
                 y.map do |v|
                   ident_encode("#{x}: #{v}")
@@ -317,9 +308,10 @@ module Intrigue
                 ident_encode("#{x}: #{y}")
               end
             end
-            z[:response_body_binary_base64] = Base64.strict_encode64(z[:response_object][:response_body])
-            z[:response_body] = ident_encode(z[:response_object][:response_body])
-            z[:response_code] = z[:response_object][:response_code]
+            z[:response_body_binary_base64] = Base64.strict_encode64(z[:response_object].body)
+            z[:response_body] = ident_encode(z[:response_object].body)
+            z[:response_code] = z[:response_object].code
+
             # z[:response_certificate] = certificate_hash //where does this come from?
           end
         end
@@ -327,23 +319,33 @@ module Intrigue
         out
       end
 
-      def get_data_from_url(request, debug)
+      # TODO: - Move to it's own service.
+      def grab_data_from_url(uri_string, method, headers, options, debug)
+        # create a request
+        request = Typhoeus::Request.new(uri_string, {
+          method: method,
+          headers: headers
+        }.merge!(options))
+
+        # setup hydra and required vars
         hydra = Typhoeus::Hydra.hydra
         content = []
         counter = 0
-        content = build_request(hydra, request, content, debug, counter)
+
+        # start building hydra nested requests
+        content = build_hydra_request(hydra, request, content, debug, counter)
 
         hydra.run # this is a blocking call that returns once all requests are complete
 
         content
       end
 
-      def build_request(hydra, request, content, debug, counter)
+      def build_hydra_request(hydra, request, content, debug, counter)
         hydra.queue request
         counter += 1
         request.on_complete do |response|
-          content.append(response.options)
-
+          content.append(response)
+          # TODO: - IDEN-28 Counter needs to be configurable and retrieved from Config.
           if response.options[:response_code].between?(299, 400) && counter < 10
 
             new_url = get_redirect_location_from_header(response.options[:response_headers])
@@ -354,7 +356,7 @@ module Intrigue
 
               puts "-- #{counter} bounce - Redirected to: #{new_url}" if debug
 
-              build_request(hydra, new_request, content, debug, counter)
+              build_hydra_request(hydra, new_request, content, debug, counter)
             end
           end
         end
