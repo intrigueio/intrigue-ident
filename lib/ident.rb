@@ -432,7 +432,7 @@ module Intrigue
         end
 
         # if you want a custom tcp protocol to be scanned, enter them here
-        if port == 4786 || port == 3389 || port == 7001
+        if port == 4786 || port == 3389 || port == 7001 || port == 9100 || port == 3299
           ident_matches = generate_ip_requests_and_check(ip_address_or_hostname, port) || {}
         end
 
