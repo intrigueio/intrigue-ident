@@ -255,14 +255,14 @@ module Intrigue
           options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}" if credentials
 
           # run the request
-          response = grab_data_from_url(uri_string, method, headers, options, debug).flatten.compact
+          response = grab_data_from_url(uri_string, method, headers, options, debug)
         rescue Typhoeus::Errors::TyphoeusError => e
           @task_result.logger.log_error "Request Error: #{e}" if @task_result
           puts "Request Error: #{e}" unless @task_result
         end
 
         # fail unless we get a response
-        unless response
+        unless response[:responses]
           if @task_result
             @task_result.logger.log_error 'Unable to get a response'
           else
@@ -276,12 +276,11 @@ module Intrigue
         # generate our output
         out = []
 
-        response.each do |x|
+        response[:responses].each do |x|
           out.append({
                        options: options,
                        start_url: uri_string,
                        final_url: x.options[:effective_url],
-                       redirect_count: x.options[:redirect_count],
                        request_type: :ruby,
                        request_method: method,
                        #:request_credentials => credentials,
@@ -292,12 +291,14 @@ module Intrigue
                        request_user_agent: headers['User-Agent'],
                        #:request_proxy => proxy_config,
                        #:response_urls => response_urls,
-                       response_object: x
+                       response_object: x,
+                       redirect_count: response[:redirect_count],
+                       redirect_chain: response[:redirect_chain]
                      })
         end
 
         # verify we have a response before adding these
-        if response
+        if response[:responses]
           out.each do |z|
             z[:response_headers] = z[:response_object].headers.map do |x, y|
               if y.is_a?(Array)
@@ -329,34 +330,45 @@ module Intrigue
 
         # setup hydra and required vars
         hydra = Typhoeus::Hydra.hydra
-        content = []
-        counter = 0
+        content = {
+          redirect_count: 0,
+          redirect_chain: [],
+          responses:[]
+        }
 
         # start building hydra nested requests
-        content = build_hydra_request(hydra, request, content, debug, counter)
+        content = build_hydra_request(hydra, request, content, debug)
 
         hydra.run # this is a blocking call that returns once all requests are complete
 
         content
       end
 
-      def build_hydra_request(hydra, request, content, debug, counter)
+      def build_hydra_request(hydra, request, content, debug)
         hydra.queue request
-        counter += 1
         request.on_complete do |response|
-          content.append(response)
-          # TODO: - IDEN-28 Counter needs to be configurable and retrieved from Config.
-          if response.options[:response_code].between?(299, 400) && counter < 10
+          content[:responses].append(response)
+          # TODO: - IDEN-29 Counter needs to be configurable and retrieved from Config.
+          if response.options[:response_code].between?(299, 400) && content[:redirect_count] < 15
+            
+            content[:redirect_count] += 1
 
             new_url = get_redirect_location_from_header(response.options[:response_headers])
 
+
             if !new_url.nil? && !new_url.empty? && new_url != request.base_url
+
+              content[:redirect_chain].append(
+                {
+                  from: request.base_url,
+                  to: new_url
+                })
 
               new_request = Typhoeus::Request.new(new_url, request.original_options)
 
-              puts "-- #{counter} bounce - Redirected to: #{new_url}" if debug
+              puts "-- #{content[:redirect_count]} bounce - Redirected to: #{new_url}" if debug
 
-              build_hydra_request(hydra, new_request, content, debug, counter)
+              build_hydra_request(hydra, new_request, content, debug)
             end
           end
         end
