@@ -51,13 +51,8 @@ module Intrigue
         # if data is not an array, try sending it anyway .
         res = send_request(ip, port, protocol, data)
 
-        # on specific occasions we don't want to unpack, as we might get a string which is what we need, and it gets turned back to hex
-        if port == 3299
-          return res if res
-        # else unpack response and send pack
-        else
-          return res.unpack("H*").join if res
-        end
+        # unpack response and send pack
+        return res.unpack("H*").join if res
 
       end
 
