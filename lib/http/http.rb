@@ -353,9 +353,8 @@ module Intrigue
             
             content[:redirect_count] += 1
 
-            new_url = get_redirect_location_from_header(response.options[:response_headers])
-
-
+            new_url = get_redirect_location_from_header(response.options[:effective_url], response.options[:response_headers])
+            
             if !new_url.nil? && !new_url.empty? && new_url != request.base_url
 
               content[:redirect_chain].append(
@@ -375,9 +374,23 @@ module Intrigue
         content
       end
 
-      def get_redirect_location_from_header(header)
-        header[%r{Location:\s(https?://.*)\r}i, 1]
+      def get_redirect_location_from_header(base, header)
+        new_url = header[%r{Location:\s(https?://.*)\r}i, 1]
+        if(new_url.nil? || new_url.empty?)
+          new_url = get_raw_redirect_location_from_header(header)
+          
+          if(!new_url.nil? && !new_url.empty?)
+            new_url = URI.parse("#{base}#{new_url}")
+            new_url.path.squeeze!('/')
+          end
+        end
+        new_url.to_s
       end
+
+      def get_raw_redirect_location_from_header(header)
+        header[%r{Location:\s(.*)\r}i, 1]
+      end
+
     end
   end
 end
