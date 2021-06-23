@@ -167,12 +167,11 @@ module Intrigue
 
           # this block should be moved to a sanitise uri function
           # if the user adds too many // to the url this will remove them
-          target_url = URI.parse(target_url)
-          target_url.path.squeeze!('/')
+          target_url = squeez_url(target_url)
           #
           # get the response using a normal http request
           puts "Getting #{target_url}" if debug
-          response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects, debug
+          response_hash = ident_http_request :get, target_url, nil, {}, nil, debug
 
           response_hash.each do |x|
             next unless x
@@ -229,7 +228,7 @@ module Intrigue
         string.force_encoding('ISO-8859-1').encode('UTF-8').gsub("\u0000", '')
       end
 
-      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, _follow_redirects = true, _attempts_limit = 3, timeout = 10, debug)
+      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, _attempts_limit = 3, timeout = 10, debug)
         # set user agent unless one was provided
         unless headers['User-Agent']
           headers['User-Agent'] =
@@ -241,13 +240,6 @@ module Intrigue
 
           # always
           options[:timeout] = timeout
-          options[:ssl_verifyhost] = 0
-          options[:ssl_verifypeer] = false
-
-          # follow redirects if we're told
-          # options[:followlocation] = true if follow_redirects
-          options[:followlocation] = false
-
           # if we're a post, set our body
           options[:body] = data if method == :post
 
@@ -322,6 +314,13 @@ module Intrigue
 
       # TODO: - Move to it's own service.
       def grab_data_from_url(uri_string, method, headers, options, debug)
+        options[:ssl_verifyhost] = 0
+        options[:ssl_verifypeer] = false
+
+        # follow redirects always off.
+        # this allows us to be able to chain all the redirects ourselves.
+        options[:followlocation] = false
+
         # create a request
         request = Typhoeus::Request.new(uri_string, {
           method: method,
@@ -333,7 +332,7 @@ module Intrigue
         content = {
           redirect_count: 0,
           redirect_chain: [],
-          responses:[]
+          responses: []
         }
 
         # start building hydra nested requests
@@ -348,20 +347,22 @@ module Intrigue
         hydra.queue request
         request.on_complete do |response|
           content[:responses].append(response)
-          # TODO: - IDEN-29 Counter needs to be configurable and retrieved from Config.
+
           if response.options[:response_code].between?(299, 400) && content[:redirect_count] < 15
-            
+
             content[:redirect_count] += 1
 
-            new_url = get_redirect_location_from_header(response.options[:effective_url], response.options[:response_headers])
-            
+            new_url = get_redirect_location_from_header(response.options[:effective_url],
+                                                        response.options[:response_headers])
+
             if !new_url.nil? && !new_url.empty? && new_url != request.base_url
 
               content[:redirect_chain].append(
                 {
                   from: request.base_url,
                   to: new_url
-                })
+                }
+              )
 
               new_request = Typhoeus::Request.new(new_url, request.original_options)
 
@@ -376,19 +377,27 @@ module Intrigue
 
       def get_redirect_location_from_header(base, header)
         new_url = header[%r{Location:\s(https?://.*)\r}i, 1]
-        if(new_url.nil? || new_url.empty?)
+
+        # If we can't find a location that has the base start, fetch anything we can find.
+        # and attach it to the base
+        if new_url.nil? || new_url.empty?
           new_url = get_raw_redirect_location_from_header(header)
-          
-          if(!new_url.nil? && !new_url.empty?)
-            new_url = URI.parse("#{base}#{new_url}")
-            new_url.path.squeeze!('/')
+
+          if !new_url.nil? && !new_url.empty?
+            new_url = squeez_url("#{base}#{new_url}")
           end
         end
-        new_url.to_s
+        new_url
       end
 
       def get_raw_redirect_location_from_header(header)
-        header[%r{Location:\s(.*)\r}i, 1]
+        header[/Location:\s(.*)\r/i, 1]
+      end
+
+      def squeez_url(uri)
+        uri = URI.parse(uri)
+        uri.path.squeeze!('/')
+        uri.to_s
       end
 
     end

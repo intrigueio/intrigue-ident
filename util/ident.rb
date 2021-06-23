@@ -233,7 +233,7 @@ def check_single_uri(opts)
     else # not http
       parsed_uri = URI(uri)
       print_debug "Checking ... #{parsed_uri}"
-      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri)
+      check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri, opts)
     end
 
     unless check_result
