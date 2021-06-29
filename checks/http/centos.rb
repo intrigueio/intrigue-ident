@@ -27,7 +27,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative', 'Admin Panel'],
+              tags: ['Administrative', 'Login Panel'],
               vendor: 'Centos',
               product: 'CentOS Web Panel',
               references: [],
@@ -44,7 +44,8 @@ module Intrigue
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              issue: 'exposed_admin_panel_unauthenticated'
+              issue: 'exposed_admin_panel_unauthenticated',
+              test_target: ["https://45.79.6.41:2087/"]
             }
           ]
         end

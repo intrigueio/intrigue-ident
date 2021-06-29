@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ["Development", "Database", "Admin Panel"],
+              tags: ["Development", "Database", "Login Panel"],
               vendor: 'Elasticsearch',
               product: 'Kibana',
               website: 'https://www.elastic.co/kibana',
@@ -25,7 +25,8 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
+              test_target: ["https://114.55.46.215:5601/"]
             },
             {
               type: 'fingerprint',

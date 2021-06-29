@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Development', 'COTS', 'Admin Panel'],
+              tags: ['Development', 'COTS', 'Login Panel'],
               vendor: 'PhpMyAdmin',
               product: 'PhpMyAdmin',
               website: 'https://www.phpmyadmin.net/',
@@ -44,7 +44,8 @@ module Intrigue
                                     /PhpMyAdmin (\d+(\.\d+)*)/i)
               },
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
+              test_target: ["http://178.18.253.86:8020/"],
             }
           ]
         end

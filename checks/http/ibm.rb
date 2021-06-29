@@ -64,7 +64,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative', 'Admin Panel', 'COTS'],
+              tags: ['Administrative', 'Login Panel', 'COTS'],
               vendor: 'IBM',
               product: 'IBM Security Access Manager for Web',
               references: ['https://www.ibm.com/support/knowledgecenter/SSPREK_9.0.2.1/com.ibm.isam.doc/wrp_config/concept/con_sam_intro.html'],
@@ -78,7 +78,8 @@ module Intrigue
               ],
               description: 'IBM security access manager login prompt',
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
+              test_target: ["https://193.39.202.29/"]
             },
             {
               type: 'fingerprint',

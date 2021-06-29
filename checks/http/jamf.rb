@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative', 'Admin Panel', 'COTS'],
+              tags: ['Administrative', 'Login Panel', 'COTS'],
               vendor: 'Jamf',
               product: 'Pro',
               website: 'https://www.jamf.com/products/jamf-pro/',
@@ -27,7 +27,8 @@ module Intrigue
                                 _first_body_capture(x, /<title>Jamf Pro Login - Jamf Pro v[\d.]*-(.*)</)
                               },
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: true
+              inference: true,
+              test_target: ["https://52.55.142.7/"]
             }
           ]
         end
