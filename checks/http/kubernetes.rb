@@ -49,6 +49,10 @@ module Intrigue
                 {
                   match_type: :content_body,
                   match_content: /^default backend - 404$/,
+                },
+                { # specific to github?
+                  match_type: :content_headers,
+                  match_content: /^x-github-backend: Kubernetes$/,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
