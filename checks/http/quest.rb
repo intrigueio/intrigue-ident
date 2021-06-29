@@ -26,7 +26,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://kace.arcosa.com/"]
             },
             # hardware cpe (inferred)
             {
@@ -48,7 +47,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://kace.arcosa.com/"]
             },
             # hardware cpe (inferred)
             {
@@ -72,7 +70,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true,
-              test_target: ["https://kace.arcosa.com/"]
             },
             # software cpe
             {
@@ -93,7 +90,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://kace.arcosa.com/"]
             },
 
             {
@@ -118,7 +114,6 @@ module Intrigue
               paths: [{ path: "#{url}/userui/welcome.php", follow_redirects: true }],
               require_product: 'Kace Systems Management',
               inference: true,
-              test_target: ["https://kace.arcosa.com/"]
             },
             {
               type: 'fingerprint',
@@ -141,7 +136,6 @@ module Intrigue
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://kace.arcosa.com/"]
             },
             {
               type: 'fingerprint',
@@ -160,7 +154,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://kace.arcosa.com/"]
             }
           ]
         end

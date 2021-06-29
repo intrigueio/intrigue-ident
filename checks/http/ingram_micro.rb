@@ -23,7 +23,6 @@ module Intrigue
           version: nil,
           paths: [ { path: "#{url}", follow_redirects: true } ],
           inference: false,
-          test_target: ["http://www.charter-business.net/ "]
         }
       ]
     end

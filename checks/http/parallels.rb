@@ -29,7 +29,6 @@ class Parallels < Intrigue::Ident::Check::Base
         },
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: true,
-        test_target: ["http://75.119.136.206:8880/"]
       },
       {
         type: "fingerprint",
@@ -49,7 +48,6 @@ class Parallels < Intrigue::Ident::Check::Base
         version: nil,
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false,
-        test_target: ["https://70.32.81.77:8443/"]
       }
     ]
   end

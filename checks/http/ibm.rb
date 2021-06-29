@@ -79,7 +79,6 @@ module Intrigue
               description: 'IBM security access manager login prompt',
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://193.39.202.29/"]
             },
             {
               type: 'fingerprint',

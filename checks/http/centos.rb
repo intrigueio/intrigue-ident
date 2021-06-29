@@ -45,7 +45,6 @@ module Intrigue
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               issue: 'exposed_admin_panel_unauthenticated',
-              test_target: ["https://45.79.6.41:2087/"]
             }
           ]
         end

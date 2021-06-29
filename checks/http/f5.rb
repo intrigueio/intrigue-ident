@@ -23,7 +23,6 @@ module Intrigue
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://103.10.48.137/"]
             },
             {
               type: 'fingerprint',

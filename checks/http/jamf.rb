@@ -28,7 +28,6 @@ module Intrigue
                               },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true,
-              test_target: ["https://52.55.142.7/"]
             }
           ]
         end

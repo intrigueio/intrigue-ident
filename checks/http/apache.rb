@@ -488,7 +488,6 @@ module Intrigue
                 { path: "#{url}/doesntexist-123", follow_redirects: true }
               ],
               inference: true,
-              test_target: ["http://111.26.39.37:8081/"],
             },
             {
               type: 'fingerprint',

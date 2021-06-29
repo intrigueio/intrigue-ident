@@ -174,8 +174,6 @@ module Intrigue
           puts "Getting #{target_url}" if debug
           response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects
 
-          # puts response_hash
-
           if response_hash[:timeout]
             puts "ERROR timed out on #{target_url}" if debug
             timeout_count += 1

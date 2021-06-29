@@ -23,7 +23,6 @@ class Ivanti < Intrigue::Ident::Check::Base
         references: ["https://community.ivanti.com/community/all-products/systems/cloudservices"],
         paths: [ { path: "#{url}", follow_redirects: true } ],
         inference: false,
-        test_target: ["https://csa.tpchd.org/"]
       }
     ]
   end

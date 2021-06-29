@@ -26,7 +26,6 @@ module Intrigue
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
-              test_target: ["https://114.55.46.215:5601/"]
             },
             {
               type: 'fingerprint',
