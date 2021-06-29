@@ -2,7 +2,7 @@ module Intrigue
     module Ident
     module Check
     class Accellion < Intrigue::Ident::Check::Base
-    
+
       def generate_checks(url)
         [
           {
@@ -24,6 +24,25 @@ module Intrigue
             hide: false,
             paths: [ { path: "#{url}", follow_redirects: true } ],
             inference: false
+          },
+          {
+            type: "fingerprint",
+            category: "application",
+            tags: ["Appliance"],
+            vendor: "Accellion",
+            product: "Kiteworks",
+            references: [ "https://www.accellion.com/kiteworks/" ],
+            match_logic: :all,
+            matches: [
+              {
+                match_type: :content_title,
+                match_content: /^kiteworks$/,
+              }
+            ],
+            description: "page title",
+            hide: false,
+            paths: [ { path: "#{url}/index.html", follow_redirects: true } ],
+            inference: false
           }
         ]
       end
@@ -31,4 +50,3 @@ module Intrigue
     end
     end
     end
-    
