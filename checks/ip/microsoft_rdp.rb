@@ -19,8 +19,7 @@ module Intrigue
             match_content: /^030000130ed00000123400021f080008000000$/i,
             description: "match via protocol hex string",
             hide: false,
-            inference: false,
-            issue: 'test'
+            inference: false
           }
         ]
       end

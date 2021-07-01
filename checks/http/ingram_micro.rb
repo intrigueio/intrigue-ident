@@ -22,7 +22,7 @@ module Intrigue
           ],
           version: nil,
           paths: [ { path: "#{url}", follow_redirects: true } ],
-          inference: false
+          inference: false,
         }
       ]
     end
