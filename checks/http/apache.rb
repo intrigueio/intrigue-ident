@@ -487,7 +487,7 @@ module Intrigue
                 { path: url.to_s, follow_redirects: true },
                 { path: "#{url}/doesntexist-123", follow_redirects: true }
               ],
-              inference: true
+              inference: true,
             },
             {
               type: 'fingerprint',
