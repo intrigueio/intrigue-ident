@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Networking', 'Load Balancer', 'Admin Panel'],
+              tags: ['Networking', 'Load Balancer', 'Login Panel'],
               vendor: 'F5',
               product: 'BIG-IP Access Policy Manager',
               website: 'https://www.f5.com/products/security/access-policy-manager',
@@ -18,11 +18,11 @@ module Intrigue
                 {
                   match_type: :content_cookies,
                   match_content: /MRHSession/,
-                }
+                },
               ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
             {
               type: 'fingerprint',
@@ -42,7 +42,7 @@ module Intrigue
               ],
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
             {
               type: 'fingerprint',
