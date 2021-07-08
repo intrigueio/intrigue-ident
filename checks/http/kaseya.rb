@@ -16,8 +16,13 @@ module Intrigue
                              'https://www.cybersecurity-help.cz/vdb/SB2020021813'],
                 description: 'Kaseya Traverse Application Server',
                 version: nil,
-                match_type: :content_headers,
-                match_content: /^server:\ Traverse\ Application\ Server$/i,
+                match_logic: :any,
+                matches: [
+                  {
+                    match_type: :content_headers,
+                    match_content: /^server:\ Traverse\ Application\ Server$/i
+                  }
+                ],
                 paths: [{ path: url.to_s, follow_redirects: true }],
                 inference: false
               },
@@ -30,8 +35,12 @@ module Intrigue
                 website: 'https://www.kaseya.com/products/traverse/',
                 description: 'Kaseya Traverse login page',
                 version: nil,
-                match_type: :content_title,
-                match_content: /^Traverse: Login/i,
+                match_logic: :any,
+                matches: [
+                { match_type: :content_title,
+                  match_content: /^Traverse: Login/i
+                }
+                ],
                 paths: [{ path: url.to_s, follow_redirects: true }],
                 inference: false
               },
@@ -44,8 +53,11 @@ module Intrigue
                 website: 'https://www.kaseya.com/products/traverse/',
                 description: 'Kaseya Traverse powered by reference',
                 version: nil,
-                match_type: :content_body,
-                match_content: /Powered\ By:\ Kaseya\ Traverse\ \W\ www\.kaseya\.com/i,
+                match_logic: :any,
+                matches: [{
+                  match_type: :content_body,
+                  match_content: /Powered\ By:\ Kaseya\ Traverse\ \W\ www\.kaseya\.com/i
+                }],
                 paths: [{ path: url.to_s, follow_redirects: true }],
                 inference: false
               },
