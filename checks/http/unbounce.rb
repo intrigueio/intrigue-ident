@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['SaaS'],
+              tags: ['SaaS', 'Cloud', 'Marketing'],
               vendor: 'Unbounce',
               product: 'Unbounce',
               description: 'missing account string',

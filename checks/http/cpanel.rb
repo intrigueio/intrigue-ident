@@ -46,7 +46,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[COTS Administrative],
+              tags: %w[COTS Hosting Administrative],
               vendor: 'cPanel',
               product: 'cPanel - Not configured',
               website: 'https://cpanel.net/',

@@ -7,8 +7,8 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Web Server'],
-              vendor: 'Rack Project',
+              tags: ['Development' ,'Web Server'],
+              vendor: 'Rack',
               product: 'Rack',
               website: 'https://github.com/rack/rack',
               description: 'Rack - Headers Match',

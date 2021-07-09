@@ -11,48 +11,18 @@ module Intrigue
               vendor: 'vBulletin', # Jelsoft Enterprises Limited
               product: 'vBulletin',
               website: 'https://www.vbulletin.com/',
-              description: 'vBulletin - bblastactivity cookie',
+              description: 'vBulletin - Cookies Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
                   match_content: /bb_?lastactivity=/,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Social'],
-              vendor: 'vBulletin', # Jelsoft Enterprises Limited
-              product: 'vBulletin',
-              website: 'https://www.vbulletin.com/',
-              description: 'vBulletin - bblastvisit cookie',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /bb_?lastvisit=/,
-                }
-              ],
-              paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
-            },
-            {
-              type: 'fingerprint',
-              category: 'application',
-              tags: ['Social'],
-              vendor: 'vBulletin', # Jelsoft Enterprises Limited
-              product: 'vBulletin',
-              website: 'https://www.vbulletin.com/',
-              description: 'vBulletin - bbsessionhash cookie',
-              version: nil,
-              match_logic: :all,
-              matches: [
+                },
                 {
                   match_type: :content_cookies,
                   match_content: /bb_?sessionhash=/,
@@ -68,7 +38,7 @@ module Intrigue
               vendor: 'vBulletin',
               product: 'vBulletin',
               website: 'https://www.vbulletin.com/',
-              description: "vBulletin - 'powered by' page referece",
+              description: "vBulletin - 'powered by' page reference",
               version: nil,
               match_logic: :all,
               matches: [

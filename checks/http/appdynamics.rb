@@ -17,6 +17,10 @@ module Intrigue
               matches: [
                 {
                   match_type: :content_cookies,
+                  match_content: /ADRUM_BT=/,
+                },,
+                {
+                  match_type: :content_cookies,
                   match_content: /ADRUM_BTa=/,
                 },
                 {

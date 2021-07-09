@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS Router],
+              tags: %w[Networking Router],
               vendor: 'TP-Link',
               product: 'WR Series',
               description: 'Router',

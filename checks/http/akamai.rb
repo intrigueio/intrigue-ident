@@ -47,7 +47,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'service',
               vendor: 'Akamai',
-              tags: ['CDN', 'WAF'],
+              tags: ['CDN'],
               product: 'Akamai',
               website: 'https://www.akamai.com/',
               version: nil,

@@ -7,10 +7,11 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[APM JavaScript],
+              tags: %w[Analytics APM JavaScript],
               vendor: 'Dynatrace',
               product: 'Dynatrace',
               description: 'Dynatrace - Headers Match',
+              website: "http://dynatrace.com/",
               references: ['http://ruxit.com'],
               version: nil,
               match_logic: :any,
@@ -22,6 +23,10 @@ module Intrigue
                 {
                   match_type: :content_headers,
                   match_content: /^x-dynatrace-js-agent:.*/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /X-OneAgent-JS-Injection:/i,
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],

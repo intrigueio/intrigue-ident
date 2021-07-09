@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'operating_system',
+              category: 'application',
               tags: %w[Networking Proxy],
               vendor: 'Envoy',
               product: 'Envoy',

@@ -27,7 +27,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative', 'Login Panel'],
+              tags: ['Administrative', 'Management', 'Hosting', 'Login Panel'],
               vendor: 'Centos',
               product: 'CentOS Web Panel',
               references: [],

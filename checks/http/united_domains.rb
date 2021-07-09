@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Parked'],
+              tags: ['Hosting'],
               vendor: 'United Domains',
               product: 'United Domains',
               website: 'https://www.uniteddomains.com/',
