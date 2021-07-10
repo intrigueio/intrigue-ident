@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Analytics APM JavaScript],
+              tags: ['Analytics', 'APM', 'JavaScript'],
               vendor: 'Dynatrace',
               product: 'Dynatrace',
               description: 'Dynatrace - Headers Match',

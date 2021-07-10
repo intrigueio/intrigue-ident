@@ -30,7 +30,7 @@ module Intrigue
               vendor: 'Sophos',
               product: 'UTM',
               website: 'https://www.sophos.com/en-us/products/unified-threat-management.aspx',
-              description: 'device configuration - unique string',
+              description: 'Sophos UTM - Body Match',
               version: nil,
               match_logic: :all,
               matches: [

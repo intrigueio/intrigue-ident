@@ -1,17 +1,17 @@
 module Intrigue
   module Ident
     module Check
-      class Communigate < Intrigue::Ident::Check::Base
+      class CommuniGate < Intrigue::Ident::Check::Base
         def generate_checks(url)
           [
             {
               type: 'fingerprint',
-              vendor: 'Communigate',
+              vendor: 'CommuniGate',
               category: 'application',
               tags: ['COTS', 'Marketing', 'Web Server'],
               product: 'CommuniGate',
               website: 'http://www.stalker.com/CommuniGatepro/',
-              description: 'server header',
+              description: 'CommuniGate Pro - Headers Match',
               version: nil,
               match_logic: :all,
               matches: [
