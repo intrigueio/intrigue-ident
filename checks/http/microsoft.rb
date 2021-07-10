@@ -853,7 +853,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Productivity', 'CMS'. 'Web Server'],
+              tags: ['Productivity', 'CMS', 'Web Server'],
               vendor: 'Microsoft',
               product: 'Sharepoint Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',
