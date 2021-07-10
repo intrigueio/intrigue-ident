@@ -25,7 +25,7 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
             # hardware cpe (inferred)
             {
@@ -46,7 +46,7 @@ module Intrigue
 
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
             # hardware cpe (inferred)
             {
@@ -69,7 +69,7 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: true
+              inference: true,
             },
             # software cpe
             {
@@ -89,7 +89,7 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
 
             {
@@ -113,7 +113,7 @@ module Intrigue
               },
               paths: [{ path: "#{url}/userui/welcome.php", follow_redirects: true }],
               require_product: 'Kace Systems Management',
-              inference: true
+              inference: true,
             },
             {
               type: 'fingerprint',
@@ -135,7 +135,7 @@ module Intrigue
                                  "Kace Systems Management #{_first_header_capture(x, /^X-KACE-Appliance:(.*)$/i)}"
                                },
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             },
             {
               type: 'fingerprint',
@@ -153,7 +153,7 @@ module Intrigue
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
-              inference: false
+              inference: false,
             }
           ]
         end

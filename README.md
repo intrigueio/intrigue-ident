@@ -54,17 +54,22 @@ For Check Writers:
 
 Check types can be written against supported protocols:
  - AMQP
+ - Apache Zookeeper Atomic Broadcast (Raw)
  - Cisco Smart Install
  - DNS
  - Elasticsearch
  - FTP
+ - Ganglia (Raw)
  - HTTP / HTTPS
+ - Memcached (Raw)
  - Mongodb
  - Mysql
+ - Oracle IIOP (Raw)
  - Oracle T3 (Raw)
  - Pop3
  - RDP (Raw)
  - Redis
+ - SAP NI (Raw)
  - SMB
  - SMTP
  - SNMP

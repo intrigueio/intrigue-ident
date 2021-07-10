@@ -53,7 +53,6 @@ module Intrigue
                 { path: "#{url}/setup/unlock", follow_redirects: true }
               ],
               inference: false,
-              test_target: ['https://1.221.184.114:8443/']
             }
           ]
         end

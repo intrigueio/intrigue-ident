@@ -110,6 +110,7 @@ module Intrigue
             #and read the response
             _logg "Reading response."
             sout =  socket.readpartial(24576, timeout: timeout)
+
             if sout.is_a?(String)
               out += sout
             end
