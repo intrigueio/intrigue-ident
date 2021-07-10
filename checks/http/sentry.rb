@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[JavaScript APM],
+              tags: ['JavaScript', 'APM'],
               vendor: 'Sentry',
               product: 'Sentry',
               website: 'http://sentry.io/',
