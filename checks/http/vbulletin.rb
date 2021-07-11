@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Social'],
+              tags: ['Social', 'CMS'],
               vendor: 'vBulletin', # Jelsoft Enterprises Limited
               product: 'vBulletin',
               website: 'https://www.vbulletin.com/',
@@ -34,7 +34,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Social'],
+              tags: ['Social', 'CMS'],
               vendor: 'vBulletin',
               product: 'vBulletin',
               website: 'https://www.vbulletin.com/',
