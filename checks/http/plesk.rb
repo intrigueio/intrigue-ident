@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: "fingerprint",
-              category: "service",
-              tags: ["SaaS"],
+              category: "application",
+              tags: ["COTS"],
               vendor: "Plesk",
               product: "Plesk",
               references: [],

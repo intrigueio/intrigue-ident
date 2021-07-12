@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'service',
+              category: 'application',
               tags: ['CMS'],
               vendor: 'Moodle',
               product: 'Moodle',
@@ -25,7 +25,7 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'service',
+              category: 'application',
               tags: ['CMS'],
               vendor: 'Moodle',
               product: 'Moodle',
