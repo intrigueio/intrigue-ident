@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[CMS SaaS],
+              tags: ['CMS', 'SaaS', 'PaaS'],
               vendor: 'Flywheel',
               product: 'Hosted Wordpress',
               references: [

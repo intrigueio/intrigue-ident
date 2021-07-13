@@ -113,7 +113,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['SaaS'],
+              tags: ['IaaS', 'SaaS', 'Website'],
               vendor: 'Google',
               product: 'Google',
               website: 'https://www.google.com/',

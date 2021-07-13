@@ -8,7 +8,7 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "service",
-        tags: ["CDN","WAF"],
+        tags: ["Security", "SaaS", "WAF", "Analytics", "Cloud"],
         vendor:"Imperva",
         product:"FlexProtect (Incapsula)",
         website: "https://www.imperva.com/incapsula-moved/",
@@ -31,7 +31,7 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "service",
-        tags: ["CDN","WAF"],
+        tags: ["Security", "SaaS", "WAF", "Analytics", "Cloud"],
         vendor:"Imperva",
         product:"FlexProtect (Incapsula)",
         website: "https://www.imperva.com/incapsula-moved/",
@@ -51,7 +51,7 @@ class Incapsula < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "service",
-        tags: ["CDN","WAF"],
+        tags: ["Security", "SaaS", "WAF", "Analytics", "Cloud"],
         vendor:"Imperva",
         product:"FlexProtect (Incapsula)",
         website: "https://www.imperva.com/incapsula-moved/",

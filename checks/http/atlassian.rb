@@ -205,7 +205,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[SaaS Development SaaS],
+              tags: ['SaaS', 'Development'],
               vendor: 'Atlassian',
               product: 'Crowd',
               website: 'https://www.atlassian.com/software/crowd',

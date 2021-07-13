@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['Development', 'SaaS'],
+              category: 'service',
+              tags: ['Cloud', 'Hosting', 'Development', 'SaaS'],
               vendor: 'Github',
               product: 'Github',
               website: 'https://github.com/',
@@ -29,8 +29,8 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['Login Panel'],
+              category: 'service',
+              tags: ['Cloud', 'Hosting', 'Development', 'SaaS', 'Login Panel'],
               vendor: 'Github',
               product: 'Enterprise',
               website: 'https://github.com/',

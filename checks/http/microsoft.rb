@@ -208,7 +208,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
+              tags: ['Hosting', 'IaaS'],
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
@@ -254,7 +254,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
+              tags: ['Hosting', 'IaaS'],
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
@@ -365,7 +365,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Productivity', 'COTS', 'Mail Server'],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
@@ -853,7 +853,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity CMS],
+              tags: ['Productivity', 'CMS', 'Web Server'],
               vendor: 'Microsoft',
               product: 'Sharepoint Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',

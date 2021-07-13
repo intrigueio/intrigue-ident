@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Payments],
+              tags: ["E-Commerce", "COTS", "Payments"],
               vendor: 'Magento',
               product: 'Magento',
               website: 'https://magento.com/',
@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Payments],
+              tags: ["E-Commerce", "COTS", "Payments"],
               vendor: 'Magento',
               product: 'Magento',
               website: 'https://magento.com/',
@@ -53,7 +53,7 @@ module Intrigue
             { # also... /skin/frontend/default/default/css/styles.css
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Payments],
+              tags: ["E-Commerce", "COTS", "Payments", "JavaScript"],
               vendor: 'Magento',
               product: 'Magento',
               website: 'https://magento.com/',
@@ -73,7 +73,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Payments],
+              tags: ["E-Commerce", "COTS", "Payments"],
               vendor: 'Magento',
               product: 'Magento',
               website: 'https://magento.com/',
