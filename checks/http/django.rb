@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server', 'Login Panel'],
+              tags: ['Web Framework', 'Application Server', 'Login Panel'],
               vendor: 'Django',
               product: 'Django',
               website: 'https://www.djangoproject.com/',

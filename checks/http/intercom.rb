@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[JavaScript Support],
+              tags: ['JavaScript', 'Support', 'CRM', 'SaaS'],
               vendor: 'Intercom',
               product: 'Intercom',
               website: 'https://www.intercom.com/',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS Email],
+              tags: ['Collaboration', 'COTS', 'Email', 'Web Server'],
               vendor: 'IceWarp',
               product: 'IceWarp',
               references: ['https://www.icewarp.com/'],

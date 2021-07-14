@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Development', 'COTS', 'Login Panel'],
+              tags: ['Administrative', 'COTS', 'Login Panel'],
               vendor: 'PhpMyAdmin',
               product: 'PhpMyAdmin',
               website: 'https://www.phpmyadmin.net/',

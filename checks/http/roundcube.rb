@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Email'],
+              tags: ['Email', 'COTS'],
               vendor: 'Roundcube',
               product: 'Roundcube',
               website: 'https://roundcube.net/',
