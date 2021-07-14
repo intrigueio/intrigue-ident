@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: %w[WAF SaaS],
+              category: 'service',
+              tags: ['WAF', 'SaaS', 'DNS Server'],
               vendor: 'Neustar',
               product: 'UltraDNS',
               references: ['https://www.home.neustar/application-security'],

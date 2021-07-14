@@ -12,7 +12,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               product: 'Coldfusion',
               website: 'https://coldfusion.adobe.com/',
@@ -32,7 +32,7 @@ module Intrigue
             { # Coldfusion
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               product: 'Coldfusion',
               website: 'https://coldfusion.adobe.com/',
@@ -54,7 +54,7 @@ module Intrigue
             { # Coldfusion 6, 7
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               references: [
                 'https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/scanner/http/coldfusion_version.rb'
@@ -82,7 +82,7 @@ module Intrigue
             { # Coldfusion 10 ... this needs OR/AND ?
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               product: 'Coldfusion',
               website: 'https://coldfusion.adobe.com/',
@@ -104,7 +104,7 @@ module Intrigue
             { # Coldfusion 11 ... this needs OR/AND ?
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               product: 'Coldfusion',
               website: 'https://coldfusion.adobe.com/',
@@ -127,7 +127,7 @@ module Intrigue
             { # Generic check
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Development', 'Application Server'],
               vendor: 'Adobe',
               product: 'Coldfusion',
               website: 'https://coldfusion.adobe.com/',

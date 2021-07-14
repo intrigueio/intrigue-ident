@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[IAM SaaS Security],
+              tags: ['IAM', 'MFA', 'Security'],
               vendor: 'Okta',
               product: 'Okta',
               website: 'https://www.okta.com/',
@@ -30,7 +30,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[IAM SaaS Security],
+              tags: ['IAM', 'MFA', 'Security'],
               vendor: 'Okta',
               product: 'Okta',
               website: 'https://www.okta.com/',

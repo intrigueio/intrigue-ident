@@ -41,8 +41,8 @@ class Barracuda < Intrigue::Ident::Check::Base
       },
       {
         type: "fingerprint",
-        category: "application",
-        tags: ["WAF"],
+        category: "service",
+        tags: ["WAF", "SaaS"],
         website: "https://www.barracuda.com/products/webapplicationfirewall",
         vendor: "Barracuda",
         product: "Email Security Gateway",

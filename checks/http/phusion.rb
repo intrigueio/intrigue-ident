@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Web Server', 'Application Server'],
               vendor: 'Phusion',
               product: 'Passenger',
               website: 'https://www.phusionpassenger.com/',
@@ -29,7 +29,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Web Server', 'Application Server'],
               vendor: 'Phusion',
               product: 'Passenger',
               website: 'https://www.phusionpassenger.com/',
@@ -51,7 +51,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Web Server', 'Application Server'],
               vendor: 'Phusion',
               product: 'Passenger',
               website: 'https://www.phusionpassenger.com/',

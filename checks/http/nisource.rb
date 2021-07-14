@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'application',
-              tags: ['Web Server'],
+              category: 'service',
+              tags: ['Management', 'Web Server'],
               vendor: 'NiSource',
               product: 'NiSource',
               references: ['https://www.nisource.com/'],
@@ -20,9 +20,6 @@ module Intrigue
                   match_content: /^server:\ NiSource$/i,
                 }
               ],
-              dynamic_version: lambda { |x|
-                                 _first_header_capture(x, /^server:\ NiSource$/i)
-                               },
               hide: false,
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false

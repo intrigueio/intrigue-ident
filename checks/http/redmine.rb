@@ -6,8 +6,8 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'operating_system',
-              tags: ['OS'],
+              category: 'application',
+              tags: ['Administrative', 'Management'],
               vendor: 'Redmine',
               product: 'Redmine',
               website: 'https://www.redmine.org/',
@@ -24,8 +24,8 @@ module Intrigue
             },
             {
               type: 'fingerprint',
-              category: 'operating_system',
-              tags: ['OS'],
+              category: 'application',
+              tags: ['Administrative', 'Management'],
               vendor: 'Redmine',
               product: 'Redmine',
               website: 'https://www.redmine.org/',

@@ -8,7 +8,7 @@ class PingIdentiy < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "service",
-        tags: ["IAM"],
+        tags: ["Management", "Cloud", "Security", "PaaS"],
         vendor: "PingIdentity",
         product:"PingFederate",
         references: ["https://ping.force.com/Support/PingFederate/Administration/Single-sign-on-no-target796070NEW"],
