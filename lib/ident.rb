@@ -402,7 +402,7 @@ module Intrigue
         end
 
         if port == 6379 || port =~ /^\d?6379$/
-          ident_matches = generate_redis_request_and_check(ip_address_or_hostname) || {}
+          ident_matches = generate_redis_request_and_check(ip_address_or_hostname, port, debug = opts[:debug]) || {}
         end
 
         if port == 587 || port =~ /^\d+587$/
