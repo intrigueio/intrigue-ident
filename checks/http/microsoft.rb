@@ -736,7 +736,7 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'office 365 frontend by okta',
+              description: 'Microsoft Office 365 - (Okta) Body Match',
               version: nil,
               match_logic: :all,
               matches: [
@@ -756,18 +756,18 @@ module Intrigue
               vendor: 'Microsoft',
               product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'Microsoft Office 365 - Login Panel Title Match',
+              description: 'Microsoft Office 365 - Login Panel Head Match',
               version: nil,
-              match_logic: :any,
+              match_logic: :all,
               matches: [
                 {
                   match_type: :content_title,
-                  match_content: /Sign in to Outlook/i,
+                  match_content: /Sign in to your account/i,
                 },
                 {
-                  match_type: :content_title,
-                  match_content: /Sign in to your account/i,
-                }
+                  match_type: :content_body,
+                  match_content: /favicon_a_eupayfgghqiai7k9sol6lg2.ico/i,
+                } 
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
