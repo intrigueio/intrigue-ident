@@ -8,7 +8,7 @@ module Intrigue
         {
           type: "fingerprint",
           category: "service",
-          tags: ["Hosting"],
+          tags: ["CMS", "Hosting"],
           vendor: "uCoz",
           product: "uCoz",
           website: "https://www.ucoz.com/",

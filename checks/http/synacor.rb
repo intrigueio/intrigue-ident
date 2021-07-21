@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity COTS],
+              tags: ['Productivity', 'Cloud', 'SaaS'],
               vendor: 'Synacor',
               product: 'Zimbra Collaboration Suite',
               website: 'https://www.zimbra.com/',

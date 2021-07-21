@@ -7,12 +7,12 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Web Server', 'Proxy Server'],
-              vendor: 'CloudLinux',
+              tags: ['Security', 'Web Server', 'WAF', 'Management', 'Hosting'],
+              vendor: 'Imunify360',
               product: 'Imunify360',
               references: ['https://www.imunify360.com/blog/webshield-introduction-for-server-administrators'],
               version: nil,
-              description: 'CloudLinux Imunify360 - Server Header',
+              description: 'Imunify360 Imunify360 - Server Header',
               match_logic: :all,
               matches: [
                 {

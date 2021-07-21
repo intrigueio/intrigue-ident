@@ -102,7 +102,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Web Server', 'COTS'],
+              tags: ['Web Server', 'COTS', 'Analytics'],
               vendor: 'IBM',
               product: 'WebSEAL',
               references: ['https://www.ibm.com/support/knowledgecenter/en/SSPREK_8.0.1.2/com.ibm.isamw.doc_8.0.1.2/wrp_config/task/tsk_submt_form_data_ws.html'],
@@ -181,7 +181,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Caching Proxy', 'COTS', 'Application Server'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/danamodio/webintel'],
@@ -200,7 +200,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Caching Proxy', 'COTS', 'Application Server'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c'],
@@ -219,7 +219,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Application Server'],
+              tags: ['Caching Proxy', 'COTS', 'Application Server'],
               vendor: 'IBM',
               product: 'WebSphere',
               references: ['https://github.com/wireghoul/lbmap/commit/2d15ace54266ecf146fdf8a06f4d226398ddd19c'],

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[COTS Hosting Administrative],
+              tags: ['COTS', 'Hosting', 'Administrative'],
               vendor: 'cPanel',
               product: 'cPanel',
               website: 'https://cpanel.net/',
@@ -17,7 +17,7 @@ module Intrigue
               matches: [
                 {
                   match_type: :content_headers,
-                  match_content: /server: cPanel/i,
+                  match_content: /server: cPanel/i
                 }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
@@ -26,7 +26,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[COTS Hosting Administrative],
+              tags: ['COTS', 'Hosting', 'Administrative'],
               vendor: 'cPanel',
               product: 'cPanel Hosted - Missing Page',
               website: 'https://cpanel.net/',
@@ -36,7 +36,7 @@ module Intrigue
               matches: [
                 {
                   match_type: :content_body,
-                  match_content: %r{URL=/cgi-sys/defaultwebpage.cgi},
+                  match_content: %r{URL=/cgi-sys/defaultwebpage.cgi}
                 }
               ],
               hide: true,
@@ -46,7 +46,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[COTS Administrative],
+              tags: ['COTS', 'Hosting', 'Administrative'],
               vendor: 'cPanel',
               product: 'cPanel - Not configured',
               website: 'https://cpanel.net/',
@@ -56,7 +56,7 @@ module Intrigue
               matches: [
                 {
                   match_type: :content_body,
-                  match_content: %r{href="/cpanel">log in</a> to launch this site},
+                  match_content: %r{href="/cpanel">log in</a> to launch this site}
                 }
               ],
               hide: true,
