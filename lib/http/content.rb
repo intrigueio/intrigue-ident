@@ -4,7 +4,7 @@ module Intrigue
       module Http
 
       def _body(content)
-        _body_rendered(content) || _body_raw(content)
+        _body_raw(content)
       end
 
       def _body_raw(content)  
@@ -29,10 +29,6 @@ module Intrigue
         mmh3 = [MurmurHash3::V32.str_hash("#{newline_base64}\n")].pack('L').unpack('l').first
 
       mmh3 
-      end
-
-      def _body_rendered_checksum(content)
-        Digest::MD5.hexdigest("#{_body_rendered(content)}")
       end
 
       def _generator(content)

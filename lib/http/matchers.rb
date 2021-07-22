@@ -23,7 +23,7 @@ module Intrigue
 
           data = hash.merge({
                               'details' => {
-                                'extended_response_data' => (hash[:response_body]).to_s,
+                                'extended_response_body' => (hash[:response_body]).to_s,
                                 'response_code' => (hash[:response_code]).to_s,
                                 'start_url' => (hash[:start_url]).to_s,
                                 'final_url' => (hash[:final_url]).to_s,
@@ -124,7 +124,7 @@ module Intrigue
               elsif m[:match_type] == :content_body_raw
                 value = _body_raw(data) =~ m[:match_content] ? true : false
               elsif m[:match_type] == :content_dom
-                value = _body_rendered(data) =~ m[:match_content] ? true : false
+                value = _body_raw(data) =~ m[:match_content] ? true : false
               elsif m[:match_type] == :content_headers
                 value = _headers(data) =~ m[:match_content] ? true : false
               elsif m[:match_type] == :content_cookies
