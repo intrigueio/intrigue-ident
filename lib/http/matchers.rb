@@ -23,8 +23,7 @@ module Intrigue
 
           data = hash.merge({
                               'details' => {
-                                'hidden_response_data' => (hash[:response_body]).to_s,
-                                'hidden_response_data_binary_base64' => (hash[:response_body_binary_base64]).to_s,
+                                'extended_response_data' => (hash[:response_body]).to_s,
                                 'response_code' => (hash[:response_code]).to_s,
                                 'start_url' => (hash[:start_url]).to_s,
                                 'final_url' => (hash[:final_url]).to_s,

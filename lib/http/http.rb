@@ -307,7 +307,6 @@ module Intrigue
               ident_encode("#{x}: #{y}")
             end
           end
-          out[:response_body_binary_base64] = Base64.strict_encode64(response.body)
           out[:response_body] = ident_encode(response.body)
           out[:response_code] = response.code
 
