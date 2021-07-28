@@ -26,25 +26,25 @@ class Base
 
     # matching helpers
     def _all_body_captures(content, regex)
-      return nil unless content["details"]["hidden_response_data"] &&
-        content["details"]["hidden_response_data"].match(regex)
+      return nil unless content["details"]["extended_response_body"] &&
+        content["details"]["extended_response_body"].match(regex)
 
-      match = content["details"]["hidden_response_data"].match(regex)
+      match = content["details"]["extended_response_body"].match(regex)
       return match.captures.map{|x|x.to_s.strip} if match
 
     nil
     end
 
     def _first_body_match(content, regex)
-      return nil unless content["details"]["hidden_response_data"] &&
-        content["details"]["hidden_response_data"].match(regex)
+      return nil unless content["details"]["extended_response_body"] &&
+        content["details"]["extended_response_body"].match(regex)
 
-    content["details"]["hidden_response_data"].match(regex)
+    content["details"]["extended_response_body"].match(regex)
     end
 
     def _first_body_capture(content, regex, filter=[])
-      return nil unless content["details"]["hidden_response_data"]
-      x = content["details"]["hidden_response_data"].match(regex)
+      return nil unless content["details"]["extended_response_body"]
+      x = content["details"]["extended_response_body"].match(regex)
       if x && x.captures && !x.captures.empty?
         x = x.captures.first.strip
         filter.each{|f| x.gsub!(f,"") }
