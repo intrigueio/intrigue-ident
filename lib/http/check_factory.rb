@@ -38,7 +38,7 @@ module Intrigue
           checks_to_return = @checks.map { |x| x.new.generate_checks(url.to_s) }.flatten.compact
 
           checks_to_return.select do |x|
-            x[:require_vendor] == vendor.to_s
+            x[:require_vendor].to_s.casecmp?(vendor.to_s)
           end
         end
 
@@ -49,7 +49,7 @@ module Intrigue
           checks_to_return = @checks.map { |x| x.new.generate_checks(url.to_s) }.flatten.compact
 
           checks_to_return.select do |x|
-            x[:require_product] == product.to_s
+            x[:require_product].to_s.casecmp?(product.to_s)
           end
         end
 
@@ -60,7 +60,7 @@ module Intrigue
           checks_to_return = @checks.map { |x| x.new.generate_checks(url.to_s) }.flatten.compact
 
           checks_to_return.select do |x|
-            x[:require_vendor_product] == "#{vendor}_#{product}".downcase.gsub(' ', '_')
+            x[:require_vendor_product].to_s.casecmp?("#{vendor}_#{product}".downcase.gsub(' ', '_'))
           end
         end
 
