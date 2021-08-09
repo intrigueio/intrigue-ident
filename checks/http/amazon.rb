@@ -35,7 +35,7 @@ module Intrigue
               website: 'https://aws.amazon.com/cloudfront/',
               version: nil,
               description: 'cloudfront equest could not be satisfied',
-              match_logic: :any,
+              match_logic: :all,
               matches: [
                 {
                   match_type: :content_code,
