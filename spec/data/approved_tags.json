@@ -1,149 +1,539 @@
 {
-    "approved_http_tags": [
-        "Accounting",
-        "ADC",
-        "Admin Panel",
-        "Administrative",
-        "Analytics",
-        "API",
-        "API Gateway",
-        "API Server",
-        "APM",
-        "Appliance",
-        "Application Server",
-        "ASGI Server",
-        "Authentication Server",
-        "Authorization Server",
-        "B2B",
-        "BaaS",
-        "Cache",
-        "Caching Proxy",
-        "CDN",
-        "CI/CD",
-        "Cloud",
-        "CMS",
-        "Collaboration",
-        "Communication",
-        "Compliance",
-        "COTS",
-        "CRM",
-        "Customer Service",
-        "DAM",
-        "Database",
-        "DefaultPage",
-        "Development",
-        "DMS",
-        "DNS Server",
-        "Documentation",
-        "Domain Management",
-        "DRM",
-        "Drupal Plugin",
-        "E-Commerce",
-        "E-Learning",
-        "Ebook Server",
-        "Editor",
-        "Education",
-        "Email",
-        "Email Encryption",
-        "Embedded",
-        "Engineering",
-        "Entertainment",
-        "Extension",
-        "Fax",
-        "Finance",
-        "Firewall",
-        "Firmware",
-        "Forum",
-        "Framework",
-        "Frontend",
-        "FTP",
-        "FTP Server",
-        "Hardware",
-        "HCM",
-        "Health",
-        "Hospitality",
-        "Hosting",
-        "HR",
-        "HTTP Compression",
-        "HTTP Router",
-        "Hypervisor",
-        "IaaS",
-        "IAM",
-        "Index Server",
-        "Intranet",
-        "IoT",
-        "Issue Tracker",
-        "JavaScript",
-        "Joomla Plugin",
-        "Language",
-        "Library",
-        "LMS",
-        "Load Balancer",
-        "Login Panel",
-        "Logistics",
-        "Magento Plugin",
-        "Mail",
-        "Mail Server",
-        "Management",
-        "Marketing",
-        "MDM",
-        "Media Server",
-        "MFA",
-        "Monitoring",
-        "NAS",
-        "Network",
-        "Networking",
-        "News",
-        "Object Storage",
-        "Object Server",
-        "Organization",
-        "OS",
-        "PaaS",
-        "Package Manager",
-        "PAM",
-        "Panel",
-        "Parked",
-        "Password Manager",
-        "Payments",
-        "Platform",
-        "Printer",
-        "Productivity",
-        "Protocol",
-        "Proxy",
-        "Proxy Server",
-        "RaaS",
-        "RDBMS",
-        "Research",
-        "Reverse Proxy",
-        "Rich Text Editor",
-        "Router",
-        "SaaS",
-        "SDCH",
-        "Search",
-        "Security",
-        "SMS",
-        "Social",
-        "SSO",
-        "Storage",
-        "Support",
-        "Telecommunications",
-        "Text Editor",
-        "Travel",
-        "UTM",
-        "Video Security",
-        "Virtualization",
-        "VOD",
-        "VoIP",
-        "VPN",
-        "WAF",
-        "Web Framework",
-        "Webcam Server",
-        "Web Server",
-        "Website",
-        "Wireless",
-        "WordPress",
-        "Wordpress Plugin",
-        "Wordpress Theme",
-        "WSGI"
-    ]
+  "approved_http_tags": [
+    {
+      "name": "Accounting",
+      "description": "Automating an organisation's financial functions and transactions"
+    },
+    {
+      "name": "ADC",
+      "description": "A computer network device in a data center, helping to perform common tasks, such as load-balancing."
+    },
+    {
+      "name": "Admin Panel",
+      "description": "An administrative dashboard that can be accessed with or without authentication."
+    },
+    {
+      "name": "Administrative",
+      "description": "Expediting the storage of data and to also streamline management related tasks."
+    },
+    {
+      "name": "Analytics",
+      "description": "Providing analytical and performance measurement tools on a dataset. "
+    },
+    {
+      "name": "API",
+      "description": "Software intermediary allowing for two applications to communicate with one another."
+    },
+    {
+      "name": "API Gateway",
+      "description": "An API management tool sitting between a client and a collection of backend services"
+    },
+    {
+      "name": "API Server",
+      "description": "A lightweight Web application allowing users to create and expose APIs from data"
+    },
+    {
+      "name": "APM",
+      "description": "Software or platform tracking key software application metrics."
+    },
+    {
+      "name": "Appliance",
+      "description": "An application combined with minimal OS that can run optimally on industry standard hardware."
+    },
+    {
+      "name": "Application Server",
+      "description": "A server hosting applications."
+    },
+    {
+      "name": "ASGI Server",
+      "description": "An interface providing a standard interface between async-capable Python web servers, frameworks, and applications."
+    },
+    {
+      "name": "Authentication Server",
+      "description": "A server handling the credential verification process."
+    },
+    {
+      "name": "Authorization Server",
+      "description": "A server issuing tokens to client applications on behalf of the resource owner."
+    },
+    {
+      "name": "B2B",
+      "description": "An exchange of products, services or information between businesses, rather than between businesses and consumers."
+    },
+    {
+      "name": "BaaS",
+      "description": "A platform automating backend side development and takes care of the cloud infrastructure. "
+    },
+    {
+      "name": "Cache",
+      "description": "Aimed at storing data so that future requests for the same data can be served faster."
+    },
+    {
+      "name": "Caching Proxy",
+      "description": "A proxy server used to save an instance of frequently used content and resources, so to accelerate webpage and website requests."
+    },
+    {
+      "name": "CDN",
+      "description": "Geographically distributed group of servers working together to provide fast delivery of Internet content"
+    },
+    {
+      "name": "CI/CD",
+      "description": "A method to frequently deliver apps to customers by introducing automation into the stages of app development. "
+    },
+    {
+      "name": "Cloud",
+      "description": "On demand computing services delivered typically over the internet and on a pay-as-you-go basis."
+    },
+    {
+      "name": "CMS",
+      "description": "Manage the creation and modification of digital content."
+    },
+    {
+      "name": "Collaboration",
+      "description": "Designed to help people working on a common task to attain their goals."
+    },
+    {
+      "name": "Communication",
+      "description": "Providing remote access to systems and exchange files and messages in text, audio and/or video formats between different computers or users."
+    },
+    {
+      "name": "Compliance",
+      "description": "Software tracking, monitoring, and auditing business processes to ensure they are aligned with applicable legal, industry, and security requirements, organizational policies, plus consumer standards"
+    },
+    {
+      "name": "COTS",
+      "description": "Software or hardware commercially available off-the-shelf. "
+    },
+    {
+      "name": "CRM",
+      "description": "Customer relationship management software system helping business owners nurture their relationships with their clientele."
+    },
+    {
+      "name": "Customer Service",
+      "description": "Tool designed to deliver services that satisfy the needs, wants, or aspirations of customers. "
+    },
+    {
+      "name": "DAM",
+      "description": "Software providing a system to store, organise, retrieve and share all types of digital files including images, video, fonts and documents."
+    },
+    {
+      "name": "Database",
+      "description": "Create, edit, and maintain database files and records. "
+    },
+    {
+      "name": "DefaultPage",
+      "description": "Application's default/initial page. "
+    },
+    {
+      "name": "Development",
+      "description": "Providing an environment for developing software. "
+    },
+    {
+      "name": "DMS",
+      "description": "System used to receive, track, manage and store documents and reduce paper. "
+    },
+    {
+      "name": "DNS Server",
+      "description": "Server specifically used for matching website hostnames to their corresponding Internet Protocol or IP addresses. "
+    },
+    {
+      "name": "Documentation",
+      "description": "Allowing users to record and detail items in a document. "
+    },
+    {
+      "name": "Domain Management",
+      "description": "Management software or platform for keeping domains stable and secure. "
+    },
+    { "name": "DRM", "description": "Protect copyrights for digital media. " },
+    {
+      "name": "Drupal Plugin",
+      "description": "Plugin for use on the Drupal CMS. "
+    },
+    {
+      "name": "E-Commerce",
+      "description": "Driving all online store processes, helping owners manage inventory, add or remove products, process payments, etc..."
+    },
+    {
+      "name": "E-Learning",
+      "description": "Enabling users to develop and deliver customized training courses. "
+    },
+    {
+      "name": "Ebook Server",
+      "description": "Server giving access to libraries of books, enabling reading from various mediums. "
+    },
+    {
+      "name": "Editor",
+      "description": "Giving users ability to view or modify properties of an item. "
+    },
+    {
+      "name": "Education",
+      "description": "Providing material and resources relating to education. "
+    },
+    {
+      "name": "Email",
+      "description": "Providing access to basic email functionalities. "
+    },
+    {
+      "name": "Email Encryption",
+      "description": "Used to secure and encrypt emails. "
+    },
+    {
+      "name": "Embedded",
+      "description": "Software existing on a piece of hardware necessary for its proper function. "
+    },
+    {
+      "name": "Engineering",
+      "description": "Offering engineering services or providing management tools for the industry. "
+    },
+    {
+      "name": "Entertainment",
+      "description": "Providing users with a level of enjoyment such as games, videos, etc.."
+    },
+    {
+      "name": "Extension",
+      "description": "Enhancing or extending the capabilities of a programming language or other applications. "
+    },
+    {
+      "name": "Fax",
+      "description": "Enabling users to securely send and receive faxes. "
+    },
+    {
+      "name": "Finance",
+      "description": "Automating, assisting and storing financial information of a personal or business nature. "
+    },
+    {
+      "name": "Firewall",
+      "description": "Helping protect your network by filtering traffic and blocking outsiders from gaining unauthorized access to the private data on your computer. "
+    },
+    {
+      "name": "Firmware",
+      "description": "Providing the low-level control for a device's specific hardware. "
+    },
+    {
+      "name": "Forum",
+      "description": "Platforms that can be used to bring your audience together and allow them to connect with each other. "
+    },
+    {
+      "name": "Framework",
+      "description": "Tool allowing to develop software and create systems. "
+    },
+    {
+      "name": "Frontend",
+      "description": "Interface that clients can interact with. "
+    },
+    {
+      "name": "FTP",
+      "description": "Allowing transferring of files between computers. "
+    },
+    {
+      "name": "FTP Server",
+      "description": "Server handling the transferring of files between host and client. "
+    },
+    {
+      "name": "Hardware",
+      "description": "Physical component of a piece of tech. "
+    },
+    {
+      "name": "HCM",
+      "description": "Helping employers manage and look after their employees. "
+    },
+    {
+      "name": "Health",
+      "description": "Managing or tracking the livelihood and health of users. "
+    },
+    {
+      "name": "Hospitality",
+      "description": "Offering hospitality services or assisting in management of the industry. "
+    },
+    {
+      "name": "Hosting",
+      "description": "Providing hosting capabilities for your product. "
+    },
+    {
+      "name": "HR",
+      "description": "Management of the human resource aspect of an organization. "
+    },
+    {
+      "name": "HTTP Compression",
+      "description": "Improve transfer speed and bandwidth utilization, typically built into web servers and clients. "
+    },
+    {
+      "name": "HTTP Router",
+      "description": "Hardware serving to route HTTP traffic. "
+    },
+    {
+      "name": "Hypervisor",
+      "description": "Virtual Machine Monitor or Emulator"
+    },
+    {
+      "name": "IaaS",
+      "description": "Offering essential compute, storage and networking resources on demand. "
+    },
+    {
+      "name": "IAM",
+      "description": "Management of roles and identities to a particular resource. "
+    },
+    {
+      "name": "Index Server",
+      "description": "Server maintaining an index of files on a computer. "
+    },
+    {
+      "name": "Intranet",
+      "description": "Local or restricted communications network. "
+    },
+    {
+      "name": "IoT",
+      "description": "Embedded with sensors, software, and other technologies that is used for the purpose of connecting and exchanging data with other devices and systems over the Internet."
+    },
+    { "name": "Issue Tracker", "description": "Track and monitor issues. " },
+    {
+      "name": "JavaScript",
+      "description": "Tool or library built on and for JavaScript. "
+    },
+    { "name": "Joomla Plugin", "description": "Plugin to be used on Joomla. " },
+    {
+      "name": "Language",
+      "description": "Typically refers to a programming language. "
+    },
+    {
+      "name": "Library",
+      "description": "Collection of precompiled routines that a program can use. "
+    },
+    {
+      "name": "LMS",
+      "description": "Framework handling all aspects of learning"
+    },
+    {
+      "name": "Load Balancer",
+      "description": "Distributing connections from clients between a set of servers"
+    },
+    {
+      "name": "Login Panel",
+      "description": "A panel that requires a user to authenticate before proceeding any further. "
+    },
+    {
+      "name": "Logistics",
+      "description": "Management of aspects in the logistics industry or providing the service itself. "
+    },
+    {
+      "name": "Magento Plugin",
+      "description": "Plugin to be used on Magento. "
+    },
+    { "name": "Mail", "description": "Providing E-mail capabilities. " },
+    {
+      "name": "Mail Server",
+      "description": "Server managing the transferring E-mails. "
+    },
+    {
+      "name": "Management",
+      "description": "Providing control and/or monitoring over some entity. "
+    },
+    {
+      "name": "Marketing",
+      "description": "Helping businesses execute campaigns, tap into their target markets and convert leads into sales."
+    },
+    {
+      "name": "MDM",
+      "description": "Gives administrative access/control over mobile devices. "
+    },
+    {
+      "name": "Media Server",
+      "description": "Server distributing various media entities. "
+    },
+    {
+      "name": "MFA",
+      "description": "Providing a service or platform supporting Multi-Factor Authentication. "
+    },
+    {
+      "name": "Monitoring",
+      "description": "Providing security, tracking and surveying capabilities. "
+    },
+    {
+      "name": "NAS",
+      "description": "Storage server connected to a computer network providing data access. "
+    },
+    { "name": "Network", "description": "Sharing of resources via nodes. " },
+    {
+      "name": "Networking",
+      "description": "Allowing for communication between machines to share resources. "
+    },
+    {
+      "name": "News",
+      "description": "Collection of news items or distribution of it. "
+    },
+    {
+      "name": "Object Storage",
+      "description": "Computer data storage architecture that manages data as objects. "
+    },
+    {
+      "name": "Object Server",
+      "description": "Server holding and managing data as objects. "
+    },
+    {
+      "name": "Organization",
+      "description": "Optimizing your daily task performance"
+    },
+    { "name": "OS", "description": "Operating System. " },
+    {
+      "name": "PaaS",
+      "description": "Providing a complete cloud platform—hardware, software, and infrastructure for various purposes. "
+    },
+    {
+      "name": "Package Manager",
+      "description": "Management software for keeping packages on a machine up-to-date."
+    },
+    {
+      "name": "PAM",
+      "description": "Software designating special access or abilities above and beyond that of a standard user. "
+    },
+    { "name": "Panel", "description": "Generic dashboard. " },
+    { "name": "Parked", "description": "" },
+    {
+      "name": "Password Manager",
+      "description": "Management software to keep a hold of passwords. "
+    },
+    {
+      "name": "Payments",
+      "description": "Offering a platform to accept and make payment transactions. "
+    },
+    {
+      "name": "Platform",
+      "description": "Generic platform for a particular purpose (NOT AS A SERVICE). "
+    },
+    { "name": "Printer", "description": "Possessing printing capabilities. " },
+    {
+      "name": "Productivity",
+      "description": "Software used for producing information. "
+    },
+    {
+      "name": "Protocol",
+      "description": "A rule set for formatting and processing data. "
+    },
+    {
+      "name": "Proxy",
+      "description": "Filters traffic between networks or protocols. "
+    },
+    {
+      "name": "Proxy Server",
+      "description": "Server translating traffic between networks or protocols."
+    },
+    {
+      "name": "RaaS",
+      "description": "Software as a service provided over the internet by criminals to attack IT systems and get paid ransom for it. "
+    },
+    {
+      "name": "RDBMS",
+      "description": "Management system for Relational Databases. "
+    },
+    {
+      "name": "Research",
+      "description": "Offering research services or assisting in management of the industry. "
+    },
+    {
+      "name": "Reverse Proxy",
+      "description": "Allowing for retrieval resources on behalf of a client from one or more servers. "
+    },
+    {
+      "name": "Rich Text Editor",
+      "description": "Interface for editing rich text within web browsers. "
+    },
+    {
+      "name": "Router",
+      "description": "Hardware serving to route something. "
+    },
+    {
+      "name": "SaaS",
+      "description": "Software licensed on a subscription basis and is centrally hosted. "
+    },
+    { "name": "SDCH", "description": "Data compression algorithm. " },
+    { "name": "Search", "description": "Providing searching capabilities. " },
+    { "name": "Security", "description": "Providing security capabilities. " },
+    {
+      "name": "SMS",
+      "description": "Providing a service handling the transmission of SMS."
+    },
+    {
+      "name": "Social",
+      "description": "Providing a platform or service to interact with other parties on the internet. "
+    },
+    {
+      "name": "SSO",
+      "description": "Permitting a user to use one set of login credentials"
+    },
+    { "name": "Storage", "description": "Providing storage capabilities. " },
+    {
+      "name": "Support",
+      "description": "Tools used to provide assistance to clients. "
+    },
+    {
+      "name": "Telecommunications",
+      "description": "Offering telecommunications services or assisting in management of the industry. "
+    },
+    { "name": "Text Editor", "description": "View and modify texts. " },
+    {
+      "name": "Travel",
+      "description": "Offering travel services or assisting in management of the industry. "
+    },
+    {
+      "name": "UTM",
+      "description": "Tracking the effectiveness of online marketing campaigns across traffic sources and publishing media. "
+    },
+    {
+      "name": "Video Security",
+      "description": "Handling security through visualization. "
+    },
+    {
+      "name": "Virtualization",
+      "description": "Creating useful IT services using resources that are traditionally bound to hardware."
+    },
+    {
+      "name": "VOD",
+      "description": "Media distribution system allowinng users to access videos without a traditional video playback device. "
+    },
+    {
+      "name": "VoIP",
+      "description": "Providing the delivery of voice communications and multimedia sessions over Internet Protocol networks. "
+    },
+    {
+      "name": "VPN",
+      "description": "Gives online privacy and anonymity by creating a private network from a public internet connection. "
+    },
+    {
+      "name": "WAF",
+      "description": "Web application firewall filtering and monitoring HTTP traffic. "
+    },
+    {
+      "name": "Web Framework",
+      "description": "Developmental tool and library providing ease of creation of websites. "
+    },
+    {
+      "name": "Webcam Server",
+      "description": "Server linked directly to a hardware webcam for storage purposes. "
+    },
+    {
+      "name": "Web Server",
+      "description": "Software or hardware that accepts requests via HTTP. "
+    },
+    { "name": "Website", "description": "Homepage or static website. " },
+    {
+      "name": "Wireless",
+      "description": "Providing the ability to transfer of information between points without the need of a wired connection. "
+    },
+    {
+      "name": "WordPress",
+      "description": "A CMS by the name of Wordpress allowing for publishing of content. "
+    },
+    {
+      "name": "Wordpress Plugin",
+      "description": "Plugin to be applied on a Wordpress Website. "
+    },
+    {
+      "name": "Wordpress Theme",
+      "description": "Theme to be applied on a Wordpress website. "
+    },
+    {
+      "name": "WSGI",
+      "description": "Interface describing how a web server communicates with web applications. "
+    }
+  ]
 }
