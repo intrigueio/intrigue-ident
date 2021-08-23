@@ -387,7 +387,10 @@
       "description": "Software designating special access or abilities above and beyond that of a standard user. "
     },
     { "name": "Panel", "description": "Generic dashboard. " },
-    { "name": "Parked", "description": "" },
+    {
+      "name": "Parked",
+      "description": "Redirection to an occupied domain with a static page. "
+    },
     {
       "name": "Password Manager",
       "description": "Management software to keep a hold of passwords. "
