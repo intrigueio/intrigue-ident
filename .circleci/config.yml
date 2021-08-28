@@ -8,7 +8,16 @@ workflows:
     jobs:
       - build-intrigue-ident:
           context:
-              - Build Context (Low Security) 
+              - Build Context (Low Security)
+      - security-scan-intrigue-ident:
+          requires:
+            - build-intrigue-ident
+          context:
+              - SecurityTesting Context
+          filters:
+              branches:
+                only:
+                  - main
       - deploy-intrigue-ident:
           requires:
             - build-intrigue-ident
@@ -63,6 +72,18 @@ jobs:
                 }
               ]
             }
+  security-scan-intrigue-ident:
+    docker:
+      - image: circleci/ruby:2.7.2-browsers
+    steps:
+      - checkout
+      - run:
+          name: Run whitesource
+          command:  | 
+            bundle install
+            curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
+            echo Unified Agent downloaded successfully
+            java -jar wss-unified-agent.jar -project intrigue-ident -d ./
   deploy-intrigue-ident:
     docker:
       - image: circleci/ruby:2.7.2

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Web Server'],
+              tags: ['Management', 'Web Server'],
               vendor: 'MicroFocus',
               product: 'BSM',
               references: ['https://docs.microfocus.com/SM/9.60/Codeless/Content/integrations/business_service_management/concepts/hp_business_service_management.htm'],

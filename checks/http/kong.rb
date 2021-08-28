@@ -7,8 +7,8 @@ module Intrigue
       [
         {
           type: "fingerprint",
-          category: "application",
-          tags: ["API"],
+          category: "service",
+          tags: ['Networking', 'Proxy', 'API'],
           vendor: "Kong",
           product:"Kong",
           description:"server header",
@@ -30,8 +30,8 @@ module Intrigue
         #
         {
           type: "fingerprint",
-          category: "application",
-          tags: ["API"],
+          category: "service",
+          tags: ['Networking', 'Proxy', 'API'],
           vendor: "Kong",
           product:"Kong",
           description:"no match body",

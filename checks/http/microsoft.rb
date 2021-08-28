@@ -208,7 +208,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
+              tags: ['Hosting', 'IaaS'],
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
@@ -254,7 +254,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Hosting', 'Load Balancer', 'IaaS'],
+              tags: ['Hosting', 'IaaS'],
               vendor: 'Microsoft',
               product: 'Azure',
               website: 'https://azure.microsoft.com/',
@@ -365,7 +365,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Productivity', 'COTS', 'Mail Server'],
+              tags: ['Productivity', 'COTS', 'Mail Server', 'Email'],
               vendor: 'Microsoft',
               product: 'Exchange Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/exchange/email',
@@ -686,18 +686,26 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Productivity SaaS],
+              tags: ['Productivity', 'SaaS', 'Login Panel'],
               vendor: 'Microsoft',
               product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'office 365 api unique header',
+              description: 'Microsoft Office 365 - Login Panel Headers Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_headers,
                   match_content: /x-ms-server-fqdn/i,
-                }
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /x-ms-ests-server:/i,
+                },
+                {
+                  match_type: :content_headers,
+                  match_content: /x-ms-clitelem:/i,
+                },
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -705,13 +713,13 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Productivity SaaS],
+              tags: ['Productivity', 'SaaS', 'Login Panel'],
               vendor: 'Microsoft',
-              product: 'Office 365 API',
+              product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'office 365 api auth cookie',
+              description: 'Microsoft Office 365 - Login Panel Cookies Match',
               version: nil,
-              match_logic: :all,
+              match_logic: :any,
               matches: [
                 {
                   match_type: :content_cookies,
@@ -724,11 +732,11 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Productivity SaaS],
+              tags: ['Productivity', 'SaaS'],
               vendor: 'Microsoft',
               product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'office 365 fronted by okta',
+              description: 'Microsoft Office 365 - (Okta) Body Match',
               version: nil,
               match_logic: :all,
               matches: [
@@ -744,18 +752,22 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: %w[Productivity SaaS],
+              tags: ['Productivity', 'SaaS', 'Login Panel'],
               vendor: 'Microsoft',
-              product: 'Microsoft Outlook (Office 365)',
+              product: 'Office 365',
               website: 'https://www.office.com/',
-              description: 'office 365 outlook signin',
+              description: 'Microsoft Office 365 - Login Panel Head Match',
               version: nil,
               match_logic: :all,
               matches: [
                 {
                   match_type: :content_title,
-                  match_content: /Sign in to Outlook/i,
-                }
+                  match_content: /Sign in to your account/i,
+                },
+                {
+                  match_type: :content_body,
+                  match_content: /favicon_a_eupayfgghqiai7k9sol6lg2.ico/i,
+                } 
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
@@ -853,7 +865,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Productivity CMS],
+              tags: ['Productivity', 'CMS', 'Web Server'],
               vendor: 'Microsoft',
               product: 'Sharepoint Server',
               website: 'https://www.microsoft.com/en-gb/microsoft-365/sharepoint/collaboration',

@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[COTS Development],
+              tags: ['COTS', 'Development', 'Web Server'],
               vendor: 'Gunicorn',
               product: 'Gunicorn',
               website: 'https://gunicorn.org/',
@@ -21,7 +21,7 @@ module Intrigue
                 }
               ],
               dynamic_version: lambda { |x|
-                _first_header_capture(x, %r{server: gunicorn/(.*)})
+                _first_header_capture(x, %r{server: gunicorn/(\d+(\.\d+)*)$})
               },
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: true

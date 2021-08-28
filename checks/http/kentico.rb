@@ -10,7 +10,7 @@ module Intrigue
               tags: ['CMS'],
               website: 'https://www.kentico.com/',
               vendor: 'Kentico',
-              product: 'Kentico CMS',
+              product: 'Kentico',
               references: ['https://docs.kentico.com/k11/configuring-kentico/adding-cookie-law-consent-to-web-pages/reference-kentico-cookies'],
               version: nil,
               match_logic: :all,

@@ -15,7 +15,9 @@ describe 'Intrigue' do
                  end.map { |x| x.new.generate_checks('[uri]') }.flatten
 
     # Array of all approved tags
-    approved_http_tags = JSON.parse(File.read('spec/data/approved_tags.json'))['approved_http_tags']
+    approved_http_tags = JSON.parse(File.read('spec/data/approved_tags.json'))['approved_http_tags'].map do |x|
+      x['name']
+    end
 
     it 'should load Http checks' do
       checks = Intrigue::Ident::Http::CheckFactory.checks.map { |x| x.new.generate_checks('[uri]') }.flatten
@@ -65,7 +67,7 @@ describe 'Intrigue' do
         # expect(check).to have_key(:dynamic_version)
         # expect(check).to have_key(:dynamic_update)
         # expect(check).to have_key(:version)
-        #expect(check).to have_key(:inference)
+        # expect(check).to have_key(:inference)
         # expect(check).to have_key(:hide)
         # expect(check).to have_key(:test_target)
       end

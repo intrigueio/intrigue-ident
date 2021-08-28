@@ -301,10 +301,10 @@ module Intrigue
                 ident_encode("#{x}: #{y}")
               end
             end
+
             z[:response_body_binary_base64] = Base64.strict_encode64(z[:response_object].body)
             z[:response_body] = ident_encode(z[:response_object].body)
             z[:response_code] = z[:response_object].code
-
             # z[:response_certificate] = certificate_hash //where does this come from?
           end
         end

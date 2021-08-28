@@ -20,7 +20,7 @@ module Intrigue
                 }
               ],
               dynamic_version: lambda { |x|
-                _first_header_capture(x, %r{^Server: Apache.*Communique/(\d\.+)}i)
+                _first_header_capture(x, %r{^Server: Apache.*Communique/(\d+(\.\d+)*)}i)
               },
               description: 'Apache module from server header',
               hide: false,
