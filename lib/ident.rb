@@ -360,7 +360,7 @@ module Intrigue
         ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {} if port == 53 || port =~ /^\d+53$/
 
         if port == 9200 || port =~ /^\d?920\d$/
-          ident_matches = generate_elastic_search_request_and_check(ip_address_or_hostname) || {}
+          ident_matches = generate_elastic_search_request_and_check(ip_address_or_hostname, port, opts[:debug]) || {}
         end
 
         ident_matches = generate_ftp_request_and_check(ip_address_or_hostname) || {} if port == 21 || port =~ /^\d+21$/
