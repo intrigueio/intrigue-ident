@@ -374,6 +374,25 @@ module Intrigue
               category: 'application',
               tags: ['Web Server'],
               vendor: 'Apache',
+              product: 'MyFaces',
+              references: ['https://myfaces.apache.org/#/'],
+              description: 'myfaces specific cookie',
+              version: nil,
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_cookies,
+                  match_content: /oam.Flash.RENDERMAP.TOKEN=/i,
+                }
+              ],
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Web Server'],
+              vendor: 'Apache',
               product: 'Pivotal Web Server',
               references: ['https://webserver.docs.pivotal.io/doc/60/topics/overview.html'],
               description: 'Apache Pivotal Web Server - Server Header',
