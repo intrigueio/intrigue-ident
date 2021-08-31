@@ -170,7 +170,7 @@ module Intrigue
               product: '.NET Framework',
               website: 'https://dotnet.microsoft.com/',
               description: 'trace.axd version',
-              version: nil, 
+              version: nil,
               match_logic: :all,
               matches: [
                 {
@@ -537,6 +537,42 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
+              tags: ['Web Server', 'DefaultPage'],
+              vendor: 'Microsoft',
+              product: 'Internet Information Services',
+              website: 'https://www.iis.net/',
+              description: 'default page image',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_body,
+                  match_content: %r{\<img\ src=\"iisstart\.png\"},
+                }
+              ],
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
+              tags: ['Web Server', 'DefaultPage'],
+              vendor: 'Microsoft',
+              product: 'Internet Information Services',
+              website: 'https://www.iis.net/',
+              description: 'default page title',
+              match_logic: :all,
+              matches: [
+                {
+                  match_type: :content_title,
+                  match_content: %r{^IIS Windows$},
+                }
+              ],
+              paths: [{ path: url.to_s, follow_redirects: true }],
+              inference: false
+            },
+            {
+              type: 'fingerprint',
+              category: 'application',
               tags: ['Web Server'],
               vendor: 'Microsoft',
               product: 'Internet Information Services',
@@ -767,7 +803,7 @@ module Intrigue
                 {
                   match_type: :content_body,
                   match_content: /favicon_a_eupayfgghqiai7k9sol6lg2.ico/i,
-                } 
+                }
               ],
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false
