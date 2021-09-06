@@ -368,6 +368,13 @@ module Intrigue
         # if scheme was provided by original uri use that, otherwise default to "http"
         scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
         path = opts.key?(:path) ? opts[:path] : ""
+
+        # handle ipv6 here... note that this is needed for urls, as well as the
+        # fallback-to-http situation below
+        if ip_address_or_hostname =~ /:/
+          ip_address_or_hostname = "[#{ip_address_or_hostname}]"
+        end
+
         url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
 
         if port == 80 || port =~ /^\d+80$/ || port == 443 || port =~ /^\d+443$/
