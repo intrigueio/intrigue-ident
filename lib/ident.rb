@@ -357,7 +357,7 @@ module Intrigue
       # Fingerprint by hostname and port ... note that you should generally
       # be using fingerprint_uri vs fingerprint_service
       #
-      def _fingerprint_service(ip_address_or_hostname, port, opts = {})
+      def fingerprint_service(ip_address_or_hostname, port, opts = {})
         ident_matches = nil
 
         ###
