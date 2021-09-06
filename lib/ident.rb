@@ -357,32 +357,48 @@ module Intrigue
       #
       def fingerprint_service(ip_address_or_hostname, port, opts = {})
         ident_matches = nil
-        ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {} if port == 53 || port =~ /^\d+53$/
+
+        ###
+        ### First handle HTTP/S, since it requires a good bit more setup
+        ###
+
+        ### calculate a url that gets used below
+        # if scheme was provided by original uri use that, otherwise default to "http"
+        scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
+        path = opts.key?(:path) ? opts[:path] : ""
+
+        # handle ipv6 for here ... if it's a url, we need to specify the brackets
+        # around the ip address or hostname
+        if ip_address_or_hostname =~ /:/ # ipv6
+          url = "#{scheme}://[#{ip_address_or_hostname}]:#{port}#{path}"
+        else
+          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
+        end
+
+        if port == 80 || port =~ /^\d+80$/
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
+        end
+
+        if port == 443 || port =~ /^\d+443$/
+          # override scheme vs recalculateing
+          url = url.gsub(/^http/, "https")
+          ident_matches = generate_http_requests_and_check(url, opts) || {}
+        end
+
+        ###
+        ### Now handle the rest of the protocols, they just take an ip address / prot
+        ###
+
+        if port == 53 || port =~ /^\d+53$/
+          ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {}
+        end
 
         if port == 9200 || port =~ /^\d?920\d$/
           ident_matches = generate_elastic_search_request_and_check(ip_address_or_hostname, port, opts[:debug]) || {}
         end
 
-        ident_matches = generate_ftp_request_and_check(ip_address_or_hostname) || {} if port == 21 || port =~ /^\d+21$/
-
-        if port == 80 || port =~ /^\d+80$/
-
-          # if scheme was provided by original uri use that, otherwise default to "http"
-          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
-          path = opts.key?(:path) ? opts[:path] : ""
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
-
-          ident_matches = generate_http_requests_and_check(url, opts) || {}
-        end
-
-        if port == 443 || port =~ /^\d+443$/
-
-          # if scheme was provided by original uri use that, otherwise default to "https"
-          scheme = opts.key?(:scheme) ? opts[:scheme] : "https"
-          path = opts.key?(:path) ? opts[:path] : ""
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
-
-          ident_matches = generate_http_requests_and_check(url, opts) || {}
+        if port == 21 || port =~ /^\d+21$/
+          ident_matches = generate_ftp_request_and_check(ip_address_or_hostname) || {}
         end
 
         if port == 143 || port =~ /^\d+143$/
@@ -405,7 +421,7 @@ module Intrigue
           ident_matches = generate_redis_request_and_check(ip_address_or_hostname, port, debug = opts[:debug]) || {}
         end
 
-        if port == 587 || port =~ /^\d+587$/
+        if port == 25 || port =~ /^\d+25$/ || port == 587 || port =~ /^\d+587$/
           ident_matches = generate_smtp_request_and_check(ip_address_or_hostname) || {}
         end
 
@@ -413,7 +429,9 @@ module Intrigue
           ident_matches = generate_snmp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {} if port == 22 || port =~ /^\d+22$/
+        if port == 22 || port =~ /^\d+22$/ ||
+          ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {}
+        end
 
         if port == 23 || port =~ /^\d+23$/
           ident_matches = generate_telnet_request_and_check(ip_address_or_hostname) || {}
@@ -436,19 +454,15 @@ module Intrigue
           ident_matches = generate_ip_requests_and_check(ip_address_or_hostname, port) || {}
         end
 
-
         ###
-        ### But default to HTTP through each known port
+        ### Now, finally, default to checking HTTP for anything we don't yet know about, since it's
+        ### the most common protocol, and we don't want to miss something simple
         ###
         if ident_matches
           return ident_matches # return right away if we a FP
         else
-          # if scheme was provided by original uri use that, otherwise default to "http"
-          scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
-          path = opts.key?(:path) ? opts[:path] : ""
 
-          # create url and fingerprint it
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
+          # just fingerprint it as a url
           ident_matches = generate_http_requests_and_check(url, opts) || {}
 
           # if we didnt fail, pull out the FP and match to vulns
@@ -486,7 +500,7 @@ module Intrigue
         when 'redis'
           6379
         when 'smtp'
-          587
+          25
         when 'snmp'
           161
         when 'ssh'
