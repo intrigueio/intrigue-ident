@@ -351,10 +351,8 @@ module Intrigue
         opts[:path] = x.path
 
         # fingerprint it
-        _fingerprint_service(hostname, port, opts)
+        fingerprint_service(hostname, port, opts)
       end
-
-      private
 
       # Fingerprint by hostname and port ... note that you should generally
       # be using fingerprint_uri vs fingerprint_service
@@ -370,14 +368,7 @@ module Intrigue
         # if scheme was provided by original uri use that, otherwise default to "http"
         scheme = opts.key?(:scheme) ? opts[:scheme] : "http"
         path = opts.key?(:path) ? opts[:path] : ""
-
-        # handle ipv6 for here ... if it's a url, we need to specify the brackets
-        # around the ip address or hostname
-        if ip_address_or_hostname =~ /:/ # ipv6
-          url = "#{scheme}://[#{ip_address_or_hostname}]:#{port}#{path}"
-        else
-          url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
-        end
+        url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
 
         if port == 80 || port =~ /^\d+80$/ || port == 443 || port =~ /^\d+443$/
           ident_matches = generate_http_requests_and_check(url, opts) || {}
@@ -474,6 +465,8 @@ module Intrigue
 
         out
       end
+
+      private
 
       def _sanitize_string(string)
         # return nil if string is empty, to allow valid version comparison.
