@@ -299,6 +299,7 @@ $ident_dir = File.expand_path('../', File.dirname(__FILE__))
 module Intrigue
   module Ident
     class Ident
+
       # list all checks
       def list_checks(path = '[URI]')
         Intrigue::Ident::Http::CheckFactory.checks.map do |x|
@@ -336,13 +337,13 @@ module Intrigue
         ).flatten
       end
 
-      # This is the main  interface for interaction going foward!!!
+      # This is the main interface for ident interaction going foward!!!
       #
       # Fingerprint by uri
       #
       def fingerprint_uri(uri, opts = {})
         x = URI.parse(uri)
-        port = x.port || _service_to_port(x.scheme)
+        port = x.port
         hostname = x.host
 
         # set scheme and path as options
@@ -350,12 +351,15 @@ module Intrigue
         opts[:path] = x.path
 
         # fingerprint it
-        fingerprint_service(hostname, port, opts)
+        _fingerprint_service(hostname, port, opts)
       end
 
-      # Fingerprint by hostname and port
+      private
+
+      # Fingerprint by hostname and port ... note that you should generally
+      # be using fingerprint_uri vs fingerprint_service
       #
-      def fingerprint_service(ip_address_or_hostname, port, opts = {})
+      def _fingerprint_service(ip_address_or_hostname, port, opts = {})
         ident_matches = nil
 
         ###
@@ -375,13 +379,7 @@ module Intrigue
           url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
         end
 
-        if port == 80 || port =~ /^\d+80$/
-          ident_matches = generate_http_requests_and_check(url, opts) || {}
-        end
-
-        if port == 443 || port =~ /^\d+443$/
-          # override scheme vs recalculateing
-          url = url.gsub(/^http/, "https")
+        if port == 80 || port =~ /^\d+80$/ || port == 443 || port =~ /^\d+443$/
           ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
@@ -429,7 +427,7 @@ module Intrigue
           ident_matches = generate_snmp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 22 || port =~ /^\d+22$/ ||
+        if port == 22 || port =~ /^\d+22$/
           ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {}
         end
 
@@ -468,52 +466,13 @@ module Intrigue
           # if we didnt fail, pull out the FP and match to vulns
           ident_fingerprints = ident_matches['fingerprint'] || []
 
+          # TODO ... are we missing vuln matching here?
+
           # merge them
           out = ident_matches.merge({ 'fingerprint' => ident_fingerprints })
         end
 
         out
-      end
-
-      private
-
-      def _service_to_port(service_name)
-        case service_name
-        when 'dns'
-          53
-        when 'elasticsearch'
-          9200
-        when 'ftp'
-          21
-        when 'http'
-          80
-        when 'https'
-          443
-        when 'imap'
-          143
-        when 'mongodb'
-          27_017
-        when 'mysql'
-          3306
-        when 'pop3'
-          110
-        when 'redis'
-          6379
-        when 'smtp'
-          25
-        when 'snmp'
-          161
-        when 'ssh'
-          22
-        when 'smb'
-          445
-        when 'telnet'
-          23
-        when 'amqp'
-          5672
-        else
-          raise 'Unkown service'
-        end
       end
 
       def _sanitize_string(string)

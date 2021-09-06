@@ -219,11 +219,8 @@ def check_single_uri(opts)
 
   uri = opts[:uri]
 
-  # parse the uri and fingerprint it
-  u = URI.parse(uri)
-  check_result = Intrigue::Ident::Ident.new.fingerprint_service(u.host, u.port, opts)
-
-  require 'pry'; binding.pry
+  # parse the uri and fingerprint it through the main interface
+  check_result = Intrigue::Ident::Ident.new.fingerprint_uri(uri, opts)
 
   if @debug
     unless check_result['initial_checks'].empty?
@@ -234,6 +231,7 @@ def check_single_uri(opts)
       print_debug 'Also checked the following urls due to initial fingerprint:'
       check_result['followon_checks'].each { |x| print_debug " - #{x['url']}\n" }
     end
+
   end
 
   unless check_result
@@ -247,15 +245,17 @@ def check_single_uri(opts)
     check_result['fingerprint'].each do |x|
       # Print it out
       print " - #{x['vendor']} #{x['product']} #{x['version']} #{x['update']} - #{x['description']} (CPE: #{x['cpe']}) (Tags: #{x['tags']}) (Hide: #{x['hide']}) (Issues: #{x['issues']}) (Tasks: #{x['tasks']})"
-      next unless query_vulns
-      vulns = Intrigue::Vulndb::Client.query(ENV['INTRIGUEIO_KEY'], x['cpe']) || []
 
+      # VULN QUERY PER FP
+      next unless query_vulns # only proceed withthis section if we have vuln querying enabled
+      vulns = Intrigue::Vulndb::Client.query(ENV['INTRIGUEIO_KEY'], x['cpe']) || []
       vulns.sort_by { |x| x['cvss_v3_score'] || x['cvss_v2_score'] || 1 }.reverse.first(5).each do |v|
         print "   - Vuln: #{v['cve']} (CVSS: #{v['cvss_v3_score'] || v['cvss_v2_score']}) https://nvd.nist.gov/vuln/detail/#{v['cve']}"
       end
+
     end
   elsif !@json
-    print 'No fingerprintable technologies discovered!'
+    print 'No fingerprint-able technologies discovered!'
   end
 
   if opts[:content] && (check_result['content'])
