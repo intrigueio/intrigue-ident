@@ -41,7 +41,7 @@ module Intrigue
 
         # now we have them organized by a single path, group them up so we only
         # have to make a single request per unique path
-        grouped_initial_checks = initial_checks_by_path.group_by { |x| [x[:unique_path], x[:follow_redirects]] }
+        grouped_initial_checks = initial_checks_by_path.group_by { |x| [x[:unique_path]] }
 
         # allow us to only select the base path (speeds things up)
         grouped_initial_checks = grouped_initial_checks.select { |x, _y| x == url } if only_base
@@ -99,7 +99,7 @@ module Intrigue
         end.flatten
 
         # group'm as needed to run the checks
-        grouped_followon_checks = followon_checks_by_path.group_by { |x| [x[:unique_path], x[:follow_redirects]] }
+        grouped_followon_checks = followon_checks_by_path.group_by { |x| [x[:unique_path]] }
 
         # allow us to only select the base path (speeds things up)
         grouped_followon_checks = grouped_followon_checks.select { |x, _y| x == url } if only_base
@@ -167,35 +167,37 @@ module Intrigue
 
           # this block should be moved to a sanitise uri function
           # if the user adds too many // to the url this will remove them
-          target_url = URI.parse(target_url)
-          target_url.path.squeeze!('/')
+          target_url = squeez_url(target_url)
           #
           # get the response using a normal http request
           puts "Getting #{target_url}" if debug
-          response_hash = ident_http_request :get, target_url.to_s, nil, {}, nil, follow_redirects
+          response_hash = ident_http_request :get, target_url, nil, {}, nil, debug
 
-          if response_hash[:timeout]
-            puts "ERROR timed out on #{target_url}" if debug
-            timeout_count += 1
+          response_hash.each do |x|
+            next unless x
+
+            if x[:timeout]
+              puts "ERROR timed out on #{x[:final_url]}" if debug
+              timeout_count += 1
+            end
+            responses << x
+
+            checks.each do |check|
+              # if we have a check that should match the dom, run it
+              if check[:match_type] == :content_dom
+                # skip it, no longer supported.
+              else # otherwise use the normal flow
+                results << match_http_response_hash(check, x)
+              end
+            end
           end
 
-          responses << response_hash
-
           # Go ahead and match it up if we got a response!
-          next unless response_hash
 
           # call each check, collecting the product if it's a match
           ###
           ### APPLY THE IDENT!
           ###
-          checks.each do |check|
-            # if we have a check that should match the dom, run it
-            if check[:match_type] == :content_dom
-              # skip it, no longer supported.
-            else # otherwise use the normal flow
-              results << match_http_response_hash(check, response_hash)
-            end
-          end
         end
 
         # Return all matches, minus the nils (non-matches), and grouped by check type
@@ -226,7 +228,7 @@ module Intrigue
         string.force_encoding('ISO-8859-1').encode('UTF-8').gsub("\u0000", '')
       end
 
-      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, follow_redirects = true, _attempts_limit = 3, timeout = 10)
+      def ident_http_request(method, uri_string, credentials = nil, headers = {}, data = nil, _attempts_limit = 3, timeout = 10, debug)
         # set user agent unless one was provided
         unless headers['User-Agent']
           headers['User-Agent'] =
@@ -238,35 +240,21 @@ module Intrigue
 
           # always
           options[:timeout] = timeout
-          options[:ssl_verifyhost] = 0
-          options[:ssl_verifypeer] = false
-
-          # follow redirects if we're told
-          options[:followlocation] = true if follow_redirects
-
           # if we're a post, set our body
           options[:body] = data if method == :post
 
           # merge in credentials, must be in format :user => 'username', :password => 'password'
           options[:userpwd] = "#{credentials[:user]}:#{credentials[:password]}" if credentials
 
-          # create a request
-          request = Typhoeus::Request.new(uri_string, {
-            method: method,
-            headers: headers
-          }.merge!(options))
-
           # run the request
-          response = request.run
-
-          # catch th
+          response = grab_data_from_url(uri_string, method, headers, options, debug)
         rescue Typhoeus::Errors::TyphoeusError => e
           @task_result.logger.log_error "Request Error: #{e}" if @task_result
           puts "Request Error: #{e}" unless @task_result
         end
 
         # fail unless we get a response
-        unless response
+        unless response[:responses]
           if @task_result
             @task_result.logger.log_error 'Unable to get a response'
           else
@@ -278,43 +266,140 @@ module Intrigue
         # scheme = "#{response.port}" =~ /443/ ? "https" : "http"
 
         # generate our output
-        out = {
-          options: options,
-          start_url: uri_string,
-          final_url: response.effective_url,
-          redirect_count: response.redirect_count,
-          request_type: :ruby,
-          request_method: method,
-          #:request_credentials => credentials,
-          request_headers: headers,
-          request_data: data,
-          #:request_attempts_limit => limit,
-          #:request_attempts_used => attempts,
-          request_user_agent: headers['User-Agent'],
-          #:request_proxy => proxy_config,
-          #:response_urls => response_urls,
-          response_object: response
-        }
+        out = []
+
+        response[:responses].each do |x|
+          out.append({
+                       options: options,
+                       start_url: uri_string,
+                       final_url: x.options[:effective_url],
+                       request_type: :ruby,
+                       request_method: method,
+                       #:request_credentials => credentials,
+                       request_headers: headers,
+                       request_data: data,
+                       #:request_attempts_limit => limit,
+                       #:request_attempts_used => attempts,
+                       request_user_agent: headers['User-Agent'],
+                       #:request_proxy => proxy_config,
+                       #:response_urls => response_urls,
+                       response_object: x,
+                       redirect_count: response[:redirect_count],
+                       redirect_chain: response[:redirect_chain]
+                     })
+        end
 
         # verify we have a response before adding these
-        if response
-          out[:response_headers] = response.headers.map do |x, y|
-            if y.is_a?(Array)
-              y.map do |v|
-                ident_encode("#{x}: #{v}")
+        if response[:responses]
+          out.each do |z|
+            z[:response_headers] = z[:response_object].headers.map do |x, y|
+              if y.is_a?(Array)
+                y.map do |v|
+                  ident_encode("#{x}: #{v}")
+                end
+              else
+                ident_encode("#{x}: #{y}")
               end
-            else
-              ident_encode("#{x}: #{y}")
             end
-          end
-          out[:response_body] = ident_encode(response.body)
-          out[:response_code] = response.code
 
-          # out[:response_certificate] = certificate_hash
+            z[:response_body_binary_base64] = Base64.strict_encode64(z[:response_object].body)
+            z[:response_body] = ident_encode(z[:response_object].body)
+            z[:response_code] = z[:response_object].code
+            # z[:response_certificate] = certificate_hash //where does this come from?
+          end
         end
 
         out
       end
+
+      # TODO: - Move to it's own service.
+      def grab_data_from_url(uri_string, method, headers, options, debug)
+        options[:ssl_verifyhost] = 0
+        options[:ssl_verifypeer] = false
+
+        # follow redirects always off.
+        # this allows us to be able to chain all the redirects ourselves.
+        options[:followlocation] = false
+
+        # create a request
+        request = Typhoeus::Request.new(uri_string, {
+          method: method,
+          headers: headers
+        }.merge!(options))
+
+        # setup hydra and required vars
+        hydra = Typhoeus::Hydra.hydra
+        content = {
+          redirect_count: 0,
+          redirect_chain: [],
+          responses: []
+        }
+
+        # start building hydra nested requests
+        content = build_hydra_request(hydra, request, content, debug)
+
+        hydra.run # this is a blocking call that returns once all requests are complete
+
+        content
+      end
+
+      def build_hydra_request(hydra, request, content, debug)
+        hydra.queue request
+        request.on_complete do |response|
+          content[:responses].append(response)
+
+          if response.options[:response_code].between?(299, 400) && content[:redirect_count] < 15
+
+            content[:redirect_count] += 1
+
+            new_url = get_redirect_location_from_header(response.options[:effective_url],
+                                                        response.options[:response_headers])
+
+            if !new_url.nil? && !new_url.empty? && new_url != request.base_url
+
+              content[:redirect_chain].append(
+                {
+                  from: request.base_url,
+                  to: new_url
+                }
+              )
+
+              new_request = Typhoeus::Request.new(new_url, request.original_options)
+
+              puts "-- #{content[:redirect_count]} bounce - Redirected to: #{new_url}" if debug
+
+              build_hydra_request(hydra, new_request, content, debug)
+            end
+          end
+        end
+        content
+      end
+
+      def get_redirect_location_from_header(base, header)
+        new_url = header[%r{Location:\s(https?://.*)\r}i, 1]
+
+        # If we can't find a location that has the base start, fetch anything we can find.
+        # and attach it to the base
+        if new_url.nil? || new_url.empty?
+          new_url = get_raw_redirect_location_from_header(header)
+
+          if !new_url.nil? && !new_url.empty?
+            new_url = squeez_url("#{base}#{new_url}")
+          end
+        end
+        new_url
+      end
+
+      def get_raw_redirect_location_from_header(header)
+        header[/Location:\s(.*)\r/i, 1]
+      end
+
+      def squeez_url(uri)
+        uri = URI.parse(uri)
+        uri.path.squeeze!('/')
+        uri.to_s
+      end
+
     end
   end
 end

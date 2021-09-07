@@ -2,13 +2,13 @@ module Intrigue
   module Ident
   module RedisCheck
   class RedisCheck < Intrigue::Ident::RedisCheck::Base
-  
-    def generate_checks 
+
+    def generate_checks
       [
         {
           type: "fingerprint",
           category: "application",
-          tags: ["RedisServer"],
+          tags: ["RedisServer", "Database"],
           vendor: "Redislabs",
           product: "Redis",
           references: [],
@@ -25,4 +25,3 @@ module Intrigue
   end
   end
   end
-  

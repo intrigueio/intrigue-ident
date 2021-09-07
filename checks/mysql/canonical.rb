@@ -7,7 +7,7 @@ module Intrigue
             { # 5.5.5-10.1.44-MariaDB-0ubuntu0.18.04.1
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['OS'],
+              tags: ['OS', "Database"],
               vendor: 'Canonical',
               product: 'Ubuntu Linux',
               match_type: :content_error,

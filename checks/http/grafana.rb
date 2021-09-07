@@ -6,7 +6,7 @@ module Intrigue
           [
             {
               type: 'fingerprint',
-              category: 'service',
+              category: 'application',
               tags: ['COTS', 'Development', 'Cloud', 'Analytics'],
               vendor: 'Grafana',
               product: 'Grafana',
