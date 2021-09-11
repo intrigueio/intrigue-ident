@@ -1511,6 +1511,8 @@ module Intrigue
             out = { version: '2016', update: 'Cumulative Update 19' }
           elsif ['15.1.2242', '15.1.2242.4'].include?(owa_version)
             out = { version: '2016', update: 'Cumulative Update 20' }
+          elsif ['15.1.2308', '15.1.2308.8', '15.1.2308.14'].include?(owa_version)
+            out = { version: '2016', update: 'Cumulative Update 21' }
 
           # 2019
           # taken from https://docs.microsoft.com/en-us/Exchange/new-features/build-numbers-and-release-dates?redirectedfrom=MSDN&view=exchserver-2019
@@ -1536,6 +1538,8 @@ module Intrigue
             out = { version: '2019', update: 'Cumulative Update 8' }
           elsif ['15.2.858', '15.2.858.5'].include?(owa_version)
             out = { version: '2019', update: 'Cumulative Update 9' }
+          elsif ['15.2.922', '15.2.922.7'].include?(owa_version)
+            out = { version: '2019', update: 'Cumulative Update 10' }
 
           # office 365
           # https://www.msoutlook.info/question/277
