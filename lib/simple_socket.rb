@@ -9,15 +9,15 @@ module Intrigue
       # @param port [Integer]
       # @return [TCPSocket, false]
       def connect_tcp(ip, port, timeout=10)
-        
-        unless ip && port 
+
+        unless ip && port
           puts "Missing IP or Port! Refused."
-          return nil 
+          return nil
         end
 
         begin
-          Socketry::TCP::Socket.connect(ip.strip, port, local_addr: nil, local_port: nil, timeout: timeout)
-        rescue Errno::ENETUNREACH => e 
+          Socketry::TCP::Socket.connect("#{ip}".strip , port, local_addr: nil, local_port: nil, timeout: timeout)
+        rescue Errno::ENETUNREACH => e
           puts "Error connecting! Refused."
           return nil
         rescue Socketry::ConnectionRefusedError => e
@@ -26,7 +26,7 @@ module Intrigue
         rescue Socketry::Resolver::Error => e
           puts "Error connecting! Unable to resolve."
           return nil
-        rescue Socketry::TimeoutError => e 
+        rescue Socketry::TimeoutError => e
           puts "Error connecting! Timeout!"
           return nil
         end
@@ -37,7 +37,7 @@ module Intrigue
       # @param port [Integer]
       # @return [UDPSocket, false]
       def connect_udp(ip, port)
-        begin 
+        begin
           Socketry::UDP::Socket.connect(ip.strip, port)
         rescue Socketry::Resolver::Error
           puts "Error connecting! Unable to resolve."
@@ -48,6 +48,6 @@ module Intrigue
         end
       end
 
-    end 
+    end
   end
 end
