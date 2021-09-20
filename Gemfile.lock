@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    intrigue-ident (5.6.9)
+    intrigue-ident (5.6.93)
       dnsruby
       mongo
       murmurhash3
@@ -33,7 +33,7 @@ GEM
     json (2.5.1)
     method_source (1.0.0)
     mini_portile2 (2.6.1)
-    mongo (2.15.0)
+    mongo (2.15.1)
       bson (>= 4.8.2, < 5.0.0)
     murmurhash3 (0.1.6)
     nokogiri (1.12.4)
@@ -77,7 +77,7 @@ GEM
       ethon (>= 0.9.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.7)
+    unf_ext (0.0.8)
     windows_error (0.1.2)
 
 PLATFORMS

@@ -377,7 +377,7 @@ module Intrigue
 
         url = "#{scheme}://#{ip_address_or_hostname}:#{port}#{path}"
 
-        if port == 80 || port =~ /^\d+80$/ || port == 443 || port =~ /^\d+443$/
+        if scheme == 'http' || scheme == 'https' || port == 80 || port =~ /^\d+80$/ || port == 443 || port =~ /^\d+443$/
           ident_matches = generate_http_requests_and_check(url, opts) || {}
         end
 
@@ -385,59 +385,59 @@ module Intrigue
         ### Now handle the rest of the protocols, they just take an ip address / prot
         ###
 
-        if port == 53 || port =~ /^\d+53$/
+        if scheme == 'dns' || port == 53 || port =~ /^\d+53$/
           ident_matches = generate_dns_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 9200 || port =~ /^\d?920\d$/
+        if scheme == 'elastic' || port == 9200 || port =~ /^\d?920\d$/
           ident_matches = generate_elastic_search_request_and_check(ip_address_or_hostname, port, opts[:debug]) || {}
         end
 
-        if port == 21 || port =~ /^\d+21$/
+        if scheme == 'ftp' || port == 21 || port =~ /^\d+21$/
           ident_matches = generate_ftp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 143 || port =~ /^\d+143$/
+        if scheme == 'imap' || port == 143 || port =~ /^\d+143$/
           ident_matches = generate_imap_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 27_017 || port =~ /^\d+27017$/
+        if scheme == 'mongo' || scheme == 'mongodb' || port == 27_017 || port =~ /^\d+27017$/
           ident_matches = generate_mongodb_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 3306 || port =~ /^\d+3306$/
+        if scheme == 'mysql' || port == 3306 || port =~ /^\d+3306$/
           ident_matches = generate_mysql_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 110 || port =~ /^\d+110$/
+        if scheme == 'pop3' || port == 110 || port =~ /^\d+110$/
           ident_matches = generate_pop3_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 6379 || port =~ /^\d?6379$/
+        if scheme == 'redis' ||port == 6379 || port =~ /^\d?6379$/
           ident_matches = generate_redis_request_and_check(ip_address_or_hostname, port, debug = opts[:debug]) || {}
         end
 
-        if port == 25 || port =~ /^\d+25$/ || port == 587 || port =~ /^\d+587$/
+        if scheme == 'smtp' || port == 25 || port =~ /^\d+25$/ || port == 587 || port =~ /^\d+587$/
           ident_matches = generate_smtp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 161 || port =~ /^\d+161$/
+        if scheme == 'snmp' || port == 161 || port =~ /^\d+161$/
           ident_matches = generate_snmp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 22 || port =~ /^\d+22$/
+        if scheme == 'ssh' || port == 22 || port =~ /^\d+22$/
           ident_matches = generate_ssh_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 23 || port =~ /^\d+23$/
+        if scheme == 'telnet' || port == 23 || port =~ /^\d+23$/
           ident_matches = generate_telnet_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 5672 || port =~ /^\d+5672$/
+        if scheme == 'amqp' || port == 5672 || port =~ /^\d+5672$/
           ident_matches = generate_amqp_request_and_check(ip_address_or_hostname) || {}
         end
 
-        if port == 139 || port == 445 || port =~ /^\d+(139|445)$/
+        if scheme == 'smb' || port == 139 || port == 445 || port =~ /^\d+(139|445)$/
           ident_matches = generate_smb_request_and_check(ip_address_or_hostname, port) || {}
         end
 
