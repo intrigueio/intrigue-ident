@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Login Panel'],
+              tags: ['Admin Panel'],
               vendor: 'Webmin',
               product: 'Webmin',
               website: 'https://www.webmin.com/',
@@ -30,7 +30,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Login Panel'],
+              tags: ['Admin Panel'],
               vendor: 'Usermin',
               product: 'Usermin',
               website: 'https://www.webmin.com/usermin.html',

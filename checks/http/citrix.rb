@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Admin Panel'],
               vendor: 'Citrix',
               product: 'Access Gateway',
               description: 'login page',
@@ -30,7 +30,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Admin Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway (Management Interface)',
               website: 'https://www.citrix.com/',
@@ -92,7 +92,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
+              tags: ['Networking', 'COTS', 'VPN', 'Admin Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
@@ -116,7 +116,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
+              tags: ['Networking', 'COTS', 'VPN', 'Admin Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               website: 'https://www.citrix.com/en-gb/downloads/citrix-gateway/netscaler-gateway-121.html',
@@ -220,7 +220,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               description: 'misspelled content-length header',
@@ -240,7 +240,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               description: 'redirect',
@@ -259,7 +259,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'operating_system',
-              tags: %w[Networking COTS VPN],
+              tags: ['Networking', 'COTS', 'VPN', 'Login Panel'],
               vendor: 'Citrix',
               product: 'NetScaler Gateway',
               description: 'cookie',
@@ -278,7 +278,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS MDM],
+              tags: ['Networking', 'COTS', 'Login Panel'],
               vendor: 'Citrix',
               product: 'XenMobile',
               website: 'https://www.citrix.com/products/citrix-endpoint-management/',
@@ -299,7 +299,7 @@ module Intrigue
             { # <div class="info_version">XenMobile version&nbsp;</div>
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS MDM],
+              tags: ['Networking', 'COTS', 'Login Panel'],
               vendor: 'Citrix',
               product: 'XenMobile',
               website: 'https://www.citrix.com/products/citrix-endpoint-management/',
@@ -320,7 +320,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: %w[Networking COTS Hypervisor],
+              tags: ['Networking', 'COTS', 'Login Panel'],
               vendor: 'Citrix',
               product: 'XenServer',
               website: 'https://www.citrix.com/en-gb/products/citrix-hypervisor/',
@@ -345,7 +345,7 @@ module Intrigue
               type: 'fingerprint',
               category: 'application',
               vendor: 'Citrix',
-              tags: %w[Networking COTS Hypervisor],
+              tags: ['Networking', 'COTS', 'Login Panel'],
               product: 'XenServer',
               website: 'https://www.citrix.com/en-gb/products/citrix-hypervisor/',
               description: 'page title',

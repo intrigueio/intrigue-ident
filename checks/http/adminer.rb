@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'service',
-              tags: ['Login Panel'],
+              tags: ['Admin Panel'],
               website: 'https://www.adminer.org/',
               vendor: 'Adminer',
               product: 'Adminer',
@@ -24,8 +24,8 @@ module Intrigue
               paths: [{ path: url.to_s, follow_redirects: true }],
               inference: false,
               dynamic_version: lambda { |x|
-                                 _first_body_capture(x, /<span class="version">(\d+(.\d+)?(.\d+)?)/)
-                               }
+                _first_body_capture(x, /<span class="version">(\d+(.\d+)?(.\d+)?)/)
+              }
             }
           ]
         end

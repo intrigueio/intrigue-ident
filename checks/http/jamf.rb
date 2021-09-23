@@ -7,7 +7,7 @@ module Intrigue
             {
               type: 'fingerprint',
               category: 'application',
-              tags: ['Administrative', 'Login Panel', 'COTS'],
+              tags: ['Administrative', 'Admin Panel', 'COTS'],
               vendor: 'Jamf',
               product: 'Pro',
               website: 'https://www.jamf.com/products/jamf-pro/',

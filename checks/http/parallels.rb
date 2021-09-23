@@ -8,7 +8,7 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor", 'Login Panel'],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "Parallels Plesk Panel - Title and Body Match",
@@ -22,9 +22,9 @@ class Parallels < Intrigue::Ident::Check::Base
         ],
         version: nil,
         dynamic_version: lambda { |x|
-          _first_title_capture(x,/Plesk (?:Obsidian) (\d+(\.\d+)*)/i) 
+          _first_title_capture(x,/Plesk (?:Obsidian) (\d+(\.\d+)*)/i)
         },
-        dynamic_update: lambda { |x| 
+        dynamic_update: lambda { |x|
             _first_body_capture(x, /<meta name="plesk-build" content="(\d+(\.\d+)*)/i)
         },
         paths: [ { path: "#{url}", follow_redirects: true } ],
@@ -33,7 +33,7 @@ class Parallels < Intrigue::Ident::Check::Base
       {
         type: "fingerprint",
         category: "application",
-        tags: ["Administrative", "Hypervisor", 'Login Panel'],
+        tags: ["Administrative", "Hypervisor", 'Admin Panel'],
         vendor:"Parallels",
         product:"Parallels Plesk Panel",
         description: "Parallels Plesk Panel - Headers Match",
