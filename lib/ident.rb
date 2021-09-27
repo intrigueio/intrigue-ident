@@ -271,6 +271,21 @@ Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
 
 
 ##################################
+# Load in upnp matchers and checks
+##################################
+require_relative 'upnp/matchers'
+include Intrigue::Ident::Upnp::Matchers
+
+require_relative 'upnp/check_factory'
+require_relative '../checks/upnp/base'
+
+# upnp fingerprints
+check_folder = File.expand_path('../checks/upnp', File.dirname(__FILE__)) # get absolute directory
+Dir["#{check_folder}/*.rb"].each { |file| require_relative file }
+
+
+
+##################################
 # Load in custom ip checks
 ##################################
 require_relative 'ip/ip'
@@ -332,6 +347,8 @@ module Intrigue
           Intrigue::Ident::Amqp::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).concat(
           Intrigue::Ident::Smb::CheckFactory.checks.map { |x| x.new.generate_checks }
+        ).concat(
+          Intrigue::Ident::Upnp::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).concat(
           Intrigue::Ident::Ip::CheckFactory.checks.map { |x| x.new.generate_checks }
         ).flatten
@@ -439,6 +456,10 @@ module Intrigue
 
         if scheme == 'smb' || port == 139 || port == 445 || port =~ /^\d+(139|445)$/
           ident_matches = generate_smb_request_and_check(ip_address_or_hostname, port) || {}
+        end
+
+        if scheme == 'upnp' || port == 1900 || port =~ /^\d+1900$/
+          ident_matches = generate_upnp_request_and_check(ip_address_or_hostname) || {}
         end
 
         if port == 2083 || port =~ /^\d+2083$/
