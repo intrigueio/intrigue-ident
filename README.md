@@ -1,3 +1,10 @@
+# Notice
+
+As of October 1, 2021, this component of the Intrigue project is no longer actively maintained at this location, and the code in this reposiotry has been re-licensed under the terms of the Mandiant Limited Open Source License Agreement (see: LICENSE.md).
+
+About:
+======
+
 Ident is an application and service fingerprinting library used within Intrigue Core.
 
 The Ident project has a few stated goals:
@@ -123,7 +130,6 @@ For more details, have a look at the checks in the 'checks' directory, or jump i
 
 Contributors:
 =============
-
 A special thanks to the following contributors who help make ident awesome!
  - @adambakalar: Protocol support and Fingerprints
  - @duartemateus: Bugfixes, Architecture, Protocol support and Fingerprints
